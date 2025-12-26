@@ -16,60 +16,60 @@ const AboutPage = () => {
   const experiences = [
     {
       id: 1,
-      title: "Senior Full Stack Developer",
-      company: "Tech Solutions Inc.",
-      period: "2022 - Present",
+      title: "Web developer",
+      company: "Samdech Preah Masangharajah Bour Kry University",
+      period: "2024 - 2025",
       description:
-        "Leading development of scalable web applications. Mentoring junior developers and architecting systems.",
-      technologies: ["React", "Node.js", "AWS", "TypeScript"],
-    },
-    {
-      id: 2,
-      title: "Full Stack Developer",
-      company: "Digital Innovation Co.",
-      period: "2020 - 2022",
-      description:
-        "Developed client projects with modern web technologies. Collaborated with teams to deliver solutions.",
-      technologies: ["Vue.js", "Express.js", "PostgreSQL", "Docker"],
-    },
-    {
-      id: 3,
-      title: "Frontend Developer",
-      company: "StartUp Hub",
-      period: "2019 - 2020",
-      description:
-        "Built responsive interfaces and improved user experience across platforms.",
-      technologies: ["JavaScript", "CSS3", "Bootstrap", "jQuery"],
+        "Developed and maintained the university's official website, ensuring optimal performance and user experience. Collaborated with cross-functional teams to implement new features and improve existing functionalities.",
+      technologies: ["Laravel", "MySQL","Filament","Bootstrap"],
     },
   ];
   const education = [
     {
       id: 1,
       title: "Bachelor of Science in Computer Science",
-      school: "University of California, Berkeley",
-      period: "2015 - 2019",
+      school: "Samdech Preah Masangharajah Bour Kry University",
+      period: "2022 - 2026",
       description:
-        "Completed a rigorous program with a focus on software development, algorithms, and data structures.",
-      technologies: ["Java", "Python", "C++", "SQL"],
+        "Comprehensive program covering algorithms, data structures, software development, full stack development, and database management.",
+      technologies: ["HTML", "CSS", "JavaScript", "C#", "C++", "SQL", "PHP"],
     },
     {
       id: 2,
-      title: "Full Stack Web Development Bootcamp",
-      school: "General Assembly",
-      period: "2018",
+      title: "Ultimate Nextjs React and ReduxFull Stack Web Development ",
+      school: "Udemy",
+      period: "2025",
       description:
-        "Intensive program covering full stack web development with hands-on projects.",
-      technologies: ["HTML", "CSS", "JavaScript", "Node.js", "React"],
+        "In-depth course on building full stack applications using Next.js, React, and Redux.",
+      technologies: [
+        "Next.js",
+        "React",
+        "Redux",
+        "Node.js",
+        "MongoDB",
+        "TypeScript",
+        "TailwindCSS",
+        "Prisma",
+        " PostgreSQL",
+      ],
     },
     {
       id: 3,
-      title: "Full Stack Web Development Bootcamp",
-      school: "General Assembly",
-      period: "2018",
+      title: "IBM Full Stack Developer Certificate",
+      school: "IBM",
+      period: "Process",
       description:
-        "Intensive program covering full stack web development with hands-on projects.",
-      technologies: ["HTML", "CSS", "JavaScript", "Node.js", "React"],
-    }
+        "Certified full stack developer with a focus on modern web technologies and best practices.",
+      technologies: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "Node.js",
+        "Express",
+        "MongoDB",
+      ],
+    },
   ];
 
   return (
@@ -284,6 +284,6 @@ const AboutPage = () => {
       </div>
     </section>
   );
-}
+};
 
 export default AboutPage;

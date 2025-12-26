@@ -49,9 +49,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <main className=" mx-auto  p-4 sm:px-0 sm:max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-6xl w-full">
-            <Navbar />
-            {children}
-            <Footer />
+            <div className="min-h-screen flex flex-col">
+              <Navbar />
+              {children}
+
+              <Footer />
+            </div>
           </main>
         </ThemeProvider>
       </body>
