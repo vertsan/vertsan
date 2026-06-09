@@ -16,7 +16,10 @@ export default function EducationSection() {
 	});
 
 	return (
-		<section id="education" className="py-24 px-6">
+		<section
+			id="education"
+			className="py-24 px-6 bg-muted/30 scroll-mt-20"
+		>
 			<div className="max-w-4xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
 					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -31,13 +34,13 @@ export default function EducationSection() {
 					{sortedEducation.map((edu) => (
 						<Card
 							key={(edu as Record<string, any>).school as string}
-							className="border shadow-sm hover:shadow-md transition-shadow"
+							className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300"
 						>
 							<CardHeader>
 								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 									<div className="space-y-1">
 										<div className="flex items-center gap-2">
-											<GraduationCap className="size-4 text-primary" />
+											<GraduationCap className="size-4 text-primary shrink-0" />
 											<CardTitle className="text-xl">
 												{(edu as Record<string, any>).school as string}
 											</CardTitle>
@@ -46,7 +49,7 @@ export default function EducationSection() {
 											{(edu as Record<string, any>).summary as string}
 										</p>
 									</div>
-									<div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+									<div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
 										<Calendar className="size-3.5" />
 										<span>
 											{(edu as Record<string, any>).startDate as string} —{" "}
@@ -71,7 +74,11 @@ export default function EducationSection() {
 								<div className="flex flex-wrap gap-2">
 									{((edu as Record<string, any>).tags as string[])?.map(
 										(tag: string) => (
-											<Badge key={tag} variant="outline" className="text-xs">
+											<Badge
+												key={tag}
+												variant="outline"
+												className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+											>
 												{tag}
 											</Badge>
 										),

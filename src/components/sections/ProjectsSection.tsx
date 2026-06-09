@@ -24,7 +24,10 @@ export default function ProjectsSection() {
 	});
 
 	return (
-		<section id="projects" className="py-24 px-6 bg-muted/30">
+		<section
+			id="projects"
+			className="py-24 px-6 scroll-mt-20"
+		>
 			<div className="max-w-6xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
 					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -39,11 +42,11 @@ export default function ProjectsSection() {
 					{sortedProjects.map((project) => (
 						<Card
 							key={(project as Record<string, any>).title as string}
-							className="border shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col"
+							className="group border shadow-sm hover:shadow-xl hover:-translate-y-1.5 hover:border-primary/15 transition-all duration-300 flex flex-col"
 						>
 							<CardHeader>
 								<div className="flex items-start justify-between gap-2">
-									<CardTitle className="text-lg">
+									<CardTitle className="text-lg group-hover:text-primary transition-colors duration-300">
 										{(project as Record<string, any>).title as string}
 									</CardTitle>
 									<Badge
@@ -66,7 +69,11 @@ export default function ProjectsSection() {
 									{((project as Record<string, any>).tags as string[])
 										?.slice(0, 6)
 										.map((tag: string) => (
-											<Badge key={tag} variant="outline" className="text-xs">
+											<Badge
+												key={tag}
+												variant="outline"
+												className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+											>
 												{tag}
 											</Badge>
 										))}
@@ -87,7 +94,7 @@ export default function ProjectsSection() {
 											href={(project as Record<string, any>).github as string}
 											target="_blank"
 											rel="noreferrer"
-											className="p-2 rounded-md hover:bg-accent transition-colors"
+											className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-all duration-200"
 											aria-label="View source on GitHub"
 										>
 											<Github className="size-4" />
@@ -98,14 +105,19 @@ export default function ProjectsSection() {
 											href={(project as Record<string, any>).link as string}
 											target="_blank"
 											rel="noreferrer"
-											className="p-2 rounded-md hover:bg-accent transition-colors"
+											className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-all duration-200"
 											aria-label="View live project"
 										>
 											<ExternalLink className="size-4" />
 										</a>
 									)}
 								</div>
-								<Button variant="ghost" size="sm" className="gap-1" asChild>
+								<Button
+									variant="ghost"
+									size="sm"
+									className="gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+									asChild
+								>
 									<Link
 										to="/projects/$projectId"
 										params={{

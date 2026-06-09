@@ -21,7 +21,10 @@ export default function CertificatesSection() {
 	});
 
 	return (
-		<section id="certificates" className="py-24 px-6">
+		<section
+			id="certificates"
+			className="py-24 px-6 bg-muted/30 scroll-mt-20"
+		>
 			<div className="max-w-5xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
 					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -36,15 +39,15 @@ export default function CertificatesSection() {
 					{sortedCerts.map((cert) => (
 						<Card
 							key={(cert as Record<string, any>).title as string}
-							className="border shadow-sm hover:shadow-md transition-shadow"
+							className="group border shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/15 transition-all duration-300"
 						>
 							<CardHeader>
 								<div className="flex items-start gap-3">
-									<div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
+									<div className="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0 group-hover:bg-primary/15 group-hover:scale-105 transition-all duration-300">
 										<Award className="size-5" />
 									</div>
 									<div className="space-y-1">
-										<CardTitle className="text-base leading-snug">
+										<CardTitle className="text-base leading-snug group-hover:text-primary transition-colors duration-300">
 											{(cert as Record<string, any>).title as string}
 										</CardTitle>
 										<CardDescription>
@@ -79,7 +82,11 @@ export default function CertificatesSection() {
 								<div className="flex flex-wrap gap-1.5 pt-1">
 									{((cert as Record<string, any>).tags as string[])?.map(
 										(tag: string) => (
-											<Badge key={tag} variant="outline" className="text-xs">
+											<Badge
+												key={tag}
+												variant="outline"
+												className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+											>
 												{tag}
 											</Badge>
 										),

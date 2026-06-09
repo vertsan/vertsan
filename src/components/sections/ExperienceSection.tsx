@@ -16,7 +16,10 @@ export default function ExperienceSection() {
 	});
 
 	return (
-		<section id="experience" className="py-24 px-6 bg-muted/30">
+		<section
+			id="experience"
+			className="py-24 px-6 bg-muted/30 scroll-mt-20"
+		>
 			<div className="max-w-4xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
 					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -28,7 +31,7 @@ export default function ExperienceSection() {
 				</div>
 
 				<div className="relative">
-					<div className="absolute left-8 top-0 bottom-0 w-px bg-border hidden md:block" />
+					<div className="absolute left-8 top-0 bottom-0 w-px bg-border/60 hidden md:block" />
 
 					<div className="space-y-8">
 						{sortedJobs.map((job) => (
@@ -36,14 +39,14 @@ export default function ExperienceSection() {
 								key={(job as Record<string, any>).jobTitle as string}
 								className="relative pl-0 md:pl-20"
 							>
-								<div className="absolute left-6 top-6 w-4 h-4 rounded-full bg-primary border-4 border-background hidden md:block" />
+								<div className="absolute left-[1.85rem] top-6 w-3.5 h-3.5 rounded-full bg-primary border-[3px] border-background hidden md:block shadow-sm" />
 
-								<Card className="border shadow-sm hover:shadow-md transition-shadow">
+								<Card className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300">
 									<CardHeader>
 										<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 											<div className="space-y-1">
 												<div className="flex items-center gap-2">
-													<Briefcase className="size-4 text-primary" />
+													<Briefcase className="size-4 text-primary shrink-0" />
 													<CardTitle className="text-xl">
 														{(job as Record<string, any>).jobTitle as string}
 													</CardTitle>
@@ -54,7 +57,7 @@ export default function ExperienceSection() {
 													{(job as Record<string, any>).location as string}
 												</p>
 											</div>
-											<div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+											<div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
 												<Calendar className="size-3.5" />
 												<span>
 													{(job as Record<string, any>).startDate as string} —{" "}
@@ -85,7 +88,7 @@ export default function ExperienceSection() {
 													<Badge
 														key={tag}
 														variant="outline"
-														className="text-xs"
+														className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
 													>
 														{tag}
 													</Badge>

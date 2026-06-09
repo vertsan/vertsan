@@ -15,7 +15,10 @@ export default function TechnologiesSection() {
 	});
 
 	return (
-		<section id="technologies" className="py-24 px-6">
+		<section
+			id="technologies"
+			className="py-24 px-6 scroll-mt-20"
+		>
 			<div className="max-w-5xl mx-auto space-y-16">
 				<div className="text-center space-y-4">
 					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -26,13 +29,14 @@ export default function TechnologiesSection() {
 					</p>
 				</div>
 
-				<div className="grid gap-8 md:grid-cols-2">
-					{categories.map((category) => (
+				<div className="grid gap-6 md:grid-cols-2">
+					{categories.map((category, i) => (
 						<div
 							key={(category as Record<string, any>).category as string}
-							className="p-6 rounded-xl border bg-card text-card-foreground shadow-sm"
+							className="group p-6 rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300"
 						>
-							<h3 className="text-lg font-semibold mb-4">
+							<h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+								<span className="w-1 h-5 rounded-full bg-primary/60 group-hover:bg-primary transition-colors duration-300" />
 								{(category as Record<string, any>).category as string}
 							</h3>
 							<div className="flex flex-wrap gap-2">
@@ -41,7 +45,7 @@ export default function TechnologiesSection() {
 										<Badge
 											key={tech}
 											variant="secondary"
-											className="px-3 py-1.5 text-sm"
+											className="px-3 py-1.5 text-sm transition-all duration-200 hover:bg-primary/10 hover:text-primary"
 										>
 											{tech}
 										</Badge>

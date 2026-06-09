@@ -67,9 +67,11 @@ export default function ThemeToggle() {
 			onClick={toggleMode}
 			aria-label={labels[mode]}
 			title={labels[mode]}
-			className="relative p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-all"
+			className="relative p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-all duration-300 active:scale-90"
 		>
-			{icons[mode]}
+			<span className="block transition-transform duration-300 rotate-0 scale-100">
+				{icons[mode]}
+			</span>
 		</button>
 	);
 }
