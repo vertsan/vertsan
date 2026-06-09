@@ -10,6 +10,8 @@ import {
   getAllJobs,
   getAllEducation,
   searchExperience,
+  getAllProjects,
+  getAllCertificates,
 } from '#/lib/resume-tools'
 
 export const Route = createFileRoute('/api/resume-chat')({
@@ -27,7 +29,6 @@ export const Route = createFileRoute('/api/resume-chat')({
         try {
           const body = await request.json()
           const { messages } = body
-          const data = body.data || {}
 
           const SYSTEM_PROMPT = `You are a helpful resume assistant helping recruiters and hiring managers evaluate if this candidate is a good fit for their job requirements.
 
@@ -36,12 +37,16 @@ CAPABILITIES:
 2. Use getAllJobs to get the candidate's complete work history with all details
 3. Use getAllEducation to get the candidate's educational background
 4. Use searchExperience to search for specific types of roles or experience by keywords
+5. Use getAllProjects to get the candidate's project portfolio including status and technologies used
+6. Use getAllCertificates to get the candidate's professional certifications
 
 INSTRUCTIONS:
 - When asked about specific technologies or skills, use getJobsBySkill to find relevant experience
 - When asked about overall experience or career progression, use getAllJobs
 - When asked about education or training, use getAllEducation
 - When asked about specific types of roles (e.g., "senior", "lead"), use searchExperience
+- When asked about projects or portfolio, use getAllProjects
+- When asked about certifications, use getAllCertificates
 - Be professional, concise, and helpful in your responses
 - Provide specific details from the resume when available
 - When calculating years of experience, consider the date ranges provided
@@ -50,31 +55,30 @@ INSTRUCTIONS:
 
 CONTEXT: You are helping evaluate this candidate's qualifications for potential job opportunities.`
 
-          // Determine the best available provider
-          let provider: 'anthropic' | 'openai' | 'gemini' | 'ollama' =
-            data.provider || 'ollama'
-          let model: string = data.model || 'mistral:7b'
+          // Try providers in order of preference: cloud API keys > local Ollama
+          const hasAnthropic = !!process.env.ANTHROPIC_API_KEY
+          const hasOpenAI = !!process.env.OPENAI_API_KEY
+          const hasGemini = !!process.env.GEMINI_API_KEY
 
-          // Use the first available provider with an API key, fallback to ollama
-          if (process.env.ANTHROPIC_API_KEY) {
+          let provider: 'anthropic' | 'openai' | 'gemini' | 'ollama' = 'ollama'
+          let model: string = 'mistral:7b'
+
+          if (hasAnthropic) {
             provider = 'anthropic'
             model = 'claude-haiku-4-5'
-          } else if (process.env.OPENAI_API_KEY) {
+          } else if (hasOpenAI) {
             provider = 'openai'
             model = 'gpt-4o'
-          } else if (process.env.GEMINI_API_KEY) {
+          } else if (hasGemini) {
             provider = 'gemini'
             model = 'gemini-2.0-flash-exp'
           }
-          // else keep ollama as default
 
-          // Adapter factory pattern for multi-vendor support
           const adapterConfig = {
-            anthropic: () =>
-              anthropicText((model || 'claude-haiku-4-5') as any),
-            openai: () => openaiText((model || 'gpt-4o') as any),
-            gemini: () => geminiText((model || 'gemini-2.0-flash-exp') as any),
-            ollama: () => ollamaText((model || 'mistral:7b') as any),
+            anthropic: () => anthropicText(model as any),
+            openai: () => openaiText(model as any),
+            gemini: () => geminiText(model as any),
+            ollama: () => ollamaText(model as any),
           }
 
           const adapter = adapterConfig[provider]()
@@ -86,6 +90,8 @@ CONTEXT: You are helping evaluate this candidate's qualifications for potential 
               getAllJobs,
               getAllEducation,
               searchExperience,
+              getAllProjects,
+              getAllCertificates,
             ],
             systemPrompts: [SYSTEM_PROMPT],
             agentLoopStrategy: maxIterations(5),

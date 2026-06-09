@@ -1,43 +1,110 @@
-export default function Footer() {
-  const year = new Date().getFullYear()
+import { Link } from '@tanstack/react-router'
+import { Github, Linkedin, Mail, Heart } from 'lucide-react'
+import { Button } from '#/components/ui/button'
 
+const year = new Date().getFullYear()
+
+const footerLinks = [
+  { to: '/', label: 'Home', hash: undefined },
+  { to: '/', label: 'Technologies', hash: 'technologies' },
+  { to: '/', label: 'Experience', hash: 'experience' },
+  { to: '/', label: 'Education', hash: 'education' },
+  { to: '/', label: 'Projects', hash: 'projects' },
+  { to: '/', label: 'Certificates', hash: 'certificates' },
+]
+
+export default function Footer() {
   return (
-    <footer className="mt-20 border-t border-[var(--line)] px-4 pb-14 pt-10 text-[var(--sea-ink-soft)]">
-      <div className="page-wrap flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
-        <p className="m-0 text-sm">
-          &copy; {year} Your name here. All rights reserved.
-        </p>
-        <p className="island-kicker m-0">Built with TanStack Start</p>
-      </div>
-      <div className="mt-4 flex justify-center gap-4">
-        <a
-          href="https://x.com/tan_stack"
-          target="_blank"
-          rel="noreferrer"
-          className="rounded-xl p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-        >
-          <span className="sr-only">Follow TanStack on X</span>
-          <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32">
-            <path
-              fill="currentColor"
-              d="M12.6 1h2.2L10 6.48 15.64 15h-4.41L7.78 9.82 3.23 15H1l5.14-5.84L.72 1h4.52l3.12 4.73L12.6 1zm-.77 12.67h1.22L4.57 2.26H3.26l8.57 11.41z"
-            />
-          </svg>
-        </a>
-        <a
-          href="https://github.com/TanStack"
-          target="_blank"
-          rel="noreferrer"
-          className="rounded-xl p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-        >
-          <span className="sr-only">Go to TanStack GitHub</span>
-          <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32">
-            <path
-              fill="currentColor"
-              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-            />
-          </svg>
-        </a>
+    <footer className="border-t border-border/40 bg-muted/20">
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Brand */}
+          <div className="space-y-4">
+            <Link to="/" className="text-xl font-bold tracking-tight">
+              JD<span className="text-primary">.</span>
+            </Link>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+              Building modern web experiences with clean code and great design.
+              Focused on accessibility, performance, and user experience.
+            </p>
+            <div className="flex items-center gap-2">
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noreferrer"
+                className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-all"
+                aria-label="GitHub"
+              >
+                <Github className="size-4" />
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+                className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-all"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="size-4" />
+              </a>
+              <a
+                href="mailto:hello@example.com"
+                className="p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-all"
+                aria-label="Email"
+              >
+                <Mail className="size-4" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-muted-foreground/80">
+              Navigation
+            </h3>
+            <nav className="flex flex-col gap-2">
+              {footerLinks.map((link) => (
+                <Button
+                  key={link.label}
+                  variant="link"
+                  size="sm"
+                  asChild
+                  className="justify-start h-auto p-0 text-muted-foreground hover:text-foreground"
+                >
+                  <Link to={link.to} hash={link.hash}>
+                    {link.label}
+                  </Link>
+                </Button>
+              ))}
+            </nav>
+          </div>
+
+          {/* Tech Stack */}
+          <div className="space-y-4">
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-muted-foreground/80">
+              Built With
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {['React', 'TanStack Start', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Vite'].map((tech) => (
+                <span
+                  key={tech}
+                  className="px-2.5 py-1 text-xs rounded-md bg-accent/50 text-muted-foreground border border-border/50"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom */}
+        <div className="mt-16 pt-8 border-t border-border/40 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-muted-foreground">
+            &copy; {year} John Developer. All rights reserved.
+          </p>
+          <p className="text-xs text-muted-foreground flex items-center gap-1">
+            Built with <Heart className="size-3 text-red-500 fill-red-500" /> using TanStack Start
+          </p>
+        </div>
       </div>
     </footer>
   )

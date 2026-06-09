@@ -1,7 +1,7 @@
 import { toolDefinition } from '@tanstack/ai'
 import { z } from 'zod'
 
-import { allJobs, allEducations } from 'content-collections'
+import { allJobs, allEducations, allProjects, allCertificates } from 'content-collections'
 
 // Tool definition for getting jobs by skill
 export const getJobsBySkillToolDef = toolDefinition({
@@ -162,4 +162,58 @@ export const searchExperience = searchExperienceToolDef.server(({ query }) => {
       tags: job.tags,
       matchedIn,
     }))
+})
+
+// Tool definition for getting all projects
+export const getAllProjectsToolDef = toolDefinition({
+  name: 'getAllProjects',
+  description:
+    "Get a complete list of all projects with full details including title, summary, technologies, status, and descriptions. Use this to learn about the candidate's project portfolio.",
+  inputSchema: z.object({}),
+  outputSchema: z.array(
+    z.object({
+      title: z.string(),
+      summary: z.string(),
+      tags: z.array(z.string()),
+      status: z.string(),
+      content: z.string(),
+    }),
+  ),
+})
+
+export const getAllProjects = getAllProjectsToolDef.server(() => {
+  return allProjects.map((project) => ({
+    title: project.title,
+    summary: project.summary,
+    tags: project.tags,
+    status: project.status,
+    content: project.content,
+  }))
+})
+
+// Tool definition for getting all certificates
+export const getAllCertificatesToolDef = toolDefinition({
+  name: 'getAllCertificates',
+  description:
+    "Get a complete list of all professional certifications including title, issuer, date, and summary. Use this to learn about the candidate's certifications.",
+  inputSchema: z.object({}),
+  outputSchema: z.array(
+    z.object({
+      title: z.string(),
+      issuer: z.string(),
+      date: z.string(),
+      summary: z.string(),
+      tags: z.array(z.string()),
+    }),
+  ),
+})
+
+export const getAllCertificates = getAllCertificatesToolDef.server(() => {
+  return allCertificates.map((cert) => ({
+    title: cert.title,
+    issuer: cert.issuer,
+    date: cert.date,
+    summary: cert.summary,
+    tags: cert.tags,
+  }))
 })

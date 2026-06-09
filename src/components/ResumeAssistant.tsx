@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { Send, X, Briefcase, UserCheck } from 'lucide-react'
-import { Streamdown } from 'streamdown'
+import { Send, X, Briefcase, UserCheck, Bot, AlertCircle, WifiOff } from 'lucide-react'
 import { Store } from '@tanstack/store'
 
 import { useResumeChat } from '#/lib/resume-ai-hook'
 import type { ResumeChatMessages } from '#/lib/resume-ai-hook'
+import { Button } from '#/components/ui/button'
+import { cn } from '#/lib/utils'
 
 function Messages({ messages }: { messages: ResumeChatMessages }) {
   const messagesContainerRef = useRef<HTMLDivElement>(null)
@@ -18,15 +19,15 @@ function Messages({ messages }: { messages: ResumeChatMessages }) {
 
   if (!messages.length) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center text-slate-300/60 text-sm px-6 py-8">
+      <div className="flex-1 flex flex-col items-center justify-center text-muted-foreground/60 text-sm px-6 py-8">
         <div className="relative mb-4">
-          <Briefcase className="w-12 h-12 text-blue-400/40 animate-pulse" />
-          <UserCheck className="w-6 h-6 text-purple-400/60 absolute -bottom-1 -right-1" />
+          <Briefcase className="size-12 text-primary/40 animate-pulse" />
+          <UserCheck className="size-6 text-primary/60 absolute -bottom-1 -right-1" />
         </div>
-        <p className="text-center text-slate-200/80 font-medium">
+        <p className="text-center text-foreground/80 font-medium">
           Welcome, Recruiter!
         </p>
-        <p className="text-xs text-slate-300/40 mt-2 text-center max-w-[200px]">
+        <p className="text-xs text-muted-foreground/40 mt-2 text-center max-w-[200px]">
           Ask about skills, experience, or qualifications...
         </p>
       </div>
@@ -38,27 +39,26 @@ function Messages({ messages }: { messages: ResumeChatMessages }) {
       {messages.map(({ id, role, parts }) => (
         <div
           key={id}
-          className={`py-3 ${
-            role === 'assistant'
-              ? 'bg-linear-to-r from-blue-500/5 via-purple-500/5 to-slate-500/5'
-              : 'bg-transparent'
-          }`}
+          className={cn(
+            'py-3',
+            role === 'assistant' && 'bg-muted/30',
+          )}
         >
           {parts.map((part, index) => {
             if (part.type === 'text' && part.content) {
               return (
                 <div key={index} className="flex items-start gap-3 px-4">
                   {role === 'assistant' ? (
-                    <div className="w-7 h-7 rounded-full bg-linear-to-br from-blue-500 via-purple-500 to-slate-600 flex items-center justify-center text-xs font-bold text-white flex-shrink-0 shadow-lg shadow-blue-500/20">
-                      <Briefcase className="w-4 h-4" />
+                    <div className="size-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                      <Bot className="size-4 text-primary" />
                     </div>
                   ) : (
-                    <div className="w-7 h-7 rounded-full bg-slate-600 flex items-center justify-center text-xs font-medium text-white flex-shrink-0">
+                    <div className="size-7 rounded-full bg-muted-foreground/20 flex items-center justify-center text-xs font-medium text-muted-foreground shrink-0">
                       You
                     </div>
                   )}
-                  <div className="flex-1 min-w-0 text-slate-100 prose dark:prose-invert max-w-none prose-sm prose-p:text-slate-100 prose-headings:text-slate-200 prose-strong:text-slate-300">
-                    <Streamdown>{part.content}</Streamdown>
+                  <div className="flex-1 min-w-0 text-foreground prose dark:prose-invert max-w-none prose-sm">
+                    {part.content}
                   </div>
                 </div>
               )
@@ -76,14 +76,15 @@ export const showResumeAssistant = new Store(false)
 
 export default function ResumeAssistant() {
   const [isOpen, setIsOpen] = useState(false)
-  const { messages, sendMessage, isLoading } = useResumeChat()
+  const { messages, sendMessage, isLoading, error } = useResumeChat()
   const [input, setInput] = useState('')
 
   // Sync with store for header control
   useEffect(() => {
-    return showResumeAssistant.subscribe(() => {
+    const sub = showResumeAssistant.subscribe(() => {
       setIsOpen(showResumeAssistant.state)
     })
+    return () => sub.unsubscribe()
   }, [])
 
   const handleToggle = () => {
@@ -101,43 +102,69 @@ export default function ResumeAssistant() {
 
   if (!isOpen) return null
 
-  return (
-    <div className="fixed top-20 right-4 z-[100] w-[400px] h-[520px] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-blue-500/20 backdrop-blur-xl bg-linear-to-b from-slate-900/98 via-slate-900/95 to-slate-800/98">
-      {/* Decorative top gradient */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-linear-to-b from-blue-500/10 via-purple-500/5 to-transparent pointer-events-none" />
+  const isOffline = error?.message?.includes('fetch') || error?.message?.includes('network')
 
+  return (
+    <div className="fixed top-20 right-4 z-[100] w-[400px] h-[520px] rounded-xl shadow-2xl flex flex-col overflow-hidden border bg-card text-card-foreground">
       {/* Header */}
-      <div className="relative flex items-center justify-between p-4 border-b border-blue-500/10">
+      <div className="flex items-center justify-between p-4 border-b">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-linear-to-br from-blue-500 via-purple-500 to-slate-600 flex items-center justify-center shadow-lg shadow-blue-500/30 rotate-3 hover:rotate-0 transition-transform">
-            <Briefcase className="w-5 h-5 text-white" />
+          <div className="size-10 rounded-lg bg-primary/10 flex items-center justify-center">
+            <Briefcase className="size-5 text-primary" />
           </div>
           <div>
-            <h3 className="font-bold text-slate-200 text-base tracking-tight">
+            <h3 className="font-semibold text-sm tracking-tight">
               Resume Assistant
             </h3>
-            <p className="text-xs text-blue-300/50">Candidate Evaluation AI</p>
+            <p className="text-xs text-muted-foreground">
+              Candidate Evaluation AI
+            </p>
           </div>
         </div>
-        <button
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={handleToggle}
-          className="text-slate-300/50 hover:text-slate-100 transition-colors p-2 hover:bg-white/5 rounded-xl"
+          aria-label="Close"
         >
-          <X className="w-5 h-5" />
-        </button>
+          <X className="size-4" />
+        </Button>
       </div>
 
       {/* Messages */}
       <Messages messages={messages} />
 
+      {/* Error banner */}
+      {error && !isLoading && (
+        <div className="mx-4 mb-2 p-3 rounded-lg bg-destructive/10 border border-destructive/20 flex items-start gap-2">
+          {isOffline ? (
+            <WifiOff className="size-4 text-destructive shrink-0 mt-0.5" />
+          ) : (
+            <AlertCircle className="size-4 text-destructive shrink-0 mt-0.5" />
+          )}
+          <div className="text-xs text-destructive">
+            <p className="font-medium mb-0.5">
+              {isOffline
+                ? 'Cannot reach the AI service'
+                : 'Failed to get response'}
+            </p>
+            <p className="text-destructive/80">
+              {isOffline
+                ? 'Make sure Ollama is running locally (ollama run mistral:7b), or set ANTHROPIC_API_KEY / OPENAI_API_KEY / GEMINI_API_KEY.'
+                : error.message}
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Loading indicator */}
       {isLoading && (
-        <div className="px-4 py-3 border-t border-blue-500/10">
-          <div className="flex items-center gap-2 text-blue-400/80 text-xs">
+        <div className="px-4 py-3 border-t">
+          <div className="flex items-center gap-2 text-muted-foreground text-xs">
             <div className="flex gap-1">
-              <span className="w-2 h-2 bg-blue-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-              <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-              <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></span>
+              <span className="size-2 bg-primary rounded-full animate-bounce [animation-delay:-0.3s]" />
+              <span className="size-2 bg-primary/70 rounded-full animate-bounce [animation-delay:-0.15s]" />
+              <span className="size-2 bg-primary/40 rounded-full animate-bounce" />
             </div>
             <span className="font-medium">Analyzing experience...</span>
           </div>
@@ -145,7 +172,7 @@ export default function ResumeAssistant() {
       )}
 
       {/* Input */}
-      <div className="relative p-4 border-t border-blue-500/10 bg-slate-900/50">
+      <div className="p-4 border-t bg-muted/20">
         <form
           onSubmit={(e) => {
             e.preventDefault()
@@ -158,13 +185,13 @@ export default function ResumeAssistant() {
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about skills, experience, or qualifications..."
               disabled={isLoading}
-              className="w-full rounded-2xl border border-blue-500/20 bg-slate-800/50 pl-4 pr-12 py-3 text-sm text-slate-100 placeholder-slate-300/30 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-transparent resize-none overflow-hidden disabled:opacity-50 transition-all"
+              className="w-full rounded-lg border bg-background pl-4 pr-12 py-3 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-ring resize-none overflow-hidden disabled:opacity-50 transition-all"
               rows={1}
               style={{ minHeight: '48px', maxHeight: '100px' }}
               onInput={(e) => {
                 const target = e.target as HTMLTextAreaElement
                 target.style.height = 'auto'
-                target.style.height = Math.min(target.scrollHeight, 100) + 'px'
+                target.style.height = `${Math.min(target.scrollHeight, 100)}px`
               }}
               onKeyDown={(e) => {
                 if (
@@ -178,13 +205,14 @@ export default function ResumeAssistant() {
                 }
               }}
             />
-            <button
+            <Button
               type="submit"
+              size="icon"
               disabled={!input.trim() || isLoading}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-linear-to-r from-blue-500 to-purple-500 text-white disabled:opacity-30 disabled:bg-gray-600 disabled:from-gray-600 disabled:to-gray-600 transition-all hover:shadow-lg hover:shadow-blue-500/20"
+              className="absolute right-2 top-1/2 -translate-y-1/2"
             >
-              <Send className="w-4 h-4" />
-            </button>
+              <Send className="size-4" />
+            </Button>
           </div>
         </form>
       </div>
