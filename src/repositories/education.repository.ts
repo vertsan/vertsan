@@ -1,11 +1,11 @@
 import { eq } from "drizzle-orm";
-import { type DbInstance, db } from "#/db/index";
+import { getDb, type DbInstance } from "#/db/index";
 import { education } from "#/db/schema";
 
 export type Education = typeof education.$inferSelect;
 export type NewEducation = typeof education.$inferInsert;
 
-export function createEducationRepository(dbInstance: DbInstance = db) {
+export function createEducationRepository(dbInstance: DbInstance = getDb()) {
 	function findAll() {
 		return dbInstance.select().from(education).orderBy(education.startDate);
 	}

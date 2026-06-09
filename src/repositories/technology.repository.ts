@@ -1,11 +1,11 @@
 import { eq } from "drizzle-orm";
-import { type DbInstance, db } from "#/db/index";
+import { getDb, type DbInstance } from "#/db/index";
 import { technologies } from "#/db/schema";
 
 export type Technology = typeof technologies.$inferSelect;
 export type NewTechnology = typeof technologies.$inferInsert;
 
-export function createTechnologyRepository(dbInstance: DbInstance = db) {
+export function createTechnologyRepository(dbInstance: DbInstance = getDb()) {
 	function findAll() {
 		return dbInstance
 			.select()

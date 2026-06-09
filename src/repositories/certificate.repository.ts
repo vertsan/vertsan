@@ -1,11 +1,11 @@
 import { eq } from "drizzle-orm";
-import { type DbInstance, db } from "#/db/index";
+import { getDb, type DbInstance } from "#/db/index";
 import { certificates } from "#/db/schema";
 
 export type Certificate = typeof certificates.$inferSelect;
 export type NewCertificate = typeof certificates.$inferInsert;
 
-export function createCertificateRepository(dbInstance: DbInstance = db) {
+export function createCertificateRepository(dbInstance: DbInstance = getDb()) {
 	function findAll() {
 		return dbInstance.select().from(certificates).orderBy(certificates.date);
 	}

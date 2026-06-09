@@ -1,11 +1,11 @@
 import { eq } from "drizzle-orm";
-import { type DbInstance, db } from "#/db/index";
+import { getDb, type DbInstance } from "#/db/index";
 import { jobs } from "#/db/schema";
 
 export type Job = typeof jobs.$inferSelect;
 export type NewJob = typeof jobs.$inferInsert;
 
-export function createJobRepository(dbInstance: DbInstance = db) {
+export function createJobRepository(dbInstance: DbInstance = getDb()) {
 	function findAll() {
 		return dbInstance.select().from(jobs).orderBy(jobs.startDate);
 	}
