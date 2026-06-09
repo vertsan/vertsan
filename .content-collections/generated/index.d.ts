@@ -13,4 +13,7 @@ export declare const allProjects: Array<Project>;
 export type Certificate = GetTypeByName<typeof configuration, "certificates">;
 export declare const allCertificates: Array<Certificate>;
 
+export type Technology = GetTypeByName<typeof configuration, "technologies">;
+export declare const allTechnologies: Array<Technology>;
+
 export {};

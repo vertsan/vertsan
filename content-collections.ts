@@ -65,6 +65,17 @@ const certificates = defineCollection({
   }),
 })
 
+const technologies = defineCollection({
+  name: 'technologies',
+  directory: 'content/technologies',
+  include: '**/*.md',
+  schema: z.object({
+    category: z.string(),
+    items: z.array(z.string()),
+    content: z.string(),
+  }),
+})
+
 export default defineConfig({
-  collections: [jobs, education, projects, certificates],
+  collections: [jobs, education, projects, certificates, technologies],
 })

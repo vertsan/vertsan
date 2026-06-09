@@ -3,6 +3,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { allProjects } from 'content-collections'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
+import { Card, CardContent } from '#/components/ui/card'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -43,33 +44,35 @@ function ProjectDetail() {
 
   return (
     <main className="min-h-screen py-16 px-6">
-      <div className="max-w-3xl mx-auto space-y-8">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link to="/">Home</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link to="/" hash="projects">Projects</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{project.title}</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+      <div className="max-w-5xl mx-auto space-y-8">
+        <div className="flex items-center justify-between">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/">Home</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to="/" hash="projects">Projects</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{project.title}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
 
-        <Button variant="ghost" size="sm" asChild>
-          <Link to="/" hash="projects" className="gap-2">
-            <ArrowLeft className="size-4" />
-            Back to Projects
-          </Link>
-        </Button>
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/" hash="projects" className="gap-2">
+              <ArrowLeft className="size-4" />
+              Back
+            </Link>
+          </Button>
+        </div>
 
         <div className="space-y-4">
           <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -88,59 +91,83 @@ function ProjectDetail() {
           <p className="text-lg text-muted-foreground">
             {project.summary}
           </p>
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1.5">
-              <Calendar className="size-4" />
-              <span>
-                {project.startDate} — {project.endDate}
-              </span>
-            </div>
-          </div>
         </div>
 
-        <div className="flex flex-wrap gap-3">
-          {project.github && (
-            <Button variant="outline" size="sm" className="gap-2" asChild>
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Github className="size-4" />
-                Source Code
-              </a>
-            </Button>
-          )}
-          {project.link && (
-            <Button variant="outline" size="sm" className="gap-2" asChild>
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <ExternalLink className="size-4" />
-                Live Demo
-              </a>
-            </Button>
-          )}
+        <div className="grid md:grid-cols-[1fr_300px] gap-8 lg:gap-12">
+          <div
+            className="prose prose-lg dark:prose-invert max-w-none leading-relaxed"
+            dangerouslySetInnerHTML={{
+              __html: marked(project.content),
+            }}
+          />
+
+          <aside className="space-y-6">
+            <Card>
+              <CardContent className="p-5 space-y-3">
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
+                  Timeline
+                </h3>
+                <div className="flex items-center gap-2 text-sm">
+                  <Calendar className="size-4 shrink-0 text-muted-foreground" />
+                  <span>
+                    {project.startDate} — {project.endDate}
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+
+            {(project.github || project.link) && (
+              <Card>
+                <CardContent className="p-5 space-y-3">
+                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
+                    Links
+                  </h3>
+                  <div className="space-y-2">
+                    {project.github && (
+                      <Button variant="outline" size="sm" className="gap-2 w-full justify-start" asChild>
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <Github className="size-4" />
+                          Source Code
+                        </a>
+                      </Button>
+                    )}
+                    {project.link && (
+                      <Button variant="outline" size="sm" className="gap-2 w-full justify-start" asChild>
+                        <a
+                          href={project.link}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <ExternalLink className="size-4" />
+                          Live Demo
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            <Card>
+              <CardContent className="p-5 space-y-3">
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
+                  Technologies
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </aside>
         </div>
-
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <Badge key={tag} variant="secondary">
-              {tag}
-            </Badge>
-          ))}
-        </div>
-
-        <hr className="border-border" />
-
-        <div
-          className="prose prose-lg dark:prose-invert max-w-none leading-relaxed"
-          dangerouslySetInnerHTML={{
-            __html: marked(project.content),
-          }}
-        />
       </div>
     </main>
   )

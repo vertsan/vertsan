@@ -19,14 +19,14 @@ export default function HeroSection() {
 					<h1 className="text-5xl md:text-7xl font-bold tracking-tight">
 						<span className="text-foreground">Hi, I'm </span>
 						<span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-							John Developer
+							Vert San 
 						</span>
 					</h1>
 				</div>
 
 				{/* Role */}
 				<p className="text-xl md:text-2xl text-muted-foreground font-medium">
-					Full-Stack Developer & UI/UX Enthusiast
+					Software Engineer
 				</p>
 
 				{/* Bio */}

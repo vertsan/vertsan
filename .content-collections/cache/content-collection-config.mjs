@@ -61,8 +61,18 @@ var certificates = defineCollection({
     content: z.string()
   })
 });
+var technologies = defineCollection({
+  name: "technologies",
+  directory: "content/technologies",
+  include: "**/*.md",
+  schema: z.object({
+    category: z.string(),
+    items: z.array(z.string()),
+    content: z.string()
+  })
+});
 var content_collections_default = defineConfig({
-  collections: [jobs, education, projects, certificates]
+  collections: [jobs, education, projects, certificates, technologies]
 });
 export {
   content_collections_default as default
