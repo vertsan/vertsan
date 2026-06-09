@@ -11,10 +11,16 @@ import {
 	CardHeader,
 	CardTitle,
 } from "#/components/ui/card";
+import { useLiveContent } from "#/lib/useLiveContent";
 
 export default function ProjectsSection() {
-	const sortedProjects = [...allProjects].sort((a, b) => {
-		return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+	const { items: projects } = useLiveContent("projects", allProjects);
+
+	const sortedProjects = [...projects].sort((a, b) => {
+		return (
+			new Date((b as Record<string, unknown>).startDate as string).getTime() -
+			new Date((a as Record<string, unknown>).startDate as string).getTime()
+		);
 	});
 
 	return (
@@ -32,44 +38,53 @@ export default function ProjectsSection() {
 				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{sortedProjects.map((project) => (
 						<Card
-							key={project.title}
+							key={(project as Record<string, any>).title as string}
 							className="border shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col"
 						>
 							<CardHeader>
 								<div className="flex items-start justify-between gap-2">
-									<CardTitle className="text-lg">{project.title}</CardTitle>
+									<CardTitle className="text-lg">
+										{(project as Record<string, any>).title as string}
+									</CardTitle>
 									<Badge
 										variant={
-											project.status === "Completed" ? "default" : "secondary"
+											(project as Record<string, any>).status === "Completed"
+												? "default"
+												: "secondary"
 										}
 										className="shrink-0"
 									>
-										{project.status}
+										{(project as Record<string, any>).status as string}
 									</Badge>
 								</div>
 								<CardDescription className="line-clamp-2">
-									{project.summary}
+									{(project as Record<string, any>).summary as string}
 								</CardDescription>
 							</CardHeader>
 							<CardContent className="flex-1">
 								<div className="flex flex-wrap gap-1.5">
-									{project.tags.slice(0, 6).map((tag) => (
-										<Badge key={tag} variant="outline" className="text-xs">
-											{tag}
-										</Badge>
-									))}
-									{project.tags.length > 6 && (
+									{((project as Record<string, any>).tags as string[])
+										?.slice(0, 6)
+										.map((tag: string) => (
+											<Badge key={tag} variant="outline" className="text-xs">
+												{tag}
+											</Badge>
+										))}
+									{((project as Record<string, any>).tags as string[])?.length >
+										6 && (
 										<Badge variant="outline" className="text-xs">
-											+{project.tags.length - 6}
+											+
+											{((project as Record<string, any>).tags as string[])
+												.length - 6}
 										</Badge>
 									)}
 								</div>
 							</CardContent>
 							<CardFooter className="flex items-center justify-between gap-2 pt-0">
 								<div className="flex gap-2">
-									{project.github && (
+									{(project as Record<string, any>).github && (
 										<a
-											href={project.github}
+											href={(project as Record<string, any>).github as string}
 											target="_blank"
 											rel="noreferrer"
 											className="p-2 rounded-md hover:bg-accent transition-colors"
@@ -78,9 +93,9 @@ export default function ProjectsSection() {
 											<Github className="size-4" />
 										</a>
 									)}
-									{project.link && (
+									{(project as Record<string, any>).link && (
 										<a
-											href={project.link}
+											href={(project as Record<string, any>).link as string}
 											target="_blank"
 											rel="noreferrer"
 											className="p-2 rounded-md hover:bg-accent transition-colors"
@@ -93,7 +108,10 @@ export default function ProjectsSection() {
 								<Button variant="ghost" size="sm" className="gap-1" asChild>
 									<Link
 										to="/projects/$projectId"
-										params={{ projectId: project.slug }}
+										params={{
+											projectId: (project as Record<string, any>)
+												.slug as string,
+										}}
 									>
 										Details
 										<ArrowUpRight className="size-3.5" />

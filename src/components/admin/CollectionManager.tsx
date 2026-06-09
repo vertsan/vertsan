@@ -1,339 +1,484 @@
-import { useEffect, useState, useCallback } from 'react'
-import { Plus, Pencil, Trash2, Save, X, Loader2, Eye } from 'lucide-react'
-import { Button } from '#/components/ui/button'
-import { collectionConfig, type CollectionKey, type ContentRecord } from '#/lib/admin/markdown'
-import TagInput from './TagInput'
+import {
+	AlertTriangle,
+	Award,
+	Briefcase,
+	Check,
+	Cpu,
+	Eye,
+	FolderKanban,
+	GraduationCap,
+	Loader2,
+	Pencil,
+	Plus,
+	Save,
+	Trash2,
+	X,
+} from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Button } from "#/components/ui/button";
+import type {
+	CollectionConfig,
+	CollectionKey,
+	FieldConfig,
+} from "#/lib/admin/config";
+import TagInput from "./TagInput";
 
 interface Props {
-  collection: CollectionKey
-  title?: string
+	collection: CollectionKey;
+	title?: string;
 }
 
+type RecordData = Record<string, unknown> & { id?: number };
+
+const icons: Record<string, React.ComponentType<{ className?: string }>> = {
+	Briefcase,
+	GraduationCap,
+	FolderKanban,
+	Award,
+	Cpu,
+};
+
 export default function CollectionManager({ collection, title }: Props) {
-  const config = collectionConfig[collection]
-  const [items, setItems] = useState<ContentRecord[]>([])
-  const [loading, setLoading] = useState(true)
-  const [editing, setEditing] = useState<ContentRecord | null>(null)
-  const [isNew, setIsNew] = useState(false)
-  const [saving, setSaving] = useState(false)
-  const [error, setError] = useState('')
-  const [preview, setPreview] = useState<string | null>(null)
+	const [config, setConfig] = useState<CollectionConfig | null>(null);
+	const [items, setItems] = useState<RecordData[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [editing, setEditing] = useState<RecordData | null>(null);
+	const [isNew, setIsNew] = useState(false);
+	const [saving, setSaving] = useState(false);
+	const [error, setError] = useState("");
+	const [success, setSuccess] = useState("");
+	const [preview, setPreview] = useState<string | null>(null);
+	const [confirmDelete, setConfirmDelete] = useState<RecordData | null>(null);
+	const formRef = useRef<HTMLDivElement>(null);
 
-  const loadItems = useCallback(async () => {
-    setLoading(true)
-    try {
-      const res = await fetch('/api/admin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ collection, action: 'list' }),
-      })
-      const data = await res.json()
-      setItems(data.items || [])
-    } catch {
-      setError('Failed to load items')
-    } finally {
-      setLoading(false)
-    }
-  }, [collection])
+	const api = useCallback(
+		(action: string, extra: Record<string, unknown> = {}) =>
+			fetch("/api/admin", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ collection, action, ...extra }),
+			}).then((r) => r.json()),
+		[collection],
+	);
 
-  useEffect(() => {
-    loadItems()
-  }, [loadItems])
+	const loadConfigAndItems = useCallback(async () => {
+		setLoading(true);
+		try {
+			const [cfg, data] = await Promise.all([api("config"), api("list")]);
+			setConfig(cfg.config || null);
+			setItems(data.items || []);
+		} catch {
+			setError("Failed to load data");
+		} finally {
+			setLoading(false);
+		}
+	}, [api]);
 
-  function emptyRecord(): ContentRecord {
-    const record: Record<string, unknown> = { content: '' }
-    for (const field of config.fields) {
-      if (field.type === 'tags') {
-        record[field.name] = [] as unknown as string
-      } else {
-        record[field.name] = ''
-      }
-    }
-    return record as ContentRecord
-  }
+	useEffect(() => {
+		loadConfigAndItems();
+	}, [loadConfigAndItems]);
 
-  function handleNew() {
-    setEditing(emptyRecord())
-    setIsNew(true)
-    setError('')
-    setPreview(null)
-  }
+	useEffect(() => {
+		if (success) {
+			const t = setTimeout(() => setSuccess(""), 3000);
+			return () => clearTimeout(t);
+		}
+	}, [success]);
 
-  function handleEdit(item: ContentRecord) {
-    setEditing({ ...item })
-    setIsNew(false)
-    setError('')
-    setPreview(null)
-  }
+	function emptyRecord(): RecordData {
+		if (!config) return { content: "" };
+		const record: Record<string, unknown> = { content: "" };
+		for (const field of config.fields) {
+			if (field.type === "tags") {
+				record[field.name] = [];
+			} else {
+				record[field.name] = "";
+			}
+		}
+		return record;
+	}
 
-  function handleCancel() {
-    setEditing(null)
-    setIsNew(false)
-    setError('')
-    setPreview(null)
-  }
+	function handleNew() {
+		setEditing(emptyRecord());
+		setIsNew(true);
+		setError("");
+		setPreview(null);
+		setSuccess("");
+	}
 
-  function handleFieldChange(name: string, value: unknown) {
-    if (!editing) return
-    setEditing({ ...editing, [name]: value })
-  }
+	function handleEdit(item: RecordData) {
+		setEditing({ ...item });
+		setIsNew(false);
+		setError("");
+		setPreview(null);
+		setSuccess("");
+	}
 
-  async function handleSave() {
-    if (!editing) return
-    setSaving(true)
-    setError('')
+	function handleCancel() {
+		setEditing(null);
+		setIsNew(false);
+		setError("");
+		setPreview(null);
+		setSuccess("");
+	}
 
-    try {
-      if (isNew) {
-        const res = await fetch('/api/admin', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ collection, action: 'create', data: editing }),
-        })
-        if (!res.ok) {
-          const d = await res.json()
-          throw new Error(d.error || 'Failed to create')
-        }
-      } else {
-        const res = await fetch('/api/admin', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            collection,
-            action: 'update',
-            id: editing._file,
-            data: editing,
-          }),
-        })
-        if (!res.ok) {
-          const d = await res.json()
-          throw new Error(d.error || 'Failed to update')
-        }
-      }
+	function handleFieldChange(name: string, value: unknown) {
+		if (!editing) return;
+		setEditing({ ...editing, [name]: value });
+	}
 
-      setEditing(null)
-      setIsNew(false)
-      await loadItems()
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Save failed')
-    } finally {
-      setSaving(false)
-    }
-  }
+	async function handleSave() {
+		if (!editing) return;
+		setSaving(true);
+		setError("");
 
-  async function handleDelete(item: ContentRecord) {
-    if (!confirm(`Delete this ${config.label.slice(0, -1).toLowerCase()}?`)) return
+		try {
+			const { id: _, ...data } = editing;
 
-    try {
-      const res = await fetch('/api/admin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          collection,
-          action: 'delete',
-          id: item._file,
-        }),
-      })
-      if (!res.ok) {
-        const d = await res.json()
-        throw new Error(d.error || 'Failed to delete')
-      }
-      await loadItems()
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Delete failed')
-    }
-  }
+			if (isNew) {
+				const res = await api("create", { data });
+				if (res.error) throw new Error(res.error);
+			} else {
+				const res = await api("update", { id: editing.id, data });
+				if (res.error) throw new Error(res.error);
+			}
 
-  function getDisplayName(item: ContentRecord): string {
-    return String(
-      item.title || item.jobTitle || item.school || item.category || item._file || '',
-    )
-  }
+			setEditing(null);
+			setIsNew(false);
+			setSuccess(
+				`${config?.label.slice(0, -1) ?? "Item"} saved successfully`,
+			);
+			await loadConfigAndItems();
+		} catch (err: unknown) {
+			setError(err instanceof Error ? err.message : "Save failed");
+		} finally {
+			setSaving(false);
+		}
+	}
 
-  async function togglePreview() {
-    if (preview) {
-      setPreview(null)
-    } else {
-      const { marked } = await import('marked')
-      const html = await marked(String(editing?.content || ''))
-      setPreview(html)
-    }
-  }
+	async function handleDelete(item: RecordData) {
+		if (!config) return;
+		try {
+			const res = await api("delete", { id: item.id });
+			if (res.error) throw new Error(res.error);
+			setSuccess(
+				`${config.label.slice(0, -1)} deleted successfully`,
+			);
+			setConfirmDelete(null);
+			await loadConfigAndItems();
+		} catch (err: unknown) {
+			setError(err instanceof Error ? err.message : "Delete failed");
+		}
+	}
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 className="size-6 animate-spin text-muted-foreground" />
-      </div>
-    )
-  }
+	function getDisplayName(item: RecordData): string {
+		return String(
+			item.title ||
+				item.jobTitle ||
+				item.school ||
+				item.category ||
+				item.id ||
+				"",
+		);
+	}
 
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">{title || config.label}</h1>
-          <p className="text-sm text-muted-foreground">
-            {items.length} {config.label.toLowerCase()}
-          </p>
-        </div>
-        {!editing && (
-          <Button onClick={handleNew} className="gap-2">
-            <Plus className="size-4" />
-            Add {config.label.slice(0, -1)}
-          </Button>
-        )}
-      </div>
+	function getDateValue(item: RecordData): string | null {
+		return (item.startDate as string) || (item.date as string) || null;
+	}
 
-      {error && (
-        <div className="rounded-lg bg-destructive/10 text-destructive text-sm px-4 py-3">
-          {error}
-        </div>
-      )}
+	async function togglePreview() {
+		if (preview) {
+			setPreview(null);
+		} else {
+			const { marked } = await import("marked");
+			const html = await marked(String(editing?.content || ""));
+			setPreview(html);
+		}
+	}
 
-      {editing ? (
-        <div className="rounded-xl border bg-card shadow-sm">
-          <div className="flex items-center justify-between p-4 border-b">
-            <h2 className="font-semibold">
-              {isNew
-                ? `New ${config.label.slice(0, -1)}`
-                : `Edit: ${getDisplayName(editing)}`}
-            </h2>
-            <div className="flex gap-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="gap-2"
-                onClick={handleCancel}
-              >
-                <X className="size-4" />
-                Cancel
-              </Button>
-              <Button
-                size="sm"
-                className="gap-2"
-                onClick={handleSave}
-                disabled={saving}
-              >
-                {saving ? (
-                  <Loader2 className="size-4 animate-spin" />
-                ) : (
-                  <Save className="size-4" />
-                )}
-                Save
-              </Button>
-            </div>
-          </div>
-          <div className="p-4 space-y-4">
-            {config.fields.map((field) => (
-              <div key={field.name}>
-                <label className="block text-sm font-medium mb-1.5">
-                  {field.label}
-                  {'required' in field && field.required && (
-                    <span className="text-destructive ml-0.5">*</span>
-                  )}
-                </label>
-                {field.type === 'markdown' ? (
-                  <div className="space-y-2">
-                    <div className="flex gap-2 border rounded-lg overflow-hidden">
-                      <textarea
-                        value={String(editing[field.name] ?? '')}
-                        onChange={(e) =>
-                          handleFieldChange(field.name, e.target.value)
-                        }
-                        className="flex-1 min-h-[200px] p-3 text-sm font-mono bg-background border-0 focus:outline-none resize-y"
-                        placeholder={`${field.label} (markdown)...`}
-                      />
-                      {preview && (
-                        <div
-                          className="flex-1 min-h-[200px] p-3 text-sm prose prose-sm dark:prose-invert max-w-none overflow-y-auto bg-muted/30"
-                          dangerouslySetInnerHTML={{ __html: preview }}
-                        />
-                      )}
-                    </div>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="gap-2 text-xs"
-                      onClick={togglePreview}
-                    >
-                      <Eye className="size-3.5" />
-                      {preview ? 'Hide Preview' : 'Preview'}
-                    </Button>
-                  </div>
-                ) : field.type === 'tags' ? (
-                  <TagInput
-                    value={
-                      Array.isArray(editing[field.name])
-                        ? (editing[field.name] as string[])
-                        : []
-                    }
-                    onChange={(v) => handleFieldChange(field.name, v)}
-                    placeholder={`Add ${field.label.toLowerCase()}...`}
-                  />
-                ) : (
-                  <textarea
-                    value={String(editing[field.name] ?? '')}
-                    onChange={(e) => handleFieldChange(field.name, e.target.value)}
-                    className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors resize-none"
-                    placeholder={field.label}
-                    rows={field.name === 'summary' ? 2 : 1}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
-          {items.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              <p>No {config.label.toLowerCase()} yet.</p>
-              <Button variant="link" onClick={handleNew} className="mt-2">
-                Add your first{' '}
-                {config.label.slice(0, -1).toLowerCase()}
-              </Button>
-            </div>
-          ) : (
-            <div className="divide-y">
-              {items.map((item) => (
-                <div
-                  key={item._file as string}
-                  className="flex items-center justify-between px-4 py-3 hover:bg-muted/50 transition-colors"
-                >
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium truncate">
-                      {getDisplayName(item)}
-                    </p>
-                    <p className="text-xs text-muted-foreground truncate">
-                      {item._file as string}
-                    </p>
-                  </div>
-                  <div className="flex gap-1 shrink-0">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="size-8 p-0"
-                      onClick={() => handleEdit(item)}
-                    >
-                      <Pencil className="size-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="size-8 p-0 text-destructive hover:text-destructive"
-                      onClick={() => handleDelete(item)}
-                    >
-                      <Trash2 className="size-4" />
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  )
+	if (loading) {
+		return (
+			<div className="flex items-center justify-center py-20">
+				<Loader2 className="size-6 animate-spin text-muted-foreground" />
+			</div>
+		);
+	}
+
+	if (!config) {
+		return (
+			<div className="text-center py-20 text-muted-foreground">
+				Failed to load configuration
+			</div>
+		);
+	}
+
+	const Icon = icons[config.icon];
+
+	return (
+		<div className="space-y-6">
+			{/* Header */}
+			<div className="flex items-center justify-between">
+				<div className="flex items-center gap-3">
+					{Icon && (
+						<div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center">
+							<Icon className="size-5 text-primary" />
+						</div>
+					)}
+					<div>
+						<h1 className="text-2xl font-bold tracking-tight">
+							{title || config.label}
+						</h1>
+						<p className="text-sm text-muted-foreground">
+							{items.length} {config.label.toLowerCase()}
+						</p>
+					</div>
+				</div>
+				{!editing && (
+					<Button onClick={handleNew} className="gap-2 shadow-sm">
+						<Plus className="size-4" />
+						Add {config.label.slice(0, -1)}
+					</Button>
+				)}
+			</div>
+
+			{/* Success toast */}
+			{success && (
+				<div className="rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-sm px-4 py-3 flex items-center gap-2 border border-emerald-500/20">
+					<Check className="size-4 shrink-0" />
+					{success}
+				</div>
+			)}
+
+			{/* Error toast */}
+			{error && (
+				<div className="rounded-lg bg-destructive/10 text-destructive text-sm px-4 py-3 flex items-center gap-2">
+					<AlertTriangle className="size-4 shrink-0" />
+					{error}
+				</div>
+			)}
+
+			{/* Delete confirmation modal */}
+			{confirmDelete && (
+				<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+					<div className="rounded-xl border bg-card p-6 shadow-lg max-w-sm w-full mx-4 space-y-4">
+						<h3 className="font-semibold text-lg">Confirm Delete</h3>
+						<p className="text-sm text-muted-foreground">
+							Delete{" "}
+							<span className="font-medium text-foreground">
+								{getDisplayName(confirmDelete)}
+							</span>
+							? This action cannot be undone.
+						</p>
+						<div className="flex justify-end gap-2">
+							<Button
+								variant="outline"
+								size="sm"
+								onClick={() => setConfirmDelete(null)}
+							>
+								Cancel
+							</Button>
+							<Button
+								variant="destructive"
+								size="sm"
+								className="gap-2"
+								onClick={() => handleDelete(confirmDelete)}
+							>
+								<Trash2 className="size-4" />
+								Delete
+							</Button>
+						</div>
+					</div>
+				</div>
+			)}
+
+			{editing ? (
+				/* Form panel */
+				<div
+					ref={formRef}
+					className="rounded-xl border bg-card shadow-sm overflow-hidden"
+				>
+					<div className="flex items-center justify-between p-4 border-b bg-muted/20">
+						<h2 className="font-semibold flex items-center gap-2">
+							{Icon && <Icon className="size-4 text-primary" />}
+							{isNew
+								? `New ${config.label.slice(0, -1)}`
+								: `Edit: ${getDisplayName(editing)}`}
+						</h2>
+						<div className="flex gap-2">
+							<Button
+								variant="ghost"
+								size="sm"
+								className="gap-2"
+								onClick={handleCancel}
+							>
+								<X className="size-4" />
+								Cancel
+							</Button>
+							<Button
+								size="sm"
+								className="gap-2 shadow-sm"
+								onClick={handleSave}
+								disabled={saving}
+							>
+								{saving ? (
+									<Loader2 className="size-4 animate-spin" />
+								) : (
+									<Save className="size-4" />
+								)}
+								Save
+							</Button>
+						</div>
+					</div>
+
+					<div className="p-6 space-y-5">
+						{config.fields.map((field: FieldConfig) => (
+							<div key={field.name}>
+								<label className="block text-sm font-medium mb-1.5 text-foreground/80">
+									{field.label}
+									{field.required && (
+										<span className="text-destructive ml-0.5">*</span>
+									)}
+								</label>
+
+								{field.type === "markdown" ? (
+									<div className="space-y-2">
+										<div className="flex gap-2 border rounded-lg overflow-hidden">
+											<textarea
+												value={String(editing[field.name] ?? "")}
+												onChange={(e) =>
+													handleFieldChange(field.name, e.target.value)
+												}
+												className="flex-1 min-h-[220px] p-3 text-sm font-mono bg-background border-0 focus:outline-none focus:ring-1 focus:ring-primary/20 resize-y"
+												placeholder={`${field.label} (markdown)...`}
+											/>
+											{preview && (
+												<div
+													className="flex-1 min-h-[220px] p-3 text-sm prose prose-sm dark:prose-invert max-w-none overflow-y-auto bg-muted/30"
+													dangerouslySetInnerHTML={{ __html: preview }}
+												/>
+											)}
+										</div>
+										<Button
+											type="button"
+											variant="ghost"
+											size="sm"
+											className="gap-2 text-xs"
+											onClick={togglePreview}
+										>
+											<Eye className="size-3.5" />
+											{preview ? "Hide Preview" : "Preview"}
+										</Button>
+									</div>
+								) : field.type === "tags" ? (
+									<TagInput
+										value={
+											Array.isArray(editing[field.name])
+												? (editing[field.name] as string[])
+												: []
+										}
+										onChange={(v) => handleFieldChange(field.name, v)}
+										placeholder={`Add ${field.label.toLowerCase()}...`}
+									/>
+								) : field.type === "date" ? (
+									<input
+										type="date"
+										value={String(editing[field.name] ?? "")}
+										onChange={(e) =>
+											handleFieldChange(field.name, e.target.value)
+										}
+										className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors [color-scheme:var(--color-scheme)]"
+									/>
+								) : (
+									<textarea
+										value={String(editing[field.name] ?? "")}
+										onChange={(e) =>
+											handleFieldChange(field.name, e.target.value)
+										}
+										className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors resize-none"
+										placeholder={field.label}
+										rows={field.name === "summary" ? 2 : 1}
+									/>
+								)}
+							</div>
+						))}
+					</div>
+				</div>
+			) : (
+				/* Item list */
+				<div className="rounded-xl border bg-card shadow-sm overflow-hidden">
+					{items.length === 0 ? (
+						<div className="text-center py-16 text-muted-foreground">
+							{Icon && (
+								<div className="mx-auto mb-4 size-12 rounded-full bg-muted flex items-center justify-center">
+									<Icon className="size-6 text-muted-foreground/60" />
+								</div>
+							)}
+							<p className="font-medium">No {config.label.toLowerCase()} yet</p>
+							<p className="text-sm mt-1">
+								Create your first{" "}
+								{config.label.slice(0, -1).toLowerCase()} to get started
+							</p>
+							<Button variant="link" onClick={handleNew} className="mt-3">
+								Add {config.label.slice(0, -1).toLowerCase()}
+							</Button>
+						</div>
+					) : (
+						<div className="divide-y">
+							{items.map((item) => {
+								const dateVal = getDateValue(item);
+								return (
+									<div
+										key={item.id as number}
+										className="flex items-center justify-between px-5 py-4 hover:bg-muted/40 transition-colors group"
+									>
+										<div className="flex-1 min-w-0 flex items-center gap-3">
+											{Icon && (
+												<div className="size-8 rounded-lg bg-primary/5 flex items-center justify-center shrink-0 group-hover:bg-primary/10 transition-colors">
+													<Icon className="size-4 text-primary/60" />
+												</div>
+											)}
+											<div>
+												<p className="font-medium truncate text-sm">
+													{getDisplayName(item)}
+												</p>
+												<div className="flex items-center gap-2 text-xs text-muted-foreground">
+													<span>ID: {item.id as number}</span>
+													{dateVal && (
+														<>
+															<span>&middot;</span>
+															<span>{dateVal}</span>
+														</>
+													)}
+												</div>
+											</div>
+										</div>
+										<div className="flex gap-1 shrink-0 opacity-70 group-hover:opacity-100 transition-opacity">
+											<Button
+												variant="ghost"
+												size="sm"
+												className="size-8 p-0"
+												onClick={() => handleEdit(item)}
+												title="Edit"
+											>
+												<Pencil className="size-4" />
+											</Button>
+											<Button
+												variant="ghost"
+												size="sm"
+												className="size-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
+												onClick={() => setConfirmDelete(item)}
+												title="Delete"
+											>
+												<Trash2 className="size-4" />
+											</Button>
+										</div>
+									</div>
+								);
+							})}
+						</div>
+					)}
+				</div>
+			)}
+		</div>
+	);
 }

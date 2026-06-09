@@ -19,7 +19,7 @@ export default function HeroSection() {
 					<h1 className="text-5xl md:text-7xl font-bold tracking-tight">
 						<span className="text-foreground">Hi, I'm </span>
 						<span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-							Vert San 
+							Vert San
 						</span>
 					</h1>
 				</div>

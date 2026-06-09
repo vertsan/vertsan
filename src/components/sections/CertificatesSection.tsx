@@ -8,10 +8,16 @@ import {
 	CardHeader,
 	CardTitle,
 } from "#/components/ui/card";
+import { useLiveContent } from "#/lib/useLiveContent";
 
 export default function CertificatesSection() {
-	const sortedCerts = [...allCertificates].sort((a, b) => {
-		return new Date(b.date).getTime() - new Date(a.date).getTime();
+	const { items: certs } = useLiveContent("certificates", allCertificates);
+
+	const sortedCerts = [...certs].sort((a, b) => {
+		return (
+			new Date((b as Record<string, unknown>).date as string).getTime() -
+			new Date((a as Record<string, unknown>).date as string).getTime()
+		);
 	});
 
 	return (
@@ -29,7 +35,7 @@ export default function CertificatesSection() {
 				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{sortedCerts.map((cert) => (
 						<Card
-							key={cert.title}
+							key={(cert as Record<string, any>).title as string}
 							className="border shadow-sm hover:shadow-md transition-shadow"
 						>
 							<CardHeader>
@@ -39,24 +45,28 @@ export default function CertificatesSection() {
 									</div>
 									<div className="space-y-1">
 										<CardTitle className="text-base leading-snug">
-											{cert.title}
+											{(cert as Record<string, any>).title as string}
 										</CardTitle>
-										<CardDescription>{cert.issuer}</CardDescription>
+										<CardDescription>
+											{(cert as Record<string, any>).issuer as string}
+										</CardDescription>
 									</div>
 								</div>
 							</CardHeader>
 							<CardContent className="space-y-3">
 								<p className="text-sm text-muted-foreground leading-relaxed">
-									{cert.summary}
+									{(cert as Record<string, any>).summary as string}
 								</p>
 								<div className="flex items-center justify-between">
 									<div className="flex items-center gap-1.5 text-xs text-muted-foreground">
 										<Calendar className="size-3" />
-										<span>{cert.date}</span>
+										<span>{(cert as Record<string, any>).date as string}</span>
 									</div>
-									{cert.credentialUrl && (
+									{(cert as Record<string, any>).credentialUrl && (
 										<a
-											href={cert.credentialUrl}
+											href={
+												(cert as Record<string, any>).credentialUrl as string
+											}
 											target="_blank"
 											rel="noreferrer"
 											className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
@@ -67,11 +77,13 @@ export default function CertificatesSection() {
 									)}
 								</div>
 								<div className="flex flex-wrap gap-1.5 pt-1">
-									{cert.tags.map((tag) => (
-										<Badge key={tag} variant="outline" className="text-xs">
-											{tag}
-										</Badge>
-									))}
+									{((cert as Record<string, any>).tags as string[])?.map(
+										(tag: string) => (
+											<Badge key={tag} variant="outline" className="text-xs">
+												{tag}
+											</Badge>
+										),
+									)}
 								</div>
 							</CardContent>
 						</Card>

@@ -1,6 +1,31 @@
 
 export default [
   {
+    "title": "Scaffold CLI",
+    "slug": "scaffold-cli",
+    "summary": "A CLI tool for scaffolding React projects with opinionated defaults",
+    "tags": [
+      "Node.js",
+      "TypeScript",
+      "CLI",
+      "Commander",
+      "Git"
+    ],
+    "image": "/placeholder-project.svg",
+    "github": "https://github.com/example/scaffold-cli",
+    "startDate": "2024-10-01",
+    "endDate": "2024-12-01",
+    "status": "Completed",
+    "content": "A command-line tool that accelerates project initialization with pre-configured setups. Features:\n\n- Interactive prompts for project configuration\n- Multiple template support (React, React + TanStack, Next.js)\n- Automatic dependency installation\n- Git repository initialization with conventional commit setup\n- ESLint, Prettier, and Husky pre-configured\n- Published on npm with automated releases",
+    "_meta": {
+      "filePath": "cli-tool.md",
+      "fileName": "cli-tool.md",
+      "directory": ".",
+      "extension": "md",
+      "path": "cli-tool"
+    }
+  },
+  {
     "title": "Nebula Design System",
     "slug": "design-system",
     "summary": "A reusable component library with accessibility-first design",

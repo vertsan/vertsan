@@ -9,7 +9,7 @@ tags:
     "CLI",
     "Commander",
     "Git",
-  ]e
+  ]
 image: /placeholder-project.svg
 github: https://github.com/example/scaffold-cli
 startDate: 2024-10-01

@@ -4,6 +4,9 @@ dist
 dist-ssr
 *.local
 .env
+.env.development
+.env.production
+.env.local
 .nitro
 .tanstack
 .wrangler
@@ -14,3 +17,7 @@ todos.json
 
 # Local Netlify folder
 .netlify
+
+# Drizzle migrations
+drizzle/
+*.db

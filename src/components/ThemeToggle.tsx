@@ -1,73 +1,75 @@
-import { useEffect, useState } from 'react'
-import { Moon, Sun, Monitor } from 'lucide-react'
+import { Monitor, Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 
-type ThemeMode = 'light' | 'dark' | 'auto'
+type ThemeMode = "light" | "dark" | "auto";
 
 function getInitialMode(): ThemeMode {
-  if (typeof window === 'undefined') return 'auto'
-  const stored = window.localStorage.getItem('theme')
-  if (stored === 'light' || stored === 'dark' || stored === 'auto') return stored
-  return 'auto'
+	if (typeof window === "undefined") return "auto";
+	const stored = window.localStorage.getItem("theme");
+	if (stored === "light" || stored === "dark" || stored === "auto")
+		return stored;
+	return "auto";
 }
 
 function applyThemeMode(mode: ThemeMode) {
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-  const resolved = mode === 'auto' ? (prefersDark ? 'dark' : 'light') : mode
-  document.documentElement.classList.remove('light', 'dark')
-  document.documentElement.classList.add(resolved)
-  if (mode === 'auto') {
-    document.documentElement.removeAttribute('data-theme')
-  } else {
-    document.documentElement.setAttribute('data-theme', mode)
-  }
-  document.documentElement.style.colorScheme = resolved
+	const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+	const resolved = mode === "auto" ? (prefersDark ? "dark" : "light") : mode;
+	document.documentElement.classList.remove("light", "dark");
+	document.documentElement.classList.add(resolved);
+	if (mode === "auto") {
+		document.documentElement.removeAttribute("data-theme");
+	} else {
+		document.documentElement.setAttribute("data-theme", mode);
+	}
+	document.documentElement.style.colorScheme = resolved;
 }
 
 export default function ThemeToggle() {
-  const [mode, setMode] = useState<ThemeMode>('auto')
+	const [mode, setMode] = useState<ThemeMode>("auto");
 
-  useEffect(() => {
-    const initialMode = getInitialMode()
-    setMode(initialMode)
-    applyThemeMode(initialMode)
-  }, [])
+	useEffect(() => {
+		const initialMode = getInitialMode();
+		setMode(initialMode);
+		applyThemeMode(initialMode);
+	}, []);
 
-  useEffect(() => {
-    if (mode !== 'auto') return
-    const media = window.matchMedia('(prefers-color-scheme: dark)')
-    const onChange = () => applyThemeMode('auto')
-    media.addEventListener('change', onChange)
-    return () => media.removeEventListener('change', onChange)
-  }, [mode])
+	useEffect(() => {
+		if (mode !== "auto") return;
+		const media = window.matchMedia("(prefers-color-scheme: dark)");
+		const onChange = () => applyThemeMode("auto");
+		media.addEventListener("change", onChange);
+		return () => media.removeEventListener("change", onChange);
+	}, [mode]);
 
-  function toggleMode() {
-    const nextMode: ThemeMode = mode === 'light' ? 'dark' : mode === 'dark' ? 'auto' : 'light'
-    setMode(nextMode)
-    applyThemeMode(nextMode)
-    window.localStorage.setItem('theme', nextMode)
-  }
+	function toggleMode() {
+		const nextMode: ThemeMode =
+			mode === "light" ? "dark" : mode === "dark" ? "auto" : "light";
+		setMode(nextMode);
+		applyThemeMode(nextMode);
+		window.localStorage.setItem("theme", nextMode);
+	}
 
-  const icons = {
-    light: <Sun className="size-4" />,
-    dark: <Moon className="size-4" />,
-    auto: <Monitor className="size-4" />,
-  }
+	const icons = {
+		light: <Sun className="size-4" />,
+		dark: <Moon className="size-4" />,
+		auto: <Monitor className="size-4" />,
+	};
 
-  const labels: Record<ThemeMode, string> = {
-    light: 'Switch to dark mode',
-    dark: 'Switch to system theme',
-    auto: 'Switch to light mode',
-  }
+	const labels: Record<ThemeMode, string> = {
+		light: "Switch to dark mode",
+		dark: "Switch to system theme",
+		auto: "Switch to light mode",
+	};
 
-  return (
-    <button
-      type="button"
-      onClick={toggleMode}
-      aria-label={labels[mode]}
-      title={labels[mode]}
-      className="relative p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-all"
-    >
-      {icons[mode]}
-    </button>
-  )
+	return (
+		<button
+			type="button"
+			onClick={toggleMode}
+			aria-label={labels[mode]}
+			title={labels[mode]}
+			className="relative p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-all"
+		>
+			{icons[mode]}
+		</button>
+	);
 }

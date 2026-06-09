@@ -16,6 +16,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
 import { Route as ApiResumeChatRouteImport } from './routes/api.resume-chat'
+import { Route as ApiPublicRouteImport } from './routes/api.public'
 import { Route as ApiAdminRouteImport } from './routes/api.admin'
 import { Route as AdminTechnologiesRouteImport } from './routes/admin.technologies'
 import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
@@ -57,6 +58,11 @@ const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
 const ApiResumeChatRoute = ApiResumeChatRouteImport.update({
   id: '/api/resume-chat',
   path: '/api/resume-chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicRoute = ApiPublicRouteImport.update({
+  id: '/api/public',
+  path: '/api/public',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAdminRoute = ApiAdminRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/technologies': typeof AdminTechnologiesRoute
   '/api/admin': typeof ApiAdminRouteWithChildren
+  '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -121,6 +128,7 @@ export interface FileRoutesByTo {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/technologies': typeof AdminTechnologiesRoute
   '/api/admin': typeof ApiAdminRouteWithChildren
+  '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/admin': typeof AdminIndexRoute
@@ -138,6 +146,7 @@ export interface FileRoutesById {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/technologies': typeof AdminTechnologiesRoute
   '/api/admin': typeof ApiAdminRouteWithChildren
+  '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -156,6 +165,7 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/technologies'
     | '/api/admin'
+    | '/api/public'
     | '/api/resume-chat'
     | '/projects/$projectId'
     | '/admin/'
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/technologies'
     | '/api/admin'
+    | '/api/public'
     | '/api/resume-chat'
     | '/projects/$projectId'
     | '/admin'
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/technologies'
     | '/api/admin'
+    | '/api/public'
     | '/api/resume-chat'
     | '/projects/$projectId'
     | '/admin/'
@@ -199,6 +211,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   LoginRoute: typeof LoginRoute
   ApiAdminRoute: typeof ApiAdminRouteWithChildren
+  ApiPublicRoute: typeof ApiPublicRoute
   ApiResumeChatRoute: typeof ApiResumeChatRoute
   ProjectsProjectIdRoute: typeof ProjectsProjectIdRoute
 }
@@ -252,6 +265,13 @@ declare module '@tanstack/react-router' {
       path: '/api/resume-chat'
       fullPath: '/api/resume-chat'
       preLoaderRoute: typeof ApiResumeChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public': {
+      id: '/api/public'
+      path: '/api/public'
+      fullPath: '/api/public'
+      preLoaderRoute: typeof ApiPublicRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/admin': {
@@ -344,6 +364,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   LoginRoute: LoginRoute,
   ApiAdminRoute: ApiAdminRouteWithChildren,
+  ApiPublicRoute: ApiPublicRoute,
   ApiResumeChatRoute: ApiResumeChatRoute,
   ProjectsProjectIdRoute: ProjectsProjectIdRoute,
 }

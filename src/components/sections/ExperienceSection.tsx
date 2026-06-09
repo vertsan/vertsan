@@ -3,10 +3,16 @@ import { Briefcase, Calendar } from "lucide-react";
 import { marked } from "marked";
 import { Badge } from "#/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
+import { useLiveContent } from "#/lib/useLiveContent";
 
 export default function ExperienceSection() {
-	const sortedJobs = [...allJobs].sort((a, b) => {
-		return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+	const { items: jobs } = useLiveContent("jobs", allJobs);
+
+	const sortedJobs = [...jobs].sort((a, b) => {
+		return (
+			new Date(b.startDate as string).getTime() -
+			new Date(a.startDate as string).getTime()
+		);
 	});
 
 	return (
@@ -22,13 +28,14 @@ export default function ExperienceSection() {
 				</div>
 
 				<div className="relative">
-					{/* Timeline line */}
 					<div className="absolute left-8 top-0 bottom-0 w-px bg-border hidden md:block" />
 
 					<div className="space-y-8">
 						{sortedJobs.map((job) => (
-							<div key={job.jobTitle} className="relative pl-0 md:pl-20">
-								{/* Timeline dot */}
+							<div
+								key={(job as Record<string, any>).jobTitle as string}
+								className="relative pl-0 md:pl-20"
+							>
 								<div className="absolute left-6 top-6 w-4 h-4 rounded-full bg-primary border-4 border-background hidden md:block" />
 
 								<Card className="border shadow-sm hover:shadow-md transition-shadow">
@@ -38,39 +45,52 @@ export default function ExperienceSection() {
 												<div className="flex items-center gap-2">
 													<Briefcase className="size-4 text-primary" />
 													<CardTitle className="text-xl">
-														{job.jobTitle}
+														{(job as Record<string, any>).jobTitle as string}
 													</CardTitle>
 												</div>
 												<p className="text-primary font-medium">
-													{job.company} &middot; {job.location}
+													{(job as Record<string, any>).company as string}{" "}
+													&middot;{" "}
+													{(job as Record<string, any>).location as string}
 												</p>
 											</div>
 											<div className="flex items-center gap-1.5 text-sm text-muted-foreground">
 												<Calendar className="size-3.5" />
 												<span>
-													{job.startDate} — {job.endDate || "Present"}
+													{(job as Record<string, any>).startDate as string} —{" "}
+													{(job as Record<string, any>).endDate
+														? ((job as Record<string, any>).endDate as string)
+														: "Present"}
 												</span>
 											</div>
 										</div>
 									</CardHeader>
 									<CardContent className="space-y-4">
 										<p className="text-muted-foreground leading-relaxed">
-											{job.summary}
+											{(job as Record<string, any>).summary as string}
 										</p>
-										{job.content && (
+										{(job as Record<string, any>).content && (
 											<div
 												className="text-muted-foreground prose prose-sm dark:prose-invert max-w-none leading-relaxed"
 												dangerouslySetInnerHTML={{
-													__html: marked(job.content),
+													__html: marked(
+														(job as Record<string, any>).content as string,
+													),
 												}}
 											/>
 										)}
 										<div className="flex flex-wrap gap-2 pt-2">
-											{job.tags.map((tag) => (
-												<Badge key={tag} variant="outline" className="text-xs">
-													{tag}
-												</Badge>
-											))}
+											{((job as Record<string, any>).tags as string[])?.map(
+												(tag: string) => (
+													<Badge
+														key={tag}
+														variant="outline"
+														className="text-xs"
+													>
+														{tag}
+													</Badge>
+												),
+											)}
 										</div>
 									</CardContent>
 								</Card>
