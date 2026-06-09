@@ -46,7 +46,7 @@ export default function Header() {
 
         {/* Actions */}
         <div className="flex items-center gap-1">
-          <Button
+          {/* <Button
             variant="ghost"
             size="icon"
             onClick={() => showResumeAssistant.setState(() => true)}
@@ -54,7 +54,7 @@ export default function Header() {
             className="hidden sm:inline-flex"
           >
             <MessageCircle className="size-4" />
-          </Button>
+          </Button> */}
 
           <ThemeToggle />
 
