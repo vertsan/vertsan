@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { allProjects } from "content-collections";
 import { ArrowLeft, Calendar, ExternalLink, Github } from "lucide-react";
 import { marked } from "marked";
 import { useEffect, useState } from "react";
@@ -15,6 +14,7 @@ import {
 import { Button } from "#/components/ui/button";
 import { Card, CardContent } from "#/components/ui/card";
 import { Loader2 } from "lucide-react";
+import { createProjectService } from "#/services/project.service";
 
 interface Project {
 	id?: number;
@@ -32,19 +32,24 @@ interface Project {
 }
 
 export const Route = createFileRoute("/projects/$projectId")({
+	loader: async ({ params }) => {
+		const all = await createProjectService().list();
+		return all.find((p) => p.slug === params.projectId) ?? null;
+	},
 	component: ProjectDetail,
 });
 
 function ProjectDetail() {
+	const serverProject = Route.useLoaderData();
 	const { projectId } = Route.useParams();
 
-	const [project, setProject] = useState<Project | undefined>(() =>
-		allProjects.find((p: Project) => p.slug === projectId) as Project | undefined,
+	const [project, setProject] = useState<Project | undefined>(
+		serverProject ?? undefined,
 	);
-	const [loading, setLoading] = useState(!project);
+	const [loading, setLoading] = useState(!serverProject);
 
 	useEffect(() => {
-		if (project) return;
+		if (serverProject) return;
 
 		fetch("/api/public", {
 			method: "POST",
@@ -60,7 +65,7 @@ function ProjectDetail() {
 			})
 			.catch(() => {})
 			.finally(() => setLoading(false));
-	}, [projectId, project]);
+	}, [projectId, serverProject]);
 
 	if (loading) {
 		return (

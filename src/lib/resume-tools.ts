@@ -1,11 +1,10 @@
 import { toolDefinition } from "@tanstack/ai";
-import {
-	allCertificates,
-	allEducations,
-	allJobs,
-	allProjects,
-} from "content-collections";
 import { z } from "zod";
+
+import { createCertificateService } from "#/services/certificate.service";
+import { createEducationService } from "#/services/education.service";
+import { createJobService } from "#/services/job.service";
+import { createProjectService } from "#/services/project.service";
 
 // Tool definition for getting jobs by skill
 export const getJobsBySkillToolDef = toolDefinition({
@@ -34,10 +33,22 @@ export const getJobsBySkillToolDef = toolDefinition({
 });
 
 // Server implementation
-export const getJobsBySkill = getJobsBySkillToolDef.server(({ skill }) => {
-	return allJobs.filter((job) =>
-		job.tags.some((tag) => tag.toLowerCase().includes(skill.toLowerCase())),
-	);
+export const getJobsBySkill = getJobsBySkillToolDef.server(async ({ skill }) => {
+	const jobs = await createJobService().list();
+	return jobs
+		.filter((job) =>
+			job.tags.some((tag) => tag.toLowerCase().includes(skill.toLowerCase())),
+		)
+		.map((job) => ({
+			jobTitle: job.jobTitle,
+			company: job.company,
+			location: job.location,
+			startDate: job.startDate,
+			endDate: job.endDate ?? undefined,
+			summary: job.summary,
+			tags: job.tags,
+			content: job.content,
+		}));
 });
 
 // Tool definition for getting all jobs
@@ -61,13 +72,14 @@ export const getAllJobsToolDef = toolDefinition({
 });
 
 // Server implementation
-export const getAllJobs = getAllJobsToolDef.server(() => {
-	return allJobs.map((job) => ({
+export const getAllJobs = getAllJobsToolDef.server(async () => {
+	const jobs = await createJobService().list();
+	return jobs.map((job) => ({
 		jobTitle: job.jobTitle,
 		company: job.company,
 		location: job.location,
 		startDate: job.startDate,
-		endDate: job.endDate,
+			endDate: job.endDate ?? undefined,
 		summary: job.summary,
 		tags: job.tags,
 		content: job.content,
@@ -93,12 +105,13 @@ export const getAllEducationToolDef = toolDefinition({
 });
 
 // Server implementation
-export const getAllEducation = getAllEducationToolDef.server(() => {
-	return allEducations.map((education) => ({
+export const getAllEducation = getAllEducationToolDef.server(async () => {
+	const items = await createEducationService().list();
+	return items.map((education) => ({
 		school: education.school,
 		summary: education.summary,
 		startDate: education.startDate,
-		endDate: education.endDate,
+		endDate: education.endDate ?? undefined,
 		tags: education.tags,
 		content: education.content,
 	}));
@@ -133,10 +146,11 @@ export const searchExperienceToolDef = toolDefinition({
 });
 
 // Server implementation
-export const searchExperience = searchExperienceToolDef.server(({ query }) => {
+export const searchExperience = searchExperienceToolDef.server(async ({ query }) => {
 	const lowerQuery = query.toLowerCase();
+	const jobs = await createJobService().list();
 
-	return allJobs
+	return jobs
 		.map((job) => {
 			const matchedIn: string[] = [];
 
@@ -161,7 +175,7 @@ export const searchExperience = searchExperienceToolDef.server(({ query }) => {
 			company: job.company,
 			location: job.location,
 			startDate: job.startDate,
-			endDate: job.endDate,
+		endDate: job.endDate ?? undefined,
 			summary: job.summary,
 			tags: job.tags,
 			matchedIn,
@@ -185,8 +199,9 @@ export const getAllProjectsToolDef = toolDefinition({
 	),
 });
 
-export const getAllProjects = getAllProjectsToolDef.server(() => {
-	return allProjects.map((project) => ({
+export const getAllProjects = getAllProjectsToolDef.server(async () => {
+	const projects = await createProjectService().list();
+	return projects.map((project) => ({
 		title: project.title,
 		summary: project.summary,
 		tags: project.tags,
@@ -212,8 +227,9 @@ export const getAllCertificatesToolDef = toolDefinition({
 	),
 });
 
-export const getAllCertificates = getAllCertificatesToolDef.server(() => {
-	return allCertificates.map((cert) => ({
+export const getAllCertificates = getAllCertificatesToolDef.server(async () => {
+	const certs = await createCertificateService().list();
+	return certs.map((cert) => ({
 		title: cert.title,
 		issuer: cert.issuer,
 		date: cert.date,

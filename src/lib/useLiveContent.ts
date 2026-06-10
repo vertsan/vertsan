@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useInitialData } from "#/lib/data-context";
 
 interface LiveContentResult<T> {
 	items: T[];
@@ -11,11 +12,14 @@ const cache = new Map<string, unknown[]>();
 
 export function useLiveContent<T>(
 	collection: string,
-	initialData: T[],
+	ssrFallback?: T[],
 ): LiveContentResult<T> {
+	const ssrData = useInitialData<T>(collection as any);
+	const initial = ssrData.length > 0 ? ssrData : ssrFallback ?? [];
+
 	const [items, setItems] = useState<T[]>(() => {
 		if (cache.has(collection)) return cache.get(collection) as T[];
-		return initialData;
+		return initial;
 	});
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);

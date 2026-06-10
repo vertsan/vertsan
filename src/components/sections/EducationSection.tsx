@@ -1,12 +1,50 @@
-import { allEducations } from "content-collections";
 import { Calendar, GraduationCap } from "lucide-react";
 import { marked } from "marked";
 import { Badge } from "#/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
+import { Skeleton } from "#/components/ui/skeleton";
 import { useLiveContent } from "#/lib/useLiveContent";
 
+function EducationShimmer() {
+	return (
+		<section className="py-24 px-6 bg-muted/30">
+			<div className="max-w-4xl mx-auto space-y-12">
+				<div className="text-center space-y-4">
+					<Skeleton className="h-10 w-40 mx-auto" />
+					<Skeleton className="h-5 w-64 mx-auto" />
+				</div>
+				<div className="space-y-6">
+					{[...Array(2)].map((_, i) => (
+						<Card key={i} className="border shadow-sm">
+							<CardHeader>
+								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+									<div className="space-y-2">
+										<Skeleton className="h-6 w-48" />
+										<Skeleton className="h-4 w-36" />
+									</div>
+									<Skeleton className="h-4 w-28" />
+								</div>
+							</CardHeader>
+							<CardContent className="space-y-3">
+								<Skeleton className="h-4 w-full" />
+								<Skeleton className="h-4 w-2/3" />
+								<div className="flex gap-2 pt-1">
+									<Skeleton className="h-5 w-16 rounded-full" />
+									<Skeleton className="h-5 w-20 rounded-full" />
+								</div>
+							</CardContent>
+						</Card>
+					))}
+				</div>
+			</div>
+		</section>
+	);
+}
+
 export default function EducationSection() {
-	const { items: education } = useLiveContent("education", allEducations);
+	const { items: education, loading } = useLiveContent<Record<string, unknown>>("education");
+
+	if (loading && education.length === 0) return <EducationShimmer />;
 
 	const sortedEducation = [...education].sort((a, b) => {
 		return (

@@ -1,12 +1,44 @@
-import { allTechnologies } from "content-collections";
 import { Badge } from "#/components/ui/badge";
+import { Skeleton } from "#/components/ui/skeleton";
 import { useLiveContent } from "#/lib/useLiveContent";
 
-export default function TechnologiesSection() {
-	const { items: technologies } = useLiveContent(
-		"technologies",
-		allTechnologies,
+function TechnologiesShimmer() {
+	return (
+		<section className="py-24 px-6">
+			<div className="max-w-5xl mx-auto space-y-16">
+				<div className="text-center space-y-4">
+					<Skeleton className="h-10 w-56 mx-auto" />
+					<Skeleton className="h-5 w-80 mx-auto" />
+				</div>
+				<div className="grid gap-6 md:grid-cols-2">
+					{[...Array(4)].map((_, i) => (
+						<div
+							key={i}
+							className="p-6 rounded-xl border bg-card text-card-foreground shadow-sm"
+						>
+							<div className="flex items-center gap-2 mb-4">
+								<Skeleton className="w-1 h-5 rounded-full" />
+								<Skeleton className="h-5 w-32" />
+							</div>
+							<div className="flex flex-wrap gap-2">
+								{[...Array(6)].map((_, j) => (
+									<Skeleton key={j} className="h-7 w-16 rounded-full" />
+								))}
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
 	);
+}
+
+export default function TechnologiesSection() {
+	const { items: technologies, loading } = useLiveContent<Record<string, unknown>>(
+		"technologies",
+	);
+
+	if (loading && technologies.length === 0) return <TechnologiesShimmer />;
 
 	const categories = [...technologies].sort((a, b) => {
 		const ca = String((a as Record<string, any>).category ?? "");
@@ -30,7 +62,7 @@ export default function TechnologiesSection() {
 				</div>
 
 				<div className="grid gap-6 md:grid-cols-2">
-					{categories.map((category, i) => (
+					{categories.map((category) => (
 						<div
 							key={(category as Record<string, any>).category as string}
 							className="group p-6 rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300"

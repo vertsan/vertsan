@@ -1,4 +1,3 @@
-import { allCertificates } from "content-collections";
 import { Award, Calendar, ExternalLink } from "lucide-react";
 import { Badge } from "#/components/ui/badge";
 import {
@@ -8,10 +7,53 @@ import {
 	CardHeader,
 	CardTitle,
 } from "#/components/ui/card";
+import { Skeleton } from "#/components/ui/skeleton";
 import { useLiveContent } from "#/lib/useLiveContent";
 
+function CertificatesShimmer() {
+	return (
+		<section className="py-24 px-6 bg-muted/30">
+			<div className="max-w-5xl mx-auto space-y-12">
+				<div className="text-center space-y-4">
+					<Skeleton className="h-10 w-44 mx-auto" />
+					<Skeleton className="h-5 w-64 mx-auto" />
+				</div>
+				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+					{[...Array(3)].map((_, i) => (
+						<Card key={i} className="border shadow-sm">
+							<CardHeader>
+								<div className="flex items-start gap-3">
+									<Skeleton className="size-10 rounded-lg shrink-0" />
+									<div className="space-y-2 flex-1">
+										<Skeleton className="h-5 w-40" />
+										<Skeleton className="h-4 w-28" />
+									</div>
+								</div>
+							</CardHeader>
+							<CardContent className="space-y-3">
+								<Skeleton className="h-4 w-full" />
+								<Skeleton className="h-4 w-4/5" />
+								<div className="flex items-center justify-between">
+									<Skeleton className="h-4 w-24" />
+									<Skeleton className="h-4 w-12" />
+								</div>
+								<div className="flex gap-1.5 pt-1">
+									<Skeleton className="h-5 w-14 rounded-full" />
+									<Skeleton className="h-5 w-18 rounded-full" />
+								</div>
+							</CardContent>
+						</Card>
+					))}
+				</div>
+			</div>
+		</section>
+	);
+}
+
 export default function CertificatesSection() {
-	const { items: certs } = useLiveContent("certificates", allCertificates);
+	const { items: certs, loading } = useLiveContent<Record<string, unknown>>("certificates");
+
+	if (loading && certs.length === 0) return <CertificatesShimmer />;
 
 	const sortedCerts = [...certs].sort((a, b) => {
 		return (
