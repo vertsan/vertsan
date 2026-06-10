@@ -1,5 +1,10 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import { createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import {
+	createRootRoute,
+	HeadContent,
+	Scripts,
+	useLocation,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -33,6 +38,9 @@ export const Route = createRootRoute({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const loc = useLocation();
+	const isAdmin = loc.pathname.startsWith("/admin") || loc.pathname === "/login";
+
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
@@ -40,9 +48,9 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
-				<Header />
+				{!isAdmin && <Header />}
 				{children}
-				<Footer />
+				{!isAdmin && <Footer />}
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",
