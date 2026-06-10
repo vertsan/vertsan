@@ -59,7 +59,7 @@ export const collectionConfig = {
 			{ name: "status", label: "Status", type: "text", required: true },
 			{ name: "startDate", label: "Start Date", type: "text", required: true },
 			{ name: "endDate", label: "End Date", type: "text", required: true },
-			{ name: "image", label: "Image", type: "text" },
+			{ name: "image", label: "Image", type: "file" },
 			{ name: "link", label: "Link", type: "text" },
 			{ name: "github", label: "GitHub", type: "text" },
 			{ name: "tags", label: "Tags", type: "tags", required: true },

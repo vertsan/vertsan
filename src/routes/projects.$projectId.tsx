@@ -71,6 +71,16 @@ function ProjectDetail() {
 					</Button>
 				</div>
 
+				{project.image && (
+					<div className="rounded-xl overflow-hidden border border-border shadow-sm">
+						<img
+							src={project.image}
+							alt={project.title}
+							className="w-full aspect-[21/9] object-cover"
+						/>
+					</div>
+				)}
+
 				<div className="space-y-4">
 					<div className="flex items-start justify-between gap-4 flex-wrap">
 						<h1 className="text-3xl md:text-4xl font-bold tracking-tight">

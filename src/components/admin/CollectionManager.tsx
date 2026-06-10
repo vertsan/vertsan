@@ -7,11 +7,13 @@ import {
 	Eye,
 	FolderKanban,
 	GraduationCap,
+	ImageIcon,
 	Loader2,
 	Pencil,
 	Plus,
 	Save,
 	Trash2,
+	Upload,
 	X,
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -49,6 +51,7 @@ export default function CollectionManager({ collection, title }: Props) {
 	const [success, setSuccess] = useState("");
 	const [preview, setPreview] = useState<string | null>(null);
 	const [confirmDelete, setConfirmDelete] = useState<RecordData | null>(null);
+	const [uploadingFile, setUploadingFile] = useState<string | null>(null);
 	const formRef = useRef<HTMLDivElement>(null);
 
 	const api = useCallback(
@@ -184,6 +187,44 @@ export default function CollectionManager({ collection, title }: Props) {
 
 	function getDateValue(item: RecordData): string | null {
 		return (item.startDate as string) || (item.date as string) || null;
+	}
+
+	async function handleFileUpload(
+		fieldName: string,
+		file: File | null,
+	) {
+		if (!file) {
+			handleFieldChange(fieldName, "");
+			return;
+		}
+
+		setUploadingFile(fieldName);
+
+		try {
+			const reader = new FileReader();
+			const dataUrl = await new Promise<string>((resolve, reject) => {
+				reader.onload = () => resolve(reader.result as string);
+				reader.onerror = () => reject(new Error("Failed to read file"));
+				reader.readAsDataURL(file);
+			});
+
+			const res = await fetch("/api/admin/upload", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ name: file.name, data: dataUrl }),
+			});
+
+			const result = await res.json();
+			if (result.error) throw new Error(result.error);
+
+			handleFieldChange(fieldName, result.url);
+		} catch (err: unknown) {
+			setError(
+				err instanceof Error ? err.message : "Upload failed",
+			);
+		} finally {
+			setUploadingFile(null);
+		}
 	}
 
 	async function togglePreview() {
@@ -379,6 +420,66 @@ export default function CollectionManager({ collection, title }: Props) {
 										onChange={(v) => handleFieldChange(field.name, v)}
 										placeholder={`Add ${field.label.toLowerCase()}...`}
 									/>
+								) : field.type === "file" ? (
+									<div className="space-y-3">
+										{editing[field.name] ? (
+											<div className="relative group rounded-lg overflow-hidden border border-border">
+												<img
+													src={String(editing[field.name])}
+													alt={field.label}
+													className="w-full max-h-48 object-cover"
+												/>
+												<button
+													type="button"
+													onClick={() => handleFieldChange(field.name, "")}
+													className="absolute top-2 right-2 size-7 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/80"
+													aria-label="Remove image"
+												>
+													<X className="size-4" />
+												</button>
+											</div>
+										) : (
+											<div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
+												<ImageIcon className="size-8 mx-auto text-muted-foreground/40 mb-2" />
+												<p className="text-sm text-muted-foreground mb-3">
+													Upload an image
+												</p>
+												<label className="inline-flex cursor-pointer gap-2 items-center">
+													<input
+														type="file"
+														accept="image/*"
+														className="hidden"
+														onChange={(e) =>
+															handleFileUpload(
+																field.name,
+																e.target.files?.[0] ?? null,
+															)
+														}
+														disabled={uploadingFile === field.name}
+													/>
+													<Button
+														type="button"
+														variant="outline"
+														size="sm"
+														className="gap-2 pointer-events-none"
+														disabled={uploadingFile === field.name}
+														asChild
+													>
+														<span>
+															{uploadingFile === field.name ? (
+																<Loader2 className="size-4 animate-spin" />
+															) : (
+																<Upload className="size-4" />
+															)}
+															{uploadingFile === field.name
+																? "Uploading..."
+																: "Choose File"}
+														</span>
+													</Button>
+												</label>
+											</div>
+										)}
+									</div>
 								) : field.type === "date" ? (
 									<input
 										type="date"
