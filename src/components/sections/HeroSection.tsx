@@ -1,4 +1,5 @@
 import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 
@@ -61,10 +62,10 @@ export default function HeroSection() {
 					style={{ animationDelay: "0.3s" }}
 				>
 					<Button size="lg" className="gap-2 group shadow-sm" asChild>
-						<a href="#projects">
+						<Link to="/" hash="projects">
 							View My Work
 							<ArrowDown className="size-4 transition-transform duration-300 group-hover:translate-y-0.5" />
-						</a>
+						</Link>
 					</Button>
 					<Button
 						variant="outline"
