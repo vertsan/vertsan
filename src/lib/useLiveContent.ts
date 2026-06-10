@@ -46,8 +46,8 @@ export function useLiveContent<T>(
 	}, [collection]);
 
 	useEffect(() => {
-		fetchData();
-	}, [fetchData]);
+		if (items.length === 0) fetchData();
+	}, [items.length, fetchData]);
 
 	return { items, loading, error, refresh: fetchData };
 }
