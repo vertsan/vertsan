@@ -24,7 +24,9 @@ export const Route = createFileRoute("/api/public")({
 								return Response.json({ items });
 							}
 							case "projects": {
-								const items = await createProjectService().list();
+								const items = (await createProjectService().list()).filter(
+									(p: { slug?: string }) => p.slug,
+								);
 								return Response.json({ items });
 							}
 							case "certificates": {
@@ -43,22 +45,24 @@ export const Route = createFileRoute("/api/public")({
 						}
 					}
 
-					const [jobs, education, projects, certificates, technologies] =
-						await Promise.all([
-							createJobService().list(),
-							createEducationService().list(),
-							createProjectService().list(),
-							createCertificateService().list(),
-							createTechnologyService().list(),
-						]);
+				const [allJobs, allEducation, allProjects, allCertificates, allTechnologies] =
+					await Promise.all([
+						createJobService().list(),
+						createEducationService().list(),
+						createProjectService().list(),
+						createCertificateService().list(),
+						createTechnologyService().list(),
+					]);
 
-					return Response.json({
-						jobs,
-						education,
-						projects,
-						certificates,
-						technologies,
-					});
+				return Response.json({
+					jobs: allJobs,
+					education: allEducation,
+					projects: allProjects.filter(
+						(p: { slug?: string }) => p.slug,
+					),
+					certificates: allCertificates,
+					technologies: allTechnologies,
+				});
 				} catch (err: unknown) {
 					const message = err instanceof Error ? err.message : "Unknown error";
 					console.error("Public API error:", err);

@@ -3,6 +3,15 @@ import {
 	type NewProject,
 } from "#/repositories/project.repository";
 
+function slugify(text: string): string {
+	return text
+		.toLowerCase()
+		.replace(/[^\w\s-]/g, "")
+		.replace(/[\s_]+/g, "-")
+		.replace(/^-+|-+$/g, "")
+		|| "untitled";
+}
+
 export function createProjectService() {
 	const repo = createProjectRepository();
 
@@ -15,9 +24,10 @@ export function createProjectService() {
 	}
 
 	function create(data: Record<string, unknown>) {
+		const rawSlug = String(data.slug ?? "").trim();
 		const input: NewProject = {
 			title: String(data.title ?? ""),
-			slug: String(data.slug ?? ""),
+			slug: rawSlug || slugify(String(data.title ?? "")),
 			summary: String(data.summary ?? ""),
 			status: String(data.status ?? ""),
 			startDate: String(data.startDate ?? ""),
@@ -34,7 +44,7 @@ export function createProjectService() {
 	function update(id: number, data: Partial<Record<string, unknown>>) {
 		const input: Partial<NewProject> = { updatedAt: new Date() };
 		if (data.title !== undefined) input.title = String(data.title);
-		if (data.slug !== undefined) input.slug = String(data.slug);
+		if (data.slug !== undefined) input.slug = String(data.slug).trim() || undefined;
 		if (data.summary !== undefined) input.summary = String(data.summary);
 		if (data.status !== undefined) input.status = String(data.status);
 		if (data.startDate !== undefined) input.startDate = String(data.startDate);
