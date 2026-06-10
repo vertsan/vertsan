@@ -112,23 +112,25 @@ export default function ProjectsSection() {
 										</a>
 									)}
 								</div>
-								<Button
-									variant="ghost"
-									size="sm"
-									className="gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-									asChild
-								>
-									<Link
-										to="/projects/$projectId"
-										params={{
-											projectId: (project as Record<string, any>)
-												.slug as string,
-										}}
+								{(project as Record<string, any>).slug && (
+									<Button
+										variant="ghost"
+										size="sm"
+										className="gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+										asChild
 									>
-										Details
-										<ArrowUpRight className="size-3.5" />
-									</Link>
-								</Button>
+										<Link
+											to="/projects/$projectId"
+											params={{
+												projectId: (project as Record<string, any>)
+													.slug as string,
+											}}
+										>
+											Details
+											<ArrowUpRight className="size-3.5" />
+										</Link>
+									</Button>
+								)}
 							</CardFooter>
 						</Card>
 					))}

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { allProjects } from "content-collections";
 import { ArrowLeft, Calendar, ExternalLink, Github } from "lucide-react";
 import { marked } from "marked";
+import { useEffect, useState } from "react";
 import { Badge } from "#/components/ui/badge";
 import {
 	Breadcrumb,
@@ -13,6 +14,22 @@ import {
 } from "#/components/ui/breadcrumb";
 import { Button } from "#/components/ui/button";
 import { Card, CardContent } from "#/components/ui/card";
+import { Loader2 } from "lucide-react";
+
+interface Project {
+	id?: number;
+	title: string;
+	slug: string;
+	summary: string;
+	status: string;
+	startDate: string;
+	endDate: string;
+	image?: string | null;
+	link?: string | null;
+	github?: string | null;
+	tags: string[];
+	content: string;
+}
 
 export const Route = createFileRoute("/projects/$projectId")({
 	component: ProjectDetail,
@@ -21,11 +38,41 @@ export const Route = createFileRoute("/projects/$projectId")({
 function ProjectDetail() {
 	const { projectId } = Route.useParams();
 
-	const project = allProjects.find((p) => p.slug === projectId);
+	const [project, setProject] = useState<Project | undefined>(() =>
+		allProjects.find((p: Project) => p.slug === projectId) as Project | undefined,
+	);
+	const [loading, setLoading] = useState(!project);
+
+	useEffect(() => {
+		if (project) return;
+
+		fetch("/api/public", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ collection: "projects" }),
+		})
+			.then((r) => r.json())
+			.then((data) => {
+				const found = (data.items ?? []).find(
+					(p: Project) => p.slug === projectId,
+				);
+				if (found) setProject(found);
+			})
+			.catch(() => {})
+			.finally(() => setLoading(false));
+	}, [projectId, project]);
+
+	if (loading) {
+		return (
+			<main className="min-h-[60vh] flex items-center justify-center">
+				<Loader2 className="size-6 animate-spin text-muted-foreground" />
+			</main>
+		);
+	}
 
 	if (!project) {
 		return (
-			<div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+			<main className="flex flex-col items-center justify-center min-h-[60vh] gap-4 px-6 text-center">
 				<h1 className="text-4xl font-bold">Project Not Found</h1>
 				<p className="text-muted-foreground">
 					The project you're looking for doesn't exist.
@@ -33,7 +80,7 @@ function ProjectDetail() {
 				<Button asChild>
 					<Link to="/">Back to Home</Link>
 				</Button>
-			</div>
+			</main>
 		);
 	}
 

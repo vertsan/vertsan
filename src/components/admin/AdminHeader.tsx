@@ -80,25 +80,30 @@ export default function AdminHeader({
 					)}
 					<Breadcrumb className="truncate">
 						<BreadcrumbList>
-							{crumbs.map((crumb, i) => (
-								<BreadcrumbItem key={crumb.label}>
-									{crumb.to ? (
-										<BreadcrumbLink asChild>
-											<Link
-												to={crumb.to}
-												className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-											>
+							{crumbs.flatMap((crumb, i) => {
+								const item = (
+									<BreadcrumbItem key={crumb.label}>
+										{crumb.to ? (
+											<BreadcrumbLink asChild>
+												<Link
+													to={crumb.to}
+													className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+												>
+													{crumb.label}
+												</Link>
+											</BreadcrumbLink>
+										) : (
+											<BreadcrumbPage className="text-sm font-medium">
 												{crumb.label}
-											</Link>
-										</BreadcrumbLink>
-									) : (
-										<BreadcrumbPage className="text-sm font-medium">
-											{crumb.label}
-										</BreadcrumbPage>
-									)}
-									{i < crumbs.length - 1 && <BreadcrumbSeparator />}
-								</BreadcrumbItem>
-							))}
+											</BreadcrumbPage>
+										)}
+									</BreadcrumbItem>
+								);
+								if (i < crumbs.length - 1) {
+									return [item, <BreadcrumbSeparator key={`sep-${crumb.label}`} />];
+								}
+								return [item];
+							})}
 						</BreadcrumbList>
 					</Breadcrumb>
 				</div>
