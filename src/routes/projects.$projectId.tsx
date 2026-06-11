@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Calendar, ExternalLink, Github } from "lucide-react";
 import { marked } from "marked";
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
 import { Badge } from "#/components/ui/badge";
 import {
 	Breadcrumb,
@@ -67,17 +66,20 @@ function ProjectDetail() {
 
 	useEffect(() => {
 		if (!project || !contentRef.current) return;
-		const el = contentRef.current;
-		const ctx = gsap.context(() => {
-			gsap.from(el.children, {
-				y: 24,
-				opacity: 0,
-				duration: 0.5,
-				stagger: 0.06,
-				ease: "power2.out",
+		let ctx: gsap.Context | undefined;
+		import("gsap").then(({ default: gsap }) => {
+			if (!contentRef.current) return;
+			ctx = gsap.context(() => {
+				gsap.from(contentRef.current!.children, {
+					y: 24,
+					opacity: 0,
+					duration: 0.5,
+					stagger: 0.06,
+					ease: "power2.out",
+				});
 			});
 		});
-		return () => ctx.revert();
+		return () => ctx?.revert();
 	}, [project]);
 
 	if (loading) {
