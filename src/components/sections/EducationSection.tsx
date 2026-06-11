@@ -1,9 +1,20 @@
+import { useMemo } from "react";
 import { Calendar, GraduationCap } from "lucide-react";
 import { marked } from "marked";
 import { Badge } from "#/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
 import { useLiveContent } from "#/lib/useLiveContent";
+
+interface Education {
+	id?: number;
+	school: string;
+	summary: string;
+	startDate: string;
+	endDate: string | null;
+	tags: string[];
+	content: string;
+}
 
 function EducationShimmer() {
 	return (
@@ -41,17 +52,22 @@ function EducationShimmer() {
 	);
 }
 
+const renderContent = (content: string) =>
+	marked(content, { async: false });
+
 export default function EducationSection() {
-	const { items: education, loading } = useLiveContent<Record<string, unknown>>("education");
+	const { items: education, loading } = useLiveContent<Education>("education");
+
+	const sortedEducation = useMemo(
+		() =>
+			[...education].sort(
+				(a, b) =>
+					new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
+			),
+		[education],
+	);
 
 	if (loading && education.length === 0) return <EducationShimmer />;
-
-	const sortedEducation = [...education].sort((a, b) => {
-		return (
-			new Date((b as Record<string, unknown>).startDate as string).getTime() -
-			new Date((a as Record<string, unknown>).startDate as string).getTime()
-		);
-	});
 
 	return (
 		<section
@@ -71,7 +87,7 @@ export default function EducationSection() {
 				<div className="space-y-6">
 					{sortedEducation.map((edu) => (
 						<Card
-							key={(edu as Record<string, any>).school as string}
+							key={edu.school}
 							className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300"
 						>
 							<CardHeader>
@@ -80,47 +96,40 @@ export default function EducationSection() {
 										<div className="flex items-center gap-2">
 											<GraduationCap className="size-4 text-primary shrink-0" />
 											<CardTitle className="text-xl">
-												{(edu as Record<string, any>).school as string}
+												{edu.school}
 											</CardTitle>
 										</div>
 										<p className="text-muted-foreground font-medium">
-											{(edu as Record<string, any>).summary as string}
+											{edu.summary}
 										</p>
 									</div>
 									<div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
 										<Calendar className="size-3.5" />
 										<span>
-											{(edu as Record<string, any>).startDate as string} —{" "}
-											{(edu as Record<string, any>).endDate
-												? ((edu as Record<string, any>).endDate as string)
-												: "Present"}
+											{edu.startDate} — {edu.endDate ?? "Present"}
 										</span>
 									</div>
 								</div>
 							</CardHeader>
 							<CardContent className="space-y-4">
-								{(edu as Record<string, any>).content && (
+								{edu.content && (
 									<div
-										className="text-muted-foreground prose prose-sm dark:prose-invert max-w-none leading-relaxed"
+										className="text-muted-foreground/80 text-sm space-y-1.5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:leading-relaxed [&_p]:mb-0"
 										dangerouslySetInnerHTML={{
-											__html: marked(
-												(edu as Record<string, any>).content as string,
-											),
+											__html: renderContent(edu.content),
 										}}
 									/>
 								)}
 								<div className="flex flex-wrap gap-2">
-									{((edu as Record<string, any>).tags as string[])?.map(
-										(tag: string) => (
-											<Badge
-												key={tag}
-												variant="outline"
-												className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
-											>
-												{tag}
-											</Badge>
-										),
-									)}
+									{edu.tags?.map((tag) => (
+										<Badge
+											key={tag}
+											variant="outline"
+											className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+										>
+											{tag}
+										</Badge>
+									))}
 								</div>
 							</CardContent>
 						</Card>

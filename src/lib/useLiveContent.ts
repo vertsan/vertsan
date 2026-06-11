@@ -10,6 +10,15 @@ interface LiveContentResult<T> {
 
 const cache = new Map<string, unknown[]>();
 
+export function getCache<T>(collection: string): T[] | null {
+	const entry = cache.get(collection);
+	return entry ? (entry as T[]) : null;
+}
+
+export function setCache<T>(collection: string, data: T[]): void {
+	cache.set(collection, data);
+}
+
 export function useLiveContent<T>(
 	collection: string,
 	ssrFallback?: T[],

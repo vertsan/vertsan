@@ -1,9 +1,22 @@
+import { useMemo } from "react";
 import { Briefcase, Calendar } from "lucide-react";
 import { marked } from "marked";
 import { Badge } from "#/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
 import { useLiveContent } from "#/lib/useLiveContent";
+
+interface Job {
+	id?: number;
+	jobTitle: string;
+	company: string;
+	location: string;
+	summary: string;
+	startDate: string;
+	endDate: string | null;
+	tags: string[];
+	content: string;
+}
 
 function ExperienceShimmer() {
 	return (
@@ -42,17 +55,22 @@ function ExperienceShimmer() {
 	);
 }
 
+const renderContent = (content: string) =>
+	marked(content, { async: false });
+
 export default function ExperienceSection() {
-	const { items: jobs, loading } = useLiveContent<Record<string, unknown>>("jobs");
+	const { items: jobs, loading } = useLiveContent<Job>("jobs");
+
+	const sortedJobs = useMemo(
+		() =>
+			[...jobs].sort(
+				(a, b) =>
+					new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
+			),
+		[jobs],
+	);
 
 	if (loading && jobs.length === 0) return <ExperienceShimmer />;
-
-	const sortedJobs = [...jobs].sort((a, b) => {
-		return (
-			new Date(b.startDate as string).getTime() -
-			new Date(a.startDate as string).getTime()
-		);
-	});
 
 	return (
 		<section
@@ -75,7 +93,7 @@ export default function ExperienceSection() {
 					<div className="space-y-8">
 						{sortedJobs.map((job) => (
 							<div
-								key={(job as Record<string, any>).jobTitle as string}
+								key={job.jobTitle}
 								className="relative pl-0 md:pl-20"
 							>
 								<div className="absolute left-[1.85rem] top-6 w-3.5 h-3.5 rounded-full bg-primary border-[3px] border-background hidden md:block shadow-sm" />
@@ -87,52 +105,45 @@ export default function ExperienceSection() {
 												<div className="flex items-center gap-2">
 													<Briefcase className="size-4 text-primary shrink-0" />
 													<CardTitle className="text-xl">
-														{(job as Record<string, any>).jobTitle as string}
+														{job.jobTitle}
 													</CardTitle>
 												</div>
 												<p className="text-primary font-medium">
-													{(job as Record<string, any>).company as string}{" "}
-													&middot;{" "}
-													{(job as Record<string, any>).location as string}
+													{job.company} &middot; {job.location}
 												</p>
 											</div>
 											<div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
 												<Calendar className="size-3.5" />
 												<span>
-													{(job as Record<string, any>).startDate as string} —{" "}
-													{(job as Record<string, any>).endDate
-														? ((job as Record<string, any>).endDate as string)
-														: "Present"}
+													{job.startDate} — {job.endDate ?? "Present"}
 												</span>
 											</div>
 										</div>
 									</CardHeader>
 									<CardContent className="space-y-4">
 										<p className="text-muted-foreground leading-relaxed">
-											{(job as Record<string, any>).summary as string}
+											{job.summary}
 										</p>
-										{(job as Record<string, any>).content && (
+
+										{job.content && (
 											<div
-												className="text-muted-foreground prose prose-sm dark:prose-invert max-w-none leading-relaxed"
+												className="text-muted-foreground/80 text-sm space-y-1.5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:leading-relaxed [&_p]:mb-0"
 												dangerouslySetInnerHTML={{
-													__html: marked(
-														(job as Record<string, any>).content as string,
-													),
+													__html: renderContent(job.content),
 												}}
 											/>
 										)}
+
 										<div className="flex flex-wrap gap-2 pt-2">
-											{((job as Record<string, any>).tags as string[])?.map(
-												(tag: string) => (
-													<Badge
-														key={tag}
-														variant="outline"
-														className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
-													>
-														{tag}
-													</Badge>
-												),
-											)}
+											{job.tags?.map((tag) => (
+												<Badge
+													key={tag}
+													variant="outline"
+													className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+												>
+													{tag}
+												</Badge>
+											))}
 										</div>
 									</CardContent>
 								</Card>

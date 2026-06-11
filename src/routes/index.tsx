@@ -25,7 +25,11 @@ function Home() {
 	const [data, setData] = useState<InitialData>(EMPTY);
 
 	useEffect(() => {
-		fetch("/api/public", { method: "POST" })
+		fetch("/api/public", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: "{}",
+		})
 			.then((r) => r.json())
 			.then((json) => {
 				if (!json.error) setData(json);

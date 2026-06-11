@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Calendar, ExternalLink, Github } from "lucide-react";
 import { marked } from "marked";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { Badge } from "#/components/ui/badge";
 import {
 	Breadcrumb,
@@ -14,6 +15,7 @@ import {
 import { Button } from "#/components/ui/button";
 import { Card, CardContent } from "#/components/ui/card";
 import { Loader2 } from "lucide-react";
+import { getCache } from "#/lib/useLiveContent";
 
 interface Project {
 	id?: number;
@@ -37,10 +39,16 @@ export const Route = createFileRoute("/projects/$projectId")({
 function ProjectDetail() {
 	const { projectId } = Route.useParams();
 
-	const [project, setProject] = useState<Project | undefined>();
-	const [loading, setLoading] = useState(true);
+	const [project, setProject] = useState<Project | undefined>(() => {
+		const cached = getCache<Project>("projects");
+		if (cached) return cached.find((p) => p.slug === projectId);
+	});
+	const [loading, setLoading] = useState(!project);
+	const contentRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
+		if (project) return;
+
 		fetch("/api/public", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -55,7 +63,22 @@ function ProjectDetail() {
 			})
 			.catch(() => {})
 			.finally(() => setLoading(false));
-	}, [projectId]);
+	}, [projectId, project]);
+
+	useEffect(() => {
+		if (!project || !contentRef.current) return;
+		const el = contentRef.current;
+		const ctx = gsap.context(() => {
+			gsap.from(el.children, {
+				y: 24,
+				opacity: 0,
+				duration: 0.5,
+				stagger: 0.06,
+				ease: "power2.out",
+			});
+		});
+		return () => ctx.revert();
+	}, [project]);
 
 	if (loading) {
 		return (
@@ -81,7 +104,7 @@ function ProjectDetail() {
 
 	return (
 		<main className="min-h-screen py-16 px-6">
-			<div className="max-w-5xl mx-auto space-y-8">
+			<div ref={contentRef} className="max-w-5xl mx-auto space-y-8">
 				<div className="flex items-center justify-between">
 					<Breadcrumb>
 						<BreadcrumbList>
