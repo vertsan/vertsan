@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Calendar, ExternalLink, Github } from "lucide-react";
 import { marked } from "marked";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "#/components/ui/badge";
 import {
 	Breadcrumb,
@@ -43,7 +43,6 @@ function ProjectDetail() {
 		if (cached) return cached.find((p) => p.slug === projectId);
 	});
 	const [loading, setLoading] = useState(!project);
-	const contentRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (project) return;
@@ -63,24 +62,6 @@ function ProjectDetail() {
 			.catch(() => {})
 			.finally(() => setLoading(false));
 	}, [projectId, project]);
-
-	useEffect(() => {
-		if (!project || !contentRef.current) return;
-		let ctx: gsap.Context | undefined;
-		import("gsap").then(({ default: gsap }) => {
-			if (!contentRef.current) return;
-			ctx = gsap.context(() => {
-				gsap.from(contentRef.current!.children, {
-					y: 24,
-					opacity: 0,
-					duration: 0.5,
-					stagger: 0.06,
-					ease: "power2.out",
-				});
-			});
-		});
-		return () => ctx?.revert();
-	}, [project]);
 
 	if (loading) {
 		return (
@@ -106,7 +87,7 @@ function ProjectDetail() {
 
 	return (
 		<main className="min-h-screen py-16 px-6">
-			<div ref={contentRef} className="max-w-5xl mx-auto space-y-8">
+			<div className="max-w-5xl mx-auto space-y-8">
 				<div className="flex items-center justify-between">
 					<Breadcrumb>
 						<BreadcrumbList>
