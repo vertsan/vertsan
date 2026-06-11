@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TechnologiesRouteImport } from './routes/technologies'
+import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ExperienceRouteImport } from './routes/experience'
+import { Route as EducationRouteImport } from './routes/education'
+import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
 import { Route as ApiResumeChatRouteImport } from './routes/api.resume-chat'
@@ -26,9 +32,34 @@ import { Route as AdminCertificatesRouteImport } from './routes/admin.certificat
 import { Route as ApiAdminUploadRouteImport } from './routes/api.admin.upload'
 import { Route as ApiAdminLoginRouteImport } from './routes/api.admin.login'
 
+const TechnologiesRoute = TechnologiesRouteImport.update({
+  id: '/technologies',
+  path: '/technologies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperienceRoute = ExperienceRouteImport.update({
+  id: '/experience',
+  path: '/experience',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EducationRoute = EducationRouteImport.update({
+  id: '/education',
+  path: '/education',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CertificatesRoute = CertificatesRouteImport.update({
+  id: '/certificates',
+  path: '/certificates',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -46,15 +77,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ProjectsRoute,
+} as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
 const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
-  id: '/projects/$projectId',
-  path: '/projects/$projectId',
-  getParentRoute: () => rootRouteImport,
+  id: '/$projectId',
+  path: '/$projectId',
+  getParentRoute: () => ProjectsRoute,
 } as any)
 const ApiResumeChatRoute = ApiResumeChatRouteImport.update({
   id: '/api/resume-chat',
@@ -111,7 +147,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/certificates': typeof CertificatesRoute
+  '/education': typeof EducationRoute
+  '/experience': typeof ExperienceRoute
   '/login': typeof LoginRoute
+  '/projects': typeof ProjectsRouteWithChildren
+  '/technologies': typeof TechnologiesRoute
   '/admin/certificates': typeof AdminCertificatesRoute
   '/admin/education': typeof AdminEducationRoute
   '/admin/jobs': typeof AdminJobsRoute
@@ -122,13 +163,18 @@ export interface FileRoutesByFullPath {
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/admin/': typeof AdminIndexRoute
+  '/projects/': typeof ProjectsIndexRoute
   '/api/admin/login': typeof ApiAdminLoginRoute
   '/api/admin/upload': typeof ApiAdminUploadRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/certificates': typeof CertificatesRoute
+  '/education': typeof EducationRoute
+  '/experience': typeof ExperienceRoute
   '/login': typeof LoginRoute
+  '/technologies': typeof TechnologiesRoute
   '/admin/certificates': typeof AdminCertificatesRoute
   '/admin/education': typeof AdminEducationRoute
   '/admin/jobs': typeof AdminJobsRoute
@@ -139,6 +185,7 @@ export interface FileRoutesByTo {
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/admin': typeof AdminIndexRoute
+  '/projects': typeof ProjectsIndexRoute
   '/api/admin/login': typeof ApiAdminLoginRoute
   '/api/admin/upload': typeof ApiAdminUploadRoute
 }
@@ -147,7 +194,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRouteWithChildren
+  '/certificates': typeof CertificatesRoute
+  '/education': typeof EducationRoute
+  '/experience': typeof ExperienceRoute
   '/login': typeof LoginRoute
+  '/projects': typeof ProjectsRouteWithChildren
+  '/technologies': typeof TechnologiesRoute
   '/admin/certificates': typeof AdminCertificatesRoute
   '/admin/education': typeof AdminEducationRoute
   '/admin/jobs': typeof AdminJobsRoute
@@ -158,6 +210,7 @@ export interface FileRoutesById {
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/admin/': typeof AdminIndexRoute
+  '/projects/': typeof ProjectsIndexRoute
   '/api/admin/login': typeof ApiAdminLoginRoute
   '/api/admin/upload': typeof ApiAdminUploadRoute
 }
@@ -167,7 +220,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/certificates'
+    | '/education'
+    | '/experience'
     | '/login'
+    | '/projects'
+    | '/technologies'
     | '/admin/certificates'
     | '/admin/education'
     | '/admin/jobs'
@@ -178,13 +236,18 @@ export interface FileRouteTypes {
     | '/api/resume-chat'
     | '/projects/$projectId'
     | '/admin/'
+    | '/projects/'
     | '/api/admin/login'
     | '/api/admin/upload'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/certificates'
+    | '/education'
+    | '/experience'
     | '/login'
+    | '/technologies'
     | '/admin/certificates'
     | '/admin/education'
     | '/admin/jobs'
@@ -195,6 +258,7 @@ export interface FileRouteTypes {
     | '/api/resume-chat'
     | '/projects/$projectId'
     | '/admin'
+    | '/projects'
     | '/api/admin/login'
     | '/api/admin/upload'
   id:
@@ -202,7 +266,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/certificates'
+    | '/education'
+    | '/experience'
     | '/login'
+    | '/projects'
+    | '/technologies'
     | '/admin/certificates'
     | '/admin/education'
     | '/admin/jobs'
@@ -213,6 +282,7 @@ export interface FileRouteTypes {
     | '/api/resume-chat'
     | '/projects/$projectId'
     | '/admin/'
+    | '/projects/'
     | '/api/admin/login'
     | '/api/admin/upload'
   fileRoutesById: FileRoutesById
@@ -221,20 +291,59 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRouteWithChildren
+  CertificatesRoute: typeof CertificatesRoute
+  EducationRoute: typeof EducationRoute
+  ExperienceRoute: typeof ExperienceRoute
   LoginRoute: typeof LoginRoute
+  ProjectsRoute: typeof ProjectsRouteWithChildren
+  TechnologiesRoute: typeof TechnologiesRoute
   ApiAdminRoute: typeof ApiAdminRouteWithChildren
   ApiPublicRoute: typeof ApiPublicRoute
   ApiResumeChatRoute: typeof ApiResumeChatRoute
-  ProjectsProjectIdRoute: typeof ProjectsProjectIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/technologies': {
+      id: '/technologies'
+      path: '/technologies'
+      fullPath: '/technologies'
+      preLoaderRoute: typeof TechnologiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experience': {
+      id: '/experience'
+      path: '/experience'
+      fullPath: '/experience'
+      preLoaderRoute: typeof ExperienceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/education': {
+      id: '/education'
+      path: '/education'
+      fullPath: '/education'
+      preLoaderRoute: typeof EducationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/certificates': {
+      id: '/certificates'
+      path: '/certificates'
+      fullPath: '/certificates'
+      preLoaderRoute: typeof CertificatesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -258,6 +367,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/': {
+      id: '/projects/'
+      path: '/'
+      fullPath: '/projects/'
+      preLoaderRoute: typeof ProjectsIndexRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
     '/admin/': {
       id: '/admin/'
       path: '/'
@@ -267,10 +383,10 @@ declare module '@tanstack/react-router' {
     }
     '/projects/$projectId': {
       id: '/projects/$projectId'
-      path: '/projects/$projectId'
+      path: '/$projectId'
       fullPath: '/projects/$projectId'
       preLoaderRoute: typeof ProjectsProjectIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ProjectsRoute
     }
     '/api/resume-chat': {
       id: '/api/resume-chat'
@@ -365,6 +481,20 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
+interface ProjectsRouteChildren {
+  ProjectsProjectIdRoute: typeof ProjectsProjectIdRoute
+  ProjectsIndexRoute: typeof ProjectsIndexRoute
+}
+
+const ProjectsRouteChildren: ProjectsRouteChildren = {
+  ProjectsProjectIdRoute: ProjectsProjectIdRoute,
+  ProjectsIndexRoute: ProjectsIndexRoute,
+}
+
+const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
+  ProjectsRouteChildren,
+)
+
 interface ApiAdminRouteChildren {
   ApiAdminLoginRoute: typeof ApiAdminLoginRoute
   ApiAdminUploadRoute: typeof ApiAdminUploadRoute
@@ -383,11 +513,15 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRouteWithChildren,
+  CertificatesRoute: CertificatesRoute,
+  EducationRoute: EducationRoute,
+  ExperienceRoute: ExperienceRoute,
   LoginRoute: LoginRoute,
+  ProjectsRoute: ProjectsRouteWithChildren,
+  TechnologiesRoute: TechnologiesRoute,
   ApiAdminRoute: ApiAdminRouteWithChildren,
   ApiPublicRoute: ApiPublicRoute,
   ApiResumeChatRoute: ApiResumeChatRoute,
-  ProjectsProjectIdRoute: ProjectsProjectIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

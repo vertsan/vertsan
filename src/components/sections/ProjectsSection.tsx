@@ -1,13 +1,11 @@
-import { memo, useCallback, useEffect, useMemo, useRef } from "react";
+import { memo, useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
-import gsap from "gsap";
 import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import {
 	Card,
 	CardContent,
-	CardDescription,
 	CardFooter,
 	CardHeader,
 	CardTitle,
@@ -88,12 +86,10 @@ const ProjectCard = memo(function ProjectCard({
 	project: Project;
 }) {
 	return (
-		<Card className="group border shadow-sm hover:shadow-xl hover:-translate-y-1.5 hover:border-primary/15 transition-all duration-300 flex flex-col">
+		<Card className="border shadow-sm flex flex-col">
 			<CardHeader>
 				<div className="flex items-start justify-between gap-2">
-					<CardTitle className="text-lg group-hover:text-primary transition-colors duration-300">
-						{project.title}
-					</CardTitle>
+					<CardTitle className="text-lg">{project.title}</CardTitle>
 					<Badge
 						variant={project.status === "Completed" ? "default" : "secondary"}
 						className="shrink-0"
@@ -101,18 +97,14 @@ const ProjectCard = memo(function ProjectCard({
 						{project.status}
 					</Badge>
 				</div>
-				<CardDescription className="line-clamp-2">
+				<p className="text-sm text-muted-foreground mt-1 line-clamp-2">
 					{project.summary}
-				</CardDescription>
+				</p>
 			</CardHeader>
 			<CardContent className="flex-1">
 				<div className="flex flex-wrap gap-1.5">
 					{project.tags?.slice(0, 6).map((tag) => (
-						<Badge
-							key={tag}
-							variant="outline"
-							className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
-						>
+						<Badge key={tag} variant="outline" className="text-xs">
 							{tag}
 						</Badge>
 					))}
@@ -130,7 +122,7 @@ const ProjectCard = memo(function ProjectCard({
 							href={project.github}
 							target="_blank"
 							rel="noreferrer"
-							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-all duration-200"
+							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
 							aria-label="View source on GitHub"
 						>
 							<Github className="size-4" />
@@ -141,7 +133,7 @@ const ProjectCard = memo(function ProjectCard({
 							href={project.link}
 							target="_blank"
 							rel="noreferrer"
-							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-all duration-200"
+							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
 							aria-label="View live project"
 						>
 							<ExternalLink className="size-4" />
@@ -152,7 +144,7 @@ const ProjectCard = memo(function ProjectCard({
 					<Button
 						variant="ghost"
 						size="sm"
-						className="gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+						className="gap-1 text-muted-foreground"
 						asChild
 						onMouseEnter={prefetchProjects}
 					>
@@ -172,9 +164,6 @@ const ProjectCard = memo(function ProjectCard({
 
 export default function ProjectsSection() {
 	const { items: projects, loading } = useLiveContent<Project>("projects");
-	const sectionRef = useRef<HTMLElement>(null);
-	const cardsRef = useRef<HTMLDivElement>(null);
-	const titleRef = useRef<HTMLDivElement>(null);
 
 	const sortedProjects = useMemo(
 		() =>
@@ -185,78 +174,24 @@ export default function ProjectsSection() {
 		[projects],
 	);
 
-	const animate = useCallback((el: HTMLElement) => {
-		const children = el.children;
-		gsap.fromTo(
-			children,
-			{ y: 40, opacity: 0 },
-			{
-				y: 0,
-				opacity: 1,
-				duration: 0.6,
-				stagger: 0.08,
-				ease: "power3.out",
-			},
-		);
-	}, []);
-
-	useEffect(() => {
-		if (loading || sortedProjects.length === 0) return;
-
-		const titleEl = titleRef.current;
-		const cardsEl = cardsRef.current;
-		if (!titleEl && !cardsEl) return;
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (!entry.isIntersecting) continue;
-					observer.unobserve(entry.target);
-
-					if (entry.target === titleEl && titleEl) {
-						gsap.fromTo(
-							titleEl.children,
-							{ y: 30, opacity: 0 },
-							{ y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: "power3.out" },
-						);
-					}
-
-					if (entry.target === cardsEl && cardsEl) {
-						animate(cardsEl);
-					}
-				}
-			},
-			{ threshold: 0.1 },
-		);
-
-		if (titleEl) observer.observe(titleEl);
-		if (cardsEl) observer.observe(cardsEl);
-
-		return () => observer.disconnect();
-	}, [loading, sortedProjects.length, animate]);
-
 	if (loading && projects.length === 0) return <ProjectsShimmer />;
 
 	return (
 		<section
 			id="projects"
-			ref={sectionRef}
 			className="py-24 px-6 scroll-mt-20"
 		>
 			<div className="max-w-6xl mx-auto space-y-12">
-				<div ref={titleRef} className="text-center space-y-4">
+				<div className="text-center space-y-3">
 					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
 						Projects
 					</h2>
-					<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+					<p className="text-muted-foreground max-w-xl mx-auto">
 						A selection of projects I've built and contributed to
 					</p>
 				</div>
 
-				<div
-					ref={cardsRef}
-					className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-				>
+				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{sortedProjects.map((project) => (
 						<ProjectCard
 							key={project.slug ?? project.title}

@@ -116,7 +116,7 @@ function ProjectDetail() {
 							<BreadcrumbSeparator />
 							<BreadcrumbItem>
 								<BreadcrumbLink asChild>
-									<Link to="/" hash="projects">
+									<Link to="/projects">
 										Projects
 									</Link>
 								</BreadcrumbLink>
@@ -129,7 +129,7 @@ function ProjectDetail() {
 					</Breadcrumb>
 
 					<Button variant="ghost" size="sm" asChild>
-						<Link to="/" hash="projects" className="gap-2">
+						<Link to="/projects" className="gap-2">
 							<ArrowLeft className="size-4" />
 							Back
 						</Link>
