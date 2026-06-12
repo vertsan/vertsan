@@ -4,7 +4,6 @@ import {
 	Briefcase,
 	Check,
 	Cpu,
-	Eye,
 	FileIcon,
 	FolderKanban,
 	GraduationCap,
@@ -50,7 +49,7 @@ export default function CollectionManager({ collection, title }: Props) {
 	const [saving, setSaving] = useState(false);
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState("");
-	const [preview, setPreview] = useState<string | null>(null);
+	const [markdownPreview, setMarkdownPreview] = useState<string | null>(null);
 	const [confirmDelete, setConfirmDelete] = useState<RecordData | null>(null);
 	const [uploadingFile, setUploadingFile] = useState<string | null>(null);
 	const formRef = useRef<HTMLDivElement>(null);
@@ -106,7 +105,7 @@ export default function CollectionManager({ collection, title }: Props) {
 		setEditing(emptyRecord());
 		setIsNew(true);
 		setError("");
-		setPreview(null);
+		setMarkdownPreview(null);
 		setSuccess("");
 	}
 
@@ -114,7 +113,7 @@ export default function CollectionManager({ collection, title }: Props) {
 		setEditing({ ...item });
 		setIsNew(false);
 		setError("");
-		setPreview(null);
+		setMarkdownPreview(null);
 		setSuccess("");
 	}
 
@@ -122,7 +121,7 @@ export default function CollectionManager({ collection, title }: Props) {
 		setEditing(null);
 		setIsNew(false);
 		setError("");
-		setPreview(null);
+		setMarkdownPreview(null);
 		setSuccess("");
 	}
 
@@ -138,7 +137,7 @@ export default function CollectionManager({ collection, title }: Props) {
 	function handleFieldChange(name: string, value: unknown) {
 		if (!editing) return;
 		const next = { ...editing, [name]: value };
-		if (name === "title" && isNew && !editing.slug) {
+		if (name === "title" && isNew) {
 			next.slug = slugify(String(value));
 		}
 		setEditing(next);
@@ -247,15 +246,18 @@ export default function CollectionManager({ collection, title }: Props) {
 		}
 	}
 
-	async function togglePreview() {
-		if (preview) {
-			setPreview(null);
-		} else {
+	useEffect(() => {
+		if (!editing) { setMarkdownPreview(null); return; }
+		const content = String(editing.content ?? "");
+		if (!content.trim()) { setMarkdownPreview(null); return; }
+		let cancelled = false;
+		(async () => {
 			const { marked } = await import("marked");
-			const html = await marked(String(editing?.content || ""));
-			setPreview(html);
-		}
-	}
+			const html = await marked(content);
+			if (!cancelled) setMarkdownPreview(html);
+		})();
+		return () => { cancelled = true; };
+	}, [editing?.content, editing]);
 
 	if (loading) {
 		return (
@@ -403,32 +405,22 @@ export default function CollectionManager({ collection, title }: Props) {
 
 								{field.type === "markdown" ? (
 									<div className="space-y-2">
-										<div className="flex gap-2 border rounded-lg overflow-hidden">
+										<div className="grid grid-cols-2 gap-2 border rounded-lg overflow-hidden">
 											<textarea
 												value={String(editing[field.name] ?? "")}
 												onChange={(e) =>
 													handleFieldChange(field.name, e.target.value)
 												}
-												className="flex-1 min-h-[220px] p-3 text-sm font-mono bg-background border-0 focus:outline-none focus:ring-1 focus:ring-primary/20 resize-y"
+												className="min-h-[300px] p-3 text-sm font-mono bg-background border-0 focus:outline-none focus:ring-1 focus:ring-primary/20 resize-y"
 												placeholder={`${field.label} (markdown)...`}
 											/>
-											{preview && (
-												<div
-													className="flex-1 min-h-[220px] p-3 text-sm prose prose-sm dark:prose-invert max-w-none overflow-y-auto bg-muted/30"
-													dangerouslySetInnerHTML={{ __html: preview }}
-												/>
-											)}
+											<div
+												className="min-h-[300px] p-3 text-sm prose prose-sm dark:prose-invert max-w-none overflow-y-auto bg-muted/30 border-l border-border"
+												dangerouslySetInnerHTML={{
+													__html: markdownPreview ?? "",
+												}}
+											/>
 										</div>
-										<Button
-											type="button"
-											variant="ghost"
-											size="sm"
-											className="gap-2 text-xs"
-											onClick={togglePreview}
-										>
-											<Eye className="size-3.5" />
-											{preview ? "Hide Preview" : "Preview"}
-										</Button>
 									</div>
 								) : field.type === "tags" ? (
 									<TagInput

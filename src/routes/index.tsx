@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import ResumeAssistant from "#/components/ResumeAssistant";
 import HeroSection from "#/components/sections/HeroSection";
 import TechnologiesSection from "#/components/sections/TechnologiesSection";
+import ExperienceSection from "#/components/sections/ExperienceSection";
+import EducationSection from "#/components/sections/EducationSection";
 import ProjectsSection from "#/components/sections/ProjectsSection";
+import CertificatesSection from "#/components/sections/CertificatesSection";
 import { DataProvider, type InitialData } from "#/lib/data-context";
 
 const EMPTY: InitialData = {
@@ -38,8 +41,11 @@ function Home() {
 		<DataProvider data={data}>
 			<ResumeAssistant />
 			<HeroSection />
+			<ExperienceSection />
 			<TechnologiesSection />
+			<EducationSection />
 			<ProjectsSection />
+			<CertificatesSection />
 		</DataProvider>
 	);
 }

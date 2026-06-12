@@ -12,7 +12,6 @@ import {
 	BreadcrumbSeparator,
 } from "#/components/ui/breadcrumb";
 import { Button } from "#/components/ui/button";
-import { Card, CardContent } from "#/components/ui/card";
 import { Separator } from "#/components/ui/separator";
 import { Loader2 } from "lucide-react";
 import { getCache } from "#/lib/useLiveContent";
