@@ -126,9 +126,22 @@ export default function CollectionManager({ collection, title }: Props) {
 		setSuccess("");
 	}
 
+	function slugify(text: string) {
+		return text
+			.toLowerCase()
+			.replace(/[^\w\s-]/g, "")
+			.replace(/\s+/g, "-")
+			.replace(/-+/g, "-")
+			.trim();
+	}
+
 	function handleFieldChange(name: string, value: unknown) {
 		if (!editing) return;
-		setEditing({ ...editing, [name]: value });
+		const next = { ...editing, [name]: value };
+		if (name === "title" && isNew && !editing.slug) {
+			next.slug = slugify(String(value));
+		}
+		setEditing(next);
 	}
 
 	async function handleSave() {
