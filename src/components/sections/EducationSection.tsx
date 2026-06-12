@@ -53,7 +53,7 @@ function EducationShimmer() {
 }
 
 const renderContent = (content: string) =>
-	marked(content, { async: false });
+	marked(content, { async: false, breaks: true });
 
 export default function EducationSection() {
 	const { items: education, loading } = useLiveContent<Education>("education");

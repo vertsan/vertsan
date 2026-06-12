@@ -56,7 +56,7 @@ function ExperienceShimmer() {
 }
 
 const renderContent = (content: string) =>
-	marked(content, { async: false });
+	marked(content, { async: false, breaks: true });
 
 export default function ExperienceSection() {
 	const { items: jobs, loading } = useLiveContent<Job>("jobs");

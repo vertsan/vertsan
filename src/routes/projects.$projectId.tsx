@@ -172,7 +172,7 @@ function ProjectDetail() {
 				<div
 					className="prose prose-lg dark:prose-invert max-w-none leading-relaxed mb-12"
 					dangerouslySetInnerHTML={{
-						__html: marked(project.content, { async: false }),
+						__html: marked(project.content, { async: false, breaks: true }),
 					}}
 				/>
 
