@@ -1,6 +1,6 @@
 import { memo, useMemo } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Github, Smartphone, Tablet } from "lucide-react";
 import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import {
@@ -24,6 +24,8 @@ export interface Project {
 	image?: string | null;
 	link?: string | null;
 	github?: string | null;
+	downloadAndroid?: string | null;
+	downloadIos?: string | null;
 	tags: string[];
 	content: string;
 }
@@ -117,6 +119,28 @@ const ProjectCard = memo(function ProjectCard({
 			</CardContent>
 			<CardFooter className="flex items-center justify-between gap-2 pt-0">
 				<div className="flex gap-2">
+					{project.downloadAndroid && (
+						<a
+							href={project.downloadAndroid}
+							target="_blank"
+							rel="noreferrer"
+							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+							aria-label="Download APK"
+						>
+							<Smartphone className="size-4" />
+						</a>
+					)}
+					{project.downloadIos && (
+						<a
+							href={project.downloadIos}
+							target="_blank"
+							rel="noreferrer"
+							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+							aria-label="Download iOS"
+						>
+							<Tablet className="size-4" />
+						</a>
+					)}
 					{project.github && (
 						<a
 							href={project.github}

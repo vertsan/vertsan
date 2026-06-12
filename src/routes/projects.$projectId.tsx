@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Calendar, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, Calendar, ExternalLink, Github, Smartphone, Tablet } from "lucide-react";
 import { marked } from "marked";
 import { useEffect, useState } from "react";
 import { Badge } from "#/components/ui/badge";
@@ -13,6 +13,7 @@ import {
 } from "#/components/ui/breadcrumb";
 import { Button } from "#/components/ui/button";
 import { Card, CardContent } from "#/components/ui/card";
+import { Separator } from "#/components/ui/separator";
 import { Loader2 } from "lucide-react";
 import { getCache } from "#/lib/useLiveContent";
 
@@ -27,6 +28,8 @@ interface Project {
 	image?: string | null;
 	link?: string | null;
 	github?: string | null;
+	downloadAndroid?: string | null;
+	downloadIos?: string | null;
 	tags: string[];
 	content: string;
 }
@@ -85,10 +88,12 @@ function ProjectDetail() {
 		);
 	}
 
+	const hasDownloads = project.downloadAndroid || project.downloadIos;
+
 	return (
-		<main className="min-h-screen py-16 px-6">
-			<div className="max-w-5xl mx-auto space-y-8">
-				<div className="flex items-center justify-between">
+		<main className="min-h-screen">
+			<article className="max-w-4xl mx-auto px-6 py-16 lg:py-24">
+				<div className="mb-8 flex items-center justify-between">
 					<Breadcrumb>
 						<BreadcrumbList>
 							<BreadcrumbItem>
@@ -99,9 +104,7 @@ function ProjectDetail() {
 							<BreadcrumbSeparator />
 							<BreadcrumbItem>
 								<BreadcrumbLink asChild>
-									<Link to="/projects">
-										Projects
-									</Link>
+									<Link to="/projects">Projects</Link>
 								</BreadcrumbLink>
 							</BreadcrumbItem>
 							<BreadcrumbSeparator />
@@ -110,7 +113,6 @@ function ProjectDetail() {
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
-
 					<Button variant="ghost" size="sm" asChild>
 						<Link to="/projects" className="gap-2">
 							<ArrowLeft className="size-4" />
@@ -119,8 +121,47 @@ function ProjectDetail() {
 					</Button>
 				</div>
 
+				<header className="mb-10 space-y-6">
+					<div className="space-y-3">
+						<div className="flex items-start justify-between gap-4 flex-wrap">
+							<h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
+								{project.title}
+							</h1>
+							<Badge
+								variant={project.status === "Completed" ? "default" : "secondary"}
+								className="shrink-0 text-sm px-3 py-1"
+							>
+								{project.status}
+							</Badge>
+						</div>
+						<p className="text-xl text-muted-foreground leading-relaxed">
+							{project.summary}
+						</p>
+					</div>
+
+					<div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+						<div className="flex items-center gap-1.5">
+							<Calendar className="size-4" />
+							<time dateTime={project.startDate}>
+								{project.startDate}
+							</time>
+							<span>—</span>
+							<time dateTime={project.endDate}>
+								{project.endDate}
+							</time>
+						</div>
+						<div className="flex flex-wrap gap-1.5">
+							{project.tags.map((tag) => (
+								<Badge key={tag} variant="outline" className="text-xs">
+									{tag}
+								</Badge>
+							))}
+						</div>
+					</div>
+				</header>
+
 				{project.image && (
-					<div className="rounded-xl overflow-hidden border border-border shadow-sm">
+					<div className="mb-12 rounded-2xl overflow-hidden border border-border shadow-lg">
 						<img
 							src={project.image}
 							alt={project.title}
@@ -129,103 +170,99 @@ function ProjectDetail() {
 					</div>
 				)}
 
-				<div className="space-y-4">
-					<div className="flex items-start justify-between gap-4 flex-wrap">
-						<h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-							{project.title}
-						</h1>
-						<Badge
-							variant={project.status === "Completed" ? "default" : "secondary"}
-							className="shrink-0"
-						>
-							{project.status}
-						</Badge>
-					</div>
-					<p className="text-lg text-muted-foreground">{project.summary}</p>
+				<div
+					className="prose prose-lg dark:prose-invert max-w-none leading-relaxed mb-12"
+					dangerouslySetInnerHTML={{
+						__html: marked(project.content),
+					}}
+				/>
+
+				{(hasDownloads || project.github || project.link) && (
+					<>
+						<Separator className="my-12" />
+						<div className="space-y-6">
+							<h2 className="text-2xl font-bold tracking-tight">Resources</h2>
+							<div className="flex flex-wrap gap-3">
+								{project.downloadAndroid && (
+									<Button
+										variant="default"
+										size="lg"
+										className="gap-2"
+										asChild
+									>
+										<a
+											href={project.downloadAndroid}
+											target="_blank"
+											rel="noreferrer"
+										>
+											<Smartphone className="size-5" />
+											Download APK
+										</a>
+									</Button>
+								)}
+								{project.downloadIos && (
+									<Button
+										variant="default"
+										size="lg"
+										className="gap-2"
+										asChild
+									>
+										<a
+											href={project.downloadIos}
+											target="_blank"
+											rel="noreferrer"
+										>
+											<Tablet className="size-5" />
+											Download iOS
+										</a>
+									</Button>
+								)}
+								{project.github && (
+									<Button
+										variant="outline"
+										size="lg"
+										className="gap-2"
+										asChild
+									>
+										<a
+											href={project.github}
+											target="_blank"
+											rel="noreferrer"
+										>
+											<Github className="size-5" />
+											Source Code
+										</a>
+									</Button>
+								)}
+								{project.link && (
+									<Button
+										variant="outline"
+										size="lg"
+										className="gap-2"
+										asChild
+									>
+										<a href={project.link} target="_blank" rel="noreferrer">
+											<ExternalLink className="size-5" />
+											Live Demo
+										</a>
+									</Button>
+								)}
+							</div>
+						</div>
+					</>
+				)}
+
+				<Separator className="my-12" />
+
+				<div className="text-center">
+					<Button variant="ghost" asChild>
+						<Link to="/projects" className="gap-2">
+							<ArrowLeft className="size-4" />
+							Back to all projects
+						</Link>
+					</Button>
 				</div>
-
-				<div className="grid md:grid-cols-[1fr_300px] gap-8 lg:gap-12">
-					<div
-						className="prose prose-lg dark:prose-invert max-w-none leading-relaxed"
-						dangerouslySetInnerHTML={{
-							__html: marked(project.content),
-						}}
-					/>
-
-					<aside className="space-y-6">
-						<Card>
-							<CardContent className="p-5 space-y-3">
-								<h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
-									Timeline
-								</h3>
-								<div className="flex items-center gap-2 text-sm">
-									<Calendar className="size-4 shrink-0 text-muted-foreground" />
-									<span>
-										{project.startDate} — {project.endDate}
-									</span>
-								</div>
-							</CardContent>
-						</Card>
-
-						{(project.github || project.link) && (
-							<Card>
-								<CardContent className="p-5 space-y-3">
-									<h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
-										Links
-									</h3>
-									<div className="space-y-2">
-										{project.github && (
-											<Button
-												variant="outline"
-												size="sm"
-												className="gap-2 w-full justify-start"
-												asChild
-											>
-												<a
-													href={project.github}
-													target="_blank"
-													rel="noreferrer"
-												>
-													<Github className="size-4" />
-													Source Code
-												</a>
-											</Button>
-										)}
-										{project.link && (
-											<Button
-												variant="outline"
-												size="sm"
-												className="gap-2 w-full justify-start"
-												asChild
-											>
-												<a href={project.link} target="_blank" rel="noreferrer">
-													<ExternalLink className="size-4" />
-													Live Demo
-												</a>
-											</Button>
-										)}
-									</div>
-								</CardContent>
-							</Card>
-						)}
-
-						<Card>
-							<CardContent className="p-5 space-y-3">
-								<h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
-									Technologies
-								</h3>
-								<div className="flex flex-wrap gap-2">
-									{project.tags.map((tag) => (
-										<Badge key={tag} variant="secondary">
-											{tag}
-										</Badge>
-									))}
-								</div>
-							</CardContent>
-						</Card>
-					</aside>
-				</div>
-			</div>
+			</article>
 		</main>
 	);
 }

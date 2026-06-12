@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { uploadImage } from "#/lib/cloudinary";
+import { uploadFile } from "#/lib/cloudinary";
 
 export const Route = createFileRoute("/api/admin/upload")({
 	server: {
@@ -9,6 +9,7 @@ export const Route = createFileRoute("/api/admin/upload")({
 					const body = (await request.json()) as {
 						name: string;
 						data: string;
+						resourceType?: "image" | "raw" | "auto";
 					};
 
 					if (!body.data || !body.name) {
@@ -18,7 +19,7 @@ export const Route = createFileRoute("/api/admin/upload")({
 						);
 					}
 
-					const url = await uploadImage(body.data);
+					const url = await uploadFile(body.data, body.resourceType ?? "auto");
 
 					return Response.json({ url });
 				} catch (err: unknown) {

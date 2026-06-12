@@ -5,6 +5,7 @@ import {
 	Check,
 	Cpu,
 	Eye,
+	FileIcon,
 	FolderKanban,
 	GraduationCap,
 	ImageIcon,
@@ -189,6 +190,10 @@ export default function CollectionManager({ collection, title }: Props) {
 		return (item.startDate as string) || (item.date as string) || null;
 	}
 
+	function isImageField(fieldName: string) {
+		return fieldName === "image";
+	}
+
 	async function handleFileUpload(
 		fieldName: string,
 		file: File | null,
@@ -208,10 +213,12 @@ export default function CollectionManager({ collection, title }: Props) {
 				reader.readAsDataURL(file);
 			});
 
+			const resourceType = isImageField(fieldName) ? "image" : "raw";
+
 			const res = await fetch("/api/admin/upload", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ name: file.name, data: dataUrl }),
+				body: JSON.stringify({ name: file.name, data: dataUrl, resourceType }),
 			});
 
 			const result = await res.json();
@@ -424,30 +431,53 @@ export default function CollectionManager({ collection, title }: Props) {
 									<div className="space-y-3">
 										{editing[field.name] ? (
 											<div className="relative group rounded-lg overflow-hidden border border-border">
-												<img
-													src={String(editing[field.name])}
-													alt={field.label}
-													className="w-full max-h-48 object-cover"
-												/>
+												{isImageField(field.name) ? (
+													<img
+														src={String(editing[field.name])}
+														alt={field.label}
+														className="w-full max-h-48 object-cover"
+													/>
+												) : (
+													<div className="flex items-center gap-3 p-4 bg-muted/20">
+														<FileIcon className="size-8 shrink-0 text-muted-foreground" />
+														<div className="flex-1 min-w-0">
+															<p className="text-sm font-medium truncate">
+																{field.label}
+															</p>
+															<a
+																href={String(editing[field.name])}
+																target="_blank"
+																rel="noreferrer"
+																className="text-xs text-primary hover:underline truncate block"
+															>
+																{String(editing[field.name])}
+															</a>
+														</div>
+													</div>
+												)}
 												<button
 													type="button"
 													onClick={() => handleFieldChange(field.name, "")}
 													className="absolute top-2 right-2 size-7 rounded-full bg-black/60 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/80"
-													aria-label="Remove image"
+													aria-label="Remove file"
 												>
 													<X className="size-4" />
 												</button>
 											</div>
 										) : (
 											<div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
-												<ImageIcon className="size-8 mx-auto text-muted-foreground/40 mb-2" />
+												{isImageField(field.name) ? (
+													<ImageIcon className="size-8 mx-auto text-muted-foreground/40 mb-2" />
+												) : (
+													<FileIcon className="size-8 mx-auto text-muted-foreground/40 mb-2" />
+												)}
 												<p className="text-sm text-muted-foreground mb-3">
-													Upload an image
+													{isImageField(field.name) ? "Upload an image" : `Upload ${field.label.toLowerCase()}`}
 												</p>
 												<label className="inline-flex cursor-pointer gap-2 items-center">
 													<input
 														type="file"
-														accept="image/*"
+														accept={isImageField(field.name) ? "image/*" : ".apk,.ipa,.zip,.aab,.dmg,.app,.mobileprovision,.plist"}
 														className="hidden"
 														onChange={(e) =>
 															handleFileUpload(

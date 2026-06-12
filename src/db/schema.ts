@@ -37,6 +37,8 @@ export const projects = pgTable("projects", {
 	image: text("image"),
 	link: text("link"),
 	github: text("github"),
+	downloadAndroid: text("download_android"),
+	downloadIos: text("download_ios"),
 	tags: text("tags").array().notNull().default([]),
 	content: text("content").notNull().default(""),
 	createdAt: timestamp("created_at").notNull().defaultNow(),

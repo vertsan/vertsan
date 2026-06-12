@@ -55,6 +55,8 @@ export const collectionConfig: Record<string, CollectionConfig> = {
 			{ name: "image", label: "Image", type: "file" },
 			{ name: "link", label: "Link", type: "text" },
 			{ name: "github", label: "GitHub", type: "text" },
+			{ name: "downloadAndroid", label: "Download Android (APK)", type: "file" },
+			{ name: "downloadIos", label: "Download iOS (IPA)", type: "file" },
 			{ name: "tags", label: "Tags", type: "tags", required: true },
 			{ name: "content", label: "Content", type: "markdown" },
 		],
