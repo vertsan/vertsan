@@ -206,6 +206,10 @@ export default function CollectionManager({ collection, title }: Props) {
 		return fieldName === "image";
 	}
 
+	const MAX_FILE_SIZE = 100 * 1024 * 1024;
+
+	const CLOUDINARY_MAX_SIZE = 10 * 1024 * 1024;
+
 	async function handleFileUpload(
 		fieldName: string,
 		file: File | null,
@@ -215,28 +219,59 @@ export default function CollectionManager({ collection, title }: Props) {
 			return;
 		}
 
+		if (file.size > MAX_FILE_SIZE) {
+			setError(`File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB.`);
+			return;
+		}
+
+		if (file.size > CLOUDINARY_MAX_SIZE) {
+			setError(
+				`File exceeds Cloudinary's ${CLOUDINARY_MAX_SIZE / 1024 / 1024}MB free plan limit. ` +
+				"Upload to a hosting service (e.g. GitHub Releases) and paste the URL below.",
+			);
+			return;
+		}
+
 		setUploadingFile(fieldName);
 
 		try {
-			const reader = new FileReader();
-			const dataUrl = await new Promise<string>((resolve, reject) => {
-				reader.onload = () => resolve(reader.result as string);
-				reader.onerror = () => reject(new Error("Failed to read file"));
-				reader.readAsDataURL(file);
-			});
+			if (isImageField(fieldName)) {
+				const reader = new FileReader();
+				const dataUrl = await new Promise<string>((resolve, reject) => {
+					reader.onload = () => resolve(reader.result as string);
+					reader.onerror = () => reject(new Error("Failed to read file"));
+					reader.readAsDataURL(file);
+				});
 
-			const resourceType = isImageField(fieldName) ? "image" : "raw";
+				const res = await fetch("/api/admin/upload", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ name: file.name, data: dataUrl, resourceType: "image" }),
+				});
 
-			const res = await fetch("/api/admin/upload", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ name: file.name, data: dataUrl, resourceType }),
-			});
+				const result = await res.json();
+				if (result.error) throw new Error(result.error);
+				handleFieldChange(fieldName, result.url);
+			} else {
+				const sigRes = await fetch("/api/admin/upload-signature");
+				const { signature, timestamp, api_key, cloud_name } = await sigRes.json();
 
-			const result = await res.json();
-			if (result.error) throw new Error(result.error);
+				const formData = new FormData();
+				formData.append("file", file);
+				formData.append("timestamp", String(timestamp));
+				formData.append("folder", "vertsan");
+				formData.append("api_key", api_key);
+				formData.append("signature", signature);
 
-			handleFieldChange(fieldName, result.url);
+				const uploadRes = await fetch(
+					`https://api.cloudinary.com/v1_1/${cloud_name}/raw/upload`,
+					{ method: "POST", body: formData },
+				);
+
+				const uploadResult = await uploadRes.json();
+				if (uploadResult.error) throw new Error(uploadResult.error.message);
+				handleFieldChange(fieldName, uploadResult.secure_url);
+			}
 		} catch (err: unknown) {
 			setError(
 				err instanceof Error ? err.message : "Upload failed",
@@ -470,48 +505,73 @@ export default function CollectionManager({ collection, title }: Props) {
 												</button>
 											</div>
 										) : (
-											<div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
-												{isImageField(field.name) ? (
-													<ImageIcon className="size-8 mx-auto text-muted-foreground/40 mb-2" />
-												) : (
-													<FileIcon className="size-8 mx-auto text-muted-foreground/40 mb-2" />
+											<div className="space-y-3">
+												<div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-primary/50 transition-colors">
+													{isImageField(field.name) ? (
+														<ImageIcon className="size-8 mx-auto text-muted-foreground/40 mb-2" />
+													) : (
+														<FileIcon className="size-8 mx-auto text-muted-foreground/40 mb-2" />
+													)}
+													<p className="text-sm text-muted-foreground mb-3">
+														{isImageField(field.name) ? "Upload an image" : `Upload ${field.label.toLowerCase()}`}
+													</p>
+													<label className="inline-flex cursor-pointer gap-2 items-center">
+														<input
+															type="file"
+															accept={isImageField(field.name) ? "image/*" : ".apk,.ipa,.zip,.aab,.dmg,.app,.mobileprovision,.plist"}
+															className="hidden"
+															onChange={(e) =>
+																handleFileUpload(
+																	field.name,
+																	e.target.files?.[0] ?? null,
+																)
+															}
+															disabled={uploadingFile === field.name}
+														/>
+														<Button
+															type="button"
+															variant="outline"
+															size="sm"
+															className="gap-2 pointer-events-none"
+															disabled={uploadingFile === field.name}
+															asChild
+														>
+															<span>
+																{uploadingFile === field.name ? (
+																	<Loader2 className="size-4 animate-spin" />
+																) : (
+																	<Upload className="size-4" />
+																)}
+																{uploadingFile === field.name
+																	? "Uploading..."
+																	: "Choose File"}
+															</span>
+														</Button>
+													</label>
+												</div>
+												{!isImageField(field.name) && (
+													<div className="relative">
+														<div className="absolute inset-0 flex items-center">
+															<span className="w-full border-t border-border" />
+														</div>
+														<div className="relative flex justify-center text-xs uppercase">
+															<span className="bg-card px-2 text-muted-foreground">
+																or paste URL
+															</span>
+														</div>
+													</div>
 												)}
-												<p className="text-sm text-muted-foreground mb-3">
-													{isImageField(field.name) ? "Upload an image" : `Upload ${field.label.toLowerCase()}`}
-												</p>
-												<label className="inline-flex cursor-pointer gap-2 items-center">
+												{!isImageField(field.name) && (
 													<input
-														type="file"
-														accept={isImageField(field.name) ? "image/*" : ".apk,.ipa,.zip,.aab,.dmg,.app,.mobileprovision,.plist"}
-														className="hidden"
+														type="url"
+														placeholder="https://github.com/.../app-release.apk"
+														value={String(editing[field.name] ?? "")}
 														onChange={(e) =>
-															handleFileUpload(
-																field.name,
-																e.target.files?.[0] ?? null,
-															)
+															handleFieldChange(field.name, e.target.value)
 														}
-														disabled={uploadingFile === field.name}
+														className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors"
 													/>
-													<Button
-														type="button"
-														variant="outline"
-														size="sm"
-														className="gap-2 pointer-events-none"
-														disabled={uploadingFile === field.name}
-														asChild
-													>
-														<span>
-															{uploadingFile === field.name ? (
-																<Loader2 className="size-4 animate-spin" />
-															) : (
-																<Upload className="size-4" />
-															)}
-															{uploadingFile === field.name
-																? "Uploading..."
-																: "Choose File"}
-														</span>
-													</Button>
-												</label>
+												)}
 											</div>
 										)}
 									</div>

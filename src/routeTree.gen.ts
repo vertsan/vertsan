@@ -23,12 +23,14 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
 import { Route as ApiResumeChatRouteImport } from './routes/api.resume-chat'
 import { Route as ApiPublicRouteImport } from './routes/api.public'
+import { Route as ApiDownloadRouteImport } from './routes/api.download'
 import { Route as ApiAdminRouteImport } from './routes/api.admin'
 import { Route as AdminTechnologiesRouteImport } from './routes/admin.technologies'
 import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
 import { Route as AdminJobsRouteImport } from './routes/admin.jobs'
 import { Route as AdminEducationRouteImport } from './routes/admin.education'
 import { Route as AdminCertificatesRouteImport } from './routes/admin.certificates'
+import { Route as ApiAdminUploadSignatureRouteImport } from './routes/api.admin.upload-signature'
 import { Route as ApiAdminUploadRouteImport } from './routes/api.admin.upload'
 import { Route as ApiAdminLoginRouteImport } from './routes/api.admin.login'
 
@@ -102,6 +104,11 @@ const ApiPublicRoute = ApiPublicRouteImport.update({
   path: '/api/public',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiDownloadRoute = ApiDownloadRouteImport.update({
+  id: '/api/download',
+  path: '/api/download',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAdminRoute = ApiAdminRouteImport.update({
   id: '/api/admin',
   path: '/api/admin',
@@ -132,6 +139,11 @@ const AdminCertificatesRoute = AdminCertificatesRouteImport.update({
   path: '/certificates',
   getParentRoute: () => AdminRoute,
 } as any)
+const ApiAdminUploadSignatureRoute = ApiAdminUploadSignatureRouteImport.update({
+  id: '/upload-signature',
+  path: '/upload-signature',
+  getParentRoute: () => ApiAdminRoute,
+} as any)
 const ApiAdminUploadRoute = ApiAdminUploadRouteImport.update({
   id: '/upload',
   path: '/upload',
@@ -159,6 +171,7 @@ export interface FileRoutesByFullPath {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/technologies': typeof AdminTechnologiesRoute
   '/api/admin': typeof ApiAdminRouteWithChildren
+  '/api/download': typeof ApiDownloadRoute
   '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
@@ -166,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/projects/': typeof ProjectsIndexRoute
   '/api/admin/login': typeof ApiAdminLoginRoute
   '/api/admin/upload': typeof ApiAdminUploadRoute
+  '/api/admin/upload-signature': typeof ApiAdminUploadSignatureRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -181,6 +195,7 @@ export interface FileRoutesByTo {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/technologies': typeof AdminTechnologiesRoute
   '/api/admin': typeof ApiAdminRouteWithChildren
+  '/api/download': typeof ApiDownloadRoute
   '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
@@ -188,6 +203,7 @@ export interface FileRoutesByTo {
   '/projects': typeof ProjectsIndexRoute
   '/api/admin/login': typeof ApiAdminLoginRoute
   '/api/admin/upload': typeof ApiAdminUploadRoute
+  '/api/admin/upload-signature': typeof ApiAdminUploadSignatureRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -206,6 +222,7 @@ export interface FileRoutesById {
   '/admin/projects': typeof AdminProjectsRoute
   '/admin/technologies': typeof AdminTechnologiesRoute
   '/api/admin': typeof ApiAdminRouteWithChildren
+  '/api/download': typeof ApiDownloadRoute
   '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
@@ -213,6 +230,7 @@ export interface FileRoutesById {
   '/projects/': typeof ProjectsIndexRoute
   '/api/admin/login': typeof ApiAdminLoginRoute
   '/api/admin/upload': typeof ApiAdminUploadRoute
+  '/api/admin/upload-signature': typeof ApiAdminUploadSignatureRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -232,6 +250,7 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/technologies'
     | '/api/admin'
+    | '/api/download'
     | '/api/public'
     | '/api/resume-chat'
     | '/projects/$projectId'
@@ -239,6 +258,7 @@ export interface FileRouteTypes {
     | '/projects/'
     | '/api/admin/login'
     | '/api/admin/upload'
+    | '/api/admin/upload-signature'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -254,6 +274,7 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/technologies'
     | '/api/admin'
+    | '/api/download'
     | '/api/public'
     | '/api/resume-chat'
     | '/projects/$projectId'
@@ -261,6 +282,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/api/admin/login'
     | '/api/admin/upload'
+    | '/api/admin/upload-signature'
   id:
     | '__root__'
     | '/'
@@ -278,6 +300,7 @@ export interface FileRouteTypes {
     | '/admin/projects'
     | '/admin/technologies'
     | '/api/admin'
+    | '/api/download'
     | '/api/public'
     | '/api/resume-chat'
     | '/projects/$projectId'
@@ -285,6 +308,7 @@ export interface FileRouteTypes {
     | '/projects/'
     | '/api/admin/login'
     | '/api/admin/upload'
+    | '/api/admin/upload-signature'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -298,6 +322,7 @@ export interface RootRouteChildren {
   ProjectsRoute: typeof ProjectsRouteWithChildren
   TechnologiesRoute: typeof TechnologiesRoute
   ApiAdminRoute: typeof ApiAdminRouteWithChildren
+  ApiDownloadRoute: typeof ApiDownloadRoute
   ApiPublicRoute: typeof ApiPublicRoute
   ApiResumeChatRoute: typeof ApiResumeChatRoute
 }
@@ -402,6 +427,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/download': {
+      id: '/api/download'
+      path: '/api/download'
+      fullPath: '/api/download'
+      preLoaderRoute: typeof ApiDownloadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/admin': {
       id: '/api/admin'
       path: '/api/admin'
@@ -443,6 +475,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/certificates'
       preLoaderRoute: typeof AdminCertificatesRouteImport
       parentRoute: typeof AdminRoute
+    }
+    '/api/admin/upload-signature': {
+      id: '/api/admin/upload-signature'
+      path: '/upload-signature'
+      fullPath: '/api/admin/upload-signature'
+      preLoaderRoute: typeof ApiAdminUploadSignatureRouteImport
+      parentRoute: typeof ApiAdminRoute
     }
     '/api/admin/upload': {
       id: '/api/admin/upload'
@@ -498,11 +537,13 @@ const ProjectsRouteWithChildren = ProjectsRoute._addFileChildren(
 interface ApiAdminRouteChildren {
   ApiAdminLoginRoute: typeof ApiAdminLoginRoute
   ApiAdminUploadRoute: typeof ApiAdminUploadRoute
+  ApiAdminUploadSignatureRoute: typeof ApiAdminUploadSignatureRoute
 }
 
 const ApiAdminRouteChildren: ApiAdminRouteChildren = {
   ApiAdminLoginRoute: ApiAdminLoginRoute,
   ApiAdminUploadRoute: ApiAdminUploadRoute,
+  ApiAdminUploadSignatureRoute: ApiAdminUploadSignatureRoute,
 }
 
 const ApiAdminRouteWithChildren = ApiAdminRoute._addFileChildren(
@@ -520,6 +561,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProjectsRoute: ProjectsRouteWithChildren,
   TechnologiesRoute: TechnologiesRoute,
   ApiAdminRoute: ApiAdminRouteWithChildren,
+  ApiDownloadRoute: ApiDownloadRoute,
   ApiPublicRoute: ApiPublicRoute,
   ApiResumeChatRoute: ApiResumeChatRoute,
 }

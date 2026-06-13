@@ -190,9 +190,7 @@ function ProjectDetail() {
 										asChild
 									>
 										<a
-											href={project.downloadAndroid}
-											target="_blank"
-											rel="noreferrer"
+											href={`/api/download?url=${encodeURIComponent(project.downloadAndroid)}`}
 										>
 											<Smartphone className="size-5" />
 											Download APK
@@ -207,9 +205,7 @@ function ProjectDetail() {
 										asChild
 									>
 										<a
-											href={project.downloadIos}
-											target="_blank"
-											rel="noreferrer"
+											href={`/api/download?url=${encodeURIComponent(project.downloadIos)}`}
 										>
 											<Tablet className="size-5" />
 											Download iOS

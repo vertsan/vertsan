@@ -121,9 +121,7 @@ const ProjectCard = memo(function ProjectCard({
 				<div className="flex gap-2">
 					{project.downloadAndroid && (
 						<a
-							href={project.downloadAndroid}
-							target="_blank"
-							rel="noreferrer"
+							href={`/api/download?url=${encodeURIComponent(project.downloadAndroid)}`}
 							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
 							aria-label="Download APK"
 						>
@@ -132,9 +130,7 @@ const ProjectCard = memo(function ProjectCard({
 					)}
 					{project.downloadIos && (
 						<a
-							href={project.downloadIos}
-							target="_blank"
-							rel="noreferrer"
+							href={`/api/download?url=${encodeURIComponent(project.downloadIos)}`}
 							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
 							aria-label="Download iOS"
 						>
