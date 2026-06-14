@@ -24,6 +24,7 @@ import type {
 	FieldConfig,
 } from "#/lib/admin/config";
 import TagInput from "./TagInput";
+import { clearCache } from "#/lib/useLiveContent";
 
 interface Props {
 	collection: CollectionKey;
@@ -161,9 +162,8 @@ export default function CollectionManager({ collection, title }: Props) {
 
 			setEditing(null);
 			setIsNew(false);
-			setSuccess(
-				`${config?.label.slice(0, -1) ?? "Item"} saved successfully`,
-			);
+			clearCache(collection);
+			setSuccess(`${config?.label.slice(0, -1) ?? "Item"} saved successfully`);
 			await loadConfigAndItems();
 		} catch (err: unknown) {
 			setError(err instanceof Error ? err.message : "Save failed");
@@ -177,9 +177,8 @@ export default function CollectionManager({ collection, title }: Props) {
 		try {
 			const res = await api("delete", { id: item.id });
 			if (res.error) throw new Error(res.error);
-			setSuccess(
-				`${config.label.slice(0, -1)} deleted successfully`,
-			);
+			setSuccess(`${config.label.slice(0, -1)} deleted successfully`);
+			clearCache(collection);
 			setConfirmDelete(null);
 			await loadConfigAndItems();
 		} catch (err: unknown) {
@@ -210,24 +209,23 @@ export default function CollectionManager({ collection, title }: Props) {
 
 	const CLOUDINARY_MAX_SIZE = 10 * 1024 * 1024;
 
-	async function handleFileUpload(
-		fieldName: string,
-		file: File | null,
-	) {
+	async function handleFileUpload(fieldName: string, file: File | null) {
 		if (!file) {
 			handleFieldChange(fieldName, "");
 			return;
 		}
 
 		if (file.size > MAX_FILE_SIZE) {
-			setError(`File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB.`);
+			setError(
+				`File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB.`,
+			);
 			return;
 		}
 
 		if (file.size > CLOUDINARY_MAX_SIZE) {
 			setError(
 				`File exceeds Cloudinary's ${CLOUDINARY_MAX_SIZE / 1024 / 1024}MB free plan limit. ` +
-				"Upload to a hosting service (e.g. GitHub Releases) and paste the URL below.",
+					"Upload to a hosting service (e.g. GitHub Releases) and paste the URL below.",
 			);
 			return;
 		}
@@ -246,7 +244,11 @@ export default function CollectionManager({ collection, title }: Props) {
 				const res = await fetch("/api/admin/upload", {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({ name: file.name, data: dataUrl, resourceType: "image" }),
+					body: JSON.stringify({
+						name: file.name,
+						data: dataUrl,
+						resourceType: "image",
+					}),
 				});
 
 				const result = await res.json();
@@ -254,7 +256,8 @@ export default function CollectionManager({ collection, title }: Props) {
 				handleFieldChange(fieldName, result.url);
 			} else {
 				const sigRes = await fetch("/api/admin/upload-signature");
-				const { signature, timestamp, api_key, cloud_name } = await sigRes.json();
+				const { signature, timestamp, api_key, cloud_name } =
+					await sigRes.json();
 
 				const formData = new FormData();
 				formData.append("file", file);
@@ -273,25 +276,31 @@ export default function CollectionManager({ collection, title }: Props) {
 				handleFieldChange(fieldName, uploadResult.secure_url);
 			}
 		} catch (err: unknown) {
-			setError(
-				err instanceof Error ? err.message : "Upload failed",
-			);
+			setError(err instanceof Error ? err.message : "Upload failed");
 		} finally {
 			setUploadingFile(null);
 		}
 	}
 
 	useEffect(() => {
-		if (!editing) { setMarkdownPreview(null); return; }
+		if (!editing) {
+			setMarkdownPreview(null);
+			return;
+		}
 		const content = String(editing.content ?? "");
-		if (!content.trim()) { setMarkdownPreview(null); return; }
+		if (!content.trim()) {
+			setMarkdownPreview(null);
+			return;
+		}
 		let cancelled = false;
 		(async () => {
 			const { marked } = await import("marked");
 			const html = await marked(content);
 			if (!cancelled) setMarkdownPreview(html);
 		})();
-		return () => { cancelled = true; };
+		return () => {
+			cancelled = true;
+		};
 	}, [editing?.content, editing]);
 
 	if (loading) {
@@ -513,12 +522,18 @@ export default function CollectionManager({ collection, title }: Props) {
 														<FileIcon className="size-8 mx-auto text-muted-foreground/40 mb-2" />
 													)}
 													<p className="text-sm text-muted-foreground mb-3">
-														{isImageField(field.name) ? "Upload an image" : `Upload ${field.label.toLowerCase()}`}
+														{isImageField(field.name)
+															? "Upload an image"
+															: `Upload ${field.label.toLowerCase()}`}
 													</p>
 													<label className="inline-flex cursor-pointer gap-2 items-center">
 														<input
 															type="file"
-															accept={isImageField(field.name) ? "image/*" : ".apk,.ipa,.zip,.aab,.dmg,.app,.mobileprovision,.plist"}
+															accept={
+																isImageField(field.name)
+																	? "image/*"
+																	: ".apk,.ipa,.zip,.aab,.dmg,.app,.mobileprovision,.plist"
+															}
 															className="hidden"
 															onChange={(e) =>
 																handleFileUpload(
@@ -611,8 +626,8 @@ export default function CollectionManager({ collection, title }: Props) {
 							)}
 							<p className="font-medium">No {config.label.toLowerCase()} yet</p>
 							<p className="text-sm mt-1">
-								Create your first{" "}
-								{config.label.slice(0, -1).toLowerCase()} to get started
+								Create your first {config.label.slice(0, -1).toLowerCase()} to
+								get started
 							</p>
 							<Button variant="link" onClick={handleNew} className="mt-3">
 								Add {config.label.slice(0, -1).toLowerCase()}

@@ -1,6 +1,7 @@
 import { memo, useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, ExternalLink, Github, Smartphone, Tablet } from "lucide-react";
+import { marked } from "marked";
 import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import {
@@ -87,6 +88,11 @@ const ProjectCard = memo(function ProjectCard({
 }: {
 	project: Project;
 }) {
+	const renderedSummary = useMemo(
+		() => (project.summary?.trim() ? marked(project.summary) : ""),
+		[project.summary],
+	);
+
 	return (
 		<Card className="border shadow-sm flex flex-col">
 			<CardHeader>
@@ -99,11 +105,18 @@ const ProjectCard = memo(function ProjectCard({
 						{project.status}
 					</Badge>
 				</div>
-				<p className="text-sm text-muted-foreground mt-1 line-clamp-2">
-					{project.summary}
-				</p>
+				{renderedSummary ? (
+					<div
+						className="text-sm text-muted-foreground mt-1 line-clamp-2"
+						dangerouslySetInnerHTML={{ __html: renderedSummary }}
+					/>
+				) : (
+					<p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+						{project.summary}
+					</p>
+				)}
 			</CardHeader>
-			<CardContent className="flex-1">
+			<CardContent className="flex-1 flex flex-col gap-3">
 				<div className="flex flex-wrap gap-1.5">
 					{project.tags?.slice(0, 6).map((tag) => (
 						<Badge key={tag} variant="outline" className="text-xs">
@@ -116,48 +129,66 @@ const ProjectCard = memo(function ProjectCard({
 						</Badge>
 					)}
 				</div>
+				{(project.downloadAndroid || project.downloadIos) && (
+					<div className="flex flex-wrap gap-2 pt-3 border-t border-border">
+						{project.downloadAndroid && (
+							<Button
+								variant="default"
+								size="sm"
+								className="gap-1.5"
+								asChild
+							>
+								<a
+									href={`/api/download?url=${encodeURIComponent(project.downloadAndroid)}`}
+								>
+									<Smartphone className="size-3.5" />
+									APK
+								</a>
+							</Button>
+						)}
+						{project.downloadIos && (
+							<Button
+								variant="default"
+								size="sm"
+								className="gap-1.5"
+								asChild
+							>
+								<a
+									href={`/api/download?url=${encodeURIComponent(project.downloadIos)}`}
+								>
+									<Tablet className="size-3.5" />
+									IPA
+								</a>
+							</Button>
+						)}
+					</div>
+				)}
 			</CardContent>
 			<CardFooter className="flex items-center justify-between gap-2 pt-0">
 				<div className="flex gap-2">
-					{project.downloadAndroid && (
-						<a
-							href={`/api/download?url=${encodeURIComponent(project.downloadAndroid)}`}
-							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-							aria-label="Download APK"
-						>
-							<Smartphone className="size-4" />
-						</a>
-					)}
-					{project.downloadIos && (
-						<a
-							href={`/api/download?url=${encodeURIComponent(project.downloadIos)}`}
-							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-							aria-label="Download iOS"
-						>
-							<Tablet className="size-4" />
-						</a>
-					)}
 					{project.github && (
-						<a
-							href={project.github}
-							target="_blank"
-							rel="noreferrer"
-							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-							aria-label="View source on GitHub"
-						>
-							<Github className="size-4" />
-						</a>
+						<Button variant="ghost" size="icon" asChild>
+							<a
+								href={project.github}
+								target="_blank"
+								rel="noreferrer"
+								aria-label="View source on GitHub"
+							>
+								<Github className="size-4" />
+							</a>
+						</Button>
 					)}
 					{project.link && (
-						<a
-							href={project.link}
-							target="_blank"
-							rel="noreferrer"
-							className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-							aria-label="View live project"
-						>
-							<ExternalLink className="size-4" />
-						</a>
+						<Button variant="ghost" size="icon" asChild>
+							<a
+								href={project.link}
+								target="_blank"
+								rel="noreferrer"
+								aria-label="View live project"
+							>
+								<ExternalLink className="size-4" />
+							</a>
+						</Button>
 					)}
 				</div>
 				{project.slug && (

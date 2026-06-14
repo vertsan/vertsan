@@ -19,12 +19,20 @@ export function setCache<T>(collection: string, data: T[]): void {
 	cache.set(collection, data);
 }
 
+export function clearCache(collection?: string): void {
+	if (collection) {
+		cache.delete(collection);
+	} else {
+		cache.clear();
+	}
+}
+
 export function useLiveContent<T>(
 	collection: string,
 	ssrFallback?: T[],
 ): LiveContentResult<T> {
 	const ssrData = useInitialData<T>(collection as any);
-	const initial = ssrData.length > 0 ? ssrData : ssrFallback ?? [];
+	const initial = ssrData.length > 0 ? ssrData : (ssrFallback ?? []);
 
 	const [items, setItems] = useState<T[]>(() => {
 		if (cache.has(collection)) return cache.get(collection) as T[];

@@ -35,6 +35,8 @@ export function createProjectService() {
 			image: data.image ? String(data.image) : null,
 			link: data.link ? String(data.link) : null,
 			github: data.github ? String(data.github) : null,
+			downloadAndroid: data.downloadAndroid ? String(data.downloadAndroid) : null,
+			downloadIos: data.downloadIos ? String(data.downloadIos) : null,
 			tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
 			content: String(data.content ?? ""),
 		};
@@ -55,6 +57,10 @@ export function createProjectService() {
 			input.link = data.link ? String(data.link) : null;
 		if (data.github !== undefined)
 			input.github = data.github ? String(data.github) : null;
+		if (data.downloadAndroid !== undefined)
+			input.downloadAndroid = data.downloadAndroid ? String(data.downloadAndroid) : null;
+		if (data.downloadIos !== undefined)
+			input.downloadIos = data.downloadIos ? String(data.downloadIos) : null;
 		if (data.tags !== undefined)
 			input.tags = Array.isArray(data.tags) ? data.tags.map(String) : [];
 		if (data.content !== undefined) input.content = String(data.content);
