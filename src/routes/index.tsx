@@ -41,8 +41,8 @@ function Home() {
 		<DataProvider data={data}>
 			<ResumeAssistant />
 			<HeroSection />
-			<ExperienceSection />
 			<TechnologiesSection />
+			<ExperienceSection />
 			<EducationSection />
 			<ProjectsSection />
 			<CertificatesSection />
