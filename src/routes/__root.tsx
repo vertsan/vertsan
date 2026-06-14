@@ -27,6 +27,49 @@ export const Route = createRootRoute({
 			{
 				title: "vert",
 			},
+			{
+				name: "description",
+				content:
+					"Vert San — Software Engineer building accessible, performant web applications with modern technologies.",
+			},
+			{
+				property: "og:title",
+				content: "Vert San — Software Engineer",
+			},
+			{
+				property: "og:description",
+				content:
+					"Portfolio and resume of Vert San — building accessible, performant web applications with modern technologies.",
+			},
+			{
+				property: "og:image",
+				content: "https://vertsan.netlify.app/logo512.png",
+			},
+			{
+				property: "og:url",
+				content: "https://vertsan.netlify.app",
+			},
+			{
+				property: "og:type",
+				content: "website",
+			},
+			{
+				name: "twitter:card",
+				content: "summary_large_image",
+			},
+			{
+				name: "twitter:title",
+				content: "Vert San — Software Engineer",
+			},
+			{
+				name: "twitter:description",
+				content:
+					"Portfolio and resume of Vert San — building accessible, performant web applications with modern technologies.",
+			},
+			{
+				name: "twitter:image",
+				content: "https://vertsan.netlify.app/logo512.png",
+			},
 		],
 		links: [
 			{
