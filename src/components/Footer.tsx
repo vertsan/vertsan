@@ -36,7 +36,7 @@ export default function Footer() {
 					<div className="flex items-center gap-4">
 						<div className="flex items-center gap-2">
 							<a
-								href="https://github.com"
+								href="https://github.com/vertsan"
 								target="_blank"
 								rel="noreferrer"
 								className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"
@@ -45,7 +45,7 @@ export default function Footer() {
 								<Github className="size-4" />
 							</a>
 							<a
-								href="https://linkedin.com"
+								href="https://linkedin.com/in/vertsan"
 								target="_blank"
 								rel="noreferrer"
 								className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"
@@ -54,7 +54,7 @@ export default function Footer() {
 								<Linkedin className="size-4" />
 							</a>
 							<a
-								href="mailto:hello@example.com"
+								href="mailto:itsanvert@gmail.com"
 								className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"
 								aria-label="Email"
 							>
