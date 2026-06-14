@@ -13,6 +13,7 @@ import {
 } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
 import { useLiveContent, setCache } from "#/lib/useLiveContent";
+import "#/lib/markdown";
 
 export interface Project {
 	id?: number;
