@@ -6,11 +6,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .lanyard-wrapper canvas {
+  display: block;
   width: 100% !important;
   height: 100% !important;
   max-width: 100%;
   max-height: 100%;
+  object-fit: contain;
 }

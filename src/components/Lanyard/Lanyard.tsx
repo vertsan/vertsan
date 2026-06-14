@@ -60,47 +60,87 @@ export default function Lanyard({
 	lanyardImage = null,
 	lanyardWidth = 1,
 }: LanyardProps) {
-	const [isMobile, setIsMobile] = useState<boolean>(
-		() => typeof window !== "undefined" && window.innerWidth < 768,
+	const [device, setDevice] = useState<"phone" | "tablet" | "desktop">(
+		() => {
+			if (typeof window === "undefined") return "desktop";
+			const w = window.innerWidth;
+			return w < 480 ? "phone" : w < 768 ? "tablet" : "desktop";
+		},
 	);
 
 	useEffect(() => {
-		const handleResize = (): void => setIsMobile(window.innerWidth < 768);
+		const handleResize = (): void => {
+			const w = window.innerWidth;
+			setDevice(w < 480 ? "phone" : w < 768 ? "tablet" : "desktop");
+		};
 		handleResize();
 		window.addEventListener("resize", handleResize);
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
+	const isMobile = device !== "desktop";
+	const phoneTimestep = 1 / 30;
+	const tabletTimestep = 1 / 48;
+	const desktopTimestep = 1 / 60;
+
 	const camPos: [number, number, number] = useMemo(
-		() => (isMobile ? [0, 0, 24] : position),
-		[isMobile, position],
+		() => {
+			if (device === "phone") return [0, 0, 9];
+			if (device === "tablet") return [0, 0, 11];
+			return position;
+		},
+		[device, position],
 	);
-	const camFov = useMemo(() => (isMobile ? 22 : fov), [isMobile, fov]);
-	const cardScale = useMemo(() => (isMobile ? 1.6 : 2.25), [isMobile]);
+	const camFov = useMemo(
+		() => (device === "phone" ? 22 : device === "tablet" ? 20 : fov),
+		[device, fov],
+	);
+	const cardScale = useMemo(
+		() => (device === "phone" ? 2.0 : device === "tablet" ? 2.15 : 2.25),
+		[device],
+	);
+	const lWidth = useMemo(
+		() => (device === "phone" ? lanyardWidth * 0.6 : device === "tablet" ? lanyardWidth * 0.8 : lanyardWidth),
+		[device, lanyardWidth],
+	);
 
 	return (
 		<div className="lanyard-wrapper">
 			<Canvas
 				camera={{ position: camPos, fov: camFov }}
-				dpr={[1, isMobile ? 1.5 : 2]}
-				gl={{ alpha: transparent }}
-				onCreated={({ gl }) =>
+				dpr={[1, device === "phone" ? 1.2 : isMobile ? 1.5 : 2]}
+				gl={{
+					alpha: transparent,
+					powerPreference: "high-performance",
+					failIfMajorPerformanceCaveat: false,
+				}}
+				onCreated={({ gl }) => {
 					gl.setClearColor(
 						new THREE.Color(0x000000),
 						transparent ? 0 : 1,
-					)
-				}
+					);
+					gl.domElement.addEventListener(
+						"webglcontextlost",
+						(e) => {
+							e.preventDefault();
+							setTimeout(
+								() => gl.domElement.getContext("webgl2"),
+								100,
+							);
+						},
+					);
+				}}
 			>
 				<ambientLight intensity={Math.PI} />
-				<Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
+				<Physics gravity={gravity} timeStep={device === "phone" ? phoneTimestep : device === "tablet" ? tabletTimestep : desktopTimestep}>
 					<Band
 						isMobile={isMobile}
 						cardScale={cardScale}
+						lanyardWidth={lWidth}
 						frontImage={frontImage}
 						backImage={backImage}
 						imageFit={imageFit}
 						lanyardImage={lanyardImage}
-						lanyardWidth={lanyardWidth}
 					/>
 				</Physics>
 				<Environment blur={0.75}>
@@ -177,8 +217,8 @@ function Band({
 		type: "dynamic" as RigidBodyProps["type"],
 		canSleep: true,
 		colliders: false,
-		angularDamping: 4,
-		linearDamping: 4,
+		angularDamping: isMobile ? 6 : 4,
+		linearDamping: isMobile ? 6 : 4,
 	};
 
 	const { nodes, materials } = useGLTF(cardGLB) as any;
@@ -226,7 +266,7 @@ function Band({
 		const composite = new THREE.CanvasTexture(canvas);
 		composite.colorSpace = THREE.SRGBColorSpace;
 		composite.flipY = baseMap.flipY;
-		composite.anisotropy = 16;
+		composite.anisotropy = isMobile ? 4 : 16;
 		composite.needsUpdate = true;
 		return composite;
 	}, [frontImage, backImage, imageFit, frontTex, backTex, materials.base.map]);
@@ -312,7 +352,8 @@ function Band({
 			curve.points[1].copy(j2.current.lerped);
 			curve.points[2].copy(j1.current.lerped);
 			curve.points[3].copy(fixed.current.translation());
-			band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
+			const bandWidth = isMobile ? 20 : 32;
+			band.current.geometry.setPoints(curve.getPoints(bandWidth));
 			ang.copy(card.current.angvel());
 			rot.copy(card.current.rotation());
 			card.current.setAngvel({
@@ -378,6 +419,10 @@ function Band({
 							e.target.releasePointerCapture(e.pointerId);
 							drag(false);
 						}}
+						onPointerCancel={(e: any) => {
+							e.target.releasePointerCapture(e.pointerId);
+							drag(false);
+						}}
 						onPointerDown={(e: any) => {
 							e.target.setPointerCapture(e.pointerId);
 							drag(
@@ -390,7 +435,7 @@ function Band({
 						<mesh geometry={nodes.card.geometry}>
 							<meshPhysicalMaterial
 								map={cardMap}
-								map-anisotropy={16}
+								map-anisotropy={isMobile ? 4 : 16}
 								clearcoat={isMobile ? 0 : 1}
 								clearcoatRoughness={0.15}
 								roughness={0.9}
