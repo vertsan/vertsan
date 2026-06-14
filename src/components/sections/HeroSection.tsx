@@ -34,7 +34,7 @@ export default function HeroSection() {
 							<Button variant="outline" size="lg" className="gap-2" asChild>
 								<a href="/resume.pdf" download>
 									<Download className="size-4" />
-									Download CV
+									Download Resume
 								</a>
 							</Button>
 						</div>
