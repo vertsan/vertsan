@@ -199,12 +199,12 @@ function ProjectDetail() {
 						<Separator className="my-12" />
 						<div className="space-y-6">
 							<h2 className="text-2xl font-bold tracking-tight">Resources</h2>
-							<div className="flex flex-wrap items-start gap-3">
+							<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
 								{project.downloadAndroid && (
 									<Button
 										variant="default"
 										size="lg"
-										className="gap-2"
+										className="gap-2 w-full"
 										asChild
 									>
 										<a
@@ -219,7 +219,7 @@ function ProjectDetail() {
 									<Button
 										variant="default"
 										size="lg"
-										className="gap-2"
+										className="gap-2 w-full"
 										asChild
 									>
 										<a
