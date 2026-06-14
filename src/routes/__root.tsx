@@ -54,10 +54,6 @@ export const Route = createRootRoute({
 				content: "1205",
 			},
 			{
-				property: "og:image",
-				content: "https://vertsan.netlify.app/logo512.png",
-			},
-			{
 				property: "og:url",
 				content: "https://vertsan.netlify.app",
 			},
