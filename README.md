@@ -1,90 +1,31 @@
-# Vert San
+<h1 align="center">Hi 👋, I'm Vert San</h1>
+<h3 align="center">A passionate web developer from Cambodia</h3>
 
-Software engineer building accessible, performant web applications with modern technologies.
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=vertsan&label=Profile%20views&color=0e75b6&style=flat" alt="vertsan" /> </p>
 
-## About
+<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=vertsan" alt="vertsan" /></a> </p>
 
-This is my personal portfolio and resume site — a full-stack web application built with [TanStack Start](https://tanstack.com/start). It showcases my work experience, projects, education, certifications, and technical skills, all managed through a custom CMS.
+<p align="left"> <a href="https://twitter.com/" target="blank"><img src="https://img.shields.io/twitter/follow/?logo=twitter&style=for-the-badge" alt="" /></a> </p>
 
-## Features
+- 🔭 I’m currently working on [SAMDECH PREAH MAHASANGHARAJAH BOUR KRY UNIVERSITY](https://sbku.edu.kh.com)
 
-- **Portfolio & Resume** — Work experience, education, projects, certifications, and skills presented in a clean, responsive layout
-- **CMS Admin Panel** — Manage all content (jobs, projects, education, certificates, technologies) through a password-protected admin interface
-- **AI Resume Assistant** — Chat with an AI assistant that can answer questions about my background, skills, and experience
-- **Dark/Light Theme** — Theme toggle with system preference detection
-- **GSAP Animations** — Smooth scroll-triggered animations throughout the site
-- **Cloudinary Integration** — Image hosting and optimization for project screenshots and headshots
-- **SSR & Type-Safe Routing** — Full server-side rendering with TanStack Router's type-safe file-based routing
+- 🌱 I’m currently learning **Full stack web app at Udemy**
 
-## Tech Stack
+- 👨‍💻 All of my projects are available at [vertsan.com](vertsan.com)
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | [TanStack Start](https://tanstack.com/start) (React 19 + SSR) |
-| Routing | [TanStack Router](https://tanstack.com/router) |
-| Styling | [Tailwind CSS](https://tailwindcss.com/) v4 + [shadcn/ui](https://ui.shadcn.com/) |
-| Database | [PostgreSQL](https://neon.tech/) via [Neon](https://neon.tech/) + [Drizzle ORM](https://orm.drizzle.team/) |
-| AI | [TanStack AI](https://tanstack.com/ai) with LLM-powered resume chat |
-| Animations | [GSAP](https://gsap.com/) |
-| Images | [Cloudinary](https://cloudinary.com/) |
-| Deployment | [Netlify](https://www.netlify.com/) |
+- 📫 How to reach me **itsanvert@gmail.com**
 
-## Getting Started
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+<a href="https://linkedin.com/in/vertsan" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="vertsan" height="30" width="40" /></a>
+<a href="https://fb.com/vertsan" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="vertsan" height="30" width="40" /></a>
+</p>
 
-```bash
-npm install
-npm run dev
-```
+<h3 align="left">Languages and Tools:</h3>
+<p align="left"> <a href="https://aws.amazon.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="aws" width="40" height="40"/> </a> <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cs/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="40" height="40"/> </a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a> <a href="https://expressjs.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="40" height="40"/> </a> <a href="https://www.figma.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="figma" width="40" height="40"/> </a> <a href="https://firebase.google.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="firebase" width="40" height="40"/> </a> <a href="https://flutter.dev" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" alt="flutter" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://www.adobe.com/in/products/illustrator.html" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/adobe_illustrator/adobe_illustrator-icon.svg" alt="illustrator" width="40" height="40"/> </a> <a href="https://www.jenkins.io" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/jenkins/jenkins-icon.svg" alt="jenkins" width="40" height="40"/> </a> <a href="https://kubernetes.io" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/kubernetes/kubernetes-icon.svg" alt="kubernetes" width="40" height="40"/> </a> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://www.mongodb.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> </a> <a href="https://www.microsoft.com/en-us/sql-server" target="_blank" rel="noreferrer"> <img src="https://www.svgrepo.com/show/303229/microsoft-sql-server-logo.svg" alt="mssql" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://nextjs.org/" target="_blank" rel="noreferrer"> <img src="https://cdn.worldvectorlogo.com/logos/nextjs-2.svg" alt="nextjs" width="40" height="40"/> </a> <a href="https://nodejs.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="40" height="40"/> </a> <a href="https://www.photoshop.com/en" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/photoshop/photoshop-line.svg" alt="photoshop" width="40" height="40"/> </a> <a href="https://www.php.net" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg" alt="php" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> <a href="https://reactjs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/> </a> <a href="https://www.selenium.dev" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/detain/svg-logos/780f25886640cef088af994181646db2f6b1a3f8/svg/selenium-logo.svg" alt="selenium" width="40" height="40"/> </a> <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="40" height="40"/> </a> <a href="https://vuejs.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original-wordmark.svg" alt="vuejs" width="40" height="40"/> </a> </p>
 
-The dev server starts at `http://localhost:3000`.
+<p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=vertsan&show_icons=true&locale=en&layout=compact" alt="vertsan" /></p>
 
-## Scripts
+<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=vertsan&show_icons=true&locale=en" alt="vertsan" /></p>
 
-| Command | Description |
-|---------|------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run test` | Run tests with Vitest |
-| `npm run lint` | Lint with Biome |
-| `npm run format` | Format with Biome |
-| `npm run db:generate` | Generate Drizzle migrations |
-| `npm run db:migrate` | Run database migrations |
-| `npm run db:push` | Push schema to database |
-| `npm run seed` | Seed database with sample data |
-
-## Project Structure
-
-```
-├── content/              # Admin-managed content (via DB)
-├── src/
-│   ├── components/
-│   │   ├── sections/     # Page sections (Hero, Projects, Experience, etc.)
-│   │   ├── ui/           # shadcn/ui components
-│   │   └── admin/        # Admin panel components
-│   ├── db/               # Drizzle schema and database config
-│   ├── lib/              # Utilities, hooks, and helpers
-│   ├── services/         # API service layer
-│   └── routes/           # TanStack Router file-based routes
-└── public/               # Static assets
-```
-
-## Environment Variables
-
-Copy `.env.example` to `.env` and configure:
-
-```
-DATABASE_URL=          # Neon PostgreSQL connection string
-ADMIN_PASSWORD=        # Password for CMS admin panel
-CLOUDINARY_CLOUD_NAME= # Cloudinary cloud name
-CLOUDINARY_API_KEY=    # Cloudinary API key
-CLOUDINARY_API_SECRET= # Cloudinary API secret
-```
-
-## Deployment
-
-This site is configured for [Netlify](https://netlify.com) deployment with `netlify.toml`. Server functions and API routes run on Netlify Functions.
-
-## License
-
-MIT
+<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=vertsan&" alt="vertsan" /></p>
