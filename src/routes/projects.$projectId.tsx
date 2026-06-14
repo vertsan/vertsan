@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Calendar, ExternalLink, Github, Smartphone, Tablet } from "lucide-react";
+import { ArrowLeft, Calendar, Smartphone, Tablet } from "lucide-react";
 import { marked } from "marked";
 import { useEffect, useMemo, useState } from "react";
 import { Badge } from "#/components/ui/badge";
@@ -16,6 +16,7 @@ import { Separator } from "#/components/ui/separator";
 import { Loader2 } from "lucide-react";
 import { getCache, setCache } from "#/lib/useLiveContent";
 import "#/lib/markdown";
+import { LinkPreviewCard } from "#/components/LinkPreviewCard";
 
 interface Project {
 	id?: number;
@@ -198,7 +199,7 @@ function ProjectDetail() {
 						<Separator className="my-12" />
 						<div className="space-y-6">
 							<h2 className="text-2xl font-bold tracking-tight">Resources</h2>
-							<div className="flex flex-wrap gap-3">
+							<div className="flex flex-wrap items-start gap-3">
 								{project.downloadAndroid && (
 									<Button
 										variant="default"
@@ -230,34 +231,16 @@ function ProjectDetail() {
 									</Button>
 								)}
 								{project.github && (
-									<Button
-										variant="outline"
-										size="lg"
-										className="gap-2"
-										asChild
-									>
-										<a
-											href={project.github}
-											target="_blank"
-											rel="noreferrer"
-										>
-											<Github className="size-5" />
-											Source Code
-										</a>
-									</Button>
+									<LinkPreviewCard
+										href={project.github}
+										index={0}
+									/>
 								)}
 								{project.link && (
-									<Button
-										variant="outline"
-										size="lg"
-										className="gap-2"
-										asChild
-									>
-										<a href={project.link} target="_blank" rel="noreferrer">
-											<ExternalLink className="size-5" />
-											Live Demo
-										</a>
-									</Button>
+									<LinkPreviewCard
+										href={project.link}
+										index={project.github ? 1 : 0}
+									/>
 								)}
 							</div>
 						</div>
