@@ -3,7 +3,7 @@
 
 - 🔭 I'm currently working on **the SBKU Attendance Management System & internal systems at J Trust Royal Bank**
 - 🌱 I'm currently learning **Advanced TypeScript, Cloud Architecture & System Design**
-- 👨‍💻 All of my projects are available at **[https://vertsan.com](https://vertsan.netlify.app)**
+- 👨‍💻 All of my projects are available at **[https://vertsan.netlify.app](https://vertsan.netlify.app)**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
