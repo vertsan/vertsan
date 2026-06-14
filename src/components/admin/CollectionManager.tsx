@@ -324,15 +324,15 @@ export default function CollectionManager({ collection, title }: Props) {
 	return (
 		<div className="space-y-6">
 			{/* Header */}
-			<div className="flex items-center justify-between">
+			<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 				<div className="flex items-center gap-3">
 					{Icon && (
-						<div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center">
+						<div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
 							<Icon className="size-5 text-primary" />
 						</div>
 					)}
 					<div>
-						<h1 className="text-2xl font-bold tracking-tight">
+						<h1 className="text-xl sm:text-2xl font-bold tracking-tight">
 							{title || config.label}
 						</h1>
 						<p className="text-sm text-muted-foreground">
@@ -341,7 +341,7 @@ export default function CollectionManager({ collection, title }: Props) {
 					</div>
 				</div>
 				{!editing && (
-					<Button onClick={handleNew} className="gap-2 shadow-sm">
+					<Button onClick={handleNew} className="gap-2 shadow-sm w-full sm:w-auto">
 						<Plus className="size-4" />
 						Add {config.label.slice(0, -1)}
 					</Button>
@@ -449,17 +449,17 @@ export default function CollectionManager({ collection, title }: Props) {
 
 								{field.type === "markdown" ? (
 									<div className="space-y-2">
-										<div className="grid grid-cols-2 gap-2 border rounded-lg overflow-hidden">
+										<div className="grid grid-cols-1 md:grid-cols-2 gap-2 border rounded-lg overflow-hidden">
 											<textarea
 												value={String(editing[field.name] ?? "")}
 												onChange={(e) =>
 													handleFieldChange(field.name, e.target.value)
 												}
-												className="min-h-[300px] p-3 text-sm font-mono bg-background border-0 focus:outline-none focus:ring-1 focus:ring-primary/20 resize-y"
+												className="min-h-[200px] md:min-h-[300px] p-3 text-sm font-mono bg-background border-0 focus:outline-none focus:ring-1 focus:ring-primary/20 resize-y"
 												placeholder={`${field.label} (markdown)...`}
 											/>
 											<div
-												className="min-h-[300px] p-3 text-sm prose prose-sm dark:prose-invert max-w-none overflow-y-auto bg-muted/30 border-l border-border"
+												className="min-h-[200px] md:min-h-[300px] p-3 text-sm prose prose-sm dark:prose-invert max-w-none overflow-y-auto bg-muted/30 border-t md:border-t-0 md:border-l border-border"
 												dangerouslySetInnerHTML={{
 													__html: markdownPreview ?? "",
 												}}

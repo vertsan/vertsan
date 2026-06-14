@@ -88,15 +88,15 @@ export default function ExperienceSection() {
 				</div>
 
 				<div className="relative">
-					<div className="absolute left-8 top-0 bottom-0 w-px bg-border/60 hidden md:block" />
+					<div className="absolute left-0 md:left-8 top-0 bottom-0 w-px bg-border/60 hidden sm:block" />
 
 					<div className="space-y-8">
 						{sortedJobs.map((job) => (
 							<div
 								key={job.jobTitle}
-								className="relative pl-0 md:pl-20"
+								className="relative pl-6 sm:pl-20"
 							>
-								<div className="absolute left-[1.85rem] top-6 w-3.5 h-3.5 rounded-full bg-primary border-[3px] border-background hidden md:block shadow-sm" />
+								<div className="absolute left-[-0.35rem] sm:left-[1.85rem] top-6 w-3.5 h-3.5 rounded-full bg-primary border-[3px] border-background hidden sm:block shadow-sm" />
 
 								<Card className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300">
 									<CardHeader>

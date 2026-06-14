@@ -110,7 +110,7 @@ export default function ResumeAssistant() {
 		error?.message?.includes("fetch") || error?.message?.includes("network");
 
 	return (
-		<div className="fixed top-20 right-4 z-[100] w-[400px] h-[520px] rounded-xl shadow-2xl flex flex-col overflow-hidden border bg-card text-card-foreground">
+		<div className="fixed top-20 right-4 z-[100] w-[400px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[calc(100vh-6rem)] rounded-xl shadow-2xl flex flex-col overflow-hidden border bg-card text-card-foreground">
 			{/* Header */}
 			<div className="flex items-center justify-between p-4 border-b">
 				<div className="flex items-center gap-3">

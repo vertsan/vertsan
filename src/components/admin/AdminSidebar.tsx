@@ -46,7 +46,7 @@ export default function AdminSidebar({ open, onClose }: AdminSidebarProps) {
 
 			<aside
 				className={cn(
-					"w-56 shrink-0 border-r border-border bg-card flex flex-col gap-1 transition-all duration-300",
+					"w-56 max-w-[80vw] shrink-0 border-r border-border bg-card flex flex-col gap-1 transition-all duration-300",
 					"fixed lg:static inset-y-0 left-0 z-40 lg:z-auto",
 					open
 						? "translate-x-0"

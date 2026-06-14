@@ -7,6 +7,7 @@ import { defineConfig } from "vite";
 
 const config = defineConfig({
 	resolve: { tsconfigPaths: true },
+	assetsInclude: ["**/*.glb"],
 	plugins: [
 		devtools(),
 		netlify(),

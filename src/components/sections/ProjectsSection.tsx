@@ -130,40 +130,7 @@ const ProjectCard = memo(function ProjectCard({
 						</Badge>
 					)}
 				</div>
-				{(project.downloadAndroid || project.downloadIos) && (
-					<div className="flex flex-wrap gap-2 pt-3 border-t border-border">
-						{project.downloadAndroid && (
-							<Button
-								variant="default"
-								size="sm"
-								className="gap-1.5"
-								asChild
-							>
-								<a
-									href={`/api/download?url=${encodeURIComponent(project.downloadAndroid)}`}
-								>
-									<Smartphone className="size-3.5" />
-									APK
-								</a>
-							</Button>
-						)}
-						{project.downloadIos && (
-							<Button
-								variant="default"
-								size="sm"
-								className="gap-1.5"
-								asChild
-							>
-								<a
-									href={`/api/download?url=${encodeURIComponent(project.downloadIos)}`}
-								>
-									<Tablet className="size-3.5" />
-									IPA
-								</a>
-							</Button>
-						)}
-					</div>
-				)}
+				
 			</CardContent>
 			<CardFooter className="flex items-center justify-between gap-2 pt-0">
 				<div className="flex gap-2">

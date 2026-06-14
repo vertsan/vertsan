@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "#/components/ui/button";
+import Lanyard from "#/components/Lanyard/Lanyard";
 
 export default function HeroSection() {
 	return (
@@ -12,7 +14,7 @@ export default function HeroSection() {
 							<p className="text-sm font-medium text-muted-foreground tracking-widest uppercase">
 								Software Engineer
 							</p>
-							<h1 className="text-5xl sm:text-6xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.1]">
+							<h1 className="text-[2.5rem] sm:text-6xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.1]">
 								Hi, I'm{" "}
 								<span className="font-bold">Vert San</span>
 							</h1>
@@ -66,10 +68,14 @@ export default function HeroSection() {
 					</div>
 
 					<div className="hidden md:flex items-center justify-center">
-						<div className="relative">
-							<div className="text-[11rem] lg:text-[14rem] font-light text-foreground/[0.03] select-none leading-none">
-								VS
-							</div>
+						<div className="w-full max-w-md aspect-[3/4]">
+							<Suspense
+								fallback={
+									<div className="size-full animate-pulse rounded-2xl bg-muted" />
+								}
+							>
+								<Lanyard frontImage="/image.png" />
+							</Suspense>
 						</div>
 					</div>
 				</div>

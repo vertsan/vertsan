@@ -110,8 +110,8 @@ function ProjectDetail() {
 	return (
 		<main className="min-h-screen">
 			<article className="max-w-4xl mx-auto px-6 py-16 lg:py-24">
-				<div className="mb-8 flex items-center justify-between">
-					<Breadcrumb>
+				<div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+					<Breadcrumb className="min-w-0 truncate">
 						<BreadcrumbList>
 							<BreadcrumbItem>
 								<BreadcrumbLink asChild>
@@ -125,12 +125,12 @@ function ProjectDetail() {
 								</BreadcrumbLink>
 							</BreadcrumbItem>
 							<BreadcrumbSeparator />
-							<BreadcrumbItem>
-								<BreadcrumbPage>{project.title}</BreadcrumbPage>
+							<BreadcrumbItem className="truncate">
+								<BreadcrumbPage className="truncate max-w-[160px] sm:max-w-none">{project.title}</BreadcrumbPage>
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
-					<Button variant="ghost" size="sm" asChild>
+					<Button variant="ghost" size="sm" asChild className="shrink-0 self-start sm:self-auto">
 						<Link to="/projects" className="gap-2">
 							<ArrowLeft className="size-4" />
 							Back
@@ -156,9 +156,9 @@ function ProjectDetail() {
 						</p>
 					</div>
 
-					<div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+					<div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-sm text-muted-foreground">
 						<div className="flex items-center gap-1.5">
-							<Calendar className="size-4" />
+							<Calendar className="size-4 shrink-0" />
 							<time dateTime={project.startDate}>
 								{project.startDate}
 							</time>
