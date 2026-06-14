@@ -1,12 +1,9 @@
-# Hi 👋, I'm Vert San
+# Hey there, I'm Vert San 👋
+### A Full-Stack Developer based in Cambodia 🇰🇭
 
-### A seasoned Typescript developer
-
-- 🔭 I'm currently working on **a software developer **
-
-- 🌱 I'm currently learning **GraphQL and Typescript**
-
-- 👨‍💻 All of my projects are available at **[https://vertsan.netlify.app](https://vertsan.netlify.app)**
+- 🔭 I'm currently working on **the SBKU Attendance Management System & internal systems at J Trust Royal Bank**
+- 🌱 I'm currently learning **Advanced TypeScript, Cloud Architecture & System Design**
+- 👨‍💻 All of my projects are available at **[https://vertsan.com](https://vertsan.com)**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
