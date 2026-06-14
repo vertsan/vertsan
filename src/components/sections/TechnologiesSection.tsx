@@ -4,7 +4,7 @@ import { useLiveContent } from "#/lib/useLiveContent";
 
 function TechnologiesShimmer() {
 	return (
-		<section className="py-24 px-6">
+		<section className="py-16 md:py-24 px-4 sm:px-6">
 			<div className="max-w-5xl mx-auto space-y-16">
 				<div className="text-center space-y-4">
 					<Skeleton className="h-10 w-56 mx-auto" />
@@ -49,25 +49,25 @@ export default function TechnologiesSection() {
 	return (
 		<section
 			id="technologies"
-			className="py-24 px-6 scroll-mt-20"
+			className="py-16 md:py-24 px-4 sm:px-6 scroll-mt-20"
 		>
-			<div className="max-w-5xl mx-auto space-y-16">
-				<div className="text-center space-y-4">
-					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+			<div className="max-w-5xl mx-auto space-y-10 md:space-y-16">
+				<div className="text-center space-y-3 md:space-y-4">
+					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Technologies & Tools
 					</h2>
-					<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+					<p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
 						Technologies I work with regularly to build modern web applications
 					</p>
 				</div>
 
-				<div className="grid gap-6 md:grid-cols-2">
+				<div className="grid gap-4 md:gap-6 md:grid-cols-2">
 					{categories.map((category) => (
 						<div
 							key={(category as Record<string, any>).category as string}
-							className="group p-6 rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300"
+							className="group p-4 md:p-6 rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300"
 						>
-							<h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+							<h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 flex items-center gap-2">
 								<span className="w-1 h-5 rounded-full bg-primary/60 group-hover:bg-primary transition-colors duration-300" />
 								{(category as Record<string, any>).category as string}
 							</h3>

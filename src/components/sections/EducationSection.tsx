@@ -18,7 +18,7 @@ interface Education {
 
 function EducationShimmer() {
 	return (
-		<section className="py-24 px-6 bg-muted/30">
+		<section className="py-16 md:py-24 px-4 sm:px-6 bg-muted/30">
 			<div className="max-w-4xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
 					<Skeleton className="h-10 w-40 mx-auto" />
@@ -72,30 +72,30 @@ export default function EducationSection() {
 	return (
 		<section
 			id="education"
-			className="py-24 px-6 bg-muted/30 scroll-mt-20"
+			className="py-16 md:py-24 px-4 sm:px-6 bg-muted/30 scroll-mt-20"
 		>
 			<div className="max-w-4xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
-					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Education
 					</h2>
-					<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
 						My academic background and continuous learning
 					</p>
 				</div>
 
-				<div className="space-y-6">
+				<div className="space-y-4 md:space-y-6">
 					{sortedEducation.map((edu) => (
 						<Card
 							key={edu.school}
-							className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300"
+							className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6"
 						>
-							<CardHeader>
+							<CardHeader className="px-4 md:px-6">
 								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 									<div className="space-y-1">
 										<div className="flex items-center gap-2">
 											<GraduationCap className="size-4 text-primary shrink-0" />
-											<CardTitle className="text-xl">
+											<CardTitle className="text-lg md:text-xl">
 												{edu.school}
 											</CardTitle>
 										</div>
@@ -111,7 +111,7 @@ export default function EducationSection() {
 									</div>
 								</div>
 							</CardHeader>
-							<CardContent className="space-y-4">
+							<CardContent className="space-y-4 px-4 md:px-6">
 								{edu.content && (
 									<div
 										className="text-muted-foreground/80 text-sm space-y-1.5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:leading-relaxed [&_p]:mb-0"

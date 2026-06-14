@@ -7,7 +7,7 @@ import Lanyard from "#/components/Lanyard/Lanyard";
 export default function HeroSection() {
 	return (
 		<section className="relative min-h-screen flex items-center pt-16">
-			<div className="max-w-6xl mx-auto w-full px-6">
+			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6">
 				<div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
 					<div className="space-y-8">
 						<div className="space-y-3">
@@ -67,8 +67,8 @@ export default function HeroSection() {
 						</div>
 					</div>
 
-					<div className="hidden md:flex items-center justify-center">
-						<div className="w-full max-w-md aspect-[3/4]">
+					<div className="flex items-center justify-center">
+						<div className="w-full max-w-[200px] sm:max-w-[280px] md:max-w-md aspect-[3/4]">
 							<Suspense
 								fallback={
 									<div className="size-full animate-pulse rounded-2xl bg-muted" />

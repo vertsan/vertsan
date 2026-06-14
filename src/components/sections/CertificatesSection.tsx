@@ -12,13 +12,13 @@ import { useLiveContent } from "#/lib/useLiveContent";
 
 function CertificatesShimmer() {
 	return (
-		<section className="py-24 px-6 bg-muted/30">
+		<section className="py-16 md:py-24 px-4 sm:px-6 bg-muted/30">
 			<div className="max-w-5xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
 					<Skeleton className="h-10 w-44 mx-auto" />
 					<Skeleton className="h-5 w-64 mx-auto" />
 				</div>
-				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{[...Array(3)].map((_, i) => (
 						<Card key={i} className="border shadow-sm">
 							<CardHeader>
@@ -65,25 +65,25 @@ export default function CertificatesSection() {
 	return (
 		<section
 			id="certificates"
-			className="py-24 px-6 bg-muted/30 scroll-mt-20"
+			className="py-16 md:py-24 px-4 sm:px-6 bg-muted/30 scroll-mt-20"
 		>
 			<div className="max-w-5xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
-					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Certificates
 					</h2>
-					<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
 						Professional certifications and achievements
 					</p>
 				</div>
 
-				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{sortedCerts.map((cert) => (
 						<Card
 							key={(cert as Record<string, any>).title as string}
-							className="group border shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/15 transition-all duration-300"
+							className="group border shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/15 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6"
 						>
-							<CardHeader>
+							<CardHeader className="px-4 md:px-6">
 								<div className="flex items-start gap-3">
 									<div className="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0 group-hover:bg-primary/15 group-hover:scale-105 transition-all duration-300">
 										<Award className="size-5" />
@@ -98,7 +98,7 @@ export default function CertificatesSection() {
 									</div>
 								</div>
 							</CardHeader>
-							<CardContent className="space-y-3">
+							<CardContent className="space-y-3 px-4 md:px-6">
 								<p className="text-sm text-muted-foreground leading-relaxed">
 									{(cert as Record<string, any>).summary as string}
 								</p>

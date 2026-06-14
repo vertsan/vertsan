@@ -50,7 +50,7 @@ interface LanyardProps {
 }
 
 export default function Lanyard({
-	position = [0, 0, 21],
+	position = [0, 0, 14],
 	gravity = [0, -40, 0],
 	fov = 18,
 	transparent = true,
@@ -66,14 +66,22 @@ export default function Lanyard({
 
 	useEffect(() => {
 		const handleResize = (): void => setIsMobile(window.innerWidth < 768);
+		handleResize();
 		window.addEventListener("resize", handleResize);
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
+	const camPos: [number, number, number] = useMemo(
+		() => (isMobile ? [0, 0, 24] : position),
+		[isMobile, position],
+	);
+	const camFov = useMemo(() => (isMobile ? 22 : fov), [isMobile, fov]);
+	const cardScale = useMemo(() => (isMobile ? 1.6 : 2.25), [isMobile]);
+
 	return (
 		<div className="lanyard-wrapper">
 			<Canvas
-				camera={{ position, fov }}
+				camera={{ position: camPos, fov: camFov }}
 				dpr={[1, isMobile ? 1.5 : 2]}
 				gl={{ alpha: transparent }}
 				onCreated={({ gl }) =>
@@ -87,6 +95,7 @@ export default function Lanyard({
 				<Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
 					<Band
 						isMobile={isMobile}
+						cardScale={cardScale}
 						frontImage={frontImage}
 						backImage={backImage}
 						imageFit={imageFit}
@@ -133,6 +142,7 @@ interface BandProps {
 	maxSpeed?: number;
 	minSpeed?: number;
 	isMobile?: boolean;
+	cardScale?: number;
 	frontImage?: string | null;
 	backImage?: string | null;
 	imageFit?: "cover" | "contain";
@@ -144,6 +154,7 @@ function Band({
 	maxSpeed = 50,
 	minSpeed = 0,
 	isMobile = false,
+	cardScale = 2.25,
 	frontImage = null,
 	backImage = null,
 	imageFit = "cover",
@@ -359,7 +370,7 @@ function Band({
 				>
 					<CuboidCollider args={[0.8, 1.125, 0.01]} />
 					<group
-						scale={2.25}
+						scale={cardScale}
 						position={[0, -1.2, -0.05]}
 						onPointerOver={() => hover(true)}
 						onPointerOut={() => hover(false)}

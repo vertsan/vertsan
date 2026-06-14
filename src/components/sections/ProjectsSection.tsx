@@ -47,13 +47,13 @@ function prefetchProjects() {
 
 function ProjectsShimmer() {
 	return (
-		<section className="py-24 px-6">
+		<section className="py-16 md:py-24 px-4 sm:px-6">
 			<div className="max-w-6xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
 					<Skeleton className="h-10 w-40 mx-auto" />
 					<Skeleton className="h-5 w-64 mx-auto" />
 				</div>
-				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{[...Array(3)].map((_, i) => (
 						<Card key={i} className="border shadow-sm flex flex-col">
 							<CardHeader>
@@ -95,10 +95,10 @@ const ProjectCard = memo(function ProjectCard({
 	);
 
 	return (
-		<Card className="border shadow-sm flex flex-col">
-			<CardHeader>
+		<Card className="border shadow-sm flex flex-col gap-4 md:gap-6 py-4 md:py-6">
+			<CardHeader className="px-4 md:px-6">
 				<div className="flex items-start justify-between gap-2">
-					<CardTitle className="text-lg">{project.title}</CardTitle>
+					<CardTitle className="text-base md:text-lg">{project.title}</CardTitle>
 					<Badge
 						variant={project.status === "Completed" ? "default" : "secondary"}
 						className="shrink-0"
@@ -117,7 +117,7 @@ const ProjectCard = memo(function ProjectCard({
 					</p>
 				)}
 			</CardHeader>
-			<CardContent className="flex-1 flex flex-col gap-3">
+			<CardContent className="flex-1 flex flex-col gap-3 px-4 md:px-6">
 				<div className="flex flex-wrap gap-1.5">
 					{project.tags?.slice(0, 6).map((tag) => (
 						<Badge key={tag} variant="outline" className="text-xs">
@@ -132,7 +132,7 @@ const ProjectCard = memo(function ProjectCard({
 				</div>
 				
 			</CardContent>
-			<CardFooter className="flex items-center justify-between gap-2 pt-0">
+			<CardFooter className="flex items-center justify-between gap-2 pt-0 px-4 md:px-6">
 				<div className="flex gap-2">
 					{project.github && (
 						<Button variant="ghost" size="icon" asChild>
@@ -198,11 +198,11 @@ export default function ProjectsSection() {
 	return (
 		<section
 			id="projects"
-			className="py-24 px-6 scroll-mt-20"
+			className="py-16 md:py-24 px-4 sm:px-6 scroll-mt-20"
 		>
 			<div className="max-w-6xl mx-auto space-y-12">
 				<div className="text-center space-y-3">
-					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Projects
 					</h2>
 					<p className="text-muted-foreground max-w-xl mx-auto">
@@ -210,7 +210,7 @@ export default function ProjectsSection() {
 					</p>
 				</div>
 
-				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{sortedProjects.map((project) => (
 						<ProjectCard
 							key={project.slug ?? project.title}

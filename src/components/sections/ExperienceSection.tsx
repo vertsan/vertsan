@@ -20,7 +20,7 @@ interface Job {
 
 function ExperienceShimmer() {
 	return (
-		<section className="py-24 px-6 bg-muted/30">
+		<section className="py-16 md:py-24 px-4 sm:px-6 bg-muted/30">
 			<div className="max-w-4xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
 					<Skeleton className="h-10 w-48 mx-auto" />
@@ -75,14 +75,14 @@ export default function ExperienceSection() {
 	return (
 		<section
 			id="experience"
-			className="py-24 px-6 bg-muted/30 scroll-mt-20"
+			className="py-16 md:py-24 px-4 sm:px-6 bg-muted/30 scroll-mt-20"
 		>
 			<div className="max-w-4xl mx-auto space-y-12">
 				<div className="text-center space-y-4">
-					<h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Experience
 					</h2>
-					<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
 						My professional journey in software development
 					</p>
 				</div>
@@ -90,7 +90,7 @@ export default function ExperienceSection() {
 				<div className="relative">
 					<div className="absolute left-0 md:left-8 top-0 bottom-0 w-px bg-border/60 hidden sm:block" />
 
-					<div className="space-y-8">
+					<div className="space-y-6 md:space-y-8">
 						{sortedJobs.map((job) => (
 							<div
 								key={job.jobTitle}
@@ -98,13 +98,13 @@ export default function ExperienceSection() {
 							>
 								<div className="absolute left-[-0.35rem] sm:left-[1.85rem] top-6 w-3.5 h-3.5 rounded-full bg-primary border-[3px] border-background hidden sm:block shadow-sm" />
 
-								<Card className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300">
-									<CardHeader>
+								<Card className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6">
+									<CardHeader className="px-4 md:px-6">
 										<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 											<div className="space-y-1">
 												<div className="flex items-center gap-2">
 													<Briefcase className="size-4 text-primary shrink-0" />
-													<CardTitle className="text-xl">
+													<CardTitle className="text-lg md:text-xl">
 														{job.jobTitle}
 													</CardTitle>
 												</div>
@@ -120,7 +120,7 @@ export default function ExperienceSection() {
 											</div>
 										</div>
 									</CardHeader>
-									<CardContent className="space-y-4">
+									<CardContent className="space-y-4 px-4 md:px-6">
 										<p className="text-muted-foreground leading-relaxed">
 											{job.summary}
 										</p>
