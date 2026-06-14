@@ -41,14 +41,14 @@ export default function HeroSection() {
 
 						<div className="flex items-center gap-5 pt-2">
 							{[
-								{ href: "https://github.com", label: "GitHub", icon: Github },
+								{ href: "https://github.com/vertsan", label: "GitHub", icon: Github },
 								{
-									href: "https://linkedin.com",
+									href: "https://linkedin.com/in/vertsan",
 									label: "LinkedIn",
 									icon: Linkedin,
 								},
 								{
-									href: "mailto:hello@example.com",
+									href: "mailto:itsanvert@gmail.com",
 									label: "Email",
 									icon: Mail,
 								},
