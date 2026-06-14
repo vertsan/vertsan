@@ -266,40 +266,6 @@ function ProjectDetail() {
 
 				<Separator className="my-12" />
 
-				<div className="rounded-xl border border-border bg-muted/30 p-6 space-y-4">
-					<h2 className="text-xl font-bold tracking-tight">Demo Accounts</h2>
-					<p className="text-sm text-muted-foreground">
-						Use these credentials to test the application:
-					</p>
-					<div className="overflow-x-auto rounded-lg border border-border">
-						<table className="w-full border-collapse text-sm">
-							<thead>
-								<tr className="bg-muted">
-									<th className="text-left p-3 font-semibold border-r border-border">Role</th>
-									<th className="text-left p-3 font-semibold border-r border-border">Email</th>
-									<th className="text-left p-3 font-semibold">Password</th>
-								</tr>
-							</thead>
-							<tbody>
-								{[
-									{ role: "Super Admin", email: "superadmin@gmail.com" },
-									{ role: "Admin", email: "admin@gmail.com" },
-									{ role: "Teacher", email: "teacher@gmail.com" },
-									{ role: "Student", email: "student@gmail.com" },
-								].map((account, i) => (
-									<tr key={account.role} className={i % 2 === 0 ? "bg-background" : "bg-muted/20"}>
-										<td className="p-3 border-r border-border font-medium">{account.role}</td>
-										<td className="p-3 border-r border-border font-mono text-xs">{account.email}</td>
-										<td className="p-3 font-mono text-xs">12345678</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-					</div>
-				</div>
-
-				<Separator className="my-12" />
-
 				<div className="text-center">
 					<Button variant="ghost" asChild>
 						<Link to="/projects" className="gap-2">
