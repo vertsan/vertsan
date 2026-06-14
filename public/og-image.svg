@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f0f11"/>
+      <stop offset="100%" stop-color="#1a1a1e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4fb8b2"/>
+      <stop offset="100%" stop-color="#3a9d97"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" rx="0"/>
+  <text x="80" y="250" font-family="system-ui, -apple-system, sans-serif" font-weight="300" font-size="96" fill="#ffffff" letter-spacing="-2">Hi, I'm</text>
+  <text x="80" y="370" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="120" fill="url(#accent)" letter-spacing="-2">Vert San</text>
+  <text x="80" y="450" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="36" fill="#888" letter-spacing="-0.5">Software Engineer</text>
+  <text x="80" y="500" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="24" fill="#666">Building accessible, performant web applications</text>
+  <line x1="80" y1="540" x2="1120" y2="540" stroke="#222" stroke-width="1"/>
+  <text x="80" y="580" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="20" fill="#4fb8b2">vertsan.netlify.app</text>
+  <circle cx="1080" cy="100" r="80" fill="none" stroke="url(#accent)" stroke-width="2" opacity="0.3"/>
+  <text x="1040" y="120" font-family="system-ui, -apple-system, sans-serif" font-weight="200" font-size="60" fill="url(#accent)" opacity="0.15">VS</text>
+</svg>

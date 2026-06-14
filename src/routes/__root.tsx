@@ -43,6 +43,18 @@ export const Route = createRootRoute({
 			},
 			{
 				property: "og:image",
+				content: "https://vertsan.netlify.app/headshot-on-white.jpg",
+			},
+			{
+				property: "og:image:width",
+				content: "1023",
+			},
+			{
+				property: "og:image:height",
+				content: "1205",
+			},
+			{
+				property: "og:image",
 				content: "https://vertsan.netlify.app/logo512.png",
 			},
 			{
@@ -68,7 +80,7 @@ export const Route = createRootRoute({
 			},
 			{
 				name: "twitter:image",
-				content: "https://vertsan.netlify.app/logo512.png",
+				content: "https://vertsan.netlify.app/headshot-on-white.jpg",
 			},
 		],
 		links: [
