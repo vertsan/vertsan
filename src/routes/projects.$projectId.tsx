@@ -45,6 +45,7 @@ function ProjectDetail() {
 		if (cached) return cached.find((p) => p.slug === projectId);
 	});
 	const [loading, setLoading] = useState(!project);
+	const [renderedContent, setRenderedContent] = useState("");
 
 	useEffect(() => {
 		if (project) return;
@@ -64,6 +65,16 @@ function ProjectDetail() {
 			.catch(() => {})
 			.finally(() => setLoading(false));
 	}, [projectId, project]);
+
+	useEffect(() => {
+		if (!project?.content?.trim()) { setRenderedContent(""); return; }
+		let cancelled = false;
+		(async () => {
+			const html = await marked(project.content, { breaks: true });
+			if (!cancelled) setRenderedContent(html);
+		})();
+		return () => { cancelled = true; };
+	}, [project?.content, project]);
 
 	if (loading) {
 		return (
@@ -169,12 +180,16 @@ function ProjectDetail() {
 					</div>
 				)}
 
-				<div
-					className="prose prose-lg dark:prose-invert max-w-none leading-relaxed mb-12"
-					dangerouslySetInnerHTML={{
-						__html: marked(project.content, { async: false, breaks: true }),
-					}}
-				/>
+				{renderedContent ? (
+					<div
+						className="prose prose-lg dark:prose-invert max-w-none leading-relaxed mb-12"
+						dangerouslySetInnerHTML={{ __html: renderedContent }}
+					/>
+				) : project.content?.trim() ? (
+					<div className="flex items-center justify-center py-12 text-muted-foreground">
+						<Loader2 className="size-5 animate-spin" />
+					</div>
+				) : null}
 
 				{(hasDownloads || project.github || project.link) && (
 					<>
