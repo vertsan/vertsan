@@ -1,5 +1,5 @@
 # Hey there, I'm Vert San 👋
-### A Full-Stack Developer based in Cambodia 🇰🇭
+### A Software Engineer based in Cambodia 🇰🇭
 
 - 🔭 I'm currently working on **the SBKU Attendance Management System & internal systems at J Trust Royal Bank**
 - 🌱 I'm currently learning **Advanced TypeScript, Cloud Architecture & System Design**
