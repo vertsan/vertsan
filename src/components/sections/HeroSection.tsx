@@ -68,7 +68,7 @@ export default function HeroSection() {
 					</div>
 
 					<div className="flex items-center justify-center">
-						<div className="w-full max-w-[200px] sm:max-w-[280px] md:max-w-md aspect-[3/4]">
+						<div className="w-full max-w-[220px] sm:max-w-[280px] md:max-w-md aspect-[3/4]">
 							<Suspense
 								fallback={
 									<div className="size-full animate-pulse rounded-2xl bg-muted" />

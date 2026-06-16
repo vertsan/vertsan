@@ -4,55 +4,68 @@ import { useCallback, useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 
 interface NavLink {
-	label: string;
-	sectionId: string;
+  label: string;
+  sectionId: string;
 }
 
 const navLinks: NavLink[] = [
-	{ label: "Home", sectionId: "hero" },
-	{ label: "Technologies", sectionId: "technologies" },
-	{ label: "Experience", sectionId: "experience" },
-	{ label: "Projects", sectionId: "projects" },
-	{ label: "Certificates", sectionId: "certificates" },
+  { label: "Home", sectionId: "hero" },
+  { label: "Technologies", sectionId: "technologies" },
+  { label: "Experience", sectionId: "experience" },
+  { label: "Projects", sectionId: "projects" },
+  { label: "Certificates", sectionId: "certificates" },
 ];
 
 export default function Header() {
-	const router = useRouter();
-	const [mobileOpen, setMobileOpen] = useState(false);
-	const [scrolled, setScrolled] = useState(false);
+  const router = useRouter();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-	useEffect(() => {
-		const onScroll = () => setScrolled(window.scrollY > 20);
-		window.addEventListener("scroll", onScroll, { passive: true });
-		onScroll();
-		return () => window.removeEventListener("scroll", onScroll);
-	}, []);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-	useEffect(() => {
-		document.body.style.overflow = mobileOpen ? "hidden" : "";
-		return () => { document.body.style.overflow = ""; };
-	}, [mobileOpen]);
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
 
-	const scrollToSection = useCallback((sectionId: string) => {
-		setMobileOpen(false);
-		const scrollTo = (id: string) => {
-			const el = document.getElementById(id);
-			if (!el) return false;
-			const headerHeight = 64;
-			const top = el.getBoundingClientRect().top + window.scrollY - headerHeight;
-			window.scrollTo({ top, behavior: "smooth" });
-			return true;
-		};
-		if (sectionId === "hero") {
-			window.scrollTo({ top: 0, behavior: "smooth" });
-			return;
-		}
-		if (!scrollTo(sectionId)) {
-			router.navigate({ to: "/" });
-			setTimeout(() => scrollTo(sectionId), 100);
-		}
-	}, [router]);
+  const scrollToSection = useCallback((sectionId: string) => {
+    setMobileOpen(false);
 
+    const scrollTo = (id: string) => {
+      if (id === "hero") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return true;
+      }
+      const el = document.getElementById(id);
+      if (!el) return false;
+      const headerHeight = 64;
+      const top = el.getBoundingClientRect().top + window.scrollY - headerHeight;
+      window.scrollTo({ top, behavior: "smooth" });
+      return true;
+    };
+
+    // If the section already exists in the DOM, scroll immediately
+    if (sectionId === "hero" || document.getElementById(sectionId)) {
+      scrollTo(sectionId);
+      return;
+    }
+
+    // Otherwise navigate home first, then scroll once the route has settled
+    router.navigate({ to: "/" }).then(() => {
+      // router.navigate resolves after the route change is committed,
+      // but React hasn't flushed the new render yet — wait one frame.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          scrollTo(sectionId);
+        });
+      });
+    });
+  }, [router]);
 	return (
 		<header
 			className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
@@ -113,4 +126,4 @@ export default function Header() {
 			</div>
 		</header>
 	);
-}
+  }
