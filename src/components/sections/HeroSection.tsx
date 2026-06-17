@@ -3,7 +3,7 @@ import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "#/components/ui/button";
 import Lanyard from "#/components/Lanyard/Lanyard";
-import PetSprite from "#/components/PetSprite";
+
 
 export default function HeroSection() {
 	return (
@@ -16,16 +16,17 @@ export default function HeroSection() {
 								<img src="/itachi-idle.gif" alt="itachi" className="size-10" />
 							</div>
 							<p className="text-sm font-medium text-muted-foreground tracking-widest uppercase">
-								Software Engineer
-							</p>
-							<h1 className="text-[2.5rem] sm:text-6xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.1]">
-								Hi, I'm{" "}
-								<span className="font-bold">Vert San</span>
-							</h1>
-							<p className="text-muted-foreground/70 max-w-md leading-relaxed">
-								I build accessible, performant web applications with
-								modern technologies.
-							</p>
+  Full-Stack Developer
+</p>
+
+<h1 className="text-[2.5rem] sm:text-6xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.1]">
+  Hi, I'm <span className="font-bold">Vert San</span>
+</h1>
+
+<p className="text-muted-foreground/70 max-w-md leading-relaxed">
+  I design and build accessible, scalable, secure, and high-performance web
+  and mobile applications using modern technologies and best practices.
+</p>
 						</div>
 
 						<div className="flex flex-wrap items-center gap-3">
