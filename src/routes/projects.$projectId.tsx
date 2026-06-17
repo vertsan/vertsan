@@ -178,11 +178,16 @@ function ProjectDetail() {
 				</header>
 
 				{project.image && (
-					<div className="mb-12 rounded-2xl overflow-hidden border border-border shadow-lg ">
+					<div className="mb-12 rounded-2xl overflow-hidden border border-border shadow-lg bg-card">
+						<div className="flex items-center gap-1.5 px-4 py-3 bg-muted/30 border-b border-border">
+							<span className="w-[10px] h-[10px] rounded-full bg-[#ff605c]" />
+							<span className="w-[10px] h-[10px] rounded-full bg-[#ffbd44]" />
+							<span className="w-[10px] h-[10px] rounded-full bg-[#00ca4e]" />
+						</div>
 						<img
 							src={project.image}
 							alt={project.title}
-							className="w-full rounded-lg border border-border"
+							className="w-full"
 						/>
 					</div>
 				)}
