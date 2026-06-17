@@ -95,6 +95,8 @@ export default function Header() {
 				</nav>
 
 				<div className="flex items-center gap-1">
+					
+					<ThemeToggle />
 					<Link
 						to="/login"
 						className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
@@ -102,8 +104,6 @@ export default function Header() {
 						<LogIn className="size-3.5" />
 						Login
 					</Link>
-					<ThemeToggle />
-
 					<button
 						onClick={() => setMobileOpen(!mobileOpen)}
 						aria-label="Toggle menu"
