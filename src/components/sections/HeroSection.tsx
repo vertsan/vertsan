@@ -3,6 +3,7 @@ import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Button } from "#/components/ui/button";
 import Lanyard from "#/components/Lanyard/Lanyard";
+import PetSprite from "#/components/PetSprite";
 
 export default function HeroSection() {
 	return (
@@ -11,6 +12,9 @@ export default function HeroSection() {
 				<div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
 					<div className="space-y-8">
 						<div className="space-y-3">
+							<div className="flex items-center gap-2">
+								<img src="/itachi-idle.gif" alt="itachi" className="size-10" />
+							</div>
 							<p className="text-sm font-medium text-muted-foreground tracking-widest uppercase">
 								Software Engineer
 							</p>
