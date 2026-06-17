@@ -108,7 +108,7 @@ export const Route = createRootRoute({
 			},
 			{
 				rel: "stylesheet",
-				href: "https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap",
+				href: "https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Maven+Pro:wght@400..900&display=swap",
 			},
 		],
 	}),

@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import { createFileRoute } from "@tanstack/react-router";
 import { collectionConfig } from "#/lib/admin/config";
 import { createCertificateService } from "#/services/certificate.service";
@@ -5,6 +6,39 @@ import { createEducationService } from "#/services/education.service";
 import { createJobService } from "#/services/job.service";
 import { createProjectService } from "#/services/project.service";
 import { createTechnologyService } from "#/services/technology.service";
+
+const SECRET = process.env.ADMIN_SECRET || "vertsan-secret";
+const MUTATIONS = new Set(["create", "update", "delete"]);
+
+function hashToken(raw: string): string {
+	return crypto.createHash("sha256").update(raw).digest("hex");
+}
+
+function getRoleFromCookie(request: Request): string | null {
+	const cookieHeader = request.headers.get("cookie");
+	if (!cookieHeader) return null;
+	for (const c of cookieHeader.split(";")) {
+		const [k, ...v] = c.trim().split("=");
+		if (k === "admin_auth") {
+			const token = decodeURIComponent(v.join("="));
+			const parts = token.split(".");
+			if (parts.length >= 4) {
+				const [, hash, userIdStr, role] = parts;
+				const raw = `${userIdStr}:${role}:${parts[0]}:${SECRET}`;
+				if (hash === hashToken(raw)) return role;
+			}
+		}
+	}
+	return null;
+}
+
+function requireAdmin(request: Request): Response | null {
+	const role = getRoleFromCookie(request);
+	if (role !== "admin") {
+		return Response.json({ error: "Forbidden: admin access required" }, { status: 403 });
+	}
+	return null;
+}
 
 const validCollections = new Set(Object.keys(collectionConfig));
 
@@ -40,6 +74,12 @@ export const Route = createFileRoute("/api/admin")({
 
 					if (action === "config") {
 						return Response.json({ config: collectionConfig[collection] });
+					}
+
+					// Mutations require admin role
+					if (MUTATIONS.has(action)) {
+						const forbidden = requireAdmin(request);
+						if (forbidden) return forbidden;
 					}
 
 					const service = services[collection];

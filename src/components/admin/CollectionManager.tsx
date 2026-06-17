@@ -24,6 +24,7 @@ import type {
 	FieldConfig,
 } from "#/lib/admin/config";
 import TagInput from "./TagInput";
+import { useAuth } from "#/lib/admin/auth-context";
 import { clearCache } from "#/lib/useLiveContent";
 
 interface Props {
@@ -42,6 +43,7 @@ const icons: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 export default function CollectionManager({ collection, title }: Props) {
+	const { isAdmin } = useAuth();
 	const [config, setConfig] = useState<CollectionConfig | null>(null);
 	const [items, setItems] = useState<RecordData[]>([]);
 	const [loading, setLoading] = useState(true);
@@ -103,6 +105,7 @@ export default function CollectionManager({ collection, title }: Props) {
 	}
 
 	function handleNew() {
+		if (!isAdmin) return;
 		setEditing(emptyRecord());
 		setIsNew(true);
 		setError("");
@@ -111,6 +114,7 @@ export default function CollectionManager({ collection, title }: Props) {
 	}
 
 	function handleEdit(item: RecordData) {
+		if (!isAdmin) return;
 		setEditing({ ...item });
 		setIsNew(false);
 		setError("");
@@ -340,7 +344,7 @@ export default function CollectionManager({ collection, title }: Props) {
 						</p>
 					</div>
 				</div>
-				{!editing && (
+				{!editing && isAdmin && (
 					<Button onClick={handleNew} className="gap-2 shadow-sm w-full sm:w-auto">
 						<Plus className="size-4" />
 						Add {config.label.slice(0, -1)}
@@ -412,28 +416,42 @@ export default function CollectionManager({ collection, title }: Props) {
 								: `Edit: ${getDisplayName(editing)}`}
 						</h2>
 						<div className="flex gap-2">
-							<Button
-								variant="ghost"
-								size="sm"
-								className="gap-2"
-								onClick={handleCancel}
-							>
-								<X className="size-4" />
-								Cancel
-							</Button>
-							<Button
-								size="sm"
-								className="gap-2 shadow-sm"
-								onClick={handleSave}
-								disabled={saving}
-							>
-								{saving ? (
-									<Loader2 className="size-4 animate-spin" />
-								) : (
-									<Save className="size-4" />
-								)}
-								Save
-							</Button>
+							{isAdmin ? (
+								<>
+									<Button
+										variant="ghost"
+										size="sm"
+										className="gap-2"
+										onClick={handleCancel}
+									>
+										<X className="size-4" />
+										Cancel
+									</Button>
+									<Button
+										size="sm"
+										className="gap-2 shadow-sm"
+										onClick={handleSave}
+										disabled={saving}
+									>
+										{saving ? (
+											<Loader2 className="size-4 animate-spin" />
+										) : (
+											<Save className="size-4" />
+										)}
+										Save
+									</Button>
+								</>
+							) : (
+								<Button
+									variant="ghost"
+									size="sm"
+									className="gap-2"
+									onClick={handleCancel}
+								>
+									<X className="size-4" />
+									Close
+								</Button>
+							)}
 						</div>
 					</div>
 
@@ -626,12 +644,15 @@ export default function CollectionManager({ collection, title }: Props) {
 							)}
 							<p className="font-medium">No {config.label.toLowerCase()} yet</p>
 							<p className="text-sm mt-1">
-								Create your first {config.label.slice(0, -1).toLowerCase()} to
-								get started
+								{isAdmin
+									? `Create your first ${config.label.slice(0, -1).toLowerCase()} to get started`
+									: `No ${config.label.toLowerCase()} available yet`}
 							</p>
-							<Button variant="link" onClick={handleNew} className="mt-3">
-								Add {config.label.slice(0, -1).toLowerCase()}
-							</Button>
+							{isAdmin && (
+								<Button variant="link" onClick={handleNew} className="mt-3">
+									Add {config.label.slice(0, -1).toLowerCase()}
+								</Button>
+							)}
 						</div>
 					) : (
 						<div className="divide-y">
@@ -663,26 +684,32 @@ export default function CollectionManager({ collection, title }: Props) {
 												</div>
 											</div>
 										</div>
-										<div className="flex gap-1 shrink-0 opacity-70 group-hover:opacity-100 transition-opacity">
-											<Button
-												variant="ghost"
-												size="sm"
-												className="size-8 p-0"
-												onClick={() => handleEdit(item)}
-												title="Edit"
-											>
-												<Pencil className="size-4" />
-											</Button>
-											<Button
-												variant="ghost"
-												size="sm"
-												className="size-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
-												onClick={() => setConfirmDelete(item)}
-												title="Delete"
-											>
-												<Trash2 className="size-4" />
-											</Button>
-										</div>
+										{isAdmin ? (
+											<div className="flex gap-1 shrink-0 opacity-70 group-hover:opacity-100 transition-opacity">
+												<Button
+													variant="ghost"
+													size="sm"
+													className="size-8 p-0"
+													onClick={() => handleEdit(item)}
+													title="Edit"
+												>
+													<Pencil className="size-4" />
+												</Button>
+												<Button
+													variant="ghost"
+													size="sm"
+													className="size-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10"
+													onClick={() => setConfirmDelete(item)}
+													title="Delete"
+												>
+													<Trash2 className="size-4" />
+												</Button>
+											</div>
+										) : (
+											<div className="opacity-70 group-hover:opacity-100 transition-opacity">
+												<span className="text-[10px] text-muted-foreground/50 px-2 py-1 rounded-md bg-muted/30">Read only</span>
+											</div>
+										)}
 									</div>
 								);
 							})}

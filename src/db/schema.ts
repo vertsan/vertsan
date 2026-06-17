@@ -66,3 +66,13 @@ export const technologies = pgTable("technologies", {
 	createdAt: timestamp("created_at").notNull().defaultNow(),
 	updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
+
+export const users = pgTable("users", {
+	id: serial("id").primaryKey(),
+	username: text("username").notNull().unique(),
+	password: text("password").notNull(),
+	name: text("name").notNull(),
+	role: text("role").notNull().default("reader"),
+	createdAt: timestamp("created_at").notNull().defaultNow(),
+	updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});

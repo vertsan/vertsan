@@ -2,7 +2,6 @@ import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { useState } from "react";
 import AdminSidebar from "#/components/admin/AdminSidebar";
 import AdminHeader from "#/components/admin/AdminHeader";
-import AdminFooter from "#/components/admin/AdminFooter";
 import AuthGuard from "#/components/admin/AuthGuard";
 
 export const Route = createFileRoute("/admin")({
@@ -10,11 +9,11 @@ export const Route = createFileRoute("/admin")({
 });
 
 function AdminLayout() {
-	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [sidebarOpen, setSidebarOpen] = useState(true);
 
 	return (
 		<AuthGuard>
-			<div className="min-h-screen flex flex-col bg-background">
+			<div className="min-h-screen flex flex-col font-admin bg-[#fafafa] dark:bg-background">
 				<AdminHeader
 					onToggleSidebar={() => setSidebarOpen((v) => !v)}
 					sidebarOpen={sidebarOpen}
@@ -28,7 +27,6 @@ function AdminLayout() {
 						<Outlet />
 					</main>
 				</div>
-				<AdminFooter />
 			</div>
 		</AuthGuard>
 	);

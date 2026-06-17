@@ -169,6 +169,18 @@ code {
   --animate-fade-in: fade-in 0.6s ease-out forwards;
   --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
   --animate-shimmer: shimmer 3s linear infinite;
+  --animate-card-enter: card-enter 0.4s ease-out forwards;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @layer base {
@@ -179,3 +191,31 @@ code {
     @apply bg-background text-foreground;
   }
 }
+
+/* Admin-scoped font family */
+.font-admin {
+  font-family: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Admin sparkline animation */
+@keyframes sparkline-draw {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes stat-count-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Subtle admin background dot pattern */
+.admin-dot-pattern {
+  background-image: radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dark .admin-dot-pattern {
+  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+

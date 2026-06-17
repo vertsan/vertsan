@@ -1,5 +1,5 @@
-import { useRouter } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Link, useRouter } from "@tanstack/react-router";
+import { LogIn, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 
@@ -95,6 +95,13 @@ export default function Header() {
 				</nav>
 
 				<div className="flex items-center gap-1">
+					<Link
+						to="/login"
+						className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+					>
+						<LogIn className="size-3.5" />
+						Login
+					</Link>
 					<ThemeToggle />
 
 					<button
@@ -122,6 +129,16 @@ export default function Header() {
 							{link.label}
 						</button>
 					))}
+					<div className="border-t border-border/40 my-1 pt-2">
+						<Link
+							to="/login"
+							onClick={() => setMobileOpen(false)}
+							className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-colors font-medium cursor-pointer"
+						>
+							<LogIn className="size-3.5" />
+							Login
+						</Link>
+					</div>
 				</nav>
 			</div>
 		</header>

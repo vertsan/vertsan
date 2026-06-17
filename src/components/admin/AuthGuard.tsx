@@ -1,41 +1,42 @@
-import { useRouter } from "@tanstack/react-router";
 import { Loader2 } from "lucide-react";
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect } from "react";
+import { useRouter } from "@tanstack/react-router";
+import { AuthProvider, useAuth } from "#/lib/admin/auth-context";
 
 interface Props {
 	children: ReactNode;
 }
 
-export default function AuthGuard({ children }: Props) {
-	const [authed, setAuthed] = useState<boolean | null>(null);
+function AuthGuardInner({ children }: Props) {
+	const { user, loading } = useAuth();
 	const router = useRouter();
 
 	useEffect(() => {
-		fetch("/api/admin/login", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ action: "check" }),
-		})
-			.then((r) => r.json())
-			.then((d) => {
-				if (d.authenticated) {
-					setAuthed(true);
-				} else {
-					router.navigate({ to: "/login" });
-				}
-			})
-			.catch(() => {
-				router.navigate({ to: "/login" });
-			});
-	}, [router]);
+		if (!loading && !user) {
+			router.navigate({ to: "/login" });
+		}
+	}, [user, loading, router]);
 
-	if (authed === null) {
+	if (loading) {
 		return (
-			<div className="min-h-screen flex items-center justify-center">
-				<Loader2 className="size-6 animate-spin text-muted-foreground" />
+			<div className="min-h-screen flex items-center justify-center bg-[#fafafa] dark:bg-background">
+				<div className="flex flex-col items-center gap-3">
+					<Loader2 className="size-6 animate-spin text-muted-foreground" />
+					<p className="text-sm text-muted-foreground">Verifying session...</p>
+				</div>
 			</div>
 		);
 	}
 
+	if (!user) return null;
+
 	return <>{children}</>;
+}
+
+export default function AuthGuard({ children }: Props) {
+	return (
+		<AuthProvider>
+			<AuthGuardInner>{children}</AuthGuardInner>
+		</AuthProvider>
+	);
 }

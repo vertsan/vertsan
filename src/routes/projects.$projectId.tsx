@@ -178,11 +178,11 @@ function ProjectDetail() {
 				</header>
 
 				{project.image && (
-					<div className="mb-12 rounded-2xl overflow-hidden border border-border shadow-lg">
+					<div className="mb-12 rounded-2xl overflow-hidden border border-border shadow-lg ">
 						<img
 							src={project.image}
 							alt={project.title}
-							className="w-full aspect-[21/9] object-cover"
+							className="w-full rounded-lg border border-border"
 						/>
 					</div>
 				)}
