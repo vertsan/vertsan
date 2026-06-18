@@ -60,6 +60,7 @@ export default function Lanyard({
 	lanyardImage = null,
 	lanyardWidth = 1,
 }: LanyardProps) {
+	const [canvasKey, setCanvasKey] = useState(0);
 	const [device, setDevice] = useState<"phone" | "tablet" | "desktop">(
 		() => {
 			if (typeof window === "undefined") return "desktop";
@@ -107,6 +108,7 @@ export default function Lanyard({
 	return (
 		<div className="lanyard-wrapper">
 			<Canvas
+				key={canvasKey}
 				camera={{ position: camPos, fov: camFov }}
 				dpr={[1, device === "phone" ? 1.2 : isMobile ? 1.5 : 2]}
 				gl={{
@@ -123,10 +125,7 @@ export default function Lanyard({
 						"webglcontextlost",
 						(e) => {
 							e.preventDefault();
-							setTimeout(
-								() => gl.domElement.getContext("webgl2"),
-								100,
-							);
+							setCanvasKey(k => k + 1);
 						},
 					);
 				}}
@@ -231,8 +230,10 @@ function Band({
 		if (!frontImage && !backImage) return baseMap;
 
 		const baseImg = baseMap.image as any;
-		const W = baseImg.width;
-		const H = baseImg.height;
+		const W = baseImg?.width || 0;
+		const H = baseImg?.height || 0;
+		if (W === 0 || H === 0) return baseMap;
+
 		const canvas = document.createElement("canvas");
 		canvas.width = W;
 		canvas.height = H;
@@ -242,6 +243,7 @@ function Band({
 		ctx.drawImage(baseImg, 0, 0, W, H);
 
 		const drawFitted = (img: any, rect: typeof FRONT_UV_RECT) => {
+			if (!img?.width || !img?.height) return;
 			const rx = rect.x * W;
 			const ry = rect.y * H;
 			const rw = rect.w * W;

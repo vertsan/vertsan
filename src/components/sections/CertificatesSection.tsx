@@ -1,5 +1,15 @@
-import { Award, Calendar, ExternalLink } from "lucide-react";
+import { ArrowUpRight, Award, Calendar, ExternalLink } from "lucide-react";
+import { Link, useLocation } from "@tanstack/react-router";
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from "#/components/ui/breadcrumb";
 import { Badge } from "#/components/ui/badge";
+import { Button } from "#/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -52,6 +62,10 @@ function CertificatesShimmer() {
 
 export default function CertificatesSection() {
 	const { items: certs, loading } = useLiveContent<Record<string, unknown>>("certificates");
+	const location = useLocation();
+	const showBreadcrumb = location.pathname === "/certificates" || location.pathname === "/certificates/";
+	const isHome = location.pathname === "/";
+	const MAX_HOME = 6;
 
 	if (loading && certs.length === 0) return <CertificatesShimmer />;
 
@@ -62,12 +76,29 @@ export default function CertificatesSection() {
 		);
 	});
 
+	const displayed = isHome ? sortedCerts.slice(0, MAX_HOME) : sortedCerts;
+
 	return (
 		<section
 			id="certificates"
 			className="py-16 md:py-24 px-4 sm:px-6 bg-muted/30 scroll-mt-20"
 		>
 			<div className="max-w-5xl mx-auto space-y-12">
+				{showBreadcrumb && (
+					<Breadcrumb>
+						<BreadcrumbList>
+							<BreadcrumbItem>
+								<BreadcrumbLink asChild>
+									<Link to="/">Home</Link>
+								</BreadcrumbLink>
+							</BreadcrumbItem>
+							<BreadcrumbSeparator />
+							<BreadcrumbItem>
+								<BreadcrumbPage>Certificates</BreadcrumbPage>
+							</BreadcrumbItem>
+						</BreadcrumbList>
+					</Breadcrumb>
+				)}
 				<div className="text-center space-y-4">
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Certificates
@@ -78,7 +109,7 @@ export default function CertificatesSection() {
 				</div>
 
 				<div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
-					{sortedCerts.map((cert) => (
+					{displayed.map((cert) => (
 						<Card
 							key={(cert as Record<string, any>).title as string}
 							className="group border shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/15 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6"
@@ -138,6 +169,17 @@ export default function CertificatesSection() {
 						</Card>
 					))}
 				</div>
+
+				{isHome && (
+					<div className="text-center">
+						<Button variant="outline" asChild>
+							<Link to="/certificates" className="gap-2">
+								See all certificates
+								<ArrowUpRight className="size-3.5" />
+							</Link>
+						</Button>
+					</div>
+				)}
 			</div>
 		</section>
 	);

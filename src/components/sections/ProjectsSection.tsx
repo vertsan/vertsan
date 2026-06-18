@@ -1,7 +1,15 @@
 import { memo, useMemo } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowUpRight, ExternalLink, Github, Smartphone, Tablet } from "lucide-react";
 import { marked } from "marked";
+import {
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
+} from "#/components/ui/breadcrumb";
 import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import {
@@ -183,6 +191,10 @@ const ProjectCard = memo(function ProjectCard({
 
 export default function ProjectsSection() {
 	const { items: projects, loading } = useLiveContent<Project>("projects");
+	const location = useLocation();
+	const showBreadcrumb = location.pathname === "/projects" || location.pathname === "/projects/";
+	const isHome = location.pathname === "/";
+	const MAX_HOME = 6;
 
 	const sortedProjects = useMemo(
 		() =>
@@ -193,6 +205,8 @@ export default function ProjectsSection() {
 		[projects],
 	);
 
+	const displayed = isHome ? sortedProjects.slice(0, MAX_HOME) : sortedProjects;
+
 	if (loading && projects.length === 0) return <ProjectsShimmer />;
 
 	return (
@@ -201,6 +215,21 @@ export default function ProjectsSection() {
 			className="py-16 md:py-24 px-4 sm:px-6 scroll-mt-20"
 		>
 			<div className="max-w-6xl mx-auto space-y-12">
+				{showBreadcrumb && (
+					<Breadcrumb>
+						<BreadcrumbList>
+							<BreadcrumbItem>
+								<BreadcrumbLink asChild>
+									<Link to="/">Home</Link>
+								</BreadcrumbLink>
+							</BreadcrumbItem>
+							<BreadcrumbSeparator />
+							<BreadcrumbItem>
+								<BreadcrumbPage>Projects</BreadcrumbPage>
+							</BreadcrumbItem>
+						</BreadcrumbList>
+					</Breadcrumb>
+				)}
 				<div className="text-center space-y-3">
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Projects
@@ -211,13 +240,24 @@ export default function ProjectsSection() {
 				</div>
 
 				<div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
-					{sortedProjects.map((project) => (
+					{displayed.map((project) => (
 						<ProjectCard
 							key={project.slug ?? project.title}
 							project={project}
 						/>
 					))}
 				</div>
+
+				{isHome && (
+					<div className="text-center">
+						<Button variant="outline" asChild>
+							<Link to="/projects" className="gap-2">
+								See all projects
+								<ArrowUpRight className="size-3.5" />
+							</Link>
+						</Button>
+					</div>
+				)}
 			</div>
 		</section>
 	);
