@@ -1,22 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Calendar, Smartphone, Tablet } from "lucide-react";
+import { ArrowLeft, Calendar, Smartphone, Table2, Globe, Github } from "lucide-react";
 import { marked } from "marked";
 import { useEffect, useMemo, useState } from "react";
 import { Badge } from "#/components/ui/badge";
-import {
-	Breadcrumb,
-	BreadcrumbItem,
-	BreadcrumbLink,
-	BreadcrumbList,
-	BreadcrumbPage,
-	BreadcrumbSeparator,
-} from "#/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "#/components/ui/breadcrumb";
 import { Button } from "#/components/ui/button";
-import { Separator } from "#/components/ui/separator";
 import { Loader2 } from "lucide-react";
 import { getCache, setCache } from "#/lib/useLiveContent";
 import "#/lib/markdown";
-import { LinkPreviewCard } from "#/components/LinkPreviewCard";
 
 interface Project {
 	id?: number;
@@ -68,13 +59,10 @@ function ProjectDetail() {
 			.then((data) => {
 				const items = (data.items ?? []) as Project[];
 				setCache("projects", items);
-
 				const found = items.find((p) => p.slug === projectId);
 				setProject(found);
 			})
-			.catch(() => {
-				setProject(undefined);
-			})
+			.catch(() => setProject(undefined))
 			.finally(() => setLoading(false));
 	}, [projectId]);
 
@@ -105,13 +93,11 @@ function ProjectDetail() {
 		);
 	}
 
-	const hasDownloads = project.downloadAndroid || project.downloadIos;
-
 	return (
 		<main className="min-h-screen">
-			<article className="max-w-4xl mx-auto px-6 py-16 lg:py-24">
-				<div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-					<Breadcrumb className="min-w-0 truncate">
+			<div className="max-w-6xl mx-auto px-6 py-16 lg:py-24">
+				<nav className="flex items-center justify-between mb-12">
+					<Breadcrumb>
 						<BreadcrumbList>
 							<BreadcrumbItem>
 								<BreadcrumbLink asChild>
@@ -125,136 +111,121 @@ function ProjectDetail() {
 								</BreadcrumbLink>
 							</BreadcrumbItem>
 							<BreadcrumbSeparator />
-							<BreadcrumbItem className="truncate">
-								<BreadcrumbPage className="truncate max-w-[160px] sm:max-w-none">{project.title}</BreadcrumbPage>
+							<BreadcrumbItem>
+								<BreadcrumbPage>{project.title}</BreadcrumbPage>
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
-					<Button variant="ghost" size="sm" asChild className="shrink-0 self-start sm:self-auto">
+					<Button variant="ghost" size="sm" asChild>
 						<Link to="/projects" className="gap-2">
 							<ArrowLeft className="size-4" />
 							Back
 						</Link>
 					</Button>
-				</div>
+				</nav>
 
-				<header className="mb-10 space-y-6">
-					<div className="space-y-3">
-						<div className="flex items-start justify-between gap-4 flex-wrap">
-							<h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-tight">
-								{project.title}
-							</h1>
+				<div className="lg:grid lg:grid-cols-3 lg:gap-14">
+					<div className="lg:col-span-2 space-y-10">
+						<header className="flex items-start justify-between gap-4">
+							<div className="space-y-3">
+								<h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+									{project.title}
+								</h1>
+								<p className="text-lg text-muted-foreground leading-relaxed">
+									{project.summary}
+								</p>
+							</div>
 							<Badge
 								variant={project.status === "Completed" ? "default" : "secondary"}
-								className="shrink-0 text-sm px-3 py-1"
+								className="shrink-0 mt-1.5"
 							>
 								{project.status}
 							</Badge>
-						</div>
-						<p className="text-xl text-muted-foreground leading-relaxed">
-							{project.summary}
-						</p>
-					</div>
+						</header>
 
-					<div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-sm text-muted-foreground">
-						<div className="flex items-center gap-1.5">
-							<Calendar className="size-4 shrink-0" />
-							<time dateTime={project.startDate}>
-								{project.startDate}
-							</time>
-							<span>—</span>
-							<time dateTime={project.endDate}>
-								{project.endDate}
-							</time>
-						</div>
-						<div className="flex flex-wrap gap-1.5">
-							{project.tags.map((tag) => (
-								<Badge key={tag} variant="outline" className="text-xs">
-									{tag}
-								</Badge>
-							))}
-						</div>
-					</div>
-				</header>
-
-				{project.image && (
-					<div className="mb-12 rounded-2xl overflow-hidden border border-border shadow-lg bg-card">
-						<div className="flex items-center gap-1.5 px-4 py-3 bg-muted/30 border-b border-border">
-							<span className="w-[10px] h-[10px] rounded-full bg-[#ff605c]" />
-							<span className="w-[10px] h-[10px] rounded-full bg-[#ffbd44]" />
-							<span className="w-[10px] h-[10px] rounded-full bg-[#00ca4e]" />
-						</div>
-						<img
-							src={project.image}
-							alt={project.title}
-							className="w-full"
-						/>
-					</div>
-				)}
-
-				{renderedContent && (
-					<div
-						className="prose prose-lg dark:prose-invert max-w-none leading-relaxed mb-12"
-						dangerouslySetInnerHTML={{ __html: renderedContent }}
-					/>
-				)}
-
-				{(hasDownloads || project.github || project.link) && (
-					<>
-						<Separator className="my-12" />
-						<div className="space-y-6">
-							<h2 className="text-2xl font-bold tracking-tight">Resources</h2>
-							<div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-								{project.downloadAndroid && (
-									<Button
-										variant="default"
-										size="lg"
-										className="gap-2 w-full"
-										asChild
-									>
-										<a
-											href={`/api/download?url=${encodeURIComponent(project.downloadAndroid)}`}
-										>
-											<Smartphone className="size-5" />
-											Download APK
-										</a>
-									</Button>
-								)}
-								{project.downloadIos && (
-									<Button
-										variant="default"
-										size="lg"
-										className="gap-2 w-full"
-										asChild
-									>
-										<a
-											href={`/api/download?url=${encodeURIComponent(project.downloadIos)}`}
-										>
-											<Tablet className="size-5" />
-											Download iOS
-										</a>
-									</Button>
-								)}
-								{project.github && (
-									<LinkPreviewCard
-										href={project.github}
-										index={0}
-									/>
-								)}
-								{project.link && (
-									<LinkPreviewCard
-										href={project.link}
-										index={project.github ? 1 : 0}
-									/>
-								)}
+						{project.image && (
+							<div className="rounded-xl overflow-hidden border border-border shadow-sm bg-card">
+								<div className="flex items-center gap-1.5 px-4 py-2.5 bg-muted/30 border-b border-border">
+									<span className="size-3 rounded-full bg-[#ff605c]" />
+									<span className="size-3 rounded-full bg-[#ffbd44]" />
+									<span className="size-3 rounded-full bg-[#00ca4e]" />
+								</div>
+								<img src={project.image} alt={project.title} className="w-full" />
 							</div>
+						)}
+
+						{renderedContent && (
+							<div
+								className="prose prose-lg dark:prose-invert max-w-none"
+								dangerouslySetInnerHTML={{ __html: renderedContent }}
+							/>
+						)}
+					</div>
+
+					<aside className="mt-10 lg:mt-0 lg:col-span-1">
+						<div className="lg:sticky lg:top-24 space-y-6 rounded-xl border border-border bg-muted/20 p-5">
+							<div>
+								<div className="flex items-center gap-2 text-sm text-muted-foreground">
+									<Calendar className="size-4 shrink-0" />
+									<time dateTime={project.startDate}>{project.startDate}</time>
+									<span>—</span>
+									<time dateTime={project.endDate || undefined}>{project.endDate || "Present"}</time>
+								</div>
+							</div>
+
+							{project.tags.length > 0 && (
+								<div>
+									<div className="flex flex-wrap gap-1.5">
+										{project.tags.map((tag) => (
+											<Badge key={tag} variant="outline" className="text-xs">
+												{tag}
+											</Badge>
+										))}
+									</div>
+								</div>
+							)}
+
+							{(project.downloadAndroid || project.downloadIos || project.github || project.link) && (
+								<div className="space-y-2">
+									{project.downloadAndroid && (
+										<Button variant="default" size="sm" className="gap-2 w-full justify-start" asChild>
+											<a href={`/api/download?url=${encodeURIComponent(project.downloadAndroid)}`}>
+												<Smartphone className="size-4" />
+												Download APK
+											</a>
+										</Button>
+									)}
+									{project.downloadIos && (
+										<Button variant="default" size="sm" className="gap-2 w-full justify-start" asChild>
+											<a href={`/api/download?url=${encodeURIComponent(project.downloadIos)}`}>
+												<Table2 className="size-4" />
+												Download iOS
+											</a>
+										</Button>
+									)}
+									{project.github && (
+										<Button variant="secondary" size="sm" className="gap-2 w-full justify-start" asChild>
+											<a href={project.github} target="_blank" rel="noreferrer">
+												<Github className="size-4" />
+												Source Code
+											</a>
+										</Button>
+									)}
+									{project.link && (
+										<Button variant="secondary" size="sm" className="gap-2 w-full justify-start" asChild>
+											<a href={project.link} target="_blank" rel="noreferrer">
+												<Globe className="size-4" />
+												Live Site
+											</a>
+										</Button>
+									)}
+								</div>
+							)}
 						</div>
-					</>
-				)}
+					</aside>
+				</div>
 
-				<Separator className="my-12" />
-
-				<div className="text-center">
+				<div className="mt-16 text-center">
 					<Button variant="ghost" asChild>
 						<Link to="/projects" className="gap-2">
 							<ArrowLeft className="size-4" />
@@ -262,7 +233,7 @@ function ProjectDetail() {
 						</Link>
 					</Button>
 				</div>
-			</article>
+			</div>
 		</main>
 	);
 }
