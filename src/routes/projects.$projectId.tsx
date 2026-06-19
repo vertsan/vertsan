@@ -95,9 +95,9 @@ function ProjectDetail() {
 
 	return (
 		<main className="min-h-screen">
-			<div className="max-w-6xl mx-auto px-6 py-16 lg:py-24">
-				<nav className="flex items-center justify-between mb-12">
-					<Breadcrumb>
+			<div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
+				<nav className="flex items-center justify-between mb-10 sm:mb-12">
+					<Breadcrumb className="hidden sm:flex">
 						<BreadcrumbList>
 							<BreadcrumbItem>
 								<BreadcrumbLink asChild>
@@ -112,11 +112,11 @@ function ProjectDetail() {
 							</BreadcrumbItem>
 							<BreadcrumbSeparator />
 							<BreadcrumbItem>
-								<BreadcrumbPage>{project.title}</BreadcrumbPage>
+								<BreadcrumbPage className="truncate max-w-[120px]">{project.title}</BreadcrumbPage>
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
-					<Button variant="ghost" size="sm" asChild>
+					<Button variant="ghost" size="sm" asChild className="-ml-2 sm:ml-0">
 						<Link to="/projects" className="gap-2">
 							<ArrowLeft className="size-4" />
 							Back
@@ -125,30 +125,30 @@ function ProjectDetail() {
 				</nav>
 
 				<div className="lg:grid lg:grid-cols-3 lg:gap-14">
-					<div className="lg:col-span-2 space-y-10">
-						<header className="flex items-start justify-between gap-4">
-							<div className="space-y-3">
-								<h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+					<div className="lg:col-span-2 space-y-8 sm:space-y-10">
+						<header className="space-y-4 sm:space-y-3">
+							<div className="flex flex-wrap items-start justify-between gap-3">
+								<h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
 									{project.title}
 								</h1>
-								<p className="text-lg text-muted-foreground leading-relaxed">
-									{project.summary}
-								</p>
+								<Badge
+									variant={project.status === "Completed" ? "default" : "secondary"}
+									className="shrink-0"
+								>
+									{project.status}
+								</Badge>
 							</div>
-							<Badge
-								variant={project.status === "Completed" ? "default" : "secondary"}
-								className="shrink-0 mt-1.5"
-							>
-								{project.status}
-							</Badge>
+							<p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+								{project.summary}
+							</p>
 						</header>
 
 						{project.image && (
 							<div className="rounded-xl overflow-hidden border border-border shadow-sm bg-card">
-								<div className="flex items-center gap-1.5 px-4 py-2.5 bg-muted/30 border-b border-border">
-									<span className="size-3 rounded-full bg-[#ff605c]" />
-									<span className="size-3 rounded-full bg-[#ffbd44]" />
-									<span className="size-3 rounded-full bg-[#00ca4e]" />
+								<div className="flex items-center gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 bg-muted/30 border-b border-border">
+									<span className="size-2.5 sm:size-3 rounded-full bg-[#ff605c]" />
+									<span className="size-2.5 sm:size-3 rounded-full bg-[#ffbd44]" />
+									<span className="size-2.5 sm:size-3 rounded-full bg-[#00ca4e]" />
 								</div>
 								<img src={project.image} alt={project.title} className="w-full" />
 							</div>
@@ -156,37 +156,33 @@ function ProjectDetail() {
 
 						{renderedContent && (
 							<div
-								className="prose prose-lg dark:prose-invert max-w-none"
+								className="prose dark:prose-invert max-w-none sm:prose-lg"
 								dangerouslySetInnerHTML={{ __html: renderedContent }}
 							/>
 						)}
 					</div>
 
 					<aside className="mt-10 lg:mt-0 lg:col-span-1">
-						<div className="lg:sticky lg:top-24 space-y-6 rounded-xl border border-border bg-muted/20 p-5">
-							<div>
-								<div className="flex items-center gap-2 text-sm text-muted-foreground">
-									<Calendar className="size-4 shrink-0" />
-									<time dateTime={project.startDate}>{project.startDate}</time>
-									<span>—</span>
-									<time dateTime={project.endDate || undefined}>{project.endDate || "Present"}</time>
-								</div>
+						<div className="lg:sticky lg:top-24 space-y-5 rounded-xl border border-border bg-muted/20 p-4 sm:p-5">
+							<div className="flex items-center gap-2 text-sm text-muted-foreground">
+								<Calendar className="size-4 shrink-0" />
+								<time dateTime={project.startDate}>{project.startDate}</time>
+								<span>—</span>
+								<time dateTime={project.endDate || undefined}>{project.endDate || "Present"}</time>
 							</div>
 
 							{project.tags.length > 0 && (
-								<div>
-									<div className="flex flex-wrap gap-1.5">
-										{project.tags.map((tag) => (
-											<Badge key={tag} variant="outline" className="text-xs">
-												{tag}
-											</Badge>
-										))}
-									</div>
+								<div className="flex flex-wrap gap-1.5">
+									{project.tags.map((tag) => (
+										<Badge key={tag} variant="outline" className="text-xs">
+											{tag}
+										</Badge>
+									))}
 								</div>
 							)}
 
 							{(project.downloadAndroid || project.downloadIos || project.github || project.link) && (
-								<div className="space-y-2">
+								<div className="space-y-1.5">
 									{project.downloadAndroid && (
 										<Button variant="default" size="sm" className="gap-2 w-full justify-start" asChild>
 											<a href={`/api/download?url=${encodeURIComponent(project.downloadAndroid)}`}>
@@ -225,7 +221,7 @@ function ProjectDetail() {
 					</aside>
 				</div>
 
-				<div className="mt-16 text-center">
+				<div className="mt-12 sm:mt-16 text-center">
 					<Button variant="ghost" asChild>
 						<Link to="/projects" className="gap-2">
 							<ArrowLeft className="size-4" />
