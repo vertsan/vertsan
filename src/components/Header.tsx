@@ -67,7 +67,7 @@ export default function Header() {
   }, [router]);
 	return (
 		<header
-			className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${
+			className={`sticky top-0 z-50 w-full transition-all duration-300 ${
 				scrolled
 					? "bg-background/80 backdrop-blur-xl border-b border-border/40"
 					: "bg-transparent"

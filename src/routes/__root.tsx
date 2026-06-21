@@ -133,9 +133,15 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
-				{!isAdmin && <Header />}
-				{children}
-				{!isAdmin && <Footer />}
+				{!isAdmin ? (
+					<div className="mx-auto min-h-screen max-w-7xl border-x border-border bg-card shadow-sm">
+						<Header />
+						{children}
+						<Footer />
+					</div>
+				) : (
+					children
+				)}
 				<TanStackDevtools
 					config={{
 						position: "bottom-right",
