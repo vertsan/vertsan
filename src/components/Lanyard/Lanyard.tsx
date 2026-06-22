@@ -31,8 +31,6 @@ declare module "@react-three/fiber" {
 	}
 }
 
-
-
 const FRONT_UV_RECT = { x: 0, y: 0, w: 0.5, h: 0.755 };
 const BACK_UV_RECT = { x: 0.5, y: 0, w: 0.5, h: 0.757 };
 
