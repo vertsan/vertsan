@@ -7,7 +7,7 @@ import Lanyard from "#/components/Lanyard/Lanyard";
 
 export default function HeroSection() {
 	return (
-		<section className="relative min-h-screen flex items-center pt-16">
+		<section className="relative min-h-screen flex items-center ">
 			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6">
 				<div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
 					<div className="space-y-8">
