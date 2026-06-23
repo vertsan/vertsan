@@ -473,11 +473,11 @@ export default function CollectionManager({ collection, title }: Props) {
 												onChange={(e) =>
 													handleFieldChange(field.name, e.target.value)
 												}
-												className="min-h-[200px] md:min-h-[300px] p-3 text-sm font-mono bg-background border-0 focus:outline-none focus:ring-1 focus:ring-primary/20 resize-y"
+												className="min-h-50 md:min-h-75 p-3 text-sm font-mono bg-background border-0 focus:outline-none focus:ring-1 focus:ring-primary/20 resize-y"
 												placeholder={`${field.label} (markdown)...`}
 											/>
 											<div
-												className="min-h-[200px] md:min-h-[300px] p-3 text-sm prose prose-sm dark:prose-invert max-w-none overflow-y-auto bg-muted/30 border-t md:border-t-0 md:border-l border-border"
+												className="min-h-50 md:min-h-75 p-3 text-sm prose prose-sm dark:prose-invert max-w-none overflow-y-auto bg-muted/30 border-t md:border-t-0 md:border-l border-border"
 												dangerouslySetInnerHTML={{
 													__html: markdownPreview ?? "",
 												}}
