@@ -219,3 +219,30 @@ code {
   background-size: 24px 24px;
 }
 
+/* Terminal typing animation */
+.typing-animation {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: typing 2s steps(var(--text-length, 20)) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Terminal line reveal animation */
+.animated-line {
+  opacity: 0;
+  transform: translateY(4px);
+  animation: line-reveal 0.3s ease-out forwards;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes line-reveal {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
