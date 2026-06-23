@@ -131,6 +131,8 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<head>
 				<script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
 				<HeadContent />
+				<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+				<script src="https://files.bpcontent.cloud/2026/06/23/04/20260623042948-C1RWWWBT.js" defer></script>
 			</head>
 			<body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
 				{!isAdmin ? (
