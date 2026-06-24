@@ -78,12 +78,14 @@ marked.use({
 		},
 
 		table(token: Tokens.Table) {
+			const alignAttr = (align?: string) =>
+				align ? ` style="text-align: ${align}"` : "";
 			const thead =
-				`<thead>\n<tr>\n` +
+				`<thead class="bg-muted/60">\n<tr>\n` +
 				token.header
 					.map(
 						(cell) =>
-							`<th class="text-left p-3 font-semibold bg-muted border border-border${cell.align ? ` text-${cell.align}` : ""}">${this.parser.parseInline(cell.tokens)}</th>`,
+							`<th class="p-3 font-semibold text-left border border-border${cell.align ? ` text-${cell.align}` : ""}"${alignAttr(cell.align)}>${this.parser.parseInline(cell.tokens)}</th>`,
 					)
 					.join("\n") +
 				`\n</tr>\n</thead>`;
@@ -91,12 +93,12 @@ marked.use({
 				`<tbody>\n` +
 				token.rows
 					.map(
-						(row) =>
-							`<tr>\n` +
+						(row, ri) =>
+							`<tr class="${ri % 2 === 1 ? "bg-muted/20" : ""} transition-colors hover:bg-muted/40">\n` +
 							row
 								.map(
 									(cell) =>
-										`<td class="p-3 border border-border${cell.align ? ` text-${cell.align}` : ""}">${this.parser.parseInline(cell.tokens)}</td>`,
+										`<td class="p-3 border border-border${cell.align ? ` text-${cell.align}` : ""}"${alignAttr(cell.align)}>${this.parser.parseInline(cell.tokens)}</td>`,
 								)
 								.join("\n") +
 							`\n</tr>`,
@@ -104,7 +106,7 @@ marked.use({
 					.join("\n") +
 				`\n</tbody>`;
 			return [
-				`<div class="overflow-x-auto my-6 rounded-lg border border-border">`,
+				`<div class="not-prose overflow-x-auto my-6 rounded-lg border border-border">`,
 				`<table class="w-full border-collapse text-sm">`,
 				thead,
 				tbody,
