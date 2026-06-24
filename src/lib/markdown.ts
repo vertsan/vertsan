@@ -20,7 +20,7 @@ marked.use({
 			const escaped = escapeHtml(text);
 			return [
 				`<div class="relative group my-6">`,
-				`<pre class="bg-muted rounded-lg p-4 overflow-x-auto text-sm leading-relaxed border border-border">`,
+				`<pre class="bg-muted rounded-lg p-4 overflow-x-auto text-sm leading-relaxed border border-border border-l-4 border-l-primary/15">`,
 				`<code${langClass}>${escaped}</code>`,
 				`</pre>`,
 				`</div>`,

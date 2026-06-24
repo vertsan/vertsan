@@ -167,7 +167,7 @@ function ProjectDetail() {
 
 						{renderedContent && (
 							<div
-								className="prose dark:prose-invert max-w-none sm:prose-lg"
+								className="max-w-none"
 								dangerouslySetInnerHTML={{ __html: renderedContent }}
 							/>
 						)}
