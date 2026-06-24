@@ -6,11 +6,22 @@ import {
 	Terminal,
 	TypingAnimation,
 } from "#/components/ui/terminal";
+import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 
 export default function HeroSection() {
 	return (
-		<section className="relative min-h-screen flex items-center ">
-			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6">
+		<section className="relative min-h-screen flex items-center overflow-hidden">
+			<FlickeringGrid
+				className="absolute top-0 left-0 right-0 z-0 h-48"
+				squareSize={4}
+				gridGap={6}
+				color="#60A5FA"
+				maxOpacity={0.14}
+				flickerChance={0.1}
+				width={1400}
+				height={200}
+			/>
+			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6 relative z-10">
 				<div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
 					<div className="space-y-8">
 						<div className="space-y-3">

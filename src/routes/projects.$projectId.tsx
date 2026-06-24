@@ -7,6 +7,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Button } from "#/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { getCache, setCache } from "#/lib/useLiveContent";
+import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 import "#/lib/markdown";
 
 interface Project {
@@ -94,8 +95,18 @@ function ProjectDetail() {
 	}
 
 	return (
-		<main className="min-h-screen">
-			<div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
+		<main className="relative min-h-screen overflow-hidden">
+			<FlickeringGrid
+				className="absolute top-0 left-0 right-0 z-0 h-48"
+				squareSize={4}
+				gridGap={6}
+				color="#60A5FA"
+				maxOpacity={0.14}
+				flickerChance={0.1}
+				width={1400}
+				height={200}
+			/>
+			<div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
 				<nav className="flex items-center justify-between mb-10 sm:mb-12">
 					<Breadcrumb className="hidden sm:flex">
 						<BreadcrumbList>
