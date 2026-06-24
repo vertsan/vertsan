@@ -20,8 +20,8 @@ interface Job {
 
 function ExperienceShimmer() {
 	return (
-		<section className="py-16 md:py-24 px-4 sm:px-6 bg-muted/30">
-			<div className="max-w-4xl mx-auto space-y-12">
+		<section className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 bg-muted/30">
+			<div className="max-w-4xl mx-auto w-full space-y-12">
 				<div className="text-center space-y-4">
 					<Skeleton className="h-10 w-48 mx-auto" />
 					<Skeleton className="h-5 w-72 mx-auto" />
@@ -75,9 +75,9 @@ export default function ExperienceSection() {
 	return (
 		<section
 			id="experience"
-			className="py-16 md:py-24 px-4 sm:px-6 bg-muted/30 scroll-mt-20"
+			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 bg-muted/30 scroll-mt-20"
 		>
-			<div className="max-w-4xl mx-auto space-y-12">
+			<div className="max-w-4xl mx-auto w-full space-y-12">
 				<div className="text-center space-y-4">
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Experience

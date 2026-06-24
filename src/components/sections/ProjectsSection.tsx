@@ -55,8 +55,8 @@ function prefetchProjects() {
 
 function ProjectsShimmer() {
 	return (
-		<section className="py-16 md:py-24 px-4 sm:px-6">
-			<div className="max-w-6xl mx-auto space-y-12">
+		<section className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6">
+			<div className="max-w-6xl mx-auto w-full space-y-12">
 				<div className="text-center space-y-4">
 					<Skeleton className="h-10 w-40 mx-auto" />
 					<Skeleton className="h-5 w-64 mx-auto" />
@@ -212,9 +212,9 @@ export default function ProjectsSection() {
 	return (
 		<section
 			id="projects"
-			className="py-16 md:py-24 px-4 sm:px-6 scroll-mt-20"
+			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 scroll-mt-20"
 		>
-			<div className="max-w-6xl mx-auto space-y-12">
+			<div className="max-w-6xl mx-auto w-full space-y-12">
 				{showBreadcrumb && (
 					<Breadcrumb>
 						<BreadcrumbList>

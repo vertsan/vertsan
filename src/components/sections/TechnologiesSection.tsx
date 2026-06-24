@@ -4,8 +4,8 @@ import { useLiveContent } from "#/lib/useLiveContent";
 
 function TechnologiesShimmer() {
 	return (
-		<section className="py-16 md:py-24 px-4 sm:px-6">
-			<div className="max-w-5xl mx-auto space-y-16">
+		<section className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6">
+			<div className="max-w-5xl mx-auto w-full space-y-16">
 				<div className="text-center space-y-4">
 					<Skeleton className="h-10 w-56 mx-auto" />
 					<Skeleton className="h-5 w-80 mx-auto" />
@@ -49,9 +49,9 @@ export default function TechnologiesSection() {
 	return (
 		<section
 			id="technologies"
-			className="py-16 md:py-24 px-4 sm:px-6 scroll-mt-20"
+			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 scroll-mt-20"
 		>
-			<div className="max-w-5xl mx-auto space-y-10 md:space-y-16">
+			<div className="max-w-5xl mx-auto w-full space-y-10 md:space-y-16">
 				<div className="text-center space-y-3 md:space-y-4">
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Technologies & Tools
