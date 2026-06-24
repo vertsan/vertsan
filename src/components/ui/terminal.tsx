@@ -11,7 +11,7 @@ function Terminal({
 		<div
 			data-slot="terminal"
 			className={cn(
-				"relative w-full rounded-xl border border-border bg-card p-4 sm:p-5 font-mono text-xs sm:text-sm shadow-sm",
+				"relative w-full rounded-xl border border-border bg-muted p-4 sm:p-5 font-mono text-xs sm:text-sm shadow-sm",
 				className,
 			)}
 			{...props}
@@ -23,6 +23,41 @@ function Terminal({
 			</div>
 			<div className="space-y-1.5">{children}</div>
 		</div>
+	);
+}
+
+function PersonalInfo() {
+	return (
+		<Terminal>
+			<TypingAnimation className="text-green-500" delay="0ms">
+				&gt; whoami
+			</TypingAnimation>
+			<AnimatedSpan delay="1200ms">Vert San — Full-Stack Developer</AnimatedSpan>
+
+			<TypingAnimation className="text-green-500" delay="2400ms">
+				&gt; email
+			</TypingAnimation>
+			<AnimatedSpan delay="3600ms">itsanvert@gmail.com</AnimatedSpan>
+
+			<TypingAnimation className="text-green-500" delay="4800ms">
+				&gt; github
+			</TypingAnimation>
+			<AnimatedSpan delay="6000ms">github.com/vertsan</AnimatedSpan>
+
+			<TypingAnimation className="text-green-500" delay="7200ms">
+				&gt; linkedin
+			</TypingAnimation>
+			<AnimatedSpan delay="8400ms">linkedin.com/in/vertsan</AnimatedSpan>
+
+			<TypingAnimation className="text-green-500" delay="9600ms">
+				&gt; location
+			</TypingAnimation>
+			<AnimatedSpan delay="10800ms">Cambodia</AnimatedSpan>
+
+			<TypingAnimation className="text-muted-foreground" delay="12000ms">
+				Ready. Type a command or wait for next update.
+			</TypingAnimation>
+		</Terminal>
 	);
 }
 
@@ -70,4 +105,4 @@ function AnimatedSpan({
 	);
 }
 
-export { Terminal, TypingAnimation, AnimatedSpan };
+export { Terminal, TypingAnimation, AnimatedSpan, PersonalInfo };

@@ -25,6 +25,7 @@ export function FlickeringGrid({
 	const sizeRef = useRef({ w: propWidth ?? 800, h: propHeight ?? 800 });
 
 	const { r, g, b } = useMemo(() => {
+		if (typeof document === "undefined") return { r: 0, g: 0, b: 0 };
 		const temp = document.createElement("canvas");
 		temp.width = 1;
 		temp.height = 1;
