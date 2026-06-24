@@ -11,7 +11,7 @@ function Terminal({
 		<div
 			data-slot="terminal"
 			className={cn(
-				"relative w-full rounded-xl border border-border bg-muted p-4 sm:p-5 font-mono text-xs sm:text-sm shadow-sm",
+				"rounded-xl border border-border bg-muted/20 p-4 sm:p-5 font-mono text-xs sm:text-sm shadow-sm",
 				className,
 			)}
 			{...props}

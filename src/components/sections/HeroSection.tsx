@@ -20,7 +20,7 @@ export default function HeroSection() {
 				height={200}
 			/>
 			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6 relative z-10">
-				<div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+				<div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
 					<div className="space-y-8">
 						<div className="space-y-3">
 							<div className="flex items-center gap-2">
@@ -88,7 +88,7 @@ export default function HeroSection() {
 						</div>
 					</div>
 
-					<div className="flex items-center justify-center">
+					<div className="flex justify-center self-start">
 						<div className="w-full max-w-sm md:max-w-md">
 							<PersonalInfo />
 						</div>
