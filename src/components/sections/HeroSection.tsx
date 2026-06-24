@@ -13,7 +13,7 @@ export default function HeroSection() {
 				className="absolute top-0 left-0 right-0 z-0 h-48"
 				squareSize={4}
 				gridGap={6}
-				color="#60A5FA"
+				color="#4ade80"
 				maxOpacity={0.14}
 				flickerChance={0.1}
 				width={1400}
