@@ -115,80 +115,105 @@ function LoginPage() {
 		<div className="h-dvh flex bg-background font-admin overflow-hidden">
 			<InteractiveSide />
 
-			<div className="flex-1 flex items-center justify-center p-4 sm:p-8 lg:p-12 overflow-y-auto">
-				<div className="w-full max-w-sm">
+			<div className="flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-12 overflow-y-auto">
+				<div className="w-full max-w-md space-y-6">
 					<Link
 						to="/"
-						className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 mb-8"
+						className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors duration-200"
 					>
 						<ArrowLeft className="size-3" />
 						Back to site
 					</Link>
 
-					<div className="space-y-2 mb-8">
-						<h1 className="text-2xl font-bold tracking-tight">
-							Welcome back
-						</h1>
-						<p className="text-sm text-muted-foreground">
-							Sign in to manage your content
-						</p>
+					<div className="bg-white dark:bg-card rounded-2xl shadow-lg p-8 space-y-6">
+						<div className="space-y-1">
+							<h1 className="text-2xl font-bold tracking-tight">
+								Welcome back
+							</h1>
+							<p className="text-sm text-muted-foreground">
+								Sign in to manage your content
+							</p>
+						</div>
+
+						<form onSubmit={handleSubmit} className="space-y-5">
+							<div className="space-y-1">
+								<label
+									htmlFor="username"
+									className="text-xs font-semibold text-foreground/80 tracking-wide uppercase"
+								>
+									Username
+								</label>
+								<input
+									ref={usernameRef}
+									id="username"
+									type="text"
+									value={username}
+									onChange={(e) => setUsername(e.target.value)}
+									placeholder="Enter your username"
+									className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200"
+									autoComplete="username"
+								/>
+							</div>
+
+							<div className="space-y-1">
+								<div className="flex items-center justify-between">
+									<label
+										htmlFor="password"
+										className="text-xs font-semibold text-foreground/80 tracking-wide uppercase"
+									>
+										Password
+									</label>
+								</div>
+								<input
+									id="password"
+									type="password"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									placeholder="Enter your password"
+									className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200"
+									autoComplete="current-password"
+								/>
+							</div>
+
+							{error && (
+								<div className="rounded-xl bg-destructive/10 border border-destructive/20 px-4 py-3">
+									<p className="text-sm text-destructive text-center font-medium">
+										{error}
+									</p>
+								</div>
+							)}
+
+							<Button
+								type="submit"
+								className="w-full gap-2 rounded-xl h-11 font-medium shadow-sm transition-all duration-200 hover:shadow-md active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100"
+								disabled={loading}
+							>
+								{loading ? (
+									<>
+										<svg
+											className="animate-spin size-4"
+											xmlns="http://www.w3.org/2000/svg"
+											fill="none"
+											viewBox="0 0 24 24"
+										>
+											<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+											<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+										</svg>
+										Please wait...
+									</>
+								) : (
+									<>
+										<LogIn className="size-4" />
+										Sign In
+									</>
+								)}
+							</Button>
+						</form>
 					</div>
 
-					<form onSubmit={handleSubmit} className="space-y-4">
-						<div className="space-y-1.5">
-							<label
-								htmlFor="username"
-								className="text-xs font-medium text-muted-foreground"
-							>
-								Username
-							</label>
-							<input
-								ref={usernameRef}
-								id="username"
-								type="text"
-								value={username}
-								onChange={(e) => setUsername(e.target.value)}
-								placeholder="Enter your username"
-								className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200"
-								autoComplete="username"
-							/>
-						</div>
-
-						<div className="space-y-1.5">
-							<div className="flex items-center justify-between">
-								<label
-									htmlFor="password"
-									className="text-xs font-medium text-muted-foreground"
-								>
-									Password
-								</label>
-							</div>
-							<input
-								id="password"
-								type="password"
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-								placeholder="Enter your password"
-								className="w-full rounded-lg border border-input bg-background px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200"
-								autoComplete="current-password"
-							/>
-						</div>
-
-						{error && (
-							<p className="text-sm text-destructive text-center bg-destructive/5 rounded-lg px-3 py-2">
-								{error}
-							</p>
-						)}
-
-						<Button
-							type="submit"
-							className="w-full gap-2 rounded-lg h-10"
-							disabled={loading}
-						>
-							<LogIn className="size-4" />
-							{loading ? "Please wait..." : "Sign In"}
-						</Button>
-					</form>	
+					<p className="text-xs text-muted-foreground/40 text-center">
+						VertSan Content Manager
+					</p>
 				</div>
 			</div>
 		</div>
