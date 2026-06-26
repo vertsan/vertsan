@@ -22,8 +22,8 @@ import { useLiveContent } from "#/lib/useLiveContent";
 
 function CertificatesShimmer() {
 	return (
-		<section className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 bg-muted/30">
-			<div className="max-w-5xl mx-auto w-full space-y-12">
+		<section className="min-h-screen flex flex-col justify-center py-16 md:py-24 bg-muted/30">
+			<div className="max-w-6xl mx-auto w-full space-y-12 px-4 sm:px-6">
 				<div className="text-center space-y-4">
 					<Skeleton className="h-10 w-44 mx-auto" />
 					<Skeleton className="h-5 w-64 mx-auto" />
@@ -81,9 +81,9 @@ export default function CertificatesSection() {
 	return (
 		<section
 			id="certificates"
-			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 bg-muted/30 scroll-mt-20"
+			className="min-h-screen flex flex-col justify-center py-16 md:py-24 bg-muted/30 scroll-mt-20"
 		>
-			<div className="max-w-5xl mx-auto w-full space-y-12">
+			<div className="max-w-6xl mx-auto w-full space-y-12 px-4 sm:px-6">
 				{showBreadcrumb && (
 					<Breadcrumb>
 						<BreadcrumbList>
