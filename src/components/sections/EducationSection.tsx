@@ -1,6 +1,6 @@
-import { useMemo } from "react";
 import { Calendar, GraduationCap } from "lucide-react";
 import { marked } from "marked";
+import { useMemo } from "react";
 import { Badge } from "#/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
@@ -88,7 +88,7 @@ export default function EducationSection() {
 					{sortedEducation.map((edu) => (
 						<Card
 							key={edu.school}
-							className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6"
+							className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6"
 						>
 							<CardHeader className="px-4 md:px-6">
 								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">

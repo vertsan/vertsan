@@ -1,14 +1,12 @@
-import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "#/components/ui/button";
-import {
-	PersonalInfo,
-} from "#/components/ui/terminal";
+import { PersonalInfo } from "#/components/ui/terminal";
 import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 
 export default function HeroSection() {
 	return (
-		<section className="relative min-h-screen flex items-center overflow-hidden">
+		<section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-background via-background to-muted/20">
 			<FlickeringGrid
 				className="absolute top-0 left-0 right-0 z-0 h-48"
 				squareSize={4}
@@ -79,7 +77,7 @@ export default function HeroSection() {
 									href={href}
 									target="_blank"
 									rel="noreferrer"
-									className="text-muted-foreground hover:text-foreground transition-colors"
+									className="text-muted-foreground hover:text-foreground hover:scale-110 transition-all duration-200"
 									aria-label={label}
 								>
 									<Icon className="size-5" />

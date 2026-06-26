@@ -1,22 +1,19 @@
-import { Link, useRouter } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { LogIn, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
 
 interface NavLink {
   label: string;
-  sectionId: string;
+  to: string;
 }
 
 const navLinks: NavLink[] = [
-  { label: "Technologies", sectionId: "technologies" },
-  { label: "Experience", sectionId: "experience" },
-  { label: "Projects", sectionId: "projects" },
-  { label: "Certificates", sectionId: "certificates" },
+  { label: "Projects", to: "/projects" },
+  { label: "Certificates", to: "/certificates" },
 ];
 
 export default function Header() {
-  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -32,39 +29,10 @@ export default function Header() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  const scrollToSection = useCallback((sectionId: string) => {
+  const scrollToHero = useCallback(() => {
     setMobileOpen(false);
-
-    const scrollTo = (id: string) => {
-      if (id === "hero") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return true;
-      }
-      const el = document.getElementById(id);
-      if (!el) return false;
-      const headerHeight = 64;
-      const top = el.getBoundingClientRect().top + window.scrollY - headerHeight;
-      window.scrollTo({ top, behavior: "smooth" });
-      return true;
-    };
-
-    // If the section already exists in the DOM, scroll immediately
-    if (sectionId === "hero" || document.getElementById(sectionId)) {
-      scrollTo(sectionId);
-      return;
-    }
-
-    // Otherwise navigate home first, then scroll once the route has settled
-    router.navigate({ to: "/" }).then(() => {
-      // router.navigate resolves after the route change is committed,
-      // but React hasn't flushed the new render yet — wait one frame.
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          scrollTo(sectionId);
-        });
-      });
-    });
-  }, [router]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 	return (
 		<header
 			className={`sticky top-0 z-50 w-full transition-all duration-300 ${
@@ -83,19 +51,19 @@ export default function Header() {
 
 				<nav className="hidden md:flex items-center gap-1">
 					<button
-						onClick={() => scrollToSection("hero")}
+						onClick={scrollToHero}
 						className="relative px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px] after:bg-foreground after:scale-x-0 after:origin-center after:transition-transform after:duration-200 hover:after:scale-x-100 cursor-pointer"
 					>
 						Home
 					</button>
 					{navLinks.map((link) => (
-						<button
+						<Link
 							key={link.label}
-							onClick={() => scrollToSection(link.sectionId)}
-							className="relative px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px] after:bg-foreground after:scale-x-0 after:origin-center after:transition-transform after:duration-200 hover:after:scale-x-100 cursor-pointer"
+							to={link.to}
+							className="relative px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px] after:bg-foreground after:scale-x-0 after:origin-center after:transition-transform after:duration-200 hover:after:scale-x-100"
 						>
 							{link.label}
-						</button>
+						</Link>
 					))}
 				</nav>
 
@@ -126,19 +94,20 @@ export default function Header() {
 			>
 				<nav className="flex flex-col px-4 py-3 gap-0.5 bg-background/95 backdrop-blur-xl">
 					<button
-						onClick={() => scrollToSection("hero")}
+						onClick={scrollToHero}
 						className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-colors font-medium text-left cursor-pointer"
 					>
 						Home
 					</button>
 					{navLinks.map((link) => (
-						<button
+						<Link
 							key={link.label}
-							onClick={() => scrollToSection(link.sectionId)}
-							className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-colors font-medium text-left cursor-pointer"
+							to={link.to}
+							onClick={() => setMobileOpen(false)}
+							className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-colors font-medium"
 						>
 							{link.label}
-						</button>
+						</Link>
 					))}
 					<div className="border-t border-border/40 my-1 pt-2">
 						<Link

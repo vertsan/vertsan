@@ -49,7 +49,7 @@ export default function TechnologiesSection() {
 	return (
 		<section
 			id="technologies"
-			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 scroll-mt-20"
+			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 bg-muted/30 scroll-mt-20"
 		>
 			<div className="max-w-5xl mx-auto w-full space-y-10 md:space-y-16">
 				<div className="text-center space-y-3 md:space-y-4">
@@ -65,7 +65,7 @@ export default function TechnologiesSection() {
 					{categories.map((category) => (
 						<div
 							key={(category as Record<string, any>).category as string}
-							className="group p-4 md:p-6 rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300"
+							className="group p-4 md:p-6 rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-300"
 						>
 							<h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 flex items-center gap-2">
 								<span className="w-1 h-5 rounded-full bg-primary/60 group-hover:bg-primary transition-colors duration-300" />

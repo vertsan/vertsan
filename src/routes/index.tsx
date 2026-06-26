@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import ResumeAssistant from "#/components/ResumeAssistant";
+import AboutSection from "#/components/sections/AboutSection";
+import EducationSection from "#/components/sections/EducationSection";
+import ExperienceSection from "#/components/sections/ExperienceSection";
+import GetInTouchSection from "#/components/sections/GetInTouchSection";
 import HeroSection from "#/components/sections/HeroSection";
 import TechnologiesSection from "#/components/sections/TechnologiesSection";
-import ExperienceSection from "#/components/sections/ExperienceSection";
-import EducationSection from "#/components/sections/EducationSection";
-import ProjectsSection from "#/components/sections/ProjectsSection";
-import CertificatesSection from "#/components/sections/CertificatesSection";
+import WhatICanDoSection from "#/components/sections/WhatICanDoSection";
+
 import { DataProvider, type InitialData } from "#/lib/data-context";
 
 const EMPTY: InitialData = {
@@ -41,11 +43,12 @@ function Home() {
 		<DataProvider data={data}>
 			<ResumeAssistant />
 			<HeroSection />
+			<AboutSection />
+			<WhatICanDoSection />
 			<TechnologiesSection />
 			<ExperienceSection />
 			<EducationSection />
-			<ProjectsSection />
-			<CertificatesSection />
+			<GetInTouchSection />
 		</DataProvider>
 	);
 }

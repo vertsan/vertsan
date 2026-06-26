@@ -1,6 +1,6 @@
-import { useMemo } from "react";
 import { Briefcase, Calendar } from "lucide-react";
 import { marked } from "marked";
+import { useMemo } from "react";
 import { Badge } from "#/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
@@ -20,7 +20,7 @@ interface Job {
 
 function ExperienceShimmer() {
 	return (
-		<section className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 bg-muted/30">
+		<section className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 ">
 			<div className="max-w-4xl mx-auto w-full space-y-12">
 				<div className="text-center space-y-4">
 					<Skeleton className="h-10 w-48 mx-auto" />
@@ -75,7 +75,7 @@ export default function ExperienceSection() {
 	return (
 		<section
 			id="experience"
-			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 bg-muted/30 scroll-mt-20"
+			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6  scroll-mt-20"
 		>
 			<div className="max-w-4xl mx-auto w-full space-y-12">
 				<div className="text-center space-y-4">
@@ -92,13 +92,10 @@ export default function ExperienceSection() {
 
 					<div className="space-y-6 md:space-y-8">
 						{sortedJobs.map((job) => (
-							<div
-								key={job.jobTitle}
-								className="relative pl-6 sm:pl-20"
-							>
+							<div key={job.jobTitle} className="relative pl-6 sm:pl-20">
 								<div className="absolute left-[-0.35rem] sm:left-[1.85rem] top-6 w-3.5 h-3.5 rounded-full bg-primary border-[3px] border-background hidden sm:block shadow-sm" />
 
-								<Card className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6">
+								<Card className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6">
 									<CardHeader className="px-4 md:px-6">
 										<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 											<div className="space-y-1">

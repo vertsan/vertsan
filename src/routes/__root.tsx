@@ -1,3 +1,8 @@
+declare module "*.css?url" {
+	const content: string;
+	export default content;
+}
+
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import {
 	createRootRoute,
@@ -131,10 +136,47 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 			<head>
 				<script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
 				<HeadContent />
-				<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
-				<script src="https://files.bpcontent.cloud/2026/06/23/04/20260623042948-C1RWWWBT.js" defer></script>
 			</head>
 			<body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+				<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `window.botpress.init(${JSON.stringify({
+							botId: "4160daa7-1be3-4d1e-b6ef-d2585925c0eb",
+							configuration: {
+								version: "v2",
+								botName: "Vert Bot",
+								botAvatar: "https://files.bpcontent.cloud/2026/06/23/06/20260623062819-NM53T589.gif",
+								fabImage: "https://files.bpcontent.cloud/2026/06/23/06/20260623062819-NM53T589.gif",
+								website: {},
+								email: {},
+								phone: {},
+								termsOfService: {},
+								privacyPolicy: {},
+								color: "#3276EA",
+								variant: "solid",
+								headerVariant: "solid",
+								themeMode: "light",
+								fontFamily: "inter",
+								radius: 4,
+								feedbackEnabled: false,
+								footer: "[⚡ by Botpress](https://botpress.com/?from=webchat)",
+								soundEnabled: false,
+								proactiveMessageEnabled: false,
+								proactiveBubbleMessage: "Hi! 👋 Need help?",
+								proactiveBubbleTriggerType: "afterDelay",
+								proactiveBubbleDelayTime: 10,
+								conversationHistory: false,
+								homePageEnabled: false,
+								mainCardEnabled: false,
+								conversationStartersEnabled: false,
+								conversationStarters: [],
+								conversationStartersDisplayStyle: "cards",
+							},
+							clientId: "43a2f4e1-d418-4f74-b774-a33a0a2a976b",
+						})});`,
+					}}
+				/>
 				{!isAdmin ? (
 					<div className="mx-auto min-h-screen max-w-7xl border-x border-border bg-card shadow-sm">
 						<Header />
