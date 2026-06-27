@@ -1,10 +1,73 @@
+import { useEffect, useRef, useState, type ElementType } from "react";
 import { Code2, Globe, Quote, Sparkles } from "lucide-react";
 
-const stats = [
-	{ icon: Code2, value: "2.5+", label: "Years Experience" },
-	{ icon: Globe, value: "10+", label: "Projects Delivered" },
-	{ icon: Sparkles, value: "∞", label: "Always Learning" },
-];
+function useCountUp(target: number, duration = 2000) {
+	const [count, setCount] = useState(0);
+	const ref = useRef<HTMLDivElement>(null);
+	const started = useRef(false);
+
+	useEffect(() => {
+		const el = ref.current;
+		if (!el) return;
+
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting && !started.current) {
+					started.current = true;
+					const startTime = performance.now();
+
+					const animate = (now: number) => {
+						const elapsed = now - startTime;
+						const progress = Math.min(elapsed / duration, 1);
+						const eased = 1 - Math.pow(1 - progress, 3);
+						setCount(eased * target);
+						if (progress < 1) requestAnimationFrame(animate);
+					};
+					requestAnimationFrame(animate);
+				}
+			},
+			{ threshold: 0.3 },
+		);
+
+		observer.observe(el);
+		return () => observer.disconnect();
+	}, [target, duration]);
+
+	return { count, ref };
+}
+
+function AnimatedStat({
+	icon: Icon,
+	value,
+	suffix,
+	label,
+	decimals = 0,
+}: {
+	icon: ElementType;
+	value: number;
+	suffix: string;
+	label: string;
+	decimals?: number;
+}) {
+	const { count, ref } = useCountUp(value);
+
+	return (
+		<div
+			ref={ref}
+			className="group flex items-center gap-4 p-5 rounded-xl border bg-background/40 backdrop-blur-sm hover:bg-background/60 hover:border-primary/20 transition-all duration-300 shadow-sm"
+		>
+			<div className="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+				<Icon className="size-5" />
+			</div>
+			<div>
+				<p className="text-xl font-bold text-foreground tabular-nums">
+					{count.toFixed(decimals)}{suffix}
+				</p>
+				<p className="text-sm text-muted-foreground">{label}</p>
+			</div>
+		</div>
+	);
+}
 
 export default function AboutSection() {
 	return (
@@ -15,7 +78,7 @@ export default function AboutSection() {
 
 			<div className="max-w-5xl mx-auto w-full relative z-10 space-y-10 md:space-y-16">
 				<div className="text-center space-y-3 md:space-y-4">
-					
+
 					<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
 						Who <span className="text-primary">I Am</span>
 					</h2>
@@ -53,20 +116,17 @@ export default function AboutSection() {
 					</div>
 
 					<div className="md:col-span-2 space-y-4">
-						{stats.map(({ icon: Icon, value, label }) => (
-							<div
-								key={label}
-								className="group flex items-center gap-4 p-5 rounded-xl border bg-background/40 backdrop-blur-sm hover:bg-background/60 hover:border-primary/20 transition-all duration-300 shadow-sm"
-							>
-								<div className="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-									<Icon className="size-5" />
-								</div>
-								<div>
-									<p className="text-xl font-bold text-foreground">{value}</p>
-									<p className="text-sm text-muted-foreground">{label}</p>
-								</div>
+						<AnimatedStat icon={Code2} value={2.5} suffix="+" label="Years Experience" decimals={1} />
+						<AnimatedStat icon={Globe} value={10} suffix="+" label="Projects Delivered" />
+						<div className="group flex items-center gap-4 p-5 rounded-xl border bg-background/40 backdrop-blur-sm hover:bg-background/60 hover:border-primary/20 transition-all duration-300 shadow-sm">
+							<div className="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+								<Sparkles className="size-5" />
 							</div>
-						))}
+							<div>
+								<p className="text-xl font-bold text-foreground">∞</p>
+								<p className="text-sm text-muted-foreground">Always Learning</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
