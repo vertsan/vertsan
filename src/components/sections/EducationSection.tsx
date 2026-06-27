@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { Badge } from "#/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
+import { TracingBeam } from "#/components/ui/tracing-beam";
 import { useLiveContent } from "#/lib/useLiveContent";
 
 interface Education {
@@ -84,57 +85,59 @@ export default function EducationSection() {
 					</p>
 				</div>
 
-				<div className="space-y-4 md:space-y-6">
-					{sortedEducation.map((edu) => (
-						<Card
-							key={edu.school}
-							className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6"
-						>
-							<CardHeader className="px-4 md:px-6">
-								<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-									<div className="space-y-1">
-										<div className="flex items-center gap-2">
-											<GraduationCap className="size-4 text-primary shrink-0" />
-											<CardTitle className="text-lg md:text-xl">
-												{edu.school}
-											</CardTitle>
+				<TracingBeam>
+					<div className="space-y-4 md:space-y-6">
+						{sortedEducation.map((edu) => (
+							<Card
+								key={edu.school}
+								className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6"
+							>
+								<CardHeader className="px-4 md:px-6">
+									<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+										<div className="space-y-1">
+											<div className="flex items-center gap-2">
+												<GraduationCap className="size-4 text-primary shrink-0" />
+												<CardTitle className="text-lg md:text-xl">
+													{edu.school}
+												</CardTitle>
+											</div>
+											<p className="text-muted-foreground font-medium">
+												{edu.summary}
+											</p>
 										</div>
-										<p className="text-muted-foreground font-medium">
-											{edu.summary}
-										</p>
+										<div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
+											<Calendar className="size-3.5" />
+											<span>
+												{edu.startDate} — {edu.endDate ?? "Present"}
+											</span>
+										</div>
 									</div>
-									<div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
-										<Calendar className="size-3.5" />
-										<span>
-											{edu.startDate} — {edu.endDate ?? "Present"}
-										</span>
+								</CardHeader>
+								<CardContent className="space-y-4 px-4 md:px-6">
+									{edu.content && (
+										<div
+											className="text-muted-foreground/80 text-sm space-y-1.5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:leading-relaxed [&_p]:mb-0"
+											dangerouslySetInnerHTML={{
+												__html: renderContent(edu.content),
+											}}
+										/>
+									)}
+									<div className="flex flex-wrap gap-2">
+										{edu.tags?.map((tag) => (
+											<Badge
+												key={tag}
+												variant="outline"
+												className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+											>
+												{tag}
+											</Badge>
+										))}
 									</div>
-								</div>
-							</CardHeader>
-							<CardContent className="space-y-4 px-4 md:px-6">
-								{edu.content && (
-									<div
-										className="text-muted-foreground/80 text-sm space-y-1.5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:leading-relaxed [&_p]:mb-0"
-										dangerouslySetInnerHTML={{
-											__html: renderContent(edu.content),
-										}}
-									/>
-								)}
-								<div className="flex flex-wrap gap-2">
-									{edu.tags?.map((tag) => (
-										<Badge
-											key={tag}
-											variant="outline"
-											className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
-										>
-											{tag}
-										</Badge>
-									))}
-								</div>
-							</CardContent>
-						</Card>
-					))}
-				</div>
+								</CardContent>
+							</Card>
+						))}
+					</div>
+				</TracingBeam>
 			</div>
 		</section>
 	);

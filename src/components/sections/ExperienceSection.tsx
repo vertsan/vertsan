@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { Badge } from "#/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
+import { TracingBeam } from "#/components/ui/tracing-beam";
 import { useLiveContent } from "#/lib/useLiveContent";
 
 interface Job {
@@ -87,67 +88,61 @@ export default function ExperienceSection() {
 					</p>
 				</div>
 
-				<div className="relative">
-					<div className="absolute left-0 md:left-8 top-0 bottom-0 w-px bg-border/60 hidden sm:block" />
-
+				<TracingBeam>
 					<div className="space-y-6 md:space-y-8">
 						{sortedJobs.map((job) => (
-							<div key={job.jobTitle} className="relative pl-6 sm:pl-20">
-								<div className="absolute left-[-0.35rem] sm:left-[1.85rem] top-6 w-3.5 h-3.5 rounded-full bg-primary border-[3px] border-background hidden sm:block shadow-sm" />
-
-								<Card className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6">
-									<CardHeader className="px-4 md:px-6">
-										<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-											<div className="space-y-1">
-												<div className="flex items-center gap-2">
-													<Briefcase className="size-4 text-primary shrink-0" />
-													<CardTitle className="text-lg md:text-xl">
-														{job.jobTitle}
-													</CardTitle>
-												</div>
-												<p className="text-primary font-medium">
-													{job.company} &middot; {job.location}
-												</p>
+							<Card key={job.jobTitle} className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6">
+								<CardHeader className="px-4 md:px-6">
+									<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+										<div className="space-y-1">
+											<div className="flex items-center gap-2">
+												<Briefcase className="size-4 text-primary shrink-0" />
+												<CardTitle className="text-lg md:text-xl">
+													{job.jobTitle}
+												</CardTitle>
 											</div>
-											<div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
-												<Calendar className="size-3.5" />
-												<span>
-													{job.startDate} — {job.endDate ?? "Present"}
-												</span>
-											</div>
+											<p className="text-primary font-medium">
+												{job.company} &middot; {job.location}
+											</p>
 										</div>
-									</CardHeader>
-									<CardContent className="space-y-4 px-4 md:px-6">
-										<p className="text-muted-foreground leading-relaxed">
-											{job.summary}
-										</p>
-
-										{job.content && (
-											<div
-												className="text-muted-foreground/80 text-sm space-y-1.5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:leading-relaxed [&_p]:mb-0"
-												dangerouslySetInnerHTML={{
-													__html: renderContent(job.content),
-												}}
-											/>
-										)}
-
-										<div className="flex flex-wrap gap-2 pt-2">
-											{job.tags?.map((tag) => (
-												<Badge
-													key={tag}
-													variant="outline"
-													className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
-												>
-													{tag}
-												</Badge>
-											))}
+										<div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
+											<Calendar className="size-3.5" />
+											<span>
+												{job.startDate} — {job.endDate ?? "Present"}
+											</span>
 										</div>
-									</CardContent>
-								</Card>
-							</div>
+									</div>
+								</CardHeader>
+								<CardContent className="space-y-4 px-4 md:px-6">
+									<p className="text-muted-foreground leading-relaxed">
+										{job.summary}
+									</p>
+
+									{job.content && (
+										<div
+											className="text-muted-foreground/80 text-sm space-y-1.5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:leading-relaxed [&_p]:mb-0"
+											dangerouslySetInnerHTML={{
+												__html: renderContent(job.content),
+											}}
+										/>
+									)}
+
+									<div className="flex flex-wrap gap-2 pt-2">
+										{job.tags?.map((tag) => (
+											<Badge
+												key={tag}
+												variant="outline"
+												className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+											>
+												{tag}
+											</Badge>
+										))}
+									</div>
+								</CardContent>
+							</Card>
 						))}
 					</div>
-				</div>
+				</TracingBeam>
 			</div>
 		</section>
 	);
