@@ -51,24 +51,24 @@ export const TracingBeam = ({
   const [svgHeight, setSvgHeight] = useState(0);
 
   useEffect(() => {
-    if (contentRef.current) {
-      setSvgHeight(contentRef.current.offsetHeight);
-    }
+    if (contentRef.current) setSvgHeight(contentRef.current.offsetHeight);
     const r = new ResizeObserver(([entry]) => setSvgHeight(entry.contentRect.height));
     if (contentRef.current) r.observe(contentRef.current);
     return () => r.disconnect();
   }, []);
 
-  const y1 = useSpring(
-    useTransform(scrollYProgress, [0, 0.8], [50, svgHeight]),
-    { stiffness: 500, damping: 90 },
-  );
-  const y2 = useSpring(
-    useTransform(scrollYProgress, [0, 1], [50, svgHeight - 200]),
-    { stiffness: 500, damping: 90 },
-  );
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 150,
+    damping: 25,
+    mass: 0.3,
+  });
 
-  const isAtTop = scrollYProgress.get() <= 0;
+  const y1 = useTransform(smoothProgress, [0, 0.8], [50, svgHeight]);
+  const y2 = useTransform(smoothProgress, [0, 1], [50, svgHeight - 200]);
+
+  const dotScale = useTransform(smoothProgress, [0, 0.04], [1, 0.3]);
+  const dotOpacity = useTransform(smoothProgress, [0, 0.04], [1, 0]);
+  const shadowProgress = useTransform(smoothProgress, [0, 0.04], [1, 0]);
 
   return (
     <motion.div
@@ -77,26 +77,23 @@ export const TracingBeam = ({
     >
       <div className="absolute top-3 -left-4 md:-left-20">
         <motion.div
-          animate={{
-            boxShadow: isAtTop
-              ? "rgba(0, 0, 0, 0.24) 0px 3px 8px"
-              : "none",
+          style={{
+            borderColor: colors.border,
+            boxShadow: useTransform(shadowProgress, [0, 1], [
+              "none",
+              "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+            ]),
           }}
-          transition={{ duration: 0.2, delay: 0.5 }}
-          className="ml-[27px] flex h-4 w-4 items-center justify-center rounded-full border shadow-sm"
-          style={{ borderColor: colors.border }}
+          className="ml-[27px] flex h-4 w-4 items-center justify-center rounded-full border"
         >
           <motion.div
-            animate={{
-              backgroundColor: isAtTop ? colors.primary : colors.bg,
-              borderColor: isAtTop ? colors.primary : colors.border,
-            }}
-            transition={{ duration: 0.2, delay: 0.5 }}
-            className="h-2 w-2 rounded-full border"
             style={{
-              backgroundColor: isAtTop ? colors.primary : colors.bg,
-              borderColor: isAtTop ? colors.primary : colors.border,
+              scale: dotScale,
+              opacity: dotOpacity,
+              backgroundColor: colors.primary,
+              borderColor: colors.primary,
             }}
+            className="h-2 w-2 rounded-full border"
           />
         </motion.div>
         <svg
