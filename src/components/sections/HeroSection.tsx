@@ -25,7 +25,7 @@ export default function HeroSection() {
 								<img src="/itachi-idle.gif" alt="itachi" className="size-10" />
 							</div>
 							<p className="text-sm font-medium text-muted-foreground tracking-widest uppercase">
-								Full-Stack Developer
+								Software Engineer
 							</p>
 
 							<h1 className="text-[2.5rem] sm:text-6xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.1]">

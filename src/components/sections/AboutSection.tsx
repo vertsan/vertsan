@@ -94,7 +94,7 @@ export default function AboutSection() {
 							<Quote className="size-6 text-primary/30 absolute top-4 right-4" />
 							<div className="space-y-4 text-muted-foreground leading-relaxed">
 								<p className="text-base md:text-lg">
-									I'm a Full-Stack Developer & Designer from Cambodia, passionate
+									I'm a software engineer & Designer from Cambodia, passionate
 									about crafting digital experiences that are fast, intuitive,
 									and human-centered. I work across the stack — from React and
 									TypeScript on the frontend to Node.js, PostgreSQL, and
