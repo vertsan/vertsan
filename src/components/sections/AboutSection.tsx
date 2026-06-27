@@ -43,7 +43,8 @@ function AnimatedStat({
 	label,
 	decimals = 0,
 }: {
-	icon: ElementType;
+	// Lucide icons accept standard svg props; allow any props so className is allowed
+	icon: (props: any) => JSX.Element;
 	value: number;
 	suffix: string;
 	label: string;
