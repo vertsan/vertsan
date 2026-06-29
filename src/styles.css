@@ -22,6 +22,11 @@ code {
 }
 
 :root {
+  --color-1: 0 100% 63%;
+  --color-2: 270 100% 63%;
+  --color-3: 210 100% 63%;
+  --color-4: 195 100% 63%;
+  --color-5: 90 100% 63%;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
@@ -58,6 +63,11 @@ code {
 }
 
 .dark {
+  --color-1: 0 100% 63%;
+  --color-2: 270 100% 63%;
+  --color-3: 210 100% 63%;
+  --color-4: 195 100% 63%;
+  --color-5: 90 100% 63%;
   --background: oklch(0 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.12 0 0);
@@ -169,7 +179,20 @@ code {
   --animate-fade-in: fade-in 0.6s ease-out forwards;
   --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
   --animate-shimmer: shimmer 3s linear infinite;
+  --animate-gradient: gradient 3s ease infinite;
+  --animate-rainbow: rainbow var(--speed, 2s) infinite linear;
   --animate-card-enter: card-enter 0.4s ease-out forwards;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes rainbow {
+  0% { background-position: 0%; }
+  100% { background-position: 200%; }
 }
 
 @keyframes card-enter {

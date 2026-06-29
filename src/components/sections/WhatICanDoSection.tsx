@@ -7,6 +7,7 @@ import {
 	Server,
 	Smartphone,
 } from "lucide-react";
+import { GlowingEffect } from "#/components/ui/glowing-effect";
 
 interface Service {
 	icon: LucideIcon;
@@ -69,24 +70,38 @@ export default function WhatICanDoSection() {
 					</p>
 				</div>
 
-				<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+				<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
 					{services.map(({ icon: Icon, title, description }) => (
-						<div
-							key={title}
-							className="group p-5 md:p-6 rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-300"
-						>
-							<div className="p-2.5 rounded-lg bg-primary/10 text-primary w-fit mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-								<Icon className="size-5" />
+						<li key={title} className="min-h-[14rem] list-none">
+							<div className="relative h-full rounded-2xl border p-2 md:rounded-3xl md:p-3">
+								<GlowingEffect
+									blur={0}
+									borderWidth={3}
+									spread={80}
+									glow={true}
+									disabled={false}
+									proximity={64}
+									inactiveZone={0.01}
+								/>
+								<div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl p-6 border-0.75 dark:shadow-[0px_0px_27px_0px_#2D2D2D]">
+									<div className="relative flex flex-1 flex-col justify-between gap-3">
+										<div className="w-fit rounded-lg border border-gray-600 p-2">
+											<Icon className="h-4 w-4 text-black dark:text-neutral-400" />
+										</div>
+										<div className="space-y-3">
+											<h3 className="-tracking-4 pt-0.5 font-sans text-xl/[1.375rem] font-semibold text-balance text-black md:text-2xl/[1.875rem] dark:text-white">
+												{title}
+											</h3>
+											<p className="font-sans text-sm/[1.125rem] text-black md:text-base/[1.375rem] dark:text-neutral-400">
+												{description}
+											</p>
+										</div>
+									</div>
+								</div>
 							</div>
-							<h3 className="text-base md:text-lg font-semibold mb-2">
-								{title}
-							</h3>
-							<p className="text-sm text-muted-foreground leading-relaxed">
-								{description}
-							</p>
-						</div>
+						</li>
 					))}
-				</div>
+				</ul>
 			</div>
 		</section>
 	);

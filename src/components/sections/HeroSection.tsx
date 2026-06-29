@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
-import { Button } from "#/components/ui/button";
+import { cn } from "#/lib/utils";
 import { PersonalInfo } from "#/components/ui/terminal";
+import { AnimatedGradientText } from "#/registry/magicui/animated-gradient-text";
 import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
+import { RainbowButton } from "#/registry/magicui/rainbow-button";
 
 export default function HeroSection() {
 	return (
@@ -24,9 +26,24 @@ export default function HeroSection() {
 							<div className="flex items-center gap-2">
 								<img src="/itachi-idle.gif" alt="itachi" className="size-10" />
 							</div>
-							<p className="text-sm font-medium text-muted-foreground tracking-widest uppercase">
-								Software Engineer
-							</p>
+							<div className="group relative flex w-fit items-center justify-center rounded-full px-4 py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]">
+								<span
+									className={cn(
+										"animate-gradient absolute inset-0 block h-full w-full rounded-[inherit] bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:300%_100%] p-[1px]"
+									)}
+									style={{
+										WebkitMask:
+											"linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+										WebkitMaskComposite: "destination-out",
+										mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+										maskComposite: "subtract",
+										WebkitClipPath: "padding-box",
+									}}
+								/>
+								<AnimatedGradientText className="text-sm font-medium tracking-widest uppercase">
+									Full Stack Developer
+								</AnimatedGradientText>
+							</div>
 
 							<h1 className="text-[2.5rem] sm:text-6xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.1]">
 								Hi, I'm <span className="font-bold">Vert San</span>
@@ -40,18 +57,18 @@ export default function HeroSection() {
 						</div>
 
 						<div className="flex flex-wrap items-center gap-3">
-							<Button size="lg" className="gap-2" asChild>
+							<RainbowButton size="lg" className="gap-2" asChild>
 								<Link to="/projects">
 									View My Work
 									<ArrowDown className="size-4" />
 								</Link>
-							</Button>
-							<Button variant="outline" size="lg" className="gap-2" asChild>
+							</RainbowButton>
+							<RainbowButton variant="outline" size="lg" className="gap-2" asChild>
 								<a href="/resume.pdf" download>
 									<Download className="size-4" />
 									Download Resume
 								</a>
-							</Button>
+							</RainbowButton>
 						</div>
 
 						<div className="flex items-center gap-5 pt-2">
