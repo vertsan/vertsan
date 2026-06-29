@@ -5,6 +5,7 @@ import { PersonalInfo } from "#/components/ui/terminal";
 import { AnimatedGradientText } from "#/registry/magicui/animated-gradient-text";
 import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 import { RainbowButton } from "#/registry/magicui/rainbow-button";
+import TechnologiesSection from "./TechnologiesSection";
 
 export default function HeroSection() {
 	return (
@@ -108,6 +109,10 @@ export default function HeroSection() {
 							<PersonalInfo />
 						</div>
 					</div>
+				</div>
+
+				<div className="mt-10 md:mt-12">
+					<TechnologiesSection compact />
 				</div>
 			</div>
 		</section>

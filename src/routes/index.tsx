@@ -45,7 +45,7 @@ function Home() {
 			<HeroSection />
 			<AboutSection />
 			<WhatICanDoSection />
-			<TechnologiesSection />
+			
 			<ExperienceSection />
 			<EducationSection />
 			<GetInTouchSection />

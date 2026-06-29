@@ -1,91 +1,122 @@
-import { Badge } from "#/components/ui/badge";
-import { Skeleton } from "#/components/ui/skeleton";
-import { useLiveContent } from "#/lib/useLiveContent";
+import {
+	SiCss,
+	SiDocker,
+	SiDrizzle,
+	SiExpress,
+	SiFigma,
+	SiFirebase,
+	SiGit,
+	SiGithub,
+	SiGo,
+	SiGraphql,
+	SiHtml5,
+	SiJavascript,
+	SiLinux,
+	SiMongodb,
+	SiMui,
+	SiNextdotjs,
+	SiNodedotjs,
+	SiPostgresql,
+	SiPython,
+	SiReact,
+	SiReactquery,
+	SiReactrouter,
+	SiRedis,
+	SiShadcnui,
+	SiSqlite,
+	SiTailwindcss,
+	SiTypescript,
+	SiVite,
+} from "react-icons/si";
+import LogoLoop from "#/components/LogoLoop";
 
-function TechnologiesShimmer() {
-	return (
-		<section className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6">
-			<div className="max-w-5xl mx-auto w-full space-y-16">
-				<div className="text-center space-y-4">
-					<Skeleton className="h-10 w-56 mx-auto" />
-					<Skeleton className="h-5 w-80 mx-auto" />
-				</div>
-				<div className="grid gap-6 md:grid-cols-2">
-					{[...Array(4)].map((_, i) => (
-						<div
-							key={i}
-							className="p-6 rounded-xl border bg-card text-card-foreground shadow-sm"
-						>
-							<div className="flex items-center gap-2 mb-4">
-								<Skeleton className="w-1 h-5 rounded-full" />
-								<Skeleton className="h-5 w-32" />
-							</div>
-							<div className="flex flex-wrap gap-2">
-								{[...Array(6)].map((_, j) => (
-									<Skeleton key={j} className="h-7 w-16 rounded-full" />
-								))}
-							</div>
-						</div>
-					))}
-				</div>
-			</div>
-		</section>
-	);
+const techLogos = [
+	{ node: <SiReact />, title: "React", href: "https://react.dev" },
+	{ node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
+	{ node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org" },
+	{ node: <SiJavascript />, title: "JavaScript", href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+	{ node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
+	{ node: <SiHtml5 />, title: "HTML5", href: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
+	{ node: <SiCss />, title: "CSS3", href: "https://developer.mozilla.org/en-US/docs/Web/CSS" },
+	{ node: <SiNodedotjs />, title: "Node.js", href: "https://nodejs.org" },
+	{ node: <SiExpress />, title: "Express", href: "https://expressjs.com" },
+	{ node: <SiPython />, title: "Python", href: "https://www.python.org" },
+	{ node: <SiGo />, title: "Go", href: "https://go.dev" },
+	{ node: <SiPostgresql />, title: "PostgreSQL", href: "https://www.postgresql.org" },
+	{ node: <SiMongodb />, title: "MongoDB", href: "https://www.mongodb.com" },
+	{ node: <SiSqlite />, title: "SQLite", href: "https://www.sqlite.org" },
+	{ node: <SiRedis />, title: "Redis", href: "https://redis.io" },
+	{ node: <SiDrizzle />, title: "Drizzle ORM", href: "https://orm.drizzle.team" },
+	{ node: <SiGraphql />, title: "GraphQL", href: "https://graphql.org" },
+	{ node: <SiDocker />, title: "Docker", href: "https://www.docker.com" },
+	{ node: <SiFirebase />, title: "Firebase", href: "https://firebase.google.com" },
+	{ node: <SiGit />, title: "Git", href: "https://git-scm.com" },
+	{ node: <SiGithub />, title: "GitHub", href: "https://github.com" },
+	{ node: <SiLinux />, title: "Linux", href: "https://www.linux.org" },
+	{ node: <SiVite />, title: "Vite", href: "https://vitejs.dev" },
+	{ node: <SiReactrouter />, title: "React Router", href: "https://reactrouter.com" },
+	{ node: <SiReactquery />, title: "TanStack Query", href: "https://tanstack.com/query" },
+	{ node: <SiMui />, title: "Material UI", href: "https://mui.com" },
+	{ node: <SiShadcnui />, title: "shadcn/ui", href: "https://ui.shadcn.com" },
+	{ node: <SiFigma />, title: "Figma", href: "https://www.figma.com" },
+];
+
+const featuredStack = ["React", "TypeScript", "Node.js", "Tailwind CSS", "Vite", "PostgreSQL"];
+
+interface TechnologiesSectionProps {
+	compact?: boolean;
 }
 
-export default function TechnologiesSection() {
-	const { items: technologies, loading } = useLiveContent<Record<string, unknown>>(
-		"technologies",
-	);
-
-	if (loading && technologies.length === 0) return <TechnologiesShimmer />;
-
-	const categories = [...technologies].sort((a, b) => {
-		const ca = String((a as Record<string, any>).category ?? "");
-		const cb = String((b as Record<string, any>).category ?? "");
-		return ca.localeCompare(cb);
-	});
+export default function TechnologiesSection({ compact = false }: TechnologiesSectionProps) {
+	if (compact) {
+		return (
+			<section id="technologies" className="w-full">
+				<div className=" backdrop-blur-xl sm:p-4 md:p-5">
+					<div className="overflow-hidden   p-2 ">
+						<LogoLoop
+							logos={techLogos}
+							speed={95}
+							direction="left"
+							logoHeight={56}
+							gap={40}
+							hoverSpeed={0}
+							scaleOnHover
+							fadeOut
+							ariaLabel="Technologies I work with"
+						/>
+					</div>
+				</div>
+			</section>
+		);
+	}
 
 	return (
 		<section
 			id="technologies"
-			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 bg-muted/30 scroll-mt-20"
+			className="flex min-h-screen flex-col justify-center bg-muted/30 px-4 py-16 scroll-mt-20 sm:px-6 md:py-24"
 		>
-			<div className="max-w-5xl mx-auto w-full space-y-10 md:space-y-16">
+			<div className="mx-auto w-full max-w-5xl space-y-10 md:space-y-16">
 				<div className="text-center space-y-3 md:space-y-4">
-					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+					<h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
 						Technologies & Tools
 					</h2>
-					<p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
+					<p className="mx-auto max-w-2xl text-base text-muted-foreground md:text-lg">
 						Technologies I work with regularly to build modern web applications
 					</p>
 				</div>
 
-				<div className="grid gap-4 md:gap-6 md:grid-cols-2">
-					{categories.map((category) => (
-						<div
-							key={(category as Record<string, any>).category as string}
-							className="group p-4 md:p-6 rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/20 transition-all duration-300"
-						>
-							<h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 flex items-center gap-2">
-								<span className="w-1 h-5 rounded-full bg-primary/60 group-hover:bg-primary transition-colors duration-300" />
-								{(category as Record<string, any>).category as string}
-							</h3>
-							<div className="flex flex-wrap gap-2">
-								{((category as Record<string, any>).items as string[])?.map(
-									(tech: string) => (
-										<Badge
-											key={tech}
-											variant="secondary"
-											className="px-3 py-1.5 text-sm transition-all duration-200 hover:bg-primary/10 hover:text-primary"
-										>
-											{tech}
-										</Badge>
-									),
-								)}
-							</div>
-						</div>
-					))}
+				<div className="relative overflow-hidden rounded-[30px] border border-border/80 bg-background/70 px-3 py-6 shadow-[0_40px_140px_-50px_rgba(2,6,23,0.6)] backdrop-blur-xl sm:px-5 sm:py-8">
+					<LogoLoop
+						logos={techLogos}
+						speed={100}
+						direction="left"
+						logoHeight={64}
+						gap={64}
+						hoverSpeed={0}
+						scaleOnHover
+						fadeOut
+						ariaLabel="Technologies I work with"
+					/>
 				</div>
 			</div>
 		</section>
