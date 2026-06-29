@@ -41,7 +41,7 @@ export default function HeroSection() {
 
 						<div className="flex flex-wrap items-center gap-3">
 							<Button size="lg" className="gap-2" asChild>
-								<Link to="/" hash="projects">
+								<Link to="/projects">
 									View My Work
 									<ArrowDown className="size-4" />
 								</Link>
