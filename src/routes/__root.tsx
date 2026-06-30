@@ -169,7 +169,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 								conversationStartersDisplayStyle: "cards",
 							},
 							clientId: "43a2f4e1-d418-4f74-b774-a33a0a2a976b",
-						})}}},100);})();`,
+						})})}},100);})();`,
 					}}
 				/>
 				{!isAdmin ? (
