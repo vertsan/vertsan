@@ -9,7 +9,7 @@ const config = defineConfig({
 	resolve: { tsconfigPaths: true },
 	assetsInclude: ["**/*.glb"],
 	plugins: [
-		devtools(),
+		devtools({ removeDevtoolsOnBuild: false }),
 		netlify(),
 		tailwindcss(),
 		tanstackStart(),
