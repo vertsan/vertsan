@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ElementType } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Code2, Globe, Quote, Sparkles } from "lucide-react";
 
 function useCountUp(target: number, duration = 2000) {
@@ -44,7 +44,7 @@ function AnimatedStat({
 	decimals = 0,
 }: {
 	// Lucide icons accept standard svg props; allow any props so className is allowed
-	icon: (props: any) => JSX.Element;
+	icon: (props: any) => ReactNode;
 	value: number;
 	suffix: string;
 	label: string;

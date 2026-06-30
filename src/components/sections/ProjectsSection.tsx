@@ -1,6 +1,6 @@
 import { memo, useMemo } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowUpRight, ExternalLink, Github, Smartphone, Tablet } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { marked } from "marked";
 import {
 	Breadcrumb,

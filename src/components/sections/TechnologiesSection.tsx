@@ -61,8 +61,6 @@ const techLogos = [
 	{ node: <SiFigma />, title: "Figma", href: "https://www.figma.com" },
 ];
 
-const featuredStack = ["React", "TypeScript", "Node.js", "Tailwind CSS", "Vite", "PostgreSQL"];
-
 interface TechnologiesSectionProps {
 	compact?: boolean;
 }

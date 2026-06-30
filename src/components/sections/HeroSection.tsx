@@ -5,8 +5,6 @@ import { PersonalInfo } from "#/components/ui/terminal";
 import { AnimatedGradientText } from "#/registry/magicui/animated-gradient-text";
 import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 import { RainbowButton } from "#/registry/magicui/rainbow-button";
-import TechnologiesSection from "./TechnologiesSection";
-
 export default function HeroSection() {
 	return (
 		<section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-background via-background to-muted/20">
@@ -20,8 +18,8 @@ export default function HeroSection() {
 				width={1400}
 				height={200}
 			/>
-			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 py-8 md:py-0">
-				<div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
+			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 py-12 md:py-0">
+				<div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
 					<div className="space-y-6 sm:space-y-8">
 						<div className="space-y-4 sm:space-y-3">
 							<div className="flex items-center gap-2">
@@ -104,15 +102,11 @@ export default function HeroSection() {
 						</div>
 					</div>
 
-					<div className="flex justify-center self-start md:sticky md:top-24">
+					<div className="flex justify-center md:sticky md:top-24">
 						<div className="w-full max-w-sm md:max-w-md">
 							<PersonalInfo />
 						</div>
 					</div>
-				</div>
-
-				<div className="mt-10 md:mt-16 lg:mt-20">
-					<TechnologiesSection compact />
 				</div>
 			</div>
 		</section>

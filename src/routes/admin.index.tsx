@@ -11,7 +11,6 @@ import {
 	Eye,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import StatCard from "#/components/admin/StatCard";
 import AnalyticsChart from "#/components/admin/AnalyticsChart";
 import QuickActions from "#/components/admin/QuickActions";
 import GrowthChart from "#/components/admin/GrowthChart";
@@ -129,10 +128,6 @@ const collectionMeta = [
 		pastel: "#fb7185",
 	},
 ];
-
-function generateSparkline(): number[] {
-	return Array.from({ length: 12 }, () => Math.floor(Math.random() * 5) + 1);
-}
 
 const stagger = {
 	hidden: { opacity: 0 },
