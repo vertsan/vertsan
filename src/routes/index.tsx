@@ -9,6 +9,7 @@ import { DataProvider, type InitialData } from "#/lib/data-context";
 const EducationSection = lazy(() => import("#/components/sections/EducationSection"));
 const ExperienceSection = lazy(() => import("#/components/sections/ExperienceSection"));
 const GetInTouchSection = lazy(() => import("#/components/sections/GetInTouchSection"));
+const TestimonialsSection = lazy(() => import("#/components/sections/TestimonialsSection"));
 const WhatICanDoSection = lazy(() => import("#/components/sections/WhatICanDoSection"));
 
 const SectionFallback = () => <div className="min-h-[50vh] flex items-center justify-center"><div className="size-8 rounded-full border-2 border-muted-foreground/30 border-t-primary animate-spin" /></div>;
@@ -54,6 +55,9 @@ function Home() {
 			</Suspense>
 			<Suspense fallback={<SectionFallback />}>
 				<EducationSection />
+			</Suspense>
+			<Suspense fallback={<SectionFallback />}>
+				<TestimonialsSection />
 			</Suspense>
 			<Suspense fallback={<SectionFallback />}>
 				<GetInTouchSection />

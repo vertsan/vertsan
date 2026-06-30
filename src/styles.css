@@ -182,6 +182,8 @@ code {
   --animate-gradient: gradient 3s ease infinite;
   --animate-rainbow: rainbow var(--speed, 2s) infinite linear;
   --animate-card-enter: card-enter 0.4s ease-out forwards;
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
 }
 
 @keyframes gradient {
@@ -203,6 +205,24 @@ code {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
   }
 }
 
