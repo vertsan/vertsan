@@ -76,63 +76,63 @@ export default function ExperienceSection() {
 	return (
 		<section
 			id="experience"
-			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6  scroll-mt-20"
+			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 scroll-mt-20"
 		>
-			<div className="max-w-4xl mx-auto w-full space-y-12">
-				<div className="text-center space-y-4">
+			<div className="max-w-4xl mx-auto w-full space-y-10 md:space-y-12">
+				<div className="text-center space-y-3 md:space-y-4">
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Experience
 					</h2>
-					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
+					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
 						My professional journey in software development
 					</p>
 				</div>
 
 				<TracingBeam>
-					<div className="space-y-6 md:space-y-8">
+					<div className="space-y-5 md:space-y-8">
 						{sortedJobs.map((job) => (
-							<Card key={job.jobTitle} className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6">
-								<CardHeader className="px-4 md:px-6">
-									<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-										<div className="space-y-1">
+							<Card key={job.jobTitle} className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-3 md:gap-6 py-3 md:py-6">
+								<CardHeader className="px-3 md:px-6">
+									<div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+										<div className="space-y-1 min-w-0">
 											<div className="flex items-center gap-2">
-												<Briefcase className="size-4 text-primary shrink-0" />
-												<CardTitle className="text-lg md:text-xl">
+												<Briefcase className="size-4 text-primary shrink-0 mt-0.5" />
+												<CardTitle className="text-base sm:text-lg md:text-xl">
 													{job.jobTitle}
 												</CardTitle>
 											</div>
-											<p className="text-primary font-medium">
+											<p className="text-primary font-medium text-sm sm:text-base truncate">
 												{job.company} &middot; {job.location}
 											</p>
 										</div>
-										<div className="flex items-center gap-1.5 text-sm text-muted-foreground shrink-0">
-											<Calendar className="size-3.5" />
-											<span>
+										<div className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground shrink-0">
+											<Calendar className="size-3 sm:size-3.5" />
+											<span className="whitespace-nowrap">
 												{job.startDate} — {job.endDate ?? "Present"}
 											</span>
 										</div>
 									</div>
 								</CardHeader>
-								<CardContent className="space-y-4 px-4 md:px-6">
-									<p className="text-muted-foreground leading-relaxed">
+								<CardContent className="space-y-3 md:space-y-4 px-3 md:px-6">
+									<p className="text-muted-foreground leading-relaxed text-sm sm:text-base">
 										{job.summary}
 									</p>
 
 									{job.content && (
 										<div
-											className="text-muted-foreground/80 text-sm space-y-1.5 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:leading-relaxed [&_p]:mb-0"
+											className="text-muted-foreground/80 text-xs sm:text-sm space-y-1.5 [&_ul]:list-disc [&_ul]:pl-4 sm:[&_ul]:pl-5 [&_ul]:space-y-1 [&_li]:leading-relaxed [&_p]:mb-0"
 											dangerouslySetInnerHTML={{
 												__html: renderContent(job.content),
 											}}
 										/>
 									)}
 
-									<div className="flex flex-wrap gap-2 pt-2">
+									<div className="flex flex-wrap gap-1.5 sm:gap-2 pt-1 sm:pt-2">
 										{job.tags?.map((tag) => (
 											<Badge
 												key={tag}
 												variant="outline"
-												className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+												className="text-[0.65rem] sm:text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
 											>
 												{tag}
 											</Badge>

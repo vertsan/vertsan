@@ -1,15 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import ResumeAssistant from "#/components/ResumeAssistant";
 import AboutSection from "#/components/sections/AboutSection";
-import EducationSection from "#/components/sections/EducationSection";
-import ExperienceSection from "#/components/sections/ExperienceSection";
-import GetInTouchSection from "#/components/sections/GetInTouchSection";
 import HeroSection from "#/components/sections/HeroSection";
-import TechnologiesSection from "#/components/sections/TechnologiesSection";
-import WhatICanDoSection from "#/components/sections/WhatICanDoSection";
 
 import { DataProvider, type InitialData } from "#/lib/data-context";
+
+const EducationSection = lazy(() => import("#/components/sections/EducationSection"));
+const ExperienceSection = lazy(() => import("#/components/sections/ExperienceSection"));
+const GetInTouchSection = lazy(() => import("#/components/sections/GetInTouchSection"));
+const WhatICanDoSection = lazy(() => import("#/components/sections/WhatICanDoSection"));
+
+const SectionFallback = () => <div className="min-h-[50vh] flex items-center justify-center"><div className="size-8 rounded-full border-2 border-muted-foreground/30 border-t-primary animate-spin" /></div>;
 
 const EMPTY: InitialData = {
 	projects: [],
@@ -44,11 +46,18 @@ function Home() {
 			<ResumeAssistant />
 			<HeroSection />
 			<AboutSection />
-			<WhatICanDoSection />
-			
-			<ExperienceSection />
-			<EducationSection />
-			<GetInTouchSection />
+			<Suspense fallback={<SectionFallback />}>
+				<WhatICanDoSection />
+			</Suspense>
+			<Suspense fallback={<SectionFallback />}>
+				<ExperienceSection />
+			</Suspense>
+			<Suspense fallback={<SectionFallback />}>
+				<EducationSection />
+			</Suspense>
+			<Suspense fallback={<SectionFallback />}>
+				<GetInTouchSection />
+			</Suspense>
 		</DataProvider>
 	);
 }

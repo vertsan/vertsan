@@ -11,7 +11,7 @@ export default function HeroSection() {
 	return (
 		<section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-background via-background to-muted/20">
 			<FlickeringGrid
-				className="absolute top-0 left-0 right-0 z-0 h-48"
+				className="absolute inset-0 z-0 h-48 md:h-64"
 				squareSize={4}
 				gridGap={6}
 				color="#4ade80"
@@ -20,14 +20,14 @@ export default function HeroSection() {
 				width={1400}
 				height={200}
 			/>
-			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6 relative z-10">
-				<div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-					<div className="space-y-8">
-						<div className="space-y-3">
+			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 py-8 md:py-0">
+				<div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
+					<div className="space-y-6 sm:space-y-8">
+						<div className="space-y-4 sm:space-y-3">
 							<div className="flex items-center gap-2">
-								<img src="/itachi-idle.gif" alt="itachi" className="size-10" />
+								<img src="/itachi-idle.gif" alt="itachi" className="size-8 sm:size-10" decoding="async" />
 							</div>
-							<div className="group relative flex w-fit items-center justify-center rounded-full px-4 py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]">
+							<div className="group relative flex w-fit items-center justify-center rounded-full px-3 sm:px-4 py-1 sm:py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]">
 								<span
 									className={cn(
 										"animate-gradient absolute inset-0 block h-full w-full rounded-[inherit] bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:300%_100%] p-[1px]"
@@ -41,30 +41,30 @@ export default function HeroSection() {
 										WebkitClipPath: "padding-box",
 									}}
 								/>
-								<AnimatedGradientText className="text-sm font-medium tracking-widest uppercase">
+								<AnimatedGradientText className="text-[0.65rem] sm:text-sm font-medium tracking-widest uppercase">
 									Full Stack Developer
 								</AnimatedGradientText>
 							</div>
 
-							<h1 className="text-[2.5rem] sm:text-6xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.1]">
+							<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.1] text-balance">
 								Hi, I'm <span className="font-bold">Vert San</span>
 							</h1>
 
-							<p className="text-muted-foreground/70 max-w-md leading-relaxed">
+							<p className="text-muted-foreground/70 max-w-md leading-relaxed text-sm sm:text-base">
 								I design and build accessible, scalable, secure, and
 								high-performance web and mobile applications using modern
 								technologies and best practices.
 							</p>
 						</div>
 
-						<div className="flex flex-wrap items-center gap-3">
-							<RainbowButton size="lg" className="gap-2" asChild>
+						<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+							<RainbowButton size="lg" className="gap-2 w-full sm:w-auto justify-center" asChild>
 								<Link to="/projects">
 									View My Work
 									<ArrowDown className="size-4" />
 								</Link>
 							</RainbowButton>
-							<RainbowButton variant="outline" size="lg" className="gap-2" asChild>
+							<RainbowButton variant="outline" size="lg" className="gap-2 w-full sm:w-auto justify-center" asChild>
 								<a href="/resume.pdf" download>
 									<Download className="size-4" />
 									Download Resume
@@ -104,14 +104,14 @@ export default function HeroSection() {
 						</div>
 					</div>
 
-					<div className="flex justify-center self-start">
+					<div className="flex justify-center self-start md:sticky md:top-24">
 						<div className="w-full max-w-sm md:max-w-md">
 							<PersonalInfo />
 						</div>
 					</div>
 				</div>
 
-				<div className="mt-10 md:mt-12">
+				<div className="mt-10 md:mt-16 lg:mt-20">
 					<TechnologiesSection compact />
 				</div>
 			</div>

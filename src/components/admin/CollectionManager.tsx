@@ -503,6 +503,8 @@ export default function CollectionManager({ collection, title }: Props) {
 														src={String(editing[field.name])}
 														alt={field.label}
 														className="w-full max-h-48 object-cover"
+														loading="lazy"
+														decoding="async"
 													/>
 												) : (
 													<div className="flex items-center gap-3 p-4 bg-muted/20">

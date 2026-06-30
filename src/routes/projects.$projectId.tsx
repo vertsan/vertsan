@@ -161,7 +161,7 @@ function ProjectDetail() {
 									<span className="size-2.5 sm:size-3 rounded-full bg-[#ffbd44]" />
 									<span className="size-2.5 sm:size-3 rounded-full bg-[#00ca4e]" />
 								</div>
-								<img src={project.image} alt={project.title} className="w-full" />
+								<img src={project.image} alt={project.title} className="w-full" loading="lazy" decoding="async" />
 							</div>
 						)}
 

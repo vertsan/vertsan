@@ -138,10 +138,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
-				<script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+				<script defer src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
 				<script
+					defer
 					dangerouslySetInnerHTML={{
-						__html: `window.botpress.init(${JSON.stringify({
+						__html: `window.addEventListener("DOMContentLoaded",()=>{window.botpress?.init(${JSON.stringify({
 							botId: "4160daa7-1be3-4d1e-b6ef-d2585925c0eb",
 							configuration: {
 								version: "v2",
@@ -174,11 +175,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 								conversationStartersDisplayStyle: "cards",
 							},
 							clientId: "43a2f4e1-d418-4f74-b774-a33a0a2a976b",
-						})});`,
+						})}})});`,
 					}}
 				/>
 				{!isAdmin ? (
-					<div className="mx-auto min-h-screen max-w-7xl border-x border-border bg-card shadow-sm">
+					<div className="mx-auto min-h-screen max-w-7xl bg-card">
 						<Header />
 						{children}
 						<Footer />
@@ -186,17 +187,19 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				) : (
 					children
 				)}
-				<TanStackDevtools
-					config={{
-						position: "bottom-right",
-					}}
-					plugins={[
-						{
-							name: "Tanstack Router",
-							render: <TanStackRouterDevtoolsPanel />,
-						},
-					]}
-				/>
+				{import.meta.env.DEV && (
+					<TanStackDevtools
+						config={{
+							position: "bottom-right",
+						}}
+						plugins={[
+							{
+								name: "Tanstack Router",
+								render: <TanStackRouterDevtoolsPanel />,
+							},
+						]}
+					/>
+				)}
 				<Scripts />
 			</body>
 		</html>

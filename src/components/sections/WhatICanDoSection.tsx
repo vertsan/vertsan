@@ -20,31 +20,31 @@ const services: Service[] = [
 		icon: Monitor,
 		title: "Frontend Development",
 		description:
-			"Responsive, accessible, and performant UI components using React, TypeScript, and modern CSS frameworks like Tailwind CSS.",
+			"Responsive, accessible, and performant UI using React, TypeScript, Tailwind CSS, DevExpress, and GSAP for rich interactive experiences.",
 	},
 	{
 		icon: Server,
 		title: "Backend Development",
 		description:
-			"Scalable server-side applications with Node.js, RESTful APIs, and serverless functions on cloud platforms.",
+			"Scalable server-side applications with Node.js, ASP.NET Core, Laravel, RESTful and GraphQL APIs on cloud platforms.",
 	},
 	{
 		icon: Smartphone,
 		title: "Mobile Development",
 		description:
-			"Cross-platform mobile applications using React Native, delivering native-like experiences across iOS and Android.",
+			"Cross-platform mobile applications using Flutter, delivering native-like experiences across iOS and Android.",
 	},
 	{
 		icon: Database,
 		title: "Database Design",
 		description:
-			"Efficient data modeling and management with SQL, PostgreSQL, and ORM tools like Drizzle ORM.",
+			"Efficient data modeling and management with SQL, PostgreSQL, Neon, and ORM tools like Drizzle ORM.",
 	},
 	{
 		icon: Cloud,
 		title: "Cloud & DevOps",
 		description:
-			"Deployment and infrastructure management on AWS, Netlify, and Vercel with CI/CD pipelines.",
+			"Infrastructure and deployment on AWS (EC2, ECS, S3, RDS, Fargate), Docker, GitHub Actions, with CI/CD pipelines.",
 	},
 	{
 		icon: Palette,
