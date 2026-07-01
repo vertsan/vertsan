@@ -3,6 +3,7 @@ import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { cn } from "#/lib/utils";
 import { PersonalInfo } from "#/components/ui/terminal";
 import { AnimatedGradientText } from "#/registry/magicui/animated-gradient-text";
+import { AuroraText } from "#/components/ui/aurora-text";
 import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 import { RainbowButton } from "#/registry/magicui/rainbow-button";
 export default function HeroSection() {
@@ -45,7 +46,10 @@ export default function HeroSection() {
 							</div>
 
 							<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.1] text-balance">
-								Hi, I'm <span className="font-bold">Vert San</span>
+								Hi, I'm{" "}
+								<AuroraText className="font-bold" colors={["#4ade80", "#38bdf8", "#a78bfa", "#fbbf24"]}>
+									Vert San
+								</AuroraText>
 							</h1>
 
 							<p className="text-muted-foreground/70 max-w-md leading-relaxed text-sm sm:text-base">

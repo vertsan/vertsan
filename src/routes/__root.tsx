@@ -173,7 +173,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					}}
 				/>
 				{!isAdmin ? (
-					<div className="mx-auto min-h-screen max-w-7xl bg-card">
+					<div className="mx-auto min-h-screen max-w-7xl border-x border-border bg-card shadow-sm">
 						<Header />
 						{children}
 						<Footer />
