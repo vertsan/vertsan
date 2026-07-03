@@ -32,7 +32,7 @@ function PersonalInfo() {
 			<TypingAnimation className="text-green-500" delay="0ms">
 				&gt; whoami
 			</TypingAnimation>
-			<AnimatedSpan delay="1200ms">Vert San — Full-Stack Developer</AnimatedSpan>
+			<AnimatedSpan delay="1200ms">Vert San — Software Engineer</AnimatedSpan>
 
 			<TypingAnimation className="text-green-500" delay="2400ms">
 				&gt; email

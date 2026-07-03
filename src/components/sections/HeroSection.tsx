@@ -41,7 +41,7 @@ export default function HeroSection() {
 									}}
 								/>
 								<AnimatedGradientText className="text-[0.65rem] sm:text-sm font-medium tracking-widest uppercase">
-									Full Stack Developer
+									Software Engineer
 								</AnimatedGradientText>
 							</div>
 
