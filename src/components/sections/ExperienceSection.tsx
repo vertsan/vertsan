@@ -101,8 +101,10 @@ export default function ExperienceSection() {
 													{job.jobTitle}
 												</CardTitle>
 											</div>
-											<p className="text-primary font-medium text-sm sm:text-base truncate">
-												{job.company} &middot; {job.location}
+											<p className="text-primary font-medium text-sm sm:text-base flex flex-col sm:block leading-tight sm:leading-normal">
+												<span>{job.company}</span>
+												<span className="hidden sm:inline"> &middot; </span>
+												<span className="text-xs sm:text-base">{job.location}</span>
 											</p>
 										</div>
 										<div className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground shrink-0">
