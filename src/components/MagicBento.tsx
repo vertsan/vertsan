@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
-import { gsap } from 'gsap';
+import gsap from 'gsap';
 import './MagicBento.css';
 
 export interface BentoCardProps {
