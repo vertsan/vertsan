@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { gsap } from "gsap";
+import gsap from "gsap";
 import { ImageOff } from "lucide-react";
 import "./BounceCards.css";
 
