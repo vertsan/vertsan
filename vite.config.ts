@@ -8,6 +8,7 @@ import { defineConfig } from "vite";
 const config = defineConfig({
 	resolve: { tsconfigPaths: true },
 	assetsInclude: ["**/*.glb"],
+	ssr: { noExternal: ["gsap"] },
 	plugins: [
 		devtools({ removeDevtoolsOnBuild: false }),
 		netlify(),
