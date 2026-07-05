@@ -1,4 +1,5 @@
 import { cn } from "#/lib/utils"
+import { motion } from "framer-motion";
 import { Marquee } from "#/registry/magicui/marquee"
 
 
@@ -81,15 +82,27 @@ export default function TestimonialsSection() {
   return (
     <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto w-full space-y-10 md:space-y-16">
-        <div className="text-center space-y-3 md:space-y-4">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center space-y-3 md:space-y-4"
+        >
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
             Testimonials
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             What people say about working with me
           </p>
-        </div>
-        <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+          className="relative flex w-full flex-col items-center justify-center overflow-hidden"
+        >
           <Marquee pauseOnHover className="[--duration:20s]">
             {firstRow.map((review) => (
               <ReviewCard key={review.username} {...review} />
@@ -102,7 +115,7 @@ export default function TestimonialsSection() {
           </Marquee>
           <div className="from-background pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r" />
           <div className="from-background pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l" />
-        </div>
+        </motion.div>
       </div>
     </section>
   )

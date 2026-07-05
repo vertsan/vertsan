@@ -7,6 +7,7 @@ import {
 	Server,
 	Smartphone,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import { GlowingEffect } from "#/components/ui/glowing-effect";
 
 
@@ -62,16 +63,28 @@ export default function WhatICanDoSection() {
 			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 scroll-mt-20"
 		>
 			<div className="max-w-5xl mx-auto w-full space-y-10 md:space-y-16">
-				<div className="text-center space-y-3 md:space-y-4">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-100px" }}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="text-center space-y-3 md:space-y-4"
+				>
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						What I Can Do
 					</h2>
 					<p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
 						Services and expertise I bring to every project
 					</p>
-				</div>
+				</motion.div>
 
-				<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-50px" }}
+					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+				>
+					<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
 					{services.map(({ icon: Icon, title, description }) => (
 						<li key={title} className="min-h-[14rem] list-none">
 							<div className="relative h-full rounded-2xl border p-2 md:rounded-3xl md:p-3">
@@ -103,6 +116,7 @@ export default function WhatICanDoSection() {
 						</li>
 					))}
 				</ul>
+				</motion.div>
 			</div>
 		</section>
 	);

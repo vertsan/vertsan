@@ -1,4 +1,5 @@
 import { Briefcase, Calendar } from "lucide-react";
+import { motion } from "framer-motion";
 import { marked } from "marked";
 import { useMemo } from "react";
 import { Badge } from "#/components/ui/badge";
@@ -80,16 +81,28 @@ export default function ExperienceSection() {
 			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 scroll-mt-20"
 		>
 			<div className="max-w-4xl mx-auto w-full space-y-10 md:space-y-12">
-				<div className="text-center space-y-3 md:space-y-4">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-100px" }}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="text-center space-y-3 md:space-y-4"
+				>
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Experience
 					</h2>
 					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
 						My professional journey in software development
 					</p>
-				</div>
+				</motion.div>
 
-				<TracingBeam>
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-50px" }}
+					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+				>
+					<TracingBeam>
 					<div className="space-y-5 md:space-y-8">
 						{sortedJobs.map((job) => (
 							<Card key={job.jobTitle} className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-3 md:gap-6 py-3 md:py-6">
@@ -146,6 +159,7 @@ export default function ExperienceSection() {
 						))}
 					</div>
 				</TracingBeam>
+				</motion.div>
 			</div>
 		</section>
 	);
