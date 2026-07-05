@@ -1,6 +1,7 @@
 import { cn } from "#/lib/utils"
 import { Marquee } from "#/registry/magicui/marquee"
 
+
 const reviews = [
   {
     name: "Jack",
@@ -84,7 +85,7 @@ export default function TestimonialsSection() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
             Testimonials
           </h2>
-          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
             What people say about working with me
           </p>
         </div>

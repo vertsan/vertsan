@@ -53,9 +53,7 @@ export default function HeroSection() {
 							</h1>
 
 							<p className="text-muted-foreground/70 max-w-md leading-relaxed text-sm sm:text-base">
-								I design and build accessible, scalable, secure, and
-								high-performance web and mobile applications using modern
-								technologies and best practices.
+								I design and build accessible, scalable, secure, and high-performance web and mobile applications using modern technologies and best practices.
 							</p>
 						</div>
 

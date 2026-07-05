@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { GlowingEffect } from "#/components/ui/glowing-effect";
 
+
 interface Service {
 	icon: LucideIcon;
 	title: string;

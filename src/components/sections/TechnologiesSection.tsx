@@ -28,6 +28,7 @@ import {
 	SiTypescript,
 	SiVite,
 } from "react-icons/si";
+
 import LogoLoop from "#/components/LogoLoop";
 
 const techLogos = [

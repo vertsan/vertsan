@@ -20,6 +20,7 @@ import {
 	CardTitle,
 } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
+
 import { useLiveContent, setCache } from "#/lib/useLiveContent";
 import "#/lib/markdown";
 
@@ -106,7 +107,9 @@ const ProjectCard = memo(function ProjectCard({
 		<Card className="border shadow-sm flex flex-col gap-4 md:gap-6 py-4 md:py-6">
 			<CardHeader className="px-4 md:px-6">
 				<div className="flex items-start justify-between gap-2">
-					<CardTitle className="text-base md:text-lg">{project.title}</CardTitle>
+					<CardTitle className="text-base md:text-lg">
+						{project.title}
+					</CardTitle>
 					<Badge
 						variant={project.status === "Completed" ? "default" : "secondary"}
 						className="shrink-0"

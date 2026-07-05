@@ -5,6 +5,7 @@ import { Badge } from "#/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
 import { TracingBeam } from "#/components/ui/tracing-beam";
+
 import { useLiveContent } from "#/lib/useLiveContent";
 
 interface Job {
@@ -83,7 +84,7 @@ export default function ExperienceSection() {
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Experience
 					</h2>
-					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
+					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
 						My professional journey in software development
 					</p>
 				</div>

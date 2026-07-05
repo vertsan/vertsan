@@ -9,6 +9,8 @@ interface NavLink {
 }
 
 const navLinks: NavLink[] = [
+	{ label: "Home", to: "/" },
+  { label: "About", to: "/about" },
   { label: "Projects", to: "/projects" },
   { label: "Certificates", to: "/certificates" },
 ];
@@ -50,13 +52,9 @@ export default function Header() {
 				</Link>
 
 				<nav className="hidden md:flex items-center gap-1">
-					<button
-						onClick={scrollToHero}
-						className="relative px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors duration-200 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px] after:bg-foreground after:scale-x-0 after:origin-center after:transition-transform after:duration-200 hover:after:scale-x-100 cursor-pointer"
-					>
-						Home
-					</button>
+					
 					{navLinks.map((link) => (
+						
 						<Link
 							key={link.label}
 							to={link.to}

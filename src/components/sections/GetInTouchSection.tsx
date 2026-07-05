@@ -41,8 +41,7 @@ export default function GetInTouchSection() {
 							</h2>
 
 							<p className="text-muted-foreground text-base md:text-lg max-w-md leading-relaxed">
-								Have a project in mind or just want to say hello? I'd love to
-								hear from you.
+								Have a project in mind or just want to say hello? I'd love to hear from you.
 							</p>
 						</div>
 

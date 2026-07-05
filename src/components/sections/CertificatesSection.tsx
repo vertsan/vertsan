@@ -18,6 +18,7 @@ import {
 	CardTitle,
 } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
+
 import { useLiveContent } from "#/lib/useLiveContent";
 
 function CertificatesShimmer() {
@@ -123,7 +124,7 @@ export default function CertificatesSection() {
 										<CardTitle className="text-base leading-snug group-hover:text-primary transition-colors duration-300">
 											{(cert as Record<string, any>).title as string}
 										</CardTitle>
-										<CardDescription>
+										<CardDescription className="text-sm">
 											{(cert as Record<string, any>).issuer as string}
 										</CardDescription>
 									</div>

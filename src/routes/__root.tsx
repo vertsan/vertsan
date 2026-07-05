@@ -7,6 +7,7 @@ import {
 	useLocation,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
