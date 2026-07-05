@@ -1,10 +1,12 @@
 import { Briefcase, Calendar } from "lucide-react";
+import { motion } from "framer-motion";
 import { marked } from "marked";
 import { useMemo } from "react";
 import { Badge } from "#/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
 import { TracingBeam } from "#/components/ui/tracing-beam";
+
 import { useLiveContent } from "#/lib/useLiveContent";
 
 interface Job {
@@ -79,17 +81,29 @@ export default function ExperienceSection() {
 			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 scroll-mt-20"
 		>
 			<div className="max-w-4xl mx-auto w-full space-y-10 md:space-y-12">
-				<div className="text-center space-y-3 md:space-y-4">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-100px" }}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="text-center space-y-3 md:space-y-4"
+				>
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Experience
 					</h2>
-					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-2">
+					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
 						My professional journey in software development
 					</p>
-				</div>
+				</motion.div>
 
-				<TracingBeam>
-					<div className="space-y-4 md:space-y-8">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-50px" }}
+					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+				>
+					<TracingBeam>
+					<div className="space-y-5 md:space-y-8">
 						{sortedJobs.map((job) => (
 							<Card key={job.jobTitle} className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-2 md:gap-6 py-3 md:py-6">
 								<CardHeader className="px-2 md:px-6">
@@ -101,8 +115,10 @@ export default function ExperienceSection() {
 													{job.jobTitle}
 												</CardTitle>
 											</div>
-											<p className="text-primary font-medium text-xs break-words leading-snug">
-												{job.company} &middot; {job.location}
+											<p className="text-primary font-medium text-sm sm:text-base flex flex-col sm:block leading-tight sm:leading-normal">
+												<span>{job.company}</span>
+												<span className="hidden sm:inline"> &middot; </span>
+												<span className="text-xs sm:text-base">{job.location}</span>
 											</p>
 										</div>
 										<div className="flex items-center gap-1.5 text-xs text-muted-foreground shrink-0">
@@ -143,6 +159,7 @@ export default function ExperienceSection() {
 						))}
 					</div>
 				</TracingBeam>
+				</motion.div>
 			</div>
 		</section>
 	);

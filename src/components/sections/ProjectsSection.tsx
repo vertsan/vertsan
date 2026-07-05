@@ -1,6 +1,7 @@
 import { memo, useMemo } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
+import { motion } from "framer-motion";
 import { marked } from "marked";
 import {
 	Breadcrumb,
@@ -20,6 +21,7 @@ import {
 	CardTitle,
 } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
+
 import { useLiveContent, setCache } from "#/lib/useLiveContent";
 import "#/lib/markdown";
 
@@ -106,7 +108,9 @@ const ProjectCard = memo(function ProjectCard({
 		<Card className="border shadow-sm flex flex-col gap-4 md:gap-6 py-4 md:py-6">
 			<CardHeader className="px-4 md:px-6">
 				<div className="flex items-start justify-between gap-2">
-					<CardTitle className="text-base md:text-lg">{project.title}</CardTitle>
+					<CardTitle className="text-base md:text-lg">
+						{project.title}
+					</CardTitle>
 					<Badge
 						variant={project.status === "Completed" ? "default" : "secondary"}
 						className="shrink-0"
@@ -230,23 +234,35 @@ export default function ProjectsSection() {
 						</BreadcrumbList>
 					</Breadcrumb>
 				)}
-				<div className="text-center space-y-3">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-100px" }}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="text-center space-y-3"
+				>
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Projects
 					</h2>
 					<p className="text-muted-foreground max-w-xl mx-auto">
 						A selection of projects I've built and contributed to
 					</p>
-				</div>
+				</motion.div>
 
-				<div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-50px" }}
+					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+					className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3"
+				>
 					{displayed.map((project) => (
 						<ProjectCard
 							key={project.slug ?? project.title}
 							project={project}
 						/>
 					))}
-				</div>
+				</motion.div>
 
 				{isHome && (
 					<div className="text-center">

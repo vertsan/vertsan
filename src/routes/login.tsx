@@ -28,9 +28,7 @@ function InteractiveSide() {
 					<div className="inline-flex size-16 rounded-2xl bg-primary/5 border border-primary/10 items-center justify-center mb-2">
 						<Lock className="size-7 text-primary/70" />
 					</div>
-					<h1 className="text-4xl font-bold text-foreground tracking-tight">
-						vert
-					</h1>
+					<h1 className="text-4xl font-bold text-foreground tracking-tight">vert</h1>
 					<p className="text-muted-foreground/60 text-lg max-w-sm mx-auto leading-relaxed">
 						Content Management System
 					</p>
@@ -113,9 +111,7 @@ function LoginPage() {
 					</Link>
 
 					<div className="space-y-2 mb-8">
-						<h1 className="text-2xl font-bold tracking-tight">
-							Welcome back
-						</h1>
+						<h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
 						<p className="text-sm text-muted-foreground">
 							Sign in to manage your content
 						</p>

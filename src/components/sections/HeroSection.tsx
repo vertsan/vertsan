@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 import { cn } from "#/lib/utils";
 import { PersonalInfo } from "#/components/ui/terminal";
 import { AnimatedGradientText } from "#/registry/magicui/animated-gradient-text";
@@ -21,7 +22,13 @@ export default function HeroSection() {
 			/>
 			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 py-12 md:py-0">
 				<div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-					<div className="space-y-6 sm:space-y-8">
+					<motion.div
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true, margin: "-100px" }}
+						transition={{ duration: 0.6, ease: "easeOut" }}
+						className="space-y-6 sm:space-y-8"
+					>
 						<div className="space-y-4 sm:space-y-3">
 							<div className="flex items-center gap-2">
 								<img src="/itachi-idle.gif" alt="itachi" className="size-8 sm:size-10" decoding="async" />
@@ -53,9 +60,7 @@ export default function HeroSection() {
 							</h1>
 
 							<p className="text-muted-foreground/70 max-w-md leading-relaxed text-sm sm:text-base">
-								I design and build accessible, scalable, secure, and
-								high-performance web and mobile applications using modern
-								technologies and best practices.
+								I design and build accessible, scalable, secure, and high-performance web and mobile applications using modern technologies and best practices.
 							</p>
 						</div>
 
@@ -104,13 +109,19 @@ export default function HeroSection() {
 								</a>
 							))}
 						</div>
-					</div>
+					</motion.div>
 
-					<div className="flex justify-center md:sticky md:top-24">
+					<motion.div
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true, margin: "-100px" }}
+						transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+						className="flex justify-center md:sticky md:top-24"
+					>
 						<div className="w-full max-w-sm md:max-w-md">
 							<PersonalInfo />
 						</div>
-					</div>
+					</motion.div>
 				</div>
 			</div>
 		</section>

@@ -1,13 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useState } from "react";
 import ResumeAssistant from "#/components/ResumeAssistant";
-import AboutSection from "#/components/sections/AboutSection";
 import HeroSection from "#/components/sections/HeroSection";
 
 import { DataProvider, type InitialData } from "#/lib/data-context";
 
-const EducationSection = lazy(() => import("#/components/sections/EducationSection"));
-const ExperienceSection = lazy(() => import("#/components/sections/ExperienceSection"));
 const GetInTouchSection = lazy(() => import("#/components/sections/GetInTouchSection"));
 const TestimonialsSection = lazy(() => import("#/components/sections/TestimonialsSection"));
 const WhatICanDoSection = lazy(() => import("#/components/sections/WhatICanDoSection"));
@@ -46,15 +43,8 @@ function Home() {
 		<DataProvider data={data}>
 			<ResumeAssistant />
 			<HeroSection />
-			<AboutSection />
 			<Suspense fallback={<SectionFallback />}>
 				<WhatICanDoSection />
-			</Suspense>
-			<Suspense fallback={<SectionFallback />}>
-				<ExperienceSection />
-			</Suspense>
-			<Suspense fallback={<SectionFallback />}>
-				<EducationSection />
 			</Suspense>
 			<Suspense fallback={<SectionFallback />}>
 				<TestimonialsSection />

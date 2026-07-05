@@ -1,5 +1,6 @@
 import { ArrowUpRight, Award, Calendar, ExternalLink } from "lucide-react";
 import { Link, useLocation } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -18,6 +19,7 @@ import {
 	CardTitle,
 } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
+
 import { useLiveContent } from "#/lib/useLiveContent";
 
 function CertificatesShimmer() {
@@ -99,16 +101,28 @@ export default function CertificatesSection() {
 						</BreadcrumbList>
 					</Breadcrumb>
 				)}
-				<div className="text-center space-y-4">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-100px" }}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="text-center space-y-4"
+				>
 					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
 						Certificates
 					</h2>
 					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
 						Professional certifications and achievements
 					</p>
-				</div>
+				</motion.div>
 
-				<div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-50px" }}
+					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+					className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3"
+				>
 					{displayed.map((cert) => (
 						<Card
 							key={(cert as Record<string, any>).title as string}
@@ -123,7 +137,7 @@ export default function CertificatesSection() {
 										<CardTitle className="text-base leading-snug group-hover:text-primary transition-colors duration-300">
 											{(cert as Record<string, any>).title as string}
 										</CardTitle>
-										<CardDescription>
+										<CardDescription className="text-sm">
 											{(cert as Record<string, any>).issuer as string}
 										</CardDescription>
 									</div>
@@ -168,7 +182,7 @@ export default function CertificatesSection() {
 							</CardContent>
 						</Card>
 					))}
-				</div>
+				</motion.div>
 
 				{isHome && (
 					<div className="text-center">

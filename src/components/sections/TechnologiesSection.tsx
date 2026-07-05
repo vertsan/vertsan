@@ -28,6 +28,8 @@ import {
 	SiTypescript,
 	SiVite,
 } from "react-icons/si";
+
+import { motion } from "framer-motion";
 import LogoLoop from "#/components/LogoLoop";
 
 const techLogos = [
@@ -94,16 +96,28 @@ export default function TechnologiesSection({ compact = false }: TechnologiesSec
 			className="flex min-h-screen flex-col justify-center bg-muted/30 px-4 py-16 scroll-mt-20 sm:px-6 md:py-24"
 		>
 			<div className="mx-auto w-full max-w-5xl space-y-10 md:space-y-16">
-				<div className="text-center space-y-3 md:space-y-4">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-100px" }}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="text-center space-y-3 md:space-y-4"
+				>
 					<h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
 						Technologies & Tools
 					</h2>
 					<p className="mx-auto max-w-2xl text-base text-muted-foreground md:text-lg">
 						Technologies I work with regularly to build modern web applications
 					</p>
-				</div>
+				</motion.div>
 
-				<div className="relative overflow-hidden rounded-[30px] border border-border/80 bg-background/70 px-3 py-6 shadow-[0_40px_140px_-50px_rgba(2,6,23,0.6)] backdrop-blur-xl sm:px-5 sm:py-8">
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-50px" }}
+					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+				>
+					<div className="relative overflow-hidden rounded-[30px] border border-border/80 bg-background/70 px-3 py-6 shadow-[0_40px_140px_-50px_rgba(2,6,23,0.6)] backdrop-blur-xl sm:px-5 sm:py-8">
 					<LogoLoop
 						logos={techLogos}
 						speed={100}
@@ -116,6 +130,7 @@ export default function TechnologiesSection({ compact = false }: TechnologiesSec
 						ariaLabel="Technologies I work with"
 					/>
 				</div>
+				</motion.div>
 			</div>
 		</section>
 	);
