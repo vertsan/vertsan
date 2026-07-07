@@ -146,13 +146,6 @@ export default function AboutSection() {
 			<div className="absolute bottom-1/3 -right-48 w-96 h-96 bg-primary/[0.04] rounded-full blur-3xl pointer-events-none" />
 
 			<div className="max-w-6xl mx-auto w-full relative z-10 space-y-12 px-4 sm:px-6">
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-100px" }}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-					className="text-center space-y-4"
-				>
 					<Breadcrumb className="justify-center mb-2">
 						<BreadcrumbList>
 							<BreadcrumbItem>
@@ -166,7 +159,13 @@ export default function AboutSection() {
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
-					
+				<motion.div
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					viewport={{ once: true, margin: "-100px" }}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					className="text-center space-y-4"
+				>
 					<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
 						Who <span className="text-primary">I Am</span>
 					</h2>
@@ -197,10 +196,10 @@ export default function AboutSection() {
 					initial="hidden"
 					whileInView="visible"
 					viewport={{ once: true, margin: "-50px" }}
-					className="grid md:grid-cols-5 gap-8 md:gap-10 items-start"
+					className="grid md:grid-cols-5 gap-8 md:gap-10"
 				>
 					<motion.div variants={childVariants} className="md:col-span-3">
-						<div className="relative h-[340px] rounded-2xl border bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl shadow-lg overflow-hidden">
+						<div className="relative h-full min-h-[340px] rounded-2xl border border-border/40 overflow-hidden">
 							<LetterGlitch
 								glitchColors={["#4ade80", "#38bdf8", "#a78bfa"]}
 								glitchSpeed={80}
@@ -242,7 +241,7 @@ export default function AboutSection() {
 								</div>
 								<div>
 									<p className="text-2xl font-bold text-foreground tabular-nums tracking-tight">
-										âˆž
+										∞
 									</p>
 									<p className="text-sm text-muted-foreground/80">
 										Always Learning
