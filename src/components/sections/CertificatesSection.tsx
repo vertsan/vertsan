@@ -19,6 +19,7 @@ import {
 	CardTitle,
 } from "#/components/ui/card";
 import { Skeleton } from "#/components/ui/skeleton";
+import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 
 import { useLiveContent } from "#/lib/useLiveContent";
 
@@ -83,9 +84,19 @@ export default function CertificatesSection() {
 	return (
 		<section
 			id="certificates"
-			className="min-h-screen flex flex-col justify-center py-16 md:py-24 bg-muted/30 scroll-mt-20"
+			className="relative min-h-screen flex flex-col justify-center py-16 md:py-24 bg-muted/30 scroll-mt-20 overflow-hidden"
 		>
-			<div className="max-w-6xl mx-auto w-full space-y-12 px-4 sm:px-6">
+			<FlickeringGrid
+				className="absolute inset-0 z-0 h-48 md:h-64"
+				squareSize={4}
+				gridGap={6}
+				color="#4ade80"
+				maxOpacity={0.14}
+				flickerChance={0.1}
+				width={1400}
+				height={200}
+			/>
+			<div className="max-w-6xl mx-auto w-full space-y-12 px-4 sm:px-6 relative z-10">
 				{showBreadcrumb && (
 					<Breadcrumb>
 						<BreadcrumbList>

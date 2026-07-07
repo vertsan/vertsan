@@ -137,10 +137,10 @@ export default function AboutSection() {
 				squareSize={4}
 				gridGap={6}
 				color="#4ade80"
-				maxOpacity={0.08}
-				flickerChance={0.05}
-				width={1600}
-				height={300}
+				maxOpacity={0.14}
+				flickerChance={0.1}
+				width={1400}
+				height={200}
 			/>
 			<div className="absolute top-1/3 -left-48 w-96 h-96 bg-primary/[0.04] rounded-full blur-3xl pointer-events-none" />
 			<div className="absolute bottom-1/3 -right-48 w-96 h-96 bg-primary/[0.04] rounded-full blur-3xl pointer-events-none" />
