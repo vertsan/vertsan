@@ -6,7 +6,7 @@ const year = new Date().getFullYear();
 export default function Footer() {
 	return (
 		<footer className="border-t border-border/40">
-			<div className="max-w-6xl mx-auto px-6 py-12">
+			<div className="px-6 py-12">
 				<div className="flex flex-col md:flex-row items-center justify-between gap-6">
 					<div className="flex items-center gap-6">
 						<Link
@@ -19,8 +19,9 @@ export default function Footer() {
 						<nav className="hidden sm:flex items-center gap-4">
 							{[
 								{ to: "/" as const, label: "Home" },
-								{ to: "/experience" as const, label: "Experience" },
+								{ to: "/about" as const, label: "About" },
 								{ to: "/projects" as const, label: "Projects" },
+								{ to: "/certificates" as const, label: "Certificates" },
 							].map((link) => (
 								<Link
 									key={link.label}
