@@ -75,7 +75,7 @@ export default function EducationSection() {
 	return (
 		<section
 			id="education"
-			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-muted/30 scroll-mt-20"
+			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 scroll-mt-20"
 		>
 			<div className="max-w-4xl mx-auto w-full space-y-10 md:space-y-12">
 				<motion.div

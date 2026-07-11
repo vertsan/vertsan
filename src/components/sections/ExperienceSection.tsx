@@ -78,8 +78,11 @@ export default function ExperienceSection() {
 	return (
 		<section
 			id="experience"
-			className="min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 scroll-mt-20"
+			className="relative min-h-screen flex flex-col justify-center py-16 md:py-24 px-4 sm:px-6 lg:px-8 scroll-mt-20 overflow-hidden"
 		>
+			<div className="absolute inset-0 -z-10 bg-gradient-to-b from-muted/10 via-background to-muted/20" />
+			<div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_50%_at_20%_50%,rgba(79,184,178,0.06),transparent)]" />
+			<div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_40%_at_90%_20%,rgba(56,189,248,0.05),transparent)]" />
 			<div className="max-w-4xl mx-auto w-full space-y-10 md:space-y-12">
 				<motion.div
 					initial={{ opacity: 0, y: 30 }}

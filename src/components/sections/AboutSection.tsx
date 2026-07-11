@@ -130,8 +130,11 @@ export default function AboutSection() {
 	return (
 		<section
 			id="about"
-			className="relative min-h-screen flex flex-col justify-center py-16 md:py-24 bg-muted/30 scroll-mt-20 overflow-hidden"
+			className="relative min-h-screen flex flex-col justify-center py-16 md:py-24 scroll-mt-20 overflow-hidden"
 		>
+			<div className="absolute inset-0 -z-10 bg-gradient-to-b from-muted/20 via-background to-muted/30" />
+			<div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(79,184,178,0.08),transparent)]" />
+			<div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(79,184,178,0.05),transparent)]" />
 			<FlickeringGrid
 				className="absolute inset-0 z-0 h-48 md:h-64"
 				squareSize={4}
