@@ -1,6 +1,6 @@
 # Hi 👋, I'm Vert San
 
-### A seasoned Typescript developer
+### A Software Engineer
 
 
 - 🔭 I'm currently working on **a Software Engineer**
