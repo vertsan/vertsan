@@ -9,7 +9,7 @@
 
 - 📫 How to reach me **itsanvert@gmail.com**
 
-- ⚡ Fun fact **I think I am a sleep boy**
+- ⚡ Fun fact **I like to sleepy boy**
 
 - 👨‍💻 All of my projects are available at **[https://vertsan.netlify.app/](https://vertsan.netlify.app/)**
 
