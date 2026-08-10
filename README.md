@@ -3,7 +3,7 @@
 ### A Software Engineer
 
 
-- 🔭 I'm currently working on **a Software Engineer**
+- 🔭 I'm currently working on **a Software Engineer** at **J Trust Royal Bank**
 
 - 🌱 I'm currently learning **Typescript and .Net Framework**
 
