@@ -2,7 +2,9 @@
 
 ### A Software Engineer
 
-
+<p align="left">
+  <img src="https://komarev.com/ghpvc/?username=vertsan&label=Profile%20Views&color=0e75b6&style=flat" alt="vertsan" />
+</p>
 - 🔭 I'm currently working on **a Software Engineer** at **J Trust Royal Bank**
 
 - 🌱 I'm currently learning **Typescript and .Net Framework**
