@@ -81,7 +81,7 @@
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.1",
     "drizzle-kit": "^0.31.10",
-    "jsdom": "^28.1.0",
+    "jsdom": "^30.0.1",
     "tsx": "^4.22.4",
     "typescript": "^6.0.2",
     "vite": "^8.0.0",
