@@ -13,7 +13,7 @@ function hashState(state: string, secret: string): string {
 export const Route = createFileRoute("/api/auth/$provider")({
 	server: {
 		handlers: {
-			GET: async ({ params }) => {
+			GET: async ({ params, request }) => {
 				const providerName = params.provider as ProviderName;
 				const provider = providers[providerName];
 
@@ -31,7 +31,9 @@ export const Route = createFileRoute("/api/auth/$provider")({
 				const state = generateOAuthState();
 				const secret = process.env.ADMIN_SECRET || "vertsan-secret";
 				const stateHash = hashState(state, secret);
-				const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+				const requestUrl = new URL(request.url);
+				const baseUrl =
+					process.env.BASE_URL || `${requestUrl.protocol}//${requestUrl.host}`;
 				const redirectUri = `${baseUrl}/api/auth/${providerName}/callback`;
 
 				const authUrl = provider.getAuthorizationUrl(redirectUri, state);
