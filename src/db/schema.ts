@@ -1,4 +1,12 @@
-import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import {
+	boolean,
+	integer,
+	pgTable,
+	serial,
+	text,
+	timestamp,
+	uniqueIndex,
+} from "drizzle-orm/pg-core";
 
 export const jobs = pgTable("jobs", {
 	id: serial("id").primaryKey(),
@@ -73,6 +81,39 @@ export const users = pgTable("users", {
 	password: text("password").notNull(),
 	name: text("name").notNull(),
 	role: text("role").notNull().default("reader"),
+	createdAt: timestamp("created_at").notNull().defaultNow(),
+	updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const oauthUsers = pgTable(
+	"oauth_users",
+	{
+		id: serial("id").primaryKey(),
+		provider: text("provider").notNull(),
+		providerId: text("provider_id").notNull(),
+		name: text("name").notNull(),
+		email: text("email"),
+		avatar: text("avatar"),
+		profileUrl: text("profile_url"),
+		createdAt: timestamp("created_at").notNull().defaultNow(),
+		updatedAt: timestamp("updated_at").notNull().defaultNow(),
+	},
+	(table) => [
+		uniqueIndex("oauth_provider_id_idx").on(table.provider, table.providerId),
+	],
+);
+
+export const testimonials = pgTable("testimonials", {
+	id: serial("id").primaryKey(),
+	userId: integer("user_id")
+		.notNull()
+		.references(() => oauthUsers.id, { onDelete: "cascade" }),
+	authorName: text("author_name").notNull(),
+	authorAvatar: text("author_avatar"),
+	authorProfileUrl: text("author_profile_url"),
+	provider: text("provider").notNull(),
+	content: text("content").notNull(),
+	approved: boolean("approved").notNull().default(true),
 	createdAt: timestamp("created_at").notNull().defaultNow(),
 	updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
