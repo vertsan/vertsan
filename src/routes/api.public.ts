@@ -4,6 +4,7 @@ import { createEducationService } from "#/services/education.service";
 import { createJobService } from "#/services/job.service";
 import { createProjectService } from "#/services/project.service";
 import { createTechnologyService } from "#/services/technology.service";
+import { createTestimonialService } from "#/services/testimonial.service";
 
 const cache = new Map<string, { data: unknown; expiry: number }>();
 const CACHE_TTL_MS = 60_000;
@@ -29,6 +30,7 @@ const collections = {
 		),
 	certificates: createCertificateService().list,
 	technologies: createTechnologyService().list,
+	testimonials: createTestimonialService().list,
 } as const;
 
 type Collection = keyof typeof collections;
@@ -45,10 +47,14 @@ async function fetchAll() {
 	const cached = getCached<Record<string, unknown[]>>("all");
 	if (cached) return cached;
 
-	const [allJobs, allEducation, allProjects, allCertificates, allTechnologies] =
-		await Promise.all(
-			Object.values(collections).map((fn) => fn()),
-		);
+	const [
+		allJobs,
+		allEducation,
+		allProjects,
+		allCertificates,
+		allTechnologies,
+		allTestimonials,
+	] = await Promise.all(Object.values(collections).map((fn) => fn()));
 
 	const data = {
 		jobs: allJobs,
@@ -56,6 +62,7 @@ async function fetchAll() {
 		projects: allProjects,
 		certificates: allCertificates,
 		technologies: allTechnologies,
+		testimonials: allTestimonials,
 	} as Record<string, unknown[]>;
 
 	return setCached("all", data);
@@ -76,15 +83,12 @@ export const Route = createFileRoute("/api/public")({
 								{ status: 400 },
 							);
 						}
-						return Response.json(
-							await fetchSingle(collection as Collection),
-						);
+						return Response.json(await fetchSingle(collection as Collection));
 					}
 
 					return Response.json(await fetchAll());
 				} catch (err: unknown) {
-					const message =
-						err instanceof Error ? err.message : "Unknown error";
+					const message = err instanceof Error ? err.message : "Unknown error";
 					console.error("Public API error:", err);
 					return Response.json({ error: message }, { status: 500 });
 				}
