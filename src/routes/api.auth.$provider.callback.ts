@@ -36,16 +36,17 @@ export const Route = createFileRoute("/api/auth/$provider/callback")({
 			GET: async ({ params, request }) => {
 				const providerName = params.provider as ProviderName;
 				const provider = providers[providerName];
-				const baseUrl = process.env.BASE_URL || "http://localhost:3000";
+				const requestUrl = new URL(request.url);
+				const baseUrl =
+					process.env.BASE_URL || `${requestUrl.protocol}//${requestUrl.host}`;
 
 				if (!provider) {
 					return new Response("Unknown provider", { status: 400 });
 				}
 
-				const url = new URL(request.url);
-				const code = url.searchParams.get("code");
-				const returnedState = url.searchParams.get("state");
-				const error = url.searchParams.get("error");
+				const code = requestUrl.searchParams.get("code");
+				const returnedState = requestUrl.searchParams.get("state");
+				const error = requestUrl.searchParams.get("error");
 
 				if (error) {
 					return new Response(null, {
