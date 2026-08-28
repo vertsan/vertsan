@@ -1,8 +1,9 @@
-import { memo, useMemo } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { motion } from "framer-motion";
+import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { marked } from "marked";
+import { memo, useMemo } from "react";
+import { Badge } from "#/components/ui/badge";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -11,7 +12,6 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from "#/components/ui/breadcrumb";
-import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import {
 	Card,
@@ -20,10 +20,10 @@ import {
 	CardHeader,
 	CardTitle,
 } from "#/components/ui/card";
+import SectionHeading from "#/components/ui/section-heading";
 import { Skeleton } from "#/components/ui/skeleton";
+import { setCache, useLiveContent } from "#/lib/useLiveContent";
 import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
-
-import { useLiveContent, setCache } from "#/lib/useLiveContent";
 import "#/lib/markdown";
 
 export interface Project {
@@ -106,10 +106,10 @@ const ProjectCard = memo(function ProjectCard({
 	);
 
 	return (
-		<Card className="border shadow-sm flex flex-col gap-4 md:gap-6 py-4 md:py-6">
-			<CardHeader className="px-4 md:px-6">
-				<div className="flex items-start justify-between gap-2">
-					<CardTitle className="text-base md:text-lg">
+		<Card className="group border shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md overflow-hidden gap-0">
+			<CardHeader className="px-5 pt-5 pb-3">
+				<div className="flex items-start justify-between gap-3">
+					<CardTitle className="text-base leading-snug md:text-lg group-hover:text-primary transition-colors duration-300">
 						{project.title}
 					</CardTitle>
 					<Badge
@@ -119,34 +119,33 @@ const ProjectCard = memo(function ProjectCard({
 						{project.status}
 					</Badge>
 				</div>
+			</CardHeader>
+			<CardContent className="flex flex-col gap-3 px-5 pb-3">
 				{renderedSummary ? (
 					<div
-						className="text-sm text-muted-foreground mt-1 line-clamp-2"
+						className="text-sm text-muted-foreground line-clamp-2"
 						dangerouslySetInnerHTML={{ __html: renderedSummary }}
 					/>
 				) : (
-					<p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+					<p className="text-sm text-muted-foreground line-clamp-2">
 						{project.summary}
 					</p>
 				)}
-			</CardHeader>
-			<CardContent className="flex-1 flex flex-col gap-3 px-4 md:px-6">
 				<div className="flex flex-wrap gap-1.5">
 					{project.tags?.slice(0, 6).map((tag) => (
-						<Badge key={tag} variant="outline" className="text-xs">
+						<Badge key={tag} variant="outline" className="text-xs font-normal">
 							{tag}
 						</Badge>
 					))}
 					{project.tags && project.tags.length > 6 && (
-						<Badge variant="outline" className="text-xs">
+						<Badge variant="outline" className="text-xs font-normal">
 							+{project.tags.length - 6}
 						</Badge>
 					)}
 				</div>
-				
 			</CardContent>
-			<CardFooter className="flex items-center justify-between gap-2 pt-0 px-4 md:px-6">
-				<div className="flex gap-2">
+			<CardFooter className="flex items-center justify-between gap-2 border-t border-border/50 bg-muted/20 px-5 py-3">
+				<div className="flex gap-1">
 					{project.github && (
 						<Button variant="ghost" size="icon" asChild>
 							<a
@@ -197,7 +196,8 @@ const ProjectCard = memo(function ProjectCard({
 export default function ProjectsSection() {
 	const { items: projects, loading } = useLiveContent<Project>("projects");
 	const location = useLocation();
-	const showBreadcrumb = location.pathname === "/projects" || location.pathname === "/projects/";
+	const showBreadcrumb =
+		location.pathname === "/projects" || location.pathname === "/projects/";
 	const isHome = location.pathname === "/";
 	const MAX_HOME = 6;
 
@@ -245,20 +245,11 @@ export default function ProjectsSection() {
 						</BreadcrumbList>
 					</Breadcrumb>
 				)}
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-100px" }}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-					className="text-center space-y-3"
-				>
-					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-						Projects
-					</h2>
-					<p className="text-muted-foreground max-w-xl mx-auto">
-						A selection of projects I've built and contributed to
-					</p>
-				</motion.div>
+				<SectionHeading
+					eyebrow="Portfolio"
+					title="Projects"
+					description="A selection of projects I've built and contributed to"
+				/>
 
 				<motion.div
 					initial={{ opacity: 0, y: 30 }}

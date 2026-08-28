@@ -1,0 +1,249 @@
+
+> dev
+> vite dev --port 3000
+
+[2m1:14:52 AM[22m [36m[1m[vite][22m[39m [38;2;40;180;170m⬥ Netlify[39m Environment loaded
+[2m1:14:52 AM[22m [36m[1m[vite][22m[39m [38;2;40;180;170m⬥ Netlify[39m Middleware loaded. Emulating features: aiGateway, blobs, database, edgeFunctions, environmentVariables, functions, geolocation, headers, images, redirects, static.
+[2m1:14:52 AM[22m [36m[1m[vite][22m[39m [38;2;40;180;170m⬥ Netlify[39m 💭 Linking this project to a Netlify site lets you deploy your site, use any environment variables defined on your team and site and much more. Run [96mnpx netlify init[39m to get started.
+
+  [32m[1mVITE[22m v8.0.16[39m  [2mready in [0m[1m33980[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m3000[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m1:14:54 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m connected.
+[2m1:14:55 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [optimizer] bundling dependencies...
+[2m1:24:21 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/HeroSection.tsx[22m
+[2m1:24:21 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/HeroSection.tsx[22m
+[2m1:24:21 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m1:24:21 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/HeroSection.tsx[22m
+[2m1:24:21 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/HeroSection.tsx[22m
+[2m1:24:21 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/HeroSection.tsx[22m
+[2m1:24:21 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/HeroSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/HeroSection.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/HeroSection.tsx
+[Client] [vite] hot updated: /src/components/sections/HeroSection.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/HeroSection.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/HeroSection.tsx
+[Client] [vite] hot updated: /src/components/sections/HeroSection.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[2m1:58:51 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m1:58:51 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/styles.css[22m
+[2m1:58:52 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m1:58:52 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/styles.css[22m
+[Client] [vite] hot updated: /src/routes/__root.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/routes/__root.tsx
+[2m1:59:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m1:59:00 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/styles.css[22m
+[Client] [vite] hot updated: /src/routes/__root.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[2m1:59:09 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m1:59:09 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/styles.css[22m
+[Client] [vite] hot updated: /src/routes/__root.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[2m1:59:16 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m1:59:16 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/styles.css[22m
+[Client] [vite] hot updated: /src/routes/__root.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[2m1:59:46 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m1:59:46 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/Header.tsx
+[2m2:00:10 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/HeroSection.tsx[22m
+[2m2:00:10 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/HeroSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/HeroSection.tsx
+[2m2:00:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/HeroSection.tsx[22m
+[2m2:00:17 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/HeroSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/HeroSection.tsx
+[2m2:00:29 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/TestimonialsSection.tsx[22m
+[2m2:00:29 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/TestimonialsSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/TestimonialsSection.tsx
+[2m2:00:42 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/TestimonialsSection.tsx[22m
+[2m2:00:42 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/TestimonialsSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/TestimonialsSection.tsx
+[2m2:00:48 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/TestimonialsSection.tsx[22m
+[2m2:00:48 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/TestimonialsSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/TestimonialsSection.tsx
+[2m2:00:59 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/WhatICanDoSection.tsx[22m
+[2m2:00:59 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/WhatICanDoSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/WhatICanDoSection.tsx
+[2m2:01:07 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/WhatICanDoSection.tsx[22m
+[2m2:01:07 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/WhatICanDoSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/WhatICanDoSection.tsx
+[2m2:01:25 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/WhatICanDoSection.tsx[22m
+[2m2:01:25 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/WhatICanDoSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/WhatICanDoSection.tsx
+[2m2:01:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/ProjectsSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:02:33 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/ProjectsSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:02:41 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/ProjectsSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:02:48 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/CertificatesSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:02:55 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/CertificatesSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:03:11 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/CertificatesSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:03:18 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/AboutSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:03:28 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/AboutSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:03:35 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/AboutSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:03:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/ExperienceSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:03:48 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/ExperienceSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:03:56 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/EducationSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:04:03 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/EducationSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:04:12 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/GetInTouchSection.tsx[22m
+[2m2:04:12 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/GetInTouchSection.tsx[22m
+[2m2:04:12 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/GetInTouchSection.tsx
+[2m2:04:49 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/WhatICanDoSection.tsx[22m
+[2m2:04:49 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/WhatICanDoSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/EducationSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/GetInTouchSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/GetInTouchSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/CertificatesSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/ProjectsSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/AboutSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/ExperienceSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/WhatICanDoSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/WhatICanDoSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/TestimonialsSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/TestimonialsSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/HeroSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/HeroSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/TestimonialsSection.tsx[22m
+[2m2:04:50 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/TestimonialsSection.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/WhatICanDoSection.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/Header.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/sections/GetInTouchSection.tsx
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:08:39 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/sections/AboutSection.tsx[22m
+[2m2:08:39 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/sections/AboutSection.tsx[22m
+[2m2:08:39 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[Client] [vite] css hot updated: /src/styles.css
+[2m2:12:45 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:12:45 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/Header.tsx
+[2m2:13:00 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/GooeyNav.css[22m
+[2m2:13:00 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/GooeyNav.css[22m
+[Client] [vite] css hot updated: /src/styles.css
+[Client] [vite] hot updated: /src/components/GooeyNav.css
+File D:\web\vertsan\src\routeTree.gen.ts was modified by another process during processing.
+[2m2:25:49 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:25:49 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:25:49 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+File D:\web\vertsan\src\routeTree.gen.ts was modified by another process during processing.
+[2m2:27:26 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:27:26 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:27:26 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m2:27:26 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:27:26 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:27:26 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:27:26 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:30:54 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:30:54 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:30:54 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m2:30:54 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:30:54 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:30:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:30:58 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:30:58 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m2:38:28 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:38:28 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[2m2:38:28 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m2:39:45 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:39:45 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[2m2:41:18 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m2:41:18 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m2:41:18 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m2:41:18 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m2:41:24 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m2:41:24 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m2:41:37 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/routes/__root.tsx[22m
+[2m2:41:37 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routes/__root.tsx[22m
+[2m2:43:09 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:09 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:10 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:10 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:10 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:10 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:12 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:12 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:12 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:12 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:12 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:12 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:13 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:13 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:13 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:13 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:14 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:14 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:14 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:14 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:15 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:15 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:15 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:15 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:16 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:16 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:16 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:16 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:17 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:17 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:17 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:17 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:17 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:18 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:43:18 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:44:44 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:44:44 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/routeTree.gen.ts[22m
+[2m2:44:44 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m program reload
+[2m2:46:55 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:46:55 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[2m2:47:22 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:47:22 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[2m2:47:30 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:47:30 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[2m2:47:40 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:47:40 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[2m2:47:58 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:47:58 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[2m2:48:39 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:48:39 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[2m2:49:35 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/Header.tsx[22m
+[2m2:49:35 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/Header.tsx[22m
+[2m2:49:35 AM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/src/styles.css?direct, /src/components/GooeyNav.css[22m
+[2m2:49:35 AM[22m [36m[1m[vite][22m[39m [34m[2m(ssr)[22m[39m [32mpage reload [39m[2msrc/components/GooeyNav.css[22m

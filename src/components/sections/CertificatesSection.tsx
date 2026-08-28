@@ -1,6 +1,7 @@
-import { ArrowUpRight, Award, Calendar, ExternalLink } from "lucide-react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { ArrowUpRight, Award, Calendar, ExternalLink } from "lucide-react";
+import { Badge } from "#/components/ui/badge";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -9,7 +10,6 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from "#/components/ui/breadcrumb";
-import { Badge } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import {
 	Card,
@@ -18,10 +18,10 @@ import {
 	CardHeader,
 	CardTitle,
 } from "#/components/ui/card";
+import SectionHeading from "#/components/ui/section-heading";
 import { Skeleton } from "#/components/ui/skeleton";
-import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
-
 import { useLiveContent } from "#/lib/useLiveContent";
+import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 
 function CertificatesShimmer() {
 	return (
@@ -64,9 +64,12 @@ function CertificatesShimmer() {
 }
 
 export default function CertificatesSection() {
-	const { items: certs, loading } = useLiveContent<Record<string, unknown>>("certificates");
+	const { items: certs, loading } =
+		useLiveContent<Record<string, unknown>>("certificates");
 	const location = useLocation();
-	const showBreadcrumb = location.pathname === "/certificates" || location.pathname === "/certificates/";
+	const showBreadcrumb =
+		location.pathname === "/certificates" ||
+		location.pathname === "/certificates/";
 	const isHome = location.pathname === "/";
 	const MAX_HOME = 6;
 
@@ -112,20 +115,11 @@ export default function CertificatesSection() {
 						</BreadcrumbList>
 					</Breadcrumb>
 				)}
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-100px" }}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-					className="text-center space-y-4"
-				>
-					<h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-						Certificates
-					</h2>
-					<p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
-						Professional certifications and achievements
-					</p>
-				</motion.div>
+				<SectionHeading
+					eyebrow="Credentials"
+					title="Certificates"
+					description="Professional certifications and achievements"
+				/>
 
 				<motion.div
 					initial={{ opacity: 0, y: 30 }}
@@ -137,9 +131,9 @@ export default function CertificatesSection() {
 					{displayed.map((cert) => (
 						<Card
 							key={(cert as Record<string, any>).title as string}
-							className="group border shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-primary/15 transition-all duration-300 gap-4 md:gap-6 py-4 md:py-6"
+							className="group border shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-primary/15 transition-all duration-300 overflow-hidden gap-0"
 						>
-							<CardHeader className="px-4 md:px-6">
+							<CardHeader className="px-5 pt-5 pb-3">
 								<div className="flex items-start gap-3">
 									<div className="p-2.5 rounded-lg bg-primary/10 text-primary shrink-0 group-hover:bg-primary/15 group-hover:scale-105 transition-all duration-300">
 										<Award className="size-5" />
@@ -154,7 +148,7 @@ export default function CertificatesSection() {
 									</div>
 								</div>
 							</CardHeader>
-							<CardContent className="space-y-3 px-4 md:px-6">
+							<CardContent className="space-y-3 px-5 pb-3">
 								<p className="text-sm text-muted-foreground leading-relaxed">
 									{(cert as Record<string, any>).summary as string}
 								</p>
@@ -183,7 +177,7 @@ export default function CertificatesSection() {
 											<Badge
 												key={tag}
 												variant="outline"
-												className="text-xs transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
+												className="text-xs font-normal transition-colors duration-200 hover:bg-primary/5 hover:text-primary hover:border-primary/30"
 											>
 												{tag}
 											</Badge>

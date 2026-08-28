@@ -16,6 +16,7 @@ import { Route as CertificatesRouteImport } from './routes/certificates'
 import { Route as EducationRouteImport } from './routes/education'
 import { Route as ExperienceRouteImport } from './routes/experience'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as NavbarDemoRouteImport } from './routes/navbar-demo'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as TechnologiesRouteImport } from './routes/technologies'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
@@ -72,6 +73,11 @@ const ExperienceRoute = ExperienceRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NavbarDemoRoute = NavbarDemoRouteImport.update({
+  id: '/navbar-demo',
+  path: '/navbar-demo',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsRoute = ProjectsRouteImport.update({
@@ -193,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/education': typeof EducationRoute
   '/experience': typeof ExperienceRoute
   '/login': typeof LoginRoute
+  '/navbar-demo': typeof NavbarDemoRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/technologies': typeof TechnologiesRoute
   '/admin/certificates': typeof AdminCertificatesRoute
@@ -223,6 +230,7 @@ export interface FileRoutesByTo {
   '/education': typeof EducationRoute
   '/experience': typeof ExperienceRoute
   '/login': typeof LoginRoute
+  '/navbar-demo': typeof NavbarDemoRoute
   '/technologies': typeof TechnologiesRoute
   '/admin/certificates': typeof AdminCertificatesRoute
   '/admin/education': typeof AdminEducationRoute
@@ -254,6 +262,7 @@ export interface FileRoutesById {
   '/education': typeof EducationRoute
   '/experience': typeof ExperienceRoute
   '/login': typeof LoginRoute
+  '/navbar-demo': typeof NavbarDemoRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/technologies': typeof TechnologiesRoute
   '/admin/certificates': typeof AdminCertificatesRoute
@@ -287,6 +296,7 @@ export interface FileRouteTypes {
     | '/education'
     | '/experience'
     | '/login'
+    | '/navbar-demo'
     | '/projects'
     | '/technologies'
     | '/admin/certificates'
@@ -317,6 +327,7 @@ export interface FileRouteTypes {
     | '/education'
     | '/experience'
     | '/login'
+    | '/navbar-demo'
     | '/technologies'
     | '/admin/certificates'
     | '/admin/education'
@@ -347,6 +358,7 @@ export interface FileRouteTypes {
     | '/education'
     | '/experience'
     | '/login'
+    | '/navbar-demo'
     | '/projects'
     | '/technologies'
     | '/admin/certificates'
@@ -379,6 +391,7 @@ export interface RootRouteChildren {
   EducationRoute: typeof EducationRoute
   ExperienceRoute: typeof ExperienceRoute
   LoginRoute: typeof LoginRoute
+  NavbarDemoRoute: typeof NavbarDemoRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
   TechnologiesRoute: typeof TechnologiesRoute
   ApiAdminRoute: typeof ApiAdminRouteWithChildren
@@ -440,6 +453,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/navbar-demo': {
+      id: '/navbar-demo'
+      path: '/navbar-demo'
+      fullPath: '/navbar-demo'
+      preLoaderRoute: typeof NavbarDemoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects': {
@@ -669,6 +689,7 @@ const rootRouteChildren: RootRouteChildren = {
   EducationRoute: EducationRoute,
   ExperienceRoute: ExperienceRoute,
   LoginRoute: LoginRoute,
+  NavbarDemoRoute: NavbarDemoRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
   TechnologiesRoute: TechnologiesRoute,
   ApiAdminRoute: ApiAdminRouteWithChildren,
