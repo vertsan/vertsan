@@ -59,9 +59,26 @@
   transition:
     background-color 0.3s ease,
     color 0.3s ease,
-    box-shadow 0.3s ease;
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
   box-shadow: 0 0 0.5px 1.5px transparent;
   color: var(--foreground);
+}
+
+.gooey-nav-container nav ul li:not(.active):hover {
+  color: var(--foreground);
+  transform: translateY(-1px);
+}
+
+.gooey-nav-container nav ul li:not(.active):hover::after,
+.gooey-nav-container nav ul li:not(.active):focus-within::after {
+  opacity: 0.1;
+  transform: scale(1);
+}
+
+.gooey-nav-container nav ul li:focus-within {
+  outline: 2px solid color-mix(in oklch, var(--ring) 70%, transparent);
+  outline-offset: 3px;
 }
 
 .gooey-nav-container nav ul li a,
@@ -117,16 +134,7 @@ header[data-scrolled='true'] .gooey-nav-container nav ul {
 }
 
 .gooey-nav-container .effect {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 0;
-  opacity: 1;
-  pointer-events: none;
-  display: grid;
-  place-items: center;
-  z-index: 1;
+  display: none;
 }
 
 .gooey-nav-container .effect.text {

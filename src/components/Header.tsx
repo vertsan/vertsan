@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { LogIn, Menu, X } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import GooeyNav from "./GooeyNav";
 import ThemeToggle from "./ThemeToggle";
 
@@ -12,24 +12,16 @@ const navItems = [
 	{ label: "Certificates", to: "/certificates" },
 ];
 
-const SPRING = { type: "spring", stiffness: 280, damping: 34, mass: 0.7 };
-
 export default function Header() {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
-	const [navVisible, setNavVisible] = useState(true);
-	const lastScrollY = useRef(0);
-
 	useEffect(() => {
 		let raf = 0;
 		const onScroll = () => {
 			cancelAnimationFrame(raf);
 			raf = requestAnimationFrame(() => {
 				const y = window.scrollY;
-				const delta = y - lastScrollY.current;
 				setScrolled(y > 8);
-				setNavVisible(mobileOpen || y <= 8 || delta <= 0);
-				lastScrollY.current = y;
 			});
 		};
 
@@ -39,7 +31,7 @@ export default function Header() {
 			window.removeEventListener("scroll", onScroll);
 			cancelAnimationFrame(raf);
 		};
-	}, [mobileOpen]);
+	}, []);
 
 	useEffect(() => {
 		document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -51,8 +43,6 @@ export default function Header() {
 	return (
 		<motion.header
 			data-scrolled={scrolled || mobileOpen}
-			animate={{ y: navVisible || mobileOpen ? 0 : "-108%" }}
-			transition={SPRING}
 			className={`sticky top-0 z-50 w-full will-change-transform ${
 				scrolled || mobileOpen
 					? "border-b border-border/40 bg-background/85 shadow-lg shadow-black/4 backdrop-blur-xl supports-backdrop-filter:bg-background/70"
@@ -76,8 +66,6 @@ export default function Header() {
 				<motion.div
 					className="hidden md:flex flex-1 justify-center"
 					initial={false}
-					animate={{ scale: scrolled ? 0.94 : 1 }}
-					transition={SPRING}
 				>
 					<GooeyNav
 						items={navItems}
@@ -101,6 +89,7 @@ export default function Header() {
 						Login
 					</Link>
 					<button
+						type="button"
 						onClick={() => setMobileOpen(!mobileOpen)}
 						aria-label="Toggle menu"
 						className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
