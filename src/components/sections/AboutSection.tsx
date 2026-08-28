@@ -14,6 +14,7 @@ import DriftWall from "../ui/DriftWall";
 import SectionHeading from "../ui/section-heading";
 import EducationSection from "./EducationSection";
 import ExperienceSection from "./ExperienceSection";
+import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 
 function useCountUp(target: number, duration = 2000) {
 	const [count, setCount] = useState(0);
@@ -96,6 +97,7 @@ const driftItems = [
 	{ image: "/profile2.png", title: "Vert San profile 2" },
 	{ image: "/profile3.jpg", title: "Vert San profile 3" },
 	{ image: "/profile4.jpg", title: "Vert San profile 4" },
+	{image: "/profile5.jpg", title: "Vert San profile 5" },
 ];
 
 export default function AboutSection() {
@@ -104,6 +106,16 @@ export default function AboutSection() {
 			id="about"
 			className="relative min-h-screen flex flex-col justify-center py-16 md:py-24 scroll-mt-20"
 		>
+			<FlickeringGrid
+							className="absolute inset-0 z-0 h-48 md:h-64"
+							squareSize={4}
+							gridGap={6}
+							color="#4ade80"
+							maxOpacity={0.14}
+							flickerChance={0.1}
+							width={1400}
+							height={200}
+						/>
 			<div className="absolute inset-0 -z-10 bg-gradient-to-b from-muted/30 via-transparent to-muted/30" />
 
 			<div className="max-w-6xl mx-auto w-full relative z-10 px-4 sm:px-6">

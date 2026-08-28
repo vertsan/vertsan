@@ -100,3 +100,26 @@ Error: EPERM: operation not permitted, rename 'D:\web\vertsan\.tanstack\tmp\0363
     at async EnvironmentPluginContainer.watchChange (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:30413:3)
     at async Promise.all (index 0)
     at async onFileChange (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:26413:3)
+node:internal/fs/watchers:321
+    const error = new UVException({
+                  ^
+
+Error: EBUSY: resource busy or locked, watch 'D:\web\vertsan\public\Vert_SAN_Profile (1).png'
+    at FSWatcher.<computed> (node:internal/fs/watchers:321:19)
+    at Object.watch (node:fs:2548:36)
+    at createFsWatchInstance (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:8502:16)
+    at setFsWatchListener (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:8544:14)
+    at NodeFsHandler._watchWithNodeFs (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:8658:20)
+    at NodeFsHandler._handleFile (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:8702:24)
+    at NodeFsHandler._addToNodeFs (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:8876:26)
+Emitted 'error' event on FSWatcher instance at:
+    at FSWatcher._handleError (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:9675:146)
+    at NodeFsHandler._addToNodeFs (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:8881:18) {
+  errno: -4082,
+  syscall: 'watch',
+  code: 'EBUSY',
+  path: 'D:\\web\\vertsan\\public\\Vert_SAN_Profile (1).png',
+  filename: 'D:\\web\\vertsan\\public\\Vert_SAN_Profile (1).png'
+}
+
+Node.js v24.17.0

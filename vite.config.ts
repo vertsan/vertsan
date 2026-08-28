@@ -9,6 +9,12 @@ const config = defineConfig({
 	resolve: { tsconfigPaths: true },
 	assetsInclude: ["**/*.glb"],
 	ssr: { noExternal: ["gsap"] },
+	server: {
+		watch: {
+			ignored: (path) =>
+				/[\\/]public[\\/][\w\-. ]+ \(\d+\)\.[\w]+$/i.test(path),
+		},
+	},
 	plugins: [
 		devtools({ removeDevtoolsOnBuild: false }),
 		netlify(),

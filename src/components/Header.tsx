@@ -101,7 +101,6 @@ export default function Header() {
 						Login
 					</Link>
 					<button
-						type="button"
 						onClick={() => setMobileOpen(!mobileOpen)}
 						aria-label="Toggle menu"
 						className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
