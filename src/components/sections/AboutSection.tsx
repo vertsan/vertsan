@@ -96,6 +96,7 @@ const driftItems = [
 	{ image: "/profile2.png", title: "Vert San profile 2" },
 	{ image: "/profile3.jpg", title: "Vert San profile 3" },
 	{ image: "/profile4.jpg", title: "Vert San profile 4" },
+	{image: "/profile5.jpg", title: "Vert San profile 5" },
 ];
 
 export default function AboutSection() {
