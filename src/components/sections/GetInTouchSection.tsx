@@ -1,5 +1,5 @@
-import { Github, Linkedin, Mail, MapPin, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { ArrowUpRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import Strands from "#/components/Strands";
 import { Button } from "#/components/ui/button";
 
@@ -45,21 +45,24 @@ export default function GetInTouchSection() {
 						className="space-y-8 order-1 md:order-2"
 					>
 						<div className="space-y-4">
-							<p className="text-sm font-medium text-muted-foreground tracking-widest uppercase">
-								Contact
-							</p>
+							<span className="section-eyebrow self-start">Contact</span>
 
 							<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-								Get in <span className="text-primary">Touch</span>
+								Get in <span className="accent-gradient-text">Touch</span>
 							</h2>
 
 							<p className="text-muted-foreground text-base md:text-lg max-w-md leading-relaxed">
-								Have a project in mind or just want to say hello? I'd love to hear from you.
+								Have a project in mind or just want to say hello? I'd love to
+								hear from you.
 							</p>
 						</div>
 
 						<div className="space-y-4">
-							<Button size="lg" className="gap-2 w-full sm:w-auto group" asChild>
+							<Button
+								size="lg"
+								className="gap-2 w-full sm:w-auto group"
+								asChild
+							>
 								<a href="mailto:hello@vertsan.com">
 									<Mail className="size-5" />
 									Send a Message
@@ -76,9 +79,21 @@ export default function GetInTouchSection() {
 
 							<div className="flex items-center gap-4">
 								{[
-									{ href: "https://github.com/vertsan", label: "GitHub", icon: Github },
-									{ href: "https://linkedin.com/in/vertsan", label: "LinkedIn", icon: Linkedin },
-									{ href: "mailto:hello@vertsan.com", label: "Email", icon: Mail },
+									{
+										href: "https://github.com/vertsan",
+										label: "GitHub",
+										icon: Github,
+									},
+									{
+										href: "https://linkedin.com/in/vertsan",
+										label: "LinkedIn",
+										icon: Linkedin,
+									},
+									{
+										href: "mailto:hello@vertsan.com",
+										label: "Email",
+										icon: Mail,
+									},
 								].map(({ href, label, icon: Icon }) => (
 									<a
 										key={label}

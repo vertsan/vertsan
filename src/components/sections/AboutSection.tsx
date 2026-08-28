@@ -1,8 +1,7 @@
-﻿import { motion } from "framer-motion";
-import { Link } from "@tanstack/react-router";
+﻿import { Link } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import { Code2, Globe, Sparkles } from "lucide-react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
-import BounceCards from "../ui/BounceCards";
 import {
 	Breadcrumb,
 	BreadcrumbItem,
@@ -11,8 +10,8 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from "../ui/breadcrumb";
-import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
-import LetterGlitch from "../LetterGlitch";
+import DriftWall from "../ui/DriftWall";
+import SectionHeading from "../ui/section-heading";
 import EducationSection from "./EducationSection";
 import ExperienceSection from "./ExperienceSection";
 
@@ -71,189 +70,144 @@ function AnimatedStat({
 	return (
 		<motion.div
 			ref={ref}
-			initial={{ opacity: 0, y: 24 }}
+			initial={{ opacity: 0, y: 20 }}
 			whileInView={{ opacity: 1, y: 0 }}
 			viewport={{ once: true, margin: "-50px" }}
 			transition={{ duration: 0.5, delay, ease: "easeOut" }}
-			className="group relative overflow-hidden rounded-2xl border bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl p-5 hover:shadow-lg hover:border-primary/20 transition-all duration-500"
+			className="flex items-center gap-4 p-5"
 		>
-			<div className="absolute inset-0 bg-gradient-to-br from-primary/[0.06] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-			<div className="relative flex items-center gap-4">
-				<div className="p-3 rounded-xl bg-primary/10 text-primary shrink-0 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
-					<Icon className="size-5" />
-				</div>
-				<div>
-					<p className="text-2xl font-bold text-foreground tabular-nums tracking-tight">
-						{count.toFixed(decimals)}
-						{suffix}
-					</p>
-					<p className="text-sm text-muted-foreground/80">{label}</p>
-				</div>
+			<div className="flex items-center justify-center size-12 rounded-xl bg-primary/10 text-primary shrink-0">
+				<Icon className="size-5" />
+			</div>
+			<div>
+				<p className="text-2xl font-bold text-foreground tabular-nums tracking-tight">
+					{count.toFixed(decimals)}
+					{suffix}
+				</p>
+				<p className="text-sm text-muted-foreground">{label}</p>
 			</div>
 		</motion.div>
 	);
 }
 
-const containerVariants = {
-	hidden: {},
-	visible: {
-		transition: { staggerChildren: 0.12 },
-	},
-};
-
-const childVariants = {
-	hidden: { opacity: 0, y: 30 },
-	visible: {
-		opacity: 1,
-		y: 0,
-		transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const },
-	},
-};
-
-const bounceImages = [
-	"/profile.jpg",
-	"/profile1.jpg",
-	"/profile2.png",
-	"/profile3.jpg",
-	"/profile4.jpg",
-];
-
-const bounceAltTexts = [
-	"Profile portrait of Vert San",
-	"Vert San profile 1",
-	"Vert San profile 2",
-	"Vert San profile 3",
-	"Vert San profile 4",
+const driftItems = [
+	{ image: "/profile.jpg", title: "Profile portrait of Vert San" },
+	{ image: "/profile1.jpg", title: "Vert San profile 1" },
+	{ image: "/profile2.png", title: "Vert San profile 2" },
+	{ image: "/profile3.jpg", title: "Vert San profile 3" },
+	{ image: "/profile4.jpg", title: "Vert San profile 4" },
 ];
 
 export default function AboutSection() {
 	return (
 		<section
 			id="about"
-			className="relative min-h-screen flex flex-col justify-center py-16 md:py-24 scroll-mt-20 overflow-hidden"
+			className="relative min-h-screen flex flex-col justify-center py-16 md:py-24 scroll-mt-20"
 		>
-			<div className="absolute inset-0 -z-10 bg-gradient-to-b from-muted/20 via-background to-muted/30" />
-			<div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(79,184,178,0.08),transparent)]" />
-			<div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(79,184,178,0.05),transparent)]" />
-			<FlickeringGrid
-				className="absolute inset-0 z-0 h-48 md:h-64"
-				squareSize={4}
-				gridGap={6}
-				color="#4ade80"
-				maxOpacity={0.14}
-				flickerChance={0.1}
-				width={1400}
-				height={200}
-			/>
-			<div className="absolute top-1/3 -left-48 w-96 h-96 bg-primary/[0.04] rounded-full blur-3xl pointer-events-none" />
-			<div className="absolute bottom-1/3 -right-48 w-96 h-96 bg-primary/[0.04] rounded-full blur-3xl pointer-events-none" />
+			<div className="absolute inset-0 -z-10 bg-gradient-to-b from-muted/30 via-transparent to-muted/30" />
 
-			<div className="max-w-6xl mx-auto w-full relative z-10 space-y-12 px-4 sm:px-6">
-					<Breadcrumb className="justify-center mb-2">
-						<BreadcrumbList>
-							<BreadcrumbItem>
-								<BreadcrumbLink asChild>
-									<Link to="/">Home</Link>
-								</BreadcrumbLink>
-							</BreadcrumbItem>
-							<BreadcrumbSeparator />
-							<BreadcrumbItem>
-								<BreadcrumbPage>About</BreadcrumbPage>
-							</BreadcrumbItem>
-						</BreadcrumbList>
-					</Breadcrumb>
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-100px" }}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-					className="text-center space-y-4"
-				>
-					<h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-						Who <span className="text-primary">I Am</span>
-					</h2>
-					<p className="text-muted-foreground/70 text-base md:text-lg max-w-2xl mx-auto">
-						Building digital experiences that make a difference
-					</p>
-				</motion.div>
+			<div className="max-w-6xl mx-auto w-full relative z-10 px-4 sm:px-6">
+				<Breadcrumb className="justify-center mb-8">
+					<BreadcrumbList>
+						<BreadcrumbItem>
+							<BreadcrumbLink asChild>
+								<Link to="/">Home</Link>
+							</BreadcrumbLink>
+						</BreadcrumbItem>
+						<BreadcrumbSeparator />
+						<BreadcrumbItem>
+							<BreadcrumbPage>About</BreadcrumbPage>
+						</BreadcrumbItem>
+					</BreadcrumbList>
+				</Breadcrumb>
 
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-50px" }}
-					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-					className="flex justify-center"
-				>
-					<BounceCards
-						images={bounceImages}
-						altTexts={bounceAltTexts}
-						containerWidth={400}
-						containerHeight={400}
-						cardSize={160}
-						enableHover={true}
-					/>
-				</motion.div>
+				<SectionHeading
+					className="mb-12"
+					eyebrow="About me"
+					title={
+						<>
+							Who <span className="accent-gradient-text">I Am</span>
+						</>
+					}
+					description="Software engineer crafting accessible, performant web applications with modern technologies and clean architecture."
+				/>
 
-				<motion.div
-					variants={containerVariants}
-					initial="hidden"
-					whileInView="visible"
-					viewport={{ once: true, margin: "-50px" }}
-					className="grid md:grid-cols-5 gap-8 md:gap-10"
-				>
-					<motion.div variants={childVariants} className="md:col-span-3">
-						<div className="relative h-full min-h-[340px] rounded-2xl border border-border/40 overflow-hidden">
-							<LetterGlitch
-								glitchColors={["#4ade80", "#38bdf8", "#a78bfa"]}
-								glitchSpeed={80}
-								centerVignette={false}
-								outerVignette={false}
-								smooth={true}
-								characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$&*()-_+=:;.,"
-							/>
-						</div>
+				<div className="grid md:grid-cols-2 gap-6 mb-6">
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true, margin: "-50px" }}
+						transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+						className="relative h-[320px] md:h-[380px] rounded-2xl border border-border/50 overflow-hidden bg-muted/20"
+					>
+						<DriftWall
+							items={driftItems}
+							columns={3}
+							tileWidth={140}
+							tileHeight={110}
+							gap={10}
+							tilt={10}
+							turn={-8}
+							perspective={1000}
+							depth={60}
+							speed={25}
+							direction="up"
+							variance={0.3}
+							parallax={0.4}
+							lift={40}
+							fade={0.5}
+							dim={0.55}
+							overlayColor="var(--background)"
+						/>
 					</motion.div>
 
-					<div className="md:col-span-2 space-y-4">
-						<AnimatedStat
-							icon={Code2}
-							value={2.5}
-							suffix="+"
-							label="Years Experience"
-							decimals={1}
-							delay={0.1}
-						/>
-						<AnimatedStat
-							icon={Globe}
-							value={10}
-							suffix="+"
-							label="Projects Delivered"
-							delay={0.2}
-						/>
-						<motion.div
-							initial={{ opacity: 0, y: 24 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							viewport={{ once: true, margin: "-50px" }}
-							transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-							className="group relative overflow-hidden rounded-2xl border bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl p-5 hover:shadow-lg hover:border-primary/20 transition-all duration-500"
-						>
-							<div className="absolute inset-0 bg-gradient-to-br from-primary/[0.06] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-							<div className="relative flex items-center gap-4">
-								<div className="p-3 rounded-xl bg-primary/10 text-primary shrink-0 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-lg group-hover:shadow-primary/20 transition-all duration-300">
-									<Sparkles className="size-5" />
-								</div>
-								<div>
-									<p className="text-2xl font-bold text-foreground tabular-nums tracking-tight">
-										∞
-									</p>
-									<p className="text-sm text-muted-foreground/80">
-										Always Learning
-									</p>
-								</div>
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						viewport={{ once: true, margin: "-50px" }}
+						transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+						className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 flex flex-col justify-center"
+					>
+						<div className="space-y-6">
+							<div className="space-y-3">
+								<h3 className="text-lg font-semibold text-foreground">
+									A bit about me
+								</h3>
+								<p className="text-muted-foreground text-sm leading-relaxed">
+									I focus on building interfaces that are fast, accessible, and
+									visually clean. I enjoy working across the full stack — from
+									pixel-perfect frontends to robust backends.
+								</p>
 							</div>
-						</motion.div>
-					</div>
-				</motion.div>
+							<div className="h-px bg-border/50" />
+							<div className="grid grid-cols-1 sm:grid-cols-2 gap-0 divide-y sm:divide-y-0 sm:divide-x divide-border/50">
+								<AnimatedStat
+									icon={Code2}
+									value={2.5}
+									suffix="+"
+									label="Years Experience"
+									decimals={1}
+									delay={0.1}
+								/>
+								<AnimatedStat
+									icon={Globe}
+									value={10}
+									suffix="+"
+									label="Projects Delivered"
+									delay={0.2}
+								/>
+							</div>
+							<div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-primary/10">
+								<div className="flex items-center justify-center size-9 rounded-lg bg-primary/10 text-primary shrink-0">
+									<Sparkles className="size-4" />
+								</div>
+								<p className="text-sm text-muted-foreground">
+									Always learning, always building.
+								</p>
+							</div>
+						</div>
+					</motion.div>
+				</div>
 
 				<ExperienceSection />
 				<EducationSection />

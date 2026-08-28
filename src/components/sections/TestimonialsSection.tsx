@@ -3,6 +3,7 @@ import { Send, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Button } from "#/components/ui/button";
+import SectionHeading from "#/components/ui/section-heading";
 import { cn } from "#/lib/utils";
 import { Marquee } from "#/registry/magicui/marquee";
 
@@ -85,9 +86,8 @@ const ReviewCard = ({
 				target="_blank"
 				rel="noopener noreferrer"
 				className={cn(
-					"block relative h-full w-72 overflow-hidden rounded-xl border p-4 transition-all duration-300",
-					"border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
-					"dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+					"block relative h-full w-[16rem] sm:w-72 shrink-0 overflow-hidden rounded-2xl border p-4 transition-all duration-300",
+					"border-border/60 bg-card/70 backdrop-blur-sm shadow-sm hover:shadow-md hover:-translate-y-0.5",
 				)}
 			>
 				{cardContent}
@@ -98,9 +98,8 @@ const ReviewCard = ({
 	return (
 		<figure
 			className={cn(
-				"relative h-full w-72 overflow-hidden rounded-xl border p-4",
-				"border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
-				"dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+				"relative h-full w-[16rem] sm:w-72 shrink-0 overflow-hidden rounded-2xl border p-4 transition-all duration-300",
+				"border-border/60 bg-card/70 backdrop-blur-sm shadow-sm",
 			)}
 		>
 			{cardContent}
@@ -223,22 +222,13 @@ export default function TestimonialsSection() {
 	const secondRow = testimonials.slice(Math.ceil(testimonials.length / 2));
 
 	return (
-		<section className="px-4 py-16 sm:px-6 md:py-24 lg:px-8">
+		<section className="relative overflow-hidden px-4 py-16 sm:px-6 md:py-24 lg:px-8">
 			<div className="mx-auto max-w-5xl w-full space-y-10 md:space-y-16">
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-100px" }}
-					transition={{ duration: 0.6, ease: "easeOut" }}
-					className="space-y-3 text-center md:space-y-4"
-				>
-					<h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
-						Testimonials
-					</h2>
-					<p className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base md:text-lg">
-						What people say about working with me
-					</p>
-				</motion.div>
+				<SectionHeading
+					eyebrow="Feedback"
+					title="Testimonials"
+					description="What people say about working with me"
+				/>
 
 				{loading ? (
 					<div className="flex items-center justify-center py-12">

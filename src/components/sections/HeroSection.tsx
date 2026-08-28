@@ -1,15 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
-import { cn } from "#/lib/utils";
-import { PersonalInfo } from "#/components/ui/terminal";
-import { AnimatedGradientText } from "#/registry/magicui/animated-gradient-text";
+import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { AuroraText } from "#/components/ui/aurora-text";
+import { PersonalInfo } from "#/components/ui/terminal";
+import { cn } from "#/lib/utils";
+import { AnimatedGradientText } from "#/registry/magicui/animated-gradient-text";
 import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 import { RainbowButton } from "#/registry/magicui/rainbow-button";
 export default function HeroSection() {
 	return (
-		<section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-background via-background to-muted/20">
+		<section className="relative flex min-h-svh items-center overflow-hidden bg-gradient-to-b from-background via-background to-muted/20">
 			<FlickeringGrid
 				className="absolute inset-0 z-0 h-48 md:h-64"
 				squareSize={4}
@@ -20,8 +20,17 @@ export default function HeroSection() {
 				width={1400}
 				height={200}
 			/>
-			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 py-12 md:py-0">
-				<div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+			{/* soft ambient glow behind the terminal */}
+			<div
+				aria-hidden
+				className="pointer-events-none absolute right-0 top-1/4 z-0 hidden h-72 w-72 -translate-y-1/4 rounded-full opacity-40 blur-3xl lg:block"
+				style={{
+					background:
+						"radial-gradient(circle, color-mix(in oklch, var(--accent-1) 35%, transparent), transparent 70%)",
+				}}
+			/>
+			<div className="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative z-10 py-16 md:py-24">
+				<div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 					<motion.div
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
@@ -31,12 +40,17 @@ export default function HeroSection() {
 					>
 						<div className="space-y-4 sm:space-y-3">
 							<div className="flex items-center gap-2">
-								<img src="/itachi-idle.gif" alt="itachi" className="size-8 sm:size-10" decoding="async" />
+								<img
+									src="/itachi-idle.gif"
+									alt="itachi"
+									className="size-8 sm:size-10"
+									decoding="async"
+								/>
 							</div>
 							<div className="group relative flex w-fit items-center justify-center rounded-full px-3 sm:px-4 py-1 sm:py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f]">
 								<span
 									className={cn(
-										"animate-gradient absolute inset-0 block h-full w-full rounded-[inherit] bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:300%_100%] p-[1px]"
+										"animate-gradient absolute inset-0 block h-full w-full rounded-[inherit] bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:300%_100%] p-[1px]",
 									)}
 									style={{
 										WebkitMask:
@@ -54,24 +68,38 @@ export default function HeroSection() {
 
 							<h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-foreground leading-[1.1] text-balance">
 								Hi, I'm{" "}
-								<AuroraText className="font-bold" colors={["#4ade80", "#38bdf8", "#a78bfa", "#fbbf24"]}>
+								<AuroraText
+									className="font-bold"
+									colors={["#4ade80", "#38bdf8", "#a78bfa", "#fbbf24"]}
+								>
 									Vert San
 								</AuroraText>
 							</h1>
 
 							<p className="text-muted-foreground/70 max-w-md leading-relaxed text-sm sm:text-base">
-								I design and build accessible, scalable, secure, and high-performance web and mobile applications using modern technologies and best practices.
+								I design and build accessible, scalable, secure, and
+								high-performance web and mobile applications using modern
+								technologies and best practices.
 							</p>
 						</div>
 
 						<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-							<RainbowButton size="lg" className="gap-2 w-full sm:w-auto justify-center" asChild>
+							<RainbowButton
+								size="lg"
+								className="gap-2 w-full sm:w-auto justify-center"
+								asChild
+							>
 								<Link to="/projects">
 									View My Work
 									<ArrowDown className="size-4" />
 								</Link>
 							</RainbowButton>
-							<RainbowButton variant="outline" size="lg" className="gap-2 w-full sm:w-auto justify-center" asChild>
+							<RainbowButton
+								variant="outline"
+								size="lg"
+								className="gap-2 w-full sm:w-auto justify-center"
+								asChild
+							>
 								<a href="/resume.pdf" download>
 									<Download className="size-4" />
 									Download Resume
@@ -116,9 +144,9 @@ export default function HeroSection() {
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true, margin: "-100px" }}
 						transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-						className="flex justify-center md:sticky md:top-24"
+						className="flex justify-center lg:sticky lg:top-28"
 					>
-						<div className="w-full max-w-sm md:max-w-md">
+						<div className="w-full max-w-sm">
 							<PersonalInfo />
 						</div>
 					</motion.div>

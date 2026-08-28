@@ -1,0 +1,102 @@
+[Client] %o
+
+%s
+
+%s
+ {
+  name: 'ReferenceError',
+  message: 'SectionHeading is not defined',
+  stack: 'ReferenceError: SectionHeading is not defined\n' +
+    '    at TestimonialsSection (http://localhost:3000/src/components/sections/TestimonialsSection.tsx?t=1787943642935:226:29)\n' +
+    '    at Object.react_stack_bottom_frame (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:12868:12)\n' +
+    '    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:4213:19)\n' +
+    '    at updateFunctionComponent (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:5569:16)\n' +
+    '    at beginWork (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:6140:20)\n' +
+    '    at runWithFiberInDEV (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:851:66)\n' +
+    '    at performUnitOfWork (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:8429:92)\n' +
+    '    at workLoopSync (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:8325:37)\n' +
+    '    at renderRootSync (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:8309:6)\n' +
+    '    at performWorkOnRoot (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:7994:27)'
+} The above error occurred in the <TestimonialsSection> component. React will try to recreate this component tree from scratch using the error boundary you provided, CatchBoundaryImpl.
+[Client] Warning: The following error wasn't caught by any route! At the very least, consider setting an 'errorComponent' in your RootRoute!
+[Client] Warning: SectionHeading is not defined
+[Client] %o
+
+%s
+
+%s
+ {
+  name: 'ReferenceError',
+  message: 'SectionHeading is not defined',
+  stack: 'ReferenceError: SectionHeading is not defined\n' +
+    '    at WhatICanDoSection (http://localhost:3000/src/components/sections/WhatICanDoSection.tsx?t=1787943659249:46:39)\n' +
+    '    at Object.react_stack_bottom_frame (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:12868:12)\n' +
+    '    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:4213:19)\n' +
+    '    at updateFunctionComponent (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:5569:16)\n' +
+    '    at beginWork (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:6140:20)\n' +
+    '    at runWithFiberInDEV (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:851:66)\n' +
+    '    at performUnitOfWork (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:8429:92)\n' +
+    '    at workLoopSync (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:8325:37)\n' +
+    '    at renderRootSync (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:8309:6)\n' +
+    '    at performWorkOnRoot (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:7994:27)'
+} The above error occurred in the <WhatICanDoSection> component. React will try to recreate this component tree from scratch using the error boundary you provided, CatchBoundaryImpl.
+[Client] Warning: The following error wasn't caught by any route! At the very least, consider setting an 'errorComponent' in your RootRoute!
+[Client] Warning: SectionHeading is not defined
+[Client] %o
+
+%s
+
+%s
+ {
+  name: 'ReferenceError',
+  message: 'SectionHeading is not defined',
+  stack: 'ReferenceError: SectionHeading is not defined\n' +
+    '    at WhatICanDoSection (http://localhost:3000/src/components/sections/WhatICanDoSection.tsx?t=1787943667649:46:39)\n' +
+    '    at Object.react_stack_bottom_frame (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:12868:12)\n' +
+    '    at renderWithHooks (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:4213:19)\n' +
+    '    at updateFunctionComponent (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:5569:16)\n' +
+    '    at beginWork (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:6120:628)\n' +
+    '    at runWithFiberInDEV (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:851:66)\n' +
+    '    at performUnitOfWork (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:8429:92)\n' +
+    '    at workLoopSync (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:8325:37)\n' +
+    '    at renderRootSync (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:8309:6)\n' +
+    '    at performWorkOnRoot (http://localhost:3000/node_modules/.vite/deps/react-dom_client.js?v=f6b1e043:7994:27)'
+} The above error occurred in the <WhatICanDoSection> component. React will try to recreate this component tree from scratch using the error boundary you provided, CatchBoundaryImpl.
+[Client] Warning: The following error wasn't caught by any route! At the very least, consider setting an 'errorComponent' in your RootRoute!
+[Client] Warning: SectionHeading is not defined
+Error in renderToReadableStream: SyntaxError: [vite] Named export 'CSSProperties' not found. The requested module 'react' is a CommonJS module, which may not support all module.exports as named exports.
+CommonJS modules can always be imported via the default export, for example using:
+
+import pkg from 'react';
+const {CSSProperties} = pkg;
+
+    at analyzeImportedModDifference (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/module-runner.js:526:10)
+    at ModuleRunner.processImport (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/module-runner.js:1144:54)
+    at ModuleRunner.cachedRequest (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/module-runner.js:1158:90) { componentStack: [Getter] }
+Error in renderToReadableStream: SyntaxError: [vite] Named export 'CSSProperties' not found. The requested module 'react' is a CommonJS module, which may not support all module.exports as named exports.
+CommonJS modules can always be imported via the default export, for example using:
+
+import pkg from 'react';
+const {CSSProperties} = pkg;
+
+    at analyzeImportedModDifference (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/module-runner.js:526:10)
+    at ModuleRunner.processImport (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/module-runner.js:1144:54)
+    at ModuleRunner.cachedRequest (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/module-runner.js:1158:90) { componentStack: [Getter] }
+Error: EPERM: operation not permitted, rename 'D:\web\vertsan\.tanstack\tmp\0363da23-7b4ea60469aa2a3c0b8d4643ddfc3b56' -> 'D:\web\vertsan\src\routeTree.gen.ts'
+    at file:///D:/web/vertsan/node_modules/.pnpm/@tanstack+router-generator@1.167.27/node_modules/@tanstack/router-generator/dist/esm/generator.js:143:13
+    at async generate (file:///D:/web/vertsan/node_modules/.pnpm/@tanstack+router-plugin@1.1_2c34b6dced871759784e6a7615c75d23/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:39:4)
+    at async PluginContext.watchChange (file:///D:/web/vertsan/node_modules/.pnpm/@tanstack+router-plugin@1.1_2c34b6dced871759784e6a7615c75d23/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:49:4)
+    at async Promise.all (index 2)
+    at async EnvironmentPluginContainer.hookParallel (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:30246:3)
+    at async EnvironmentPluginContainer.watchChange (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:30413:3)
+    at async Promise.all (index 0)
+    at async onFileChange (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:26413:3)
+Error: EPERM: operation not permitted, rename 'D:\web\vertsan\.tanstack\tmp\0363da23-7b4ea60469aa2a3c0b8d4643ddfc3b56' -> 'D:\web\vertsan\src\routeTree.gen.ts'
+    at file:///D:/web/vertsan/node_modules/.pnpm/@tanstack+router-generator@1.167.27/node_modules/@tanstack/router-generator/dist/esm/generator.js:143:13
+    at async generate (file:///D:/web/vertsan/node_modules/.pnpm/@tanstack+router-plugin@1.1_2c34b6dced871759784e6a7615c75d23/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:39:4)
+    at async PluginContext.watchChange (file:///D:/web/vertsan/node_modules/.pnpm/@tanstack+router-plugin@1.1_2c34b6dced871759784e6a7615c75d23/node_modules/@tanstack/router-plugin/dist/esm/core/router-generator-plugin.js:49:4)
+    at async Promise.all (index 2)
+    at async EnvironmentPluginContainer.hookParallel (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:30246:3)
+    at async EnvironmentPluginContainer.watchChange (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:30413:3)
+    at async Promise.all (index 0)
+    at async onFileChange (file:///D:/web/vertsan/node_modules/.pnpm/vite@8.0.16_@types+node@22._12c2f079540e5dba03afa6d07d6e42ec/node_modules/vite/dist/node/chunks/node.js:26413:3)

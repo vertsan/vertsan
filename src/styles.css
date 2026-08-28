@@ -7,6 +7,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -14,6 +15,43 @@ body {
   font-family: 'Maven Pro', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: color-mix(in oklch, var(--primary) 18%, transparent);
+}
+
+/* Refined, modern scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklch, var(--foreground) 25%, transparent) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--foreground) 22%, transparent);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklch, var(--foreground) 38%, transparent);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+:focus-visible {
+  outline-color: color-mix(in oklch, var(--ring) 70%, transparent);
 }
 
 code {
@@ -27,6 +65,9 @@ code {
   --color-3: hsl(210 100% 63%);
   --color-4: hsl(195 100% 63%);
   --color-5: hsl(90 100% 63%);
+  --accent-1: #22d3ee;
+  --accent-2: #a78bfa;
+  --accent-3: #34d399;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
@@ -68,6 +109,9 @@ code {
   --color-3: hsl(210 100% 63%);
   --color-4: hsl(195 100% 63%);
   --color-5: hsl(90 100% 63%);
+  --accent-1: #38bdf8;
+  --accent-2: #a78bfa;
+  --accent-3: #34d399;
   --background: oklch(0.094 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.13 0 0);
@@ -241,6 +285,58 @@ code {
   body {
     @apply bg-background text-foreground;
   }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* Cohesive brand accent used across headings, highlights and glows */
+@utility accent-gradient-text {
+  background-image: linear-gradient(
+    120deg,
+    var(--accent-1),
+    var(--accent-2),
+    var(--accent-3)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-shadow-soft {
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.08);
+}
+
+/* Generic section heading shell used across every section */
+@utility section-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+@utility section-eyebrow {
+  order: -1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: 0.875rem;
+  padding-block: 0.375rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in oklch, var(--border) 80%, transparent);
+  background: color-mix(in oklch, var(--muted) 70%, transparent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
 }
 
 /* Admin-scoped font family */
