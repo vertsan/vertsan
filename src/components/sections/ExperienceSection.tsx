@@ -99,7 +99,7 @@ export default function ExperienceSection() {
 							{sortedJobs.map((job) => (
 								<Card
 									key={job.jobTitle}
-									className="border shadow-sm hover:shadow-lg hover:-translate-y-0.5 hover:border-primary/10 transition-all duration-300 gap-2 md:gap-6 py-3 md:py-6"
+									className="border shadow-sm hover:shadow-lg hover:border-primary/10 transition-all duration-300 gap-2 md:gap-6 py-3 md:py-6"
 								>
 									<CardHeader className="px-2 md:px-6">
 										<div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 sm:gap-2">

@@ -1,5 +1,6 @@
 import crypto from "node:crypto";
 import { createFileRoute } from "@tanstack/react-router";
+import { createOAuthUserService } from "#/services/oauth-user.service";
 import { createTestimonialService } from "#/services/testimonial.service";
 
 const SECRET = process.env.ADMIN_SECRET || "vertsan-secret";
@@ -92,9 +93,6 @@ export const Route = createFileRoute("/api/testimonials")({
 							);
 						}
 
-						const { createOAuthUserService } = await import(
-							"#/services/oauth-user.service"
-						);
 						const oauthUserService = createOAuthUserService();
 						const user = await oauthUserService.findById(authUser.userId);
 						if (!user) {
