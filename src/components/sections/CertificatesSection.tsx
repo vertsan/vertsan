@@ -131,7 +131,7 @@ export default function CertificatesSection() {
 					{displayed.map((cert) => (
 						<Card
 							key={(cert as Record<string, any>).title as string}
-							className="group border shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-primary/15 transition-all duration-300 overflow-hidden gap-0"
+							className="group border shadow-sm hover:shadow-md hover:border-primary/15 transition-all duration-300 overflow-hidden gap-0"
 						>
 							<CardHeader className="px-5 pt-5 pb-3">
 								<div className="flex items-start gap-3">

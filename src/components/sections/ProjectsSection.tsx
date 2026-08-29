@@ -106,7 +106,7 @@ const ProjectCard = memo(function ProjectCard({
 	);
 
 	return (
-		<Card className="group border shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md overflow-hidden gap-0">
+		<Card className="group flex flex-col border shadow-sm transition-all duration-300 hover:border-primary/20 hover:shadow-md overflow-hidden gap-0">
 			<CardHeader className="px-5 pt-5 pb-3">
 				<div className="flex items-start justify-between gap-3">
 					<CardTitle className="text-base leading-snug md:text-lg group-hover:text-primary transition-colors duration-300">
@@ -120,7 +120,7 @@ const ProjectCard = memo(function ProjectCard({
 					</Badge>
 				</div>
 			</CardHeader>
-			<CardContent className="flex flex-col gap-3 px-5 pb-3">
+			<CardContent className="flex flex-col gap-3 px-5 pb-3 flex-1">
 				{renderedSummary ? (
 					<div
 						className="text-sm text-muted-foreground line-clamp-2"
@@ -144,7 +144,7 @@ const ProjectCard = memo(function ProjectCard({
 					)}
 				</div>
 			</CardContent>
-			<CardFooter className="flex items-center justify-between gap-2 border-t border-border/50 bg-muted/20 px-5 py-3">
+			<CardFooter className="flex items-center justify-between gap-2 border-t border-border/50 bg-muted/20 px-5 py-3 mt-auto">
 				<div className="flex gap-1">
 					{project.github && (
 						<Button variant="ghost" size="icon" asChild>
@@ -171,7 +171,7 @@ const ProjectCard = memo(function ProjectCard({
 						</Button>
 					)}
 				</div>
-				{project.slug && (
+				{project.slug ? (
 					<Button
 						variant="ghost"
 						size="sm"
@@ -186,6 +186,16 @@ const ProjectCard = memo(function ProjectCard({
 							Details
 							<ArrowUpRight className="size-3.5" />
 						</Link>
+					</Button>
+				) : (
+					<Button
+						variant="ghost"
+						size="sm"
+						className="gap-1 text-muted-foreground"
+						disabled
+					>
+						Details
+						<ArrowUpRight className="size-3.5" />
 					</Button>
 				)}
 			</CardFooter>
