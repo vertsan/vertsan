@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { LogIn, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import GooeyNav from "./GooeyNav";
 import ThemeToggle from "./ThemeToggle";
 
@@ -12,16 +12,35 @@ const navItems = [
 	{ label: "Certificates", to: "/certificates" },
 ];
 
+/* Thresholds with hysteresis to prevent flickering near the boundary */
+const SCROLL_DOWN_THRESHOLD = 32;
+const SCROLL_UP_THRESHOLD = 8;
+
 export default function Header() {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
+	const scrolledRef = useRef(false);
+
+	const updateScrolled = useCallback((value: boolean) => {
+		if (scrolledRef.current !== value) {
+			scrolledRef.current = value;
+			setScrolled(value);
+		}
+	}, []);
+
 	useEffect(() => {
 		let raf = 0;
 		const onScroll = () => {
 			cancelAnimationFrame(raf);
 			raf = requestAnimationFrame(() => {
 				const y = window.scrollY;
-				setScrolled(y > 8);
+				if (scrolledRef.current) {
+					/* Already scrolled — only un-shrink when user scrolls back near the top */
+					if (y < SCROLL_UP_THRESHOLD) updateScrolled(false);
+				} else {
+					/* Not scrolled — only shrink after passing a meaningful distance */
+					if (y > SCROLL_DOWN_THRESHOLD) updateScrolled(true);
+				}
 			});
 		};
 
@@ -31,7 +50,7 @@ export default function Header() {
 			window.removeEventListener("scroll", onScroll);
 			cancelAnimationFrame(raf);
 		};
-	}, []);
+	}, [updateScrolled]);
 
 	useEffect(() => {
 		document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -40,25 +59,26 @@ export default function Header() {
 		};
 	}, [mobileOpen]);
 
+	const isCompact = scrolled || mobileOpen;
+
 	return (
 		<motion.header
-			data-scrolled={scrolled || mobileOpen}
-			className={`sticky top-0 z-50 w-full will-change-transform ${
-				scrolled || mobileOpen
+			data-scrolled={isCompact}
+			className={`sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow] duration-300 ease-out ${
+				isCompact
 					? "border-b border-border/40 bg-background/85 shadow-lg shadow-black/4 backdrop-blur-xl supports-backdrop-filter:bg-background/70"
-					: "border-b border-transparent bg-transparent"
+					: "border-b border-transparent bg-transparent shadow-none"
 			}`}
 		>
-			<div
-				className={`max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-					scrolled ? "h-13 md:h-14" : "h-16 md:h-18"
-				}`}
+			<div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16 md:h-18 transition-[height] duration-300 ease-out"
+				style={scrolled ? { height: "3.5rem" } : undefined}
 			>
 				<Link
 					to="/"
-					className={`cursor-pointer font-semibold tracking-tight text-foreground transition-[font-size] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] shrink-0 ${
-						scrolled ? "text-base md:text-lg" : "text-lg md:text-xl"
-					}`}
+					className="cursor-pointer font-semibold tracking-tight text-foreground shrink-0 text-lg md:text-xl origin-left transition-transform duration-300 ease-out"
+					style={{
+						transform: scrolled ? "scale(0.9)" : "scale(1)",
+					}}
 				>
 					Vert<span className="text-primary">.</span>
 				</Link>
