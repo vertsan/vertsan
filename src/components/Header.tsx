@@ -12,7 +12,7 @@ const navItems = [
 	{ label: "Certificates", to: "/certificates" },
 ];
 
-/* Thresholds with hysteresis to prevent flickering near the boundary */
+/* Hysteresis thresholds to prevent flickering near the boundary */
 const SCROLL_DOWN_THRESHOLD = 32;
 const SCROLL_UP_THRESHOLD = 8;
 
@@ -35,10 +35,8 @@ export default function Header() {
 			raf = requestAnimationFrame(() => {
 				const y = window.scrollY;
 				if (scrolledRef.current) {
-					/* Already scrolled — only un-shrink when user scrolls back near the top */
 					if (y < SCROLL_UP_THRESHOLD) updateScrolled(false);
 				} else {
-					/* Not scrolled — only shrink after passing a meaningful distance */
 					if (y > SCROLL_DOWN_THRESHOLD) updateScrolled(true);
 				}
 			});
@@ -62,31 +60,23 @@ export default function Header() {
 	const isCompact = scrolled || mobileOpen;
 
 	return (
-		<motion.header
+		<header
 			data-scrolled={isCompact}
-			className={`sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow] duration-300 ease-out ${
+			className={`sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out ${
 				isCompact
-					? "border-b border-border/40 bg-background/85 shadow-lg shadow-black/4 backdrop-blur-xl supports-backdrop-filter:bg-background/70"
-					: "border-b border-transparent bg-transparent shadow-none"
+					? "border-b border-border/40 bg-background/85 shadow-lg shadow-black/4 backdrop-blur-xl"
+					: "border-b border-transparent bg-transparent shadow-none backdrop-blur-none"
 			}`}
 		>
-			<div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16 md:h-18 transition-[height] duration-300 ease-out"
-				style={scrolled ? { height: "3.5rem" } : undefined}
-			>
+			<div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16 md:h-18">
 				<Link
 					to="/"
-					className="cursor-pointer font-semibold tracking-tight text-foreground shrink-0 text-lg md:text-xl origin-left transition-transform duration-300 ease-out"
-					style={{
-						transform: scrolled ? "scale(0.9)" : "scale(1)",
-					}}
+					className="cursor-pointer font-semibold tracking-tight text-foreground shrink-0 text-lg md:text-xl"
 				>
 					Vert<span className="text-primary">.</span>
 				</Link>
 
-				<motion.div
-					className="hidden md:flex flex-1 justify-center"
-					initial={false}
-				>
+				<div className="hidden md:flex flex-1 justify-center">
 					<GooeyNav
 						items={navItems}
 						particleCount={15}
@@ -97,7 +87,7 @@ export default function Header() {
 						timeVariance={300}
 						colors={[1, 2, 3, 1, 2, 3, 1, 4]}
 					/>
-				</motion.div>
+				</div>
 
 				<div className="flex items-center gap-1 shrink-0">
 					<ThemeToggle />
@@ -156,6 +146,6 @@ export default function Header() {
 					</div>
 				</nav>
 			</motion.div>
-		</motion.header>
+		</header>
 	);
 }
