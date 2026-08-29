@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { LogIn, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import GooeyNav from "./GooeyNav";
 import ThemeToggle from "./ThemeToggle";
 
@@ -12,16 +12,33 @@ const navItems = [
 	{ label: "Certificates", to: "/certificates" },
 ];
 
+/* Hysteresis thresholds to prevent flickering near the boundary */
+const SCROLL_DOWN_THRESHOLD = 32;
+const SCROLL_UP_THRESHOLD = 8;
+
 export default function Header() {
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
+	const scrolledRef = useRef(false);
+
+	const updateScrolled = useCallback((value: boolean) => {
+		if (scrolledRef.current !== value) {
+			scrolledRef.current = value;
+			setScrolled(value);
+		}
+	}, []);
+
 	useEffect(() => {
 		let raf = 0;
 		const onScroll = () => {
 			cancelAnimationFrame(raf);
 			raf = requestAnimationFrame(() => {
 				const y = window.scrollY;
-				setScrolled(y > 8);
+				if (scrolledRef.current) {
+					if (y < SCROLL_UP_THRESHOLD) updateScrolled(false);
+				} else {
+					if (y > SCROLL_DOWN_THRESHOLD) updateScrolled(true);
+				}
 			});
 		};
 
@@ -31,7 +48,7 @@ export default function Header() {
 			window.removeEventListener("scroll", onScroll);
 			cancelAnimationFrame(raf);
 		};
-	}, []);
+	}, [updateScrolled]);
 
 	useEffect(() => {
 		document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -40,33 +57,26 @@ export default function Header() {
 		};
 	}, [mobileOpen]);
 
+	const isCompact = scrolled || mobileOpen;
+
 	return (
-		<motion.header
-			data-scrolled={scrolled || mobileOpen}
-			className={`sticky top-0 z-50 w-full will-change-transform ${
-				scrolled || mobileOpen
-					? "border-b border-border/40 bg-background/85 shadow-lg shadow-black/4 backdrop-blur-xl supports-backdrop-filter:bg-background/70"
-					: "border-b border-transparent bg-transparent"
+		<header
+			data-scrolled={isCompact}
+			className={`sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out ${
+				isCompact
+					? "border-b border-border/40 bg-background/85 shadow-lg shadow-black/4 backdrop-blur-xl"
+					: "border-b border-transparent bg-transparent shadow-none backdrop-blur-none"
 			}`}
 		>
-			<div
-				className={`max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-					scrolled ? "h-13 md:h-14" : "h-16 md:h-18"
-				}`}
-			>
+			<div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16 md:h-18">
 				<Link
 					to="/"
-					className={`cursor-pointer font-semibold tracking-tight text-foreground transition-[font-size] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] shrink-0 ${
-						scrolled ? "text-base md:text-lg" : "text-lg md:text-xl"
-					}`}
+					className="cursor-pointer font-semibold tracking-tight text-foreground shrink-0 text-lg md:text-xl"
 				>
 					Vert<span className="text-primary">.</span>
 				</Link>
 
-				<motion.div
-					className="hidden md:flex flex-1 justify-center"
-					initial={false}
-				>
+				<div className="hidden md:flex flex-1 justify-center">
 					<GooeyNav
 						items={navItems}
 						particleCount={15}
@@ -77,7 +87,7 @@ export default function Header() {
 						timeVariance={300}
 						colors={[1, 2, 3, 1, 2, 3, 1, 4]}
 					/>
-				</motion.div>
+				</div>
 
 				<div className="flex items-center gap-1 shrink-0">
 					<ThemeToggle />
@@ -136,6 +146,6 @@ export default function Header() {
 					</div>
 				</nav>
 			</motion.div>
-		</motion.header>
+		</header>
 	);
 }
