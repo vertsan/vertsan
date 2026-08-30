@@ -8,6 +8,8 @@ import {
 	uniqueIndex,
 } from "drizzle-orm/pg-core";
 
+export type VisitorSession = typeof visitorSessions.$inferSelect;
+
 export const jobs = pgTable("jobs", {
 	id: serial("id").primaryKey(),
 	jobTitle: text("job_title").notNull(),
@@ -115,5 +117,23 @@ export const testimonials = pgTable("testimonials", {
 	content: text("content").notNull(),
 	approved: boolean("approved").notNull().default(true),
 	createdAt: timestamp("created_at").notNull().defaultNow(),
+	updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const visitorSessions = pgTable(
+	"visitor_sessions",
+	{
+		id: serial("id").primaryKey(),
+		sessionId: text("session_id").notNull(),
+		name: text("name"),
+		firstSeenAt: timestamp("first_seen_at").notNull().defaultNow(),
+		lastSeenAt: timestamp("last_seen_at").notNull().defaultNow(),
+	},
+	(table) => [uniqueIndex("visitor_session_id_idx").on(table.sessionId)],
+);
+
+export const siteStats = pgTable("site_stats", {
+	id: serial("id").primaryKey(),
+	totalViews: integer("total_views").notNull().default(0),
 	updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

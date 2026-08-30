@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { LogIn, Menu, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import GooeyNav from "./GooeyNav";
+import PresenceBadge from "./PresenceBadge";
 import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
@@ -89,7 +90,8 @@ export default function Header() {
 					/>
 				</div>
 
-				<div className="flex items-center gap-1 shrink-0">
+				<div className="flex items-center gap-2 shrink-0">
+					<PresenceBadge />
 					<ThemeToggle />
 					<Link
 						to="/login"
