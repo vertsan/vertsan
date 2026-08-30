@@ -4,12 +4,23 @@ import ResumeAssistant from "#/components/ResumeAssistant";
 import HeroSection from "#/components/sections/HeroSection";
 
 import { DataProvider, type InitialData } from "#/lib/data-context";
+import { Projector } from "lucide-react";
 
-const GetInTouchSection = lazy(() => import("#/components/sections/GetInTouchSection"));
-const TestimonialsSection = lazy(() => import("#/components/sections/TestimonialsSection"));
-const WhatICanDoSection = lazy(() => import("#/components/sections/WhatICanDoSection"));
+const GetInTouchSection = lazy(
+	() => import("#/components/sections/GetInTouchSection"),
+);
+const TestimonialsSection = lazy(
+	() => import("#/components/sections/TestimonialsSection"),
+);
+const WhatICanDoSection = lazy(
+	() => import("#/components/sections/WhatICanDoSection"),
+);
 
-const SectionFallback = () => <div className="min-h-[50vh] flex items-center justify-center"><div className="size-8 rounded-full border-2 border-muted-foreground/30 border-t-primary animate-spin" /></div>;
+const SectionFallback = () => (
+	<div className="min-h-[50vh] flex items-center justify-center">
+		<div className="size-8 rounded-full border-2 border-muted-foreground/30 border-t-primary animate-spin" />
+	</div>
+);
 
 const EMPTY: InitialData = {
 	projects: [],
@@ -43,6 +54,9 @@ function Home() {
 		<DataProvider data={data}>
 			<ResumeAssistant />
 			<HeroSection />
+			{/* <Suspense fallback={<SectionFallback />}>
+			<ProjectSlideSection />
+			</Suspense> */}
 			<Suspense fallback={<SectionFallback />}>
 				<WhatICanDoSection />
 			</Suspense>

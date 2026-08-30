@@ -27,6 +27,7 @@ import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
 import { Route as AdminTechnologiesRouteImport } from './routes/admin.technologies'
 import { Route as ApiAdminRouteImport } from './routes/api.admin'
 import { Route as ApiDownloadRouteImport } from './routes/api.download'
+import { Route as ApiPresenceRouteImport } from './routes/api.presence'
 import { Route as ApiPublicRouteImport } from './routes/api.public'
 import { Route as ApiResumeChatRouteImport } from './routes/api.resume-chat'
 import { Route as ApiTestimonialsRouteImport } from './routes/api.testimonials'
@@ -130,6 +131,11 @@ const ApiDownloadRoute = ApiDownloadRouteImport.update({
   path: '/api/download',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPresenceRoute = ApiPresenceRouteImport.update({
+  id: '/api/presence',
+  path: '/api/presence',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicRoute = ApiPublicRouteImport.update({
   id: '/api/public',
   path: '/api/public',
@@ -209,6 +215,7 @@ export interface FileRoutesByFullPath {
   '/admin/technologies': typeof AdminTechnologiesRoute
   '/api/admin': typeof ApiAdminRouteWithChildren
   '/api/download': typeof ApiDownloadRoute
+  '/api/presence': typeof ApiPresenceRoute
   '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/api/testimonials': typeof ApiTestimonialsRoute
@@ -239,6 +246,7 @@ export interface FileRoutesByTo {
   '/admin/technologies': typeof AdminTechnologiesRoute
   '/api/admin': typeof ApiAdminRouteWithChildren
   '/api/download': typeof ApiDownloadRoute
+  '/api/presence': typeof ApiPresenceRoute
   '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/api/testimonials': typeof ApiTestimonialsRoute
@@ -272,6 +280,7 @@ export interface FileRoutesById {
   '/admin/technologies': typeof AdminTechnologiesRoute
   '/api/admin': typeof ApiAdminRouteWithChildren
   '/api/download': typeof ApiDownloadRoute
+  '/api/presence': typeof ApiPresenceRoute
   '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/api/testimonials': typeof ApiTestimonialsRoute
@@ -306,6 +315,7 @@ export interface FileRouteTypes {
     | '/admin/technologies'
     | '/api/admin'
     | '/api/download'
+    | '/api/presence'
     | '/api/public'
     | '/api/resume-chat'
     | '/api/testimonials'
@@ -336,6 +346,7 @@ export interface FileRouteTypes {
     | '/admin/technologies'
     | '/api/admin'
     | '/api/download'
+    | '/api/presence'
     | '/api/public'
     | '/api/resume-chat'
     | '/api/testimonials'
@@ -368,6 +379,7 @@ export interface FileRouteTypes {
     | '/admin/technologies'
     | '/api/admin'
     | '/api/download'
+    | '/api/presence'
     | '/api/public'
     | '/api/resume-chat'
     | '/api/testimonials'
@@ -396,6 +408,7 @@ export interface RootRouteChildren {
   TechnologiesRoute: typeof TechnologiesRoute
   ApiAdminRoute: typeof ApiAdminRouteWithChildren
   ApiDownloadRoute: typeof ApiDownloadRoute
+  ApiPresenceRoute: typeof ApiPresenceRoute
   ApiPublicRoute: typeof ApiPublicRoute
   ApiResumeChatRoute: typeof ApiResumeChatRoute
   ApiTestimonialsRoute: typeof ApiTestimonialsRoute
@@ -530,6 +543,13 @@ declare module '@tanstack/react-router' {
       path: '/api/download'
       fullPath: '/api/download'
       preLoaderRoute: typeof ApiDownloadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/presence': {
+      id: '/api/presence'
+      path: '/api/presence'
+      fullPath: '/api/presence'
+      preLoaderRoute: typeof ApiPresenceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public': {
@@ -694,6 +714,7 @@ const rootRouteChildren: RootRouteChildren = {
   TechnologiesRoute: TechnologiesRoute,
   ApiAdminRoute: ApiAdminRouteWithChildren,
   ApiDownloadRoute: ApiDownloadRoute,
+  ApiPresenceRoute: ApiPresenceRoute,
   ApiPublicRoute: ApiPublicRoute,
   ApiResumeChatRoute: ApiResumeChatRoute,
   ApiTestimonialsRoute: ApiTestimonialsRoute,

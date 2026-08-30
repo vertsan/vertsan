@@ -189,10 +189,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				/>
 				{!isAdmin ? (
 					<div className="mx-auto min-h-screen max-w-7xl border-x border-border bg-card">
-						<Header />
-						{children}
-						<Footer />
-						<ScrollToTop />
+					<Header />
+					{children}
+					<Footer />
+					<ScrollToTop />
 					</div>
 				) : (
 					children

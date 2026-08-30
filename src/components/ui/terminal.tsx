@@ -11,15 +11,16 @@ function Terminal({
 		<div
 			data-slot="terminal"
 			className={cn(
-				"rounded-xl border border-border bg-muted/20 p-4 sm:p-5 font-mono text-xs sm:text-sm shadow-sm",
+				"rounded-xl p-4 sm:p-5 font-mono text-xs sm:text-sm shadow-lg",
+				"bg-[#1a1b26] text-[#c0caf5] shadow-black/30 ring-1 ring-white/10",
 				className,
 			)}
 			{...props}
 		>
 			<div className="mb-3 flex items-center gap-1.5">
-				<span className="size-2.5 rounded-full bg-red-500" />
-				<span className="size-2.5 rounded-full bg-yellow-500" />
-				<span className="size-2.5 rounded-full bg-green-500" />
+				<span className="size-2.5 rounded-full bg-[#f7768e]" />
+				<span className="size-2.5 rounded-full bg-[#e0af68]" />
+				<span className="size-2.5 rounded-full bg-[#73daca]" />
 			</div>
 			<div className="space-y-1.5">{children}</div>
 		</div>
@@ -29,32 +30,50 @@ function Terminal({
 function PersonalInfo() {
 	return (
 		<Terminal>
-			<TypingAnimation className="text-green-500" delay="0ms">
+			<div className="mb-2 flex items-center justify-between text-[0.65rem] uppercase tracking-widest text-[#565f89]">
+				<span>vert@dev — zsh</span>
+				<span className="flex items-center gap-1.5">
+					<span className="size-1.5 rounded-full bg-[#7dcfff]" />
+					connected
+				</span>
+			</div>
+
+			<TypingAnimation className="text-[#7dcfff]" delay="0ms">
 				&gt; whoami
 			</TypingAnimation>
-			<AnimatedSpan delay="1200ms">Vert San — Software Engineer</AnimatedSpan>
+			<AnimatedSpan className="text-[#73daca]" delay="1200ms">
+				Vert San — Software Engineer
+			</AnimatedSpan>
 
-			<TypingAnimation className="text-green-500" delay="2400ms">
+			<TypingAnimation className="text-[#7dcfff]" delay="2400ms">
 				&gt; email
 			</TypingAnimation>
-			<AnimatedSpan delay="3600ms">itsanvert@gmail.com</AnimatedSpan>
+			<AnimatedSpan className="text-[#73daca]" delay="3600ms">
+				itsanvert@gmail.com
+			</AnimatedSpan>
 
-			<TypingAnimation className="text-green-500" delay="4800ms">
+			<TypingAnimation className="text-[#7dcfff]" delay="4800ms">
 				&gt; github
 			</TypingAnimation>
-			<AnimatedSpan delay="6000ms">github.com/vertsan</AnimatedSpan>
+			<AnimatedSpan className="text-[#73daca]" delay="6000ms">
+				github.com/vertsan
+			</AnimatedSpan>
 
-			<TypingAnimation className="text-green-500" delay="7200ms">
+			<TypingAnimation className="text-[#7dcfff]" delay="7200ms">
 				&gt; linkedin
 			</TypingAnimation>
-			<AnimatedSpan delay="8400ms">linkedin.com/in/vertsan</AnimatedSpan>
+			<AnimatedSpan className="text-[#73daca]" delay="8400ms">
+				linkedin.com/in/vertsan
+			</AnimatedSpan>
 
-			<TypingAnimation className="text-green-500" delay="9600ms">
+			<TypingAnimation className="text-[#7dcfff]" delay="9600ms">
 				&gt; location
 			</TypingAnimation>
-			<AnimatedSpan delay="10800ms">Cambodia</AnimatedSpan>
+			<AnimatedSpan className="text-[#73daca]" delay="10800ms">
+				Cambodia
+			</AnimatedSpan>
 
-			<TypingAnimation className="text-muted-foreground" delay="12000ms">
+			<TypingAnimation className="text-[#565f89]" delay="12000ms">
 				Ready. Type a command or wait for next update.
 			</TypingAnimation>
 		</Terminal>
