@@ -68,6 +68,8 @@
 .gooey-nav-container nav ul li:not(.active):hover {
   color: var(--foreground);
   transform: translateY(-1px);
+  background-color: color-mix(in oklch, var(--accent) 70%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--ring) 40%, transparent);
 }
 
 .gooey-nav-container nav ul li:not(.active):hover::after,
@@ -89,25 +91,11 @@
   font-weight: 500;
   text-decoration: none;
 }
-
-/* Shrink the gooey pill nav when the header collapses on scroll */
-header[data-scrolled='true'] .gooey-nav-container nav ul li a,
-header[data-scrolled='true'] .gooey-nav-container nav ul li a[data-active],
-header[data-scrolled='true'] .gooey-nav-container .effect.text {
-  font-size: 0.8125rem;
-  padding-block: 0.38em;
-  padding-inline: 0.875em;
-}
-
-header[data-scrolled='true'] .gooey-nav-container nav ul {
-  gap: 0.15em;
-}
-
 .gooey-nav-container nav ul li a,
 .gooey-nav-container .effect.text {
   transition:
-    font-size 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    padding 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    font-size 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 
