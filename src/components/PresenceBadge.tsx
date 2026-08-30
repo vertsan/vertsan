@@ -111,7 +111,7 @@ export default function PresenceBadge() {
 					type="button"
 					onClick={openEdit}
 					title={name.current ? `You are ${name.current}` : "Set your name"}
-					className="max-w-20 truncate rounded-full px-2 py-0.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+					className="header-chip max-w-20 truncate px-2 py-0.5 text-xs"
 				>
 					{displayName(name.current)}
 				</button>
@@ -125,7 +125,7 @@ export default function PresenceBadge() {
 				onMouseEnter={() => setActive("online")}
 				onMouseLeave={() => setActive(null)}
 				onClick={() => setActive(active === "online" ? null : "online")}
-				className="flex items-center gap-1.5 rounded-full px-2 py-1 text-muted-foreground hover:text-foreground transition-colors"
+				className="header-chip gap-1.5 px-2 py-1"
 			>
 				<span className="relative flex h-2 w-2">
 					<span
@@ -146,7 +146,7 @@ export default function PresenceBadge() {
 				onMouseEnter={() => setActive("views")}
 				onMouseLeave={() => setActive(null)}
 				onClick={() => setActive(active === "views" ? null : "views")}
-				className="flex items-center gap-1.5 rounded-full px-2 py-1 text-muted-foreground hover:text-foreground transition-colors"
+				className="header-chip gap-1.5 px-2 py-1"
 			>
 				<Eye className="size-3.5" />
 				<span className="font-medium tabular-nums text-foreground">

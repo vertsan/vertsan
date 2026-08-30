@@ -63,16 +63,17 @@ export default function Header() {
 	return (
 		<header
 			data-scrolled={isCompact}
-			className={`sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-out ${
+			className={`sticky top-0 z-50 w-full transition-[background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
 				isCompact
 					? "border-b border-border/40 bg-background/85 shadow-lg shadow-black/4 backdrop-blur-xl"
 					: "border-b border-transparent bg-transparent shadow-none backdrop-blur-none"
 			}`}
 		>
-			<div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16 md:h-18">
+			<div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 min-h-16 md:min-h-18">
 				<Link
 					to="/"
-					className="cursor-pointer font-semibold tracking-tight text-foreground shrink-0 text-lg md:text-xl"
+					aria-label="Vert home"
+					className="header-chip cursor-pointer font-semibold tracking-tight text-foreground shrink-0 text-lg md:text-xl px-2 py-1"
 				>
 					Vert<span className="text-primary">.</span>
 				</Link>
@@ -90,12 +91,12 @@ export default function Header() {
 					/>
 				</div>
 
-				<div className="flex items-center gap-2 shrink-0">
+				<div className="flex items-center gap-1 md:gap-1.5 shrink-0">
 					<PresenceBadge />
 					<ThemeToggle />
 					<Link
 						to="/login"
-						className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+						className="header-chip hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 text-sm cursor-pointer"
 					>
 						<LogIn className="size-3.5" />
 						Login
@@ -104,7 +105,8 @@ export default function Header() {
 						type="button"
 						onClick={() => setMobileOpen(!mobileOpen)}
 						aria-label="Toggle menu"
-						className="md:hidden p-2 text-muted-foreground hover:text-foreground transition-colors"
+						aria-expanded={mobileOpen}
+						className="header-chip md:hidden p-2"
 					>
 						{mobileOpen ? (
 							<X className="size-4" />
@@ -131,7 +133,7 @@ export default function Header() {
 							key={link.label}
 							to={link.to}
 							onClick={() => setMobileOpen(false)}
-							className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-colors font-medium"
+							className="header-chip w-full px-3 py-2 text-sm font-medium"
 						>
 							{link.label}
 						</Link>
@@ -140,7 +142,7 @@ export default function Header() {
 						<Link
 							to="/login"
 							onClick={() => setMobileOpen(false)}
-							className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-md transition-colors font-medium cursor-pointer"
+							className="header-chip flex items-center gap-2 px-3 py-2 text-sm font-medium cursor-pointer"
 						>
 							<LogIn className="size-3.5" />
 							Login
