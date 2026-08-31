@@ -11,7 +11,7 @@ function Terminal({
 		<div
 			data-slot="terminal"
 			className={cn(
-				"rounded-xl p-4 sm:p-5 font-mono text-xs sm:text-sm shadow-lg",
+				"w-full min-w-0 overflow-hidden rounded-xl p-4 sm:p-5 font-mono text-xs sm:text-sm shadow-lg",
 				"bg-[#1a1b26] text-[#c0caf5] shadow-black/30 ring-1 ring-white/10",
 				className,
 			)}
@@ -22,7 +22,7 @@ function Terminal({
 				<span className="size-2.5 rounded-full bg-[#e0af68]" />
 				<span className="size-2.5 rounded-full bg-[#73daca]" />
 			</div>
-			<div className="space-y-1.5">{children}</div>
+			<div className="min-w-0 space-y-1.5">{children}</div>
 		</div>
 	);
 }
@@ -30,9 +30,9 @@ function Terminal({
 function PersonalInfo() {
 	return (
 		<Terminal>
-			<div className="mb-2 flex items-center justify-between text-[0.65rem] uppercase tracking-widest text-[#565f89]">
-				<span>vert@dev — zsh</span>
-				<span className="flex items-center gap-1.5">
+			<div className="mb-2 flex min-w-0 items-center justify-between gap-2 whitespace-nowrap text-[0.65rem] uppercase tracking-widest text-[#565f89]">
+				<span className="truncate">vert@dev — zsh</span>
+				<span className="flex shrink-0 items-center gap-1.5">
 					<span className="size-1.5 rounded-full bg-[#7dcfff]" />
 					connected
 				</span>
