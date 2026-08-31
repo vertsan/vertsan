@@ -231,11 +231,11 @@ function AdminDashboard() {
 	};
 
 	return (
-		<motion.div className="max-w-6xl space-y-8" variants={stagger} initial="hidden" animate="visible">
+		<motion.div className="max-w-6xl space-y-6 sm:space-y-8" variants={stagger} initial="hidden" animate="visible">
 			{/* Header */}
 			<motion.div variants={fadeUp} className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
 				<div>
-					<h1 className="text-4xl font-bold tracking-tight">Dashboard</h1>
+					<h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">Dashboard</h1>
 					<p className="text-muted-foreground mt-1.5 text-sm">
 						Manage all content in your portfolio CMS
 					</p>

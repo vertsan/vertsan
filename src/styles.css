@@ -297,6 +297,7 @@ code {
   }
   body {
     @apply bg-background text-foreground;
+    min-height: 100dvh;
   }
   h1,
   h2,
@@ -306,6 +307,42 @@ code {
   }
   p {
     text-wrap: pretty;
+  }
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Prevent horizontal scroll / overflow on small viewports caused by
+   fixed-width elements or decorative canvases */
+@media (max-width: 640px) {
+  html {
+    overflow-x: hidden;
+  }
+  body {
+    overflow-x: hidden;
+  }
+  pre,
+  .morph-slider-caption {
+    max-width: 100%;
+  }
+}
+
+/* Better 3D/webgl canvas containment on small screens */
+@media (max-width: 480px) {
+  canvas {
+    touch-action: pan-y;
   }
 }
 

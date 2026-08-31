@@ -86,7 +86,7 @@ const ReviewCard = ({
 				target="_blank"
 				rel="noopener noreferrer"
 				className={cn(
-					"block relative h-full w-[16rem] sm:w-72 shrink-0 overflow-hidden rounded-2xl border p-4 transition-all duration-300",
+					"block relative h-full w-[15rem] sm:w-72 shrink-0 overflow-hidden rounded-2xl border p-4 transition-all duration-300",
 					"border-border/60 bg-card/70 backdrop-blur-sm shadow-sm hover:shadow-md hover:-translate-y-0.5",
 				)}
 			>
@@ -98,7 +98,7 @@ const ReviewCard = ({
 	return (
 		<figure
 			className={cn(
-				"relative h-full w-[16rem] sm:w-72 shrink-0 overflow-hidden rounded-2xl border p-4 transition-all duration-300",
+				"relative h-full w-[15rem] sm:w-72 shrink-0 overflow-hidden rounded-2xl border p-4 transition-all duration-300",
 				"border-border/60 bg-card/70 backdrop-blur-sm shadow-sm",
 			)}
 		>
@@ -427,7 +427,7 @@ export default function TestimonialsSection() {
 							<p className="text-center text-sm text-muted-foreground">
 								Sign in to leave a testimonial
 							</p>
-							<div className="flex items-center justify-center gap-3">
+							<div className="flex flex-col sm:flex-row items-center justify-center gap-3">
 								<Button
 									variant="outline"
 									size="sm"

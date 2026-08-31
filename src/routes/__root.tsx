@@ -116,11 +116,11 @@ export const Route = createRootRoute({
 	}),
 	shellComponent: RootDocument,
 	notFoundComponent: () => (
-		<main className="min-h-[60vh] flex flex-col items-center justify-center gap-4 px-6 text-center">
-			<h1 className="text-6xl font-bold tracking-tight text-muted-foreground/30">
+		<main className="min-h-[60vh] flex flex-col items-center justify-center gap-4 px-4 sm:px-6 text-center">
+			<h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-muted-foreground/30">
 				404
 			</h1>
-			<p className="text-lg text-muted-foreground">Page not found</p>
+			<p className="text-base sm:text-lg text-muted-foreground">Page not found</p>
 			<Link to="/" className="text-sm text-primary hover:underline">
 				Back to Home
 			</Link>
@@ -188,11 +188,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					}}
 				/>
 				{!isAdmin ? (
-					<div className="mx-auto min-h-screen max-w-7xl border-x border-border bg-card">
-					<Header />
-					{children}
-					<Footer />
-					<ScrollToTop />
+					<div className="mx-auto min-h-screen max-w-7xl border-x border-border bg-card overflow-x-clip">
+						<Header />
+						{children}
+						<Footer />
+						<ScrollToTop />
 					</div>
 				) : (
 					children

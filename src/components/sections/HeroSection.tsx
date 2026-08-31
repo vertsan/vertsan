@@ -77,16 +77,16 @@ export default function HeroSection() {
 			/>
 
 			<div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-8 pt-16 sm:px-6 md:pb-8 md:pt-24 lg:px-8">
-				<div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+				<div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16">
 					<motion.div
 						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true, margin: "-100px" }}
 						transition={{ duration: 0.6, ease: "easeOut" }}
-						className="space-y-6 sm:space-y-8"
+						className="space-y-6 sm:space-y-8 text-center sm:text-left"
 					>
 						<div className="space-y-4 sm:space-y-3">
-							<div className="flex items-center gap-2">
+							<div className="flex items-center justify-center sm:justify-start gap-2">
 								<img
 									src="/itachi-idle.gif"
 									alt="itachi"
@@ -94,7 +94,7 @@ export default function HeroSection() {
 									decoding="async"
 								/>
 							</div>
-							<div className="group relative flex w-fit items-center justify-center rounded-full px-3 py-1 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f] sm:px-4 sm:py-1.5">
+							<div className="group relative mx-auto sm:mx-0 flex w-fit items-center justify-center rounded-full px-3 py-1 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f] sm:px-4 sm:py-1.5">
 								<span
 									className={cn(
 										"animate-gradient absolute inset-0 block h-full w-full rounded-[inherit] bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:300%_100%] p-[1px]",
@@ -123,14 +123,14 @@ export default function HeroSection() {
 								</AuroraText>
 							</h1>
 
-							<p className="max-w-md text-balance text-sm leading-relaxed text-muted-foreground/70 sm:text-base">
+							<p className="mx-auto sm:mx-0 max-w-md text-balance text-sm leading-relaxed text-muted-foreground/70 sm:text-base">
 								I design and build accessible, scalable, secure, and
 								high-performance web and mobile applications using modern
 								technologies and best practices.
 							</p>
 						</div>
 
-						<div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+						<div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
 							<RainbowButton
 								size="lg"
 								className="w-full justify-center gap-2 sm:w-auto"
@@ -154,7 +154,7 @@ export default function HeroSection() {
 							</RainbowButton>
 						</div>
 
-						<div className="flex items-center gap-2 pt-2">
+						<div className="flex items-center justify-center sm:justify-start gap-2 pt-2">
 							{socials.map(({ href, label, icon: Icon }) => (
 								<a
 									key={label}
@@ -193,7 +193,7 @@ export default function HeroSection() {
 				transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
 				className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8"
 			>
-				<div className="relative h-[360px] sm:h-[420px] lg:h-[480px]">
+				<div className="relative h-[300px] sm:h-[420px] lg:h-[480px]">
 					<div
 						aria-hidden
 						className="absolute -inset-6 -z-10 rounded-3xl bg-gradient-to-br from-emerald-500/10 via-sky-500/5 to-purple-500/10 blur-2xl"
