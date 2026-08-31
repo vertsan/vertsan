@@ -113,13 +113,13 @@ export default function TechnologiesSection({
 	if (compact) {
 		return (
 			<section id="technologies" className="w-full">
-				<div className=" backdrop-blur-xl sm:p-4 md:p-5">
-					<div className="overflow-hidden   p-2 ">
+				<div className="px-2 sm:p-4 md:p-5">
+					<div className="overflow-hidden p-1 sm:p-2">
 						<LogoLoop
 							logos={techLogos}
 							speed={95}
 							direction="left"
-							logoHeight={56}
+							logoHeight={48}
 							gap={40}
 							hoverSpeed={0}
 							scaleOnHover

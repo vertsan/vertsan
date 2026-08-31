@@ -27,14 +27,14 @@ export default function SectionHeading({
 			{eyebrow && <span className="section-eyebrow">{eyebrow}</span>}
 			<h2
 				className={cn(
-					"text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl",
+					"text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight",
 					titleClassName,
 				)}
 			>
 				{title}
 			</h2>
 			{description && (
-				<p className="max-w-2xl text-base text-muted-foreground md:text-lg">
+				<p className="max-w-2xl text-sm sm:text-base text-muted-foreground md:text-lg">
 					{description}
 				</p>
 			)}

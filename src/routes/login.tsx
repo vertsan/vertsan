@@ -101,7 +101,7 @@ function LoginPage() {
 			<InteractiveSide />
 
 			<div className="flex-1 flex items-center justify-center p-4 sm:p-8 lg:p-12 overflow-y-auto">
-				<div className="w-full max-w-sm">
+				<div className="w-full max-w-md px-1 sm:px-0">
 					<Link
 						to="/"
 						className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors duration-200 mb-8"

@@ -75,17 +75,17 @@ function AnimatedStat({
 			whileInView={{ opacity: 1, y: 0 }}
 			viewport={{ once: true, margin: "-50px" }}
 			transition={{ duration: 0.5, delay, ease: "easeOut" }}
-			className="flex items-center gap-4 p-5"
+			className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5"
 		>
-			<div className="flex items-center justify-center size-12 rounded-xl bg-primary/10 text-primary shrink-0">
-				<Icon className="size-5" />
+			<div className="flex items-center justify-center size-10 sm:size-12 rounded-lg sm:rounded-xl bg-primary/10 text-primary shrink-0">
+				<Icon className="size-4 sm:size-5" />
 			</div>
 			<div>
-				<p className="text-2xl font-bold text-foreground tabular-nums tracking-tight">
+				<p className="text-xl sm:text-2xl font-bold text-foreground tabular-nums tracking-tight">
 					{count.toFixed(decimals)}
 					{suffix}
 				</p>
-				<p className="text-sm text-muted-foreground">{label}</p>
+				<p className="text-xs sm:text-sm text-muted-foreground">{label}</p>
 			</div>
 		</motion.div>
 	);
@@ -150,7 +150,7 @@ export default function AboutSection() {
 						whileInView={{ opacity: 1, y: 0 }}
 						viewport={{ once: true, margin: "-50px" }}
 						transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-						className="relative h-[320px] md:h-[380px] rounded-2xl border border-border/50 overflow-hidden bg-muted/20"
+						className="relative h-[260px] sm:h-[320px] md:h-[380px] rounded-2xl border border-border/50 overflow-hidden bg-muted/20"
 					>
 						<DriftWall
 							items={driftItems}

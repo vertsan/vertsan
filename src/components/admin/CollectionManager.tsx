@@ -408,14 +408,16 @@ export default function CollectionManager({ collection, title }: Props) {
 					ref={formRef}
 					className="rounded-xl border bg-card shadow-sm overflow-hidden"
 				>
-					<div className="flex items-center justify-between p-4 border-b bg-muted/20">
-						<h2 className="font-semibold flex items-center gap-2">
-							{Icon && <Icon className="size-4 text-primary" />}
-							{isNew
-								? `New ${config.label.slice(0, -1)}`
-								: `Edit: ${getDisplayName(editing)}`}
+					<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 border-b bg-muted/20">
+						<h2 className="font-semibold flex items-center gap-2 min-w-0">
+							{Icon && <Icon className="size-4 text-primary shrink-0" />}
+							<span className="truncate">
+								{isNew
+									? `New ${config.label.slice(0, -1)}`
+									: `Edit: ${getDisplayName(editing)}`}
+							</span>
 						</h2>
-						<div className="flex gap-2">
+						<div className="flex gap-2 shrink-0">
 							{isAdmin ? (
 								<>
 									<Button

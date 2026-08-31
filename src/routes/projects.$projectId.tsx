@@ -107,10 +107,10 @@ function ProjectDetail() {
 				width={1400}
 				height={200}
 			/>
-			<div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
+			<div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 lg:py-24">
 				<nav className="flex items-center justify-between mb-10 sm:mb-12">
 					<Breadcrumb className="hidden sm:flex">
-						<BreadcrumbList>
+						<BreadcrumbList className="flex-nowrap">
 							<BreadcrumbItem>
 								<BreadcrumbLink asChild>
 									<Link to="/">Home</Link>
@@ -124,11 +124,11 @@ function ProjectDetail() {
 							</BreadcrumbItem>
 							<BreadcrumbSeparator />
 							<BreadcrumbItem>
-								<BreadcrumbPage className="truncate max-w-[120px]">{project.title}</BreadcrumbPage>
+								<BreadcrumbPage className="truncate max-w-[120px] sm:max-w-[180px]">{project.title}</BreadcrumbPage>
 							</BreadcrumbItem>
 						</BreadcrumbList>
 					</Breadcrumb>
-					<Button variant="ghost" size="sm" asChild className="-ml-2 sm:ml-0">
+					<Button variant="ghost" size="sm" asChild className="-ml-2 w-full sm:ml-0 sm:w-auto justify-center">
 						<Link to="/projects" className="gap-2">
 							<ArrowLeft className="size-4" />
 							Back
