@@ -1,5 +1,4 @@
 ﻿import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { Code2, Globe, Sparkles } from "lucide-react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import {
@@ -57,24 +56,18 @@ function AnimatedStat({
 	suffix,
 	label,
 	decimals = 0,
-	delay = 0,
 }: {
 	icon: (props: any) => ReactNode;
 	value: number;
 	suffix: string;
 	label: string;
 	decimals?: number;
-	delay?: number;
 }) {
 	const { count, ref } = useCountUp(value);
 
 	return (
-		<motion.div
+		<div
 			ref={ref}
-			initial={{ opacity: 0, y: 20 }}
-			whileInView={{ opacity: 1, y: 0 }}
-			viewport={{ once: true, margin: "-50px" }}
-			transition={{ duration: 0.5, delay, ease: "easeOut" }}
 			className="flex items-center gap-3 sm:gap-4 p-4 sm:p-5"
 		>
 			<div className="flex items-center justify-center size-10 sm:size-12 rounded-lg sm:rounded-xl bg-primary/10 text-primary shrink-0">
@@ -87,7 +80,7 @@ function AnimatedStat({
 				</p>
 				<p className="text-xs sm:text-sm text-muted-foreground">{label}</p>
 			</div>
-		</motion.div>
+		</div>
 	);
 }
 
@@ -145,13 +138,7 @@ export default function AboutSection() {
 				/>
 
 				<div className="grid md:grid-cols-2 gap-6 mb-6">
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, margin: "-50px" }}
-						transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-						className="relative h-[260px] sm:h-[320px] md:h-[380px] rounded-2xl border border-border/50 overflow-hidden bg-muted/20"
-					>
+					<div className="relative h-[260px] sm:h-[320px] md:h-[380px] rounded-2xl border border-border/50 overflow-hidden bg-muted/20">
 						<DriftWall
 							items={driftItems}
 							columns={3}
@@ -171,15 +158,9 @@ export default function AboutSection() {
 							dim={0.55}
 							overlayColor="var(--background)"
 						/>
-					</motion.div>
+					</div>
 
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, margin: "-50px" }}
-						transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-						className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 flex flex-col justify-center"
-					>
+					<div className="rounded-2xl border border-border/50 bg-muted/20 p-6 md:p-8 flex flex-col justify-center">
 						<div className="space-y-6">
 							<div className="space-y-3">
 								<h3 className="text-lg font-semibold text-foreground">
@@ -199,14 +180,12 @@ export default function AboutSection() {
 									suffix="+"
 									label="Years Experience"
 									decimals={1}
-									delay={0.1}
 								/>
 								<AnimatedStat
 									icon={Globe}
 									value={10}
 									suffix="+"
 									label="Projects Delivered"
-									delay={0.2}
 								/>
 							</div>
 							<div className="flex items-center gap-3 p-4 rounded-xl bg-primary/5 border border-primary/10">
@@ -218,7 +197,7 @@ export default function AboutSection() {
 								</p>
 							</div>
 						</div>
-					</motion.div>
+					</div>
 				</div>
 
 				<ExperienceSection />

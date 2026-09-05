@@ -1,5 +1,4 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { marked } from "marked";
 import { memo, useMemo } from "react";
@@ -261,20 +260,14 @@ export default function ProjectsSection() {
 					description="A selection of projects I've built and contributed to"
 				/>
 
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-50px" }}
-					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-					className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3"
-				>
+				<div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{displayed.map((project) => (
 						<ProjectCard
 							key={project.slug ?? project.title}
 							project={project}
 						/>
 					))}
-				</motion.div>
+				</div>
 
 				{isHome && (
 					<div className="text-center">

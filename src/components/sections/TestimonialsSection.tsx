@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Send, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { FaGithub, FaGoogle } from "react-icons/fa";
@@ -235,26 +234,14 @@ export default function TestimonialsSection() {
 						<div className="size-8 rounded-full border-2 border-muted-foreground/30 border-t-primary animate-spin" />
 					</div>
 				) : testimonials.length === 0 ? (
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true }}
-						transition={{ duration: 0.5 }}
-						className="text-center py-12 text-muted-foreground"
-					>
+					<div className="text-center py-12 text-muted-foreground">
 						<p className="text-lg">No testimonials yet.</p>
 						<p className="mt-1 text-sm">
 							Be the first to leave a review by signing in below.
 						</p>
-					</motion.div>
+					</div>
 				) : (
-					<motion.div
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, margin: "-50px" }}
-						transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-						className="relative flex w-full flex-col items-center justify-center overflow-hidden"
-					>
+					<div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
 						<Marquee pauseOnHover className="[--duration:20s]">
 							{firstRow.map((review) => (
 								<ReviewCard
@@ -285,27 +272,16 @@ export default function TestimonialsSection() {
 						)}
 						<div className="from-background pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r" />
 						<div className="from-background pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l" />
-					</motion.div>
+					</div>
 				)}
 
-				<motion.div
-					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true }}
-					transition={{ duration: 0.5, delay: 0.2 }}
-					className="mx-auto max-w-lg space-y-6"
-				>
+				<div className="mx-auto max-w-lg space-y-6">
 					{authLoading ? (
 						<div className="flex justify-center py-4">
 							<div className="size-6 rounded-full border-2 border-muted-foreground/30 border-t-primary animate-spin" />
 						</div>
 					) : authUser ? (
-						<motion.div
-							initial={{ opacity: 0, scale: 0.95 }}
-							animate={{ opacity: 1, scale: 1 }}
-							transition={{ duration: 0.3 }}
-							className="space-y-5"
-						>
+						<div className="space-y-5">
 							<div className="flex items-center justify-center gap-4 rounded-xl border bg-card p-4 shadow-sm">
 								{authUser.avatar ? (
 									<img
@@ -337,11 +313,7 @@ export default function TestimonialsSection() {
 							</div>
 
 							{submitMessage?.type === "success" ? (
-								<motion.div
-									initial={{ opacity: 0, y: 10 }}
-									animate={{ opacity: 1, y: 0 }}
-									className="rounded-xl border border-green-200 bg-green-50 p-6 text-center dark:border-green-900/50 dark:bg-green-950/30"
-								>
+								<div className="rounded-xl border border-green-200 bg-green-50 p-6 text-center dark:border-green-900/50 dark:bg-green-950/30">
 									<p className="text-sm font-medium text-green-700 dark:text-green-400">
 										Thank you! Your testimonial has been submitted.
 									</p>
@@ -355,7 +327,7 @@ export default function TestimonialsSection() {
 									>
 										Write another
 									</button>
-								</motion.div>
+								</div>
 							) : (
 								<form onSubmit={handleSubmit} className="space-y-3">
 									<textarea
@@ -421,7 +393,7 @@ export default function TestimonialsSection() {
 									</div>
 								</div>
 							)}
-						</motion.div>
+						</div>
 					) : (
 						<div className="space-y-4">
 							<p className="text-center text-sm text-muted-foreground">
@@ -449,7 +421,7 @@ export default function TestimonialsSection() {
 							</div>
 						</div>
 					)}
-				</motion.div>
+				</div>
 			</div>
 		</section>
 	);

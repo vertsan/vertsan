@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
 	Cloud,
 	Database,
@@ -69,12 +68,7 @@ export default function WhatICanDoSection() {
 					description="Services and expertise I bring to every project"
 				/>
 
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-50px" }}
-					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-				>
+				<div>
 					<ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
 						{services.map(({ icon: Icon, title, description }) => (
 							<li key={title} className="min-h-[14rem] list-none">
@@ -107,7 +101,7 @@ export default function WhatICanDoSection() {
 							</li>
 						))}
 					</ul>
-				</motion.div>
+				</div>
 			</div>
 		</section>
 	);

@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { ArrowUpRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import Strands from "#/components/Strands";
 import { Button } from "#/components/ui/button";
@@ -8,13 +7,7 @@ export default function GetInTouchSection() {
 		<section className="relative overflow-hidden py-16 sm:py-20 md:py-32 bg-background">
 			<div className="max-w-6xl mx-auto px-4 sm:px-6">
 				<div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
-					<motion.div
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, margin: "-100px" }}
-						transition={{ duration: 0.6, ease: "easeOut" }}
-						className="relative h-[260px] sm:h-[400px] md:h-[550px] rounded-2xl overflow-hidden bg-muted/20 border order-2 md:order-1"
-					>
+					<div className="relative h-[260px] sm:h-[400px] md:h-[550px] rounded-2xl overflow-hidden bg-muted/20 border order-2 md:order-1">
 						<Strands
 							colors={["#F97316", "#7C3AED", "#06B6D4"]}
 							count={3}
@@ -35,15 +28,9 @@ export default function GetInTouchSection() {
 							glassSize={1}
 							hueShift={0}
 						/>
-					</motion.div>
+					</div>
 
-					<motion.div
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, margin: "-100px" }}
-						transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-						className="space-y-8 order-1 md:order-2"
-					>
+					<div className="space-y-8 order-1 md:order-2">
 						<div className="space-y-4">
 							<span className="section-eyebrow self-start">Contact</span>
 
@@ -108,7 +95,7 @@ export default function GetInTouchSection() {
 								))}
 							</div>
 						</div>
-					</motion.div>
+					</div>
 				</div>
 			</div>
 		</section>
