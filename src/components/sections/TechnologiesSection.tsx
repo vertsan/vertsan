@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
 	SiCss,
 	SiDocker,
@@ -144,12 +143,7 @@ export default function TechnologiesSection({
 					description="Technologies I work with regularly to build modern web applications"
 				/>
 
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-50px" }}
-					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-				>
+				<div>
 					<div className="relative overflow-hidden rounded-[30px] border border-border/80 bg-background/70 px-3 py-6 shadow-[0_40px_140px_-50px_rgba(2,6,23,0.6)] backdrop-blur-xl sm:px-5 sm:py-8">
 						<LogoLoop
 							logos={techLogos}
@@ -163,7 +157,7 @@ export default function TechnologiesSection({
 							ariaLabel="Technologies I work with"
 						/>
 					</div>
-				</motion.div>
+				</div>
 			</div>
 		</section>
 	);

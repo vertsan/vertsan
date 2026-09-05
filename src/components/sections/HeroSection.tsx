@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { useMemo } from "react";
 import { AuroraText } from "#/components/ui/aurora-text";
@@ -78,11 +77,7 @@ export default function HeroSection() {
 
 			<div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-8 pt-16 sm:px-6 md:pb-8 md:pt-24 lg:px-8">
 				<div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16">
-					<motion.div
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, margin: "-100px" }}
-						transition={{ duration: 0.6, ease: "easeOut" }}
+					<div
 						className="space-y-6 sm:space-y-8 text-center sm:text-left"
 					>
 						<div className="space-y-4 sm:space-y-3">
@@ -169,28 +164,20 @@ export default function HeroSection() {
 								</a>
 							))}
 						</div>
-					</motion.div>
+					</div>
 
-					<motion.div
-						initial={{ opacity: 0, y: 30 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, margin: "-100px" }}
-						transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+					<div
 						className="flex justify-center lg:sticky lg:top-28"
 					>
 						<div className="w-full max-w-md">
 							<PersonalInfo />
 						</div>
-					</motion.div>
+					</div>
 				</div>
 			</div>
 
 			{/* featured work slider below the hero content */}
-			<motion.div
-				initial={{ opacity: 0, y: 30 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true, margin: "-80px" }}
-				transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+			<div
 				className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8"
 			>
 				<div className="relative h-[300px] sm:h-[420px] lg:h-[480px]">
@@ -219,7 +206,7 @@ export default function HeroSection() {
 						</div>
 					) : null}
 				</div>
-			</motion.div>
+			</div>
 		</section>
 	);
 }

@@ -1,5 +1,4 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { ArrowUpRight, Award, Calendar, ExternalLink } from "lucide-react";
 import { Badge } from "#/components/ui/badge";
 import {
@@ -121,13 +120,7 @@ export default function CertificatesSection() {
 					description="Professional certifications and achievements"
 				/>
 
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-50px" }}
-					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-					className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3"
-				>
+				<div className="grid gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{displayed.map((cert) => (
 						<Card
 							key={(cert as Record<string, any>).title as string}
@@ -187,7 +180,7 @@ export default function CertificatesSection() {
 							</CardContent>
 						</Card>
 					))}
-				</motion.div>
+				</div>
 
 				{isHome && (
 					<div className="text-center">

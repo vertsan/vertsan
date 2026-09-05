@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Calendar, GraduationCap } from "lucide-react";
 import { marked } from "marked";
 import { useMemo } from "react";
@@ -85,12 +84,7 @@ export default function EducationSection() {
 					description="My academic background and continuous learning"
 				/>
 
-				<motion.div
-					initial={{ opacity: 0, y: 30 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-50px" }}
-					transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-				>
+				<div>
 					<TracingBeam>
 						<div className="space-y-4 md:space-y-6">
 							{sortedEducation.map((edu) => (
@@ -144,7 +138,7 @@ export default function EducationSection() {
 							))}
 						</div>
 					</TracingBeam>
-				</motion.div>
+				</div>
 			</div>
 		</section>
 	);
