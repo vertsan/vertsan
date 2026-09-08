@@ -175,7 +175,7 @@ function ProjectDetail() {
 					</div>
 
 					<aside className="mt-10 lg:mt-0 lg:col-span-1">
-						<div className="lg:sticky lg:top-24 space-y-5 rounded-xl border border-border bg-muted/20 p-4 sm:p-5">
+						<div className="sticky top-24 space-y-5 rounded-xl border border-border bg-muted/20 p-4 sm:p-5">
 							<div className="flex items-center gap-2 text-sm text-muted-foreground">
 								<Calendar className="size-4 shrink-0" />
 								<time dateTime={project.startDate}>{project.startDate}</time>
