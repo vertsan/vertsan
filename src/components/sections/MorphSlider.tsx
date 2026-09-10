@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import type { CSSProperties } from "react";
-import { Renderer, Triangle, Program, Mesh, Texture } from "ogl";
 import { gsap } from "gsap";
+import { Mesh, Program, Renderer, Texture, Triangle } from "ogl";
+import type { CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import "./MorphSlider.css";
 
@@ -30,6 +30,7 @@ export interface MorphSliderProps {
 	showCaptions?: boolean;
 	showControls?: boolean;
 	showIndicators?: boolean;
+	onReady?: () => void;
 	className?: string;
 	[key: string]: unknown;
 }
@@ -253,6 +254,7 @@ interface EngineConfig {
 	reducedMotion: boolean;
 	getOptions: () => EngineOptions;
 	onIndexChange: (index: number) => void;
+	onReady?: () => void;
 	dprCap: number;
 }
 
@@ -261,6 +263,7 @@ class MorphEngine {
 	private items: MorphItem[];
 	private getOptions: () => EngineOptions;
 	private onIndexChange: (index: number) => void;
+	private onReady?: () => void;
 	private reducedMotion: boolean;
 
 	private current: number;
@@ -288,6 +291,7 @@ class MorphEngine {
 		this.items = config.items;
 		this.getOptions = config.getOptions;
 		this.onIndexChange = config.onIndexChange;
+		this.onReady = config.onReady;
 		this.reducedMotion = config.reducedMotion;
 		this.current = config.startIndex;
 		this.shownIndex = config.startIndex;
@@ -356,9 +360,14 @@ class MorphEngine {
 	}
 
 	private loadTextures(): void {
-		this.items.forEach((item, index) => {
+		const priority = this.current;
+		const rest = this.items.map((_, i) => i).filter((i) => i !== priority);
+
+		const load = (index: number, isPriority: boolean) => {
+			const item = this.items[index];
 			const img = new Image();
 			img.crossOrigin = "anonymous";
+			if (isPriority) img.fetchPriority = "high";
 			img.src = item.image;
 			img.onload = () => {
 				const texture = new Texture(this.gl, { generateMipmaps: false });
@@ -369,9 +378,21 @@ class MorphEngine {
 					this.program.uniforms.tCurrent.value = texture;
 					this.program.uniforms.uCurrentSize.value = this.sizes[index];
 				}
+				if (isPriority && this.onReady) {
+					this.onReady();
+				}
 			};
-			img.onerror = () => {};
-		});
+			img.onerror = () => {
+				if (isPriority && this.onReady) {
+					this.onReady();
+				}
+			};
+		};
+
+		load(priority, true);
+		for (const i of rest) {
+			load(i, false);
+		}
 	}
 
 	private resize(): void {
@@ -569,6 +590,7 @@ export default function MorphSlider({
 	showCaptions = true,
 	showControls = true,
 	showIndicators = true,
+	onReady,
 	className = "",
 	...props
 }: MorphSliderProps) {
@@ -576,6 +598,10 @@ export default function MorphSlider({
 	const engineRef = useRef<MorphEngine | null>(null);
 	const [index, setIndex] = useState(startIndex);
 	const [hovering, setHovering] = useState(false);
+	const [ready, setReady] = useState(false);
+	const readyRef = useRef(false);
+	const onReadyRef = useRef(onReady);
+	onReadyRef.current = onReady;
 
 	const optsRef = useRef<EngineOptions>({
 		transition,
@@ -606,6 +632,9 @@ export default function MorphSlider({
 			"(prefers-reduced-motion: reduce)",
 		).matches;
 
+		readyRef.current = false;
+		setReady(false);
+
 		const engine = new MorphEngine(containerRef.current, {
 			items,
 			startIndex,
@@ -613,6 +642,13 @@ export default function MorphSlider({
 			dprCap: 2,
 			getOptions: () => optsRef.current,
 			onIndexChange: setIndex,
+			onReady: () => {
+				if (!readyRef.current) {
+					readyRef.current = true;
+					setReady(true);
+					onReadyRef.current?.();
+				}
+			},
 		});
 		engineRef.current = engine;
 		setIndex(startIndex);
@@ -620,6 +656,8 @@ export default function MorphSlider({
 		return () => {
 			engine.destroy();
 			engineRef.current = null;
+			readyRef.current = false;
+			setReady(false);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [items, startIndex]);
@@ -710,6 +748,16 @@ export default function MorphSlider({
 			onMouseLeave={() => setHovering(false)}
 			{...props}
 		>
+			{items.map((item, i) => (
+				<link
+					key={item.image}
+					rel={i === startIndex ? "preload" : "prefetch"}
+					as="image"
+					href={item.image}
+					fetchPriority={i === startIndex ? "high" : "low"}
+				/>
+			))}
+
 			<div
 				ref={containerRef}
 				className="morph-slider-stage"
@@ -719,6 +767,18 @@ export default function MorphSlider({
 				tabIndex={0}
 				onKeyDown={onKeyDown}
 			/>
+
+			{!ready && (
+				<div className="morph-slider-skeleton" aria-hidden="true">
+					<div className="morph-slider-skeleton-shimmer" />
+					<div className="morph-slider-skeleton-caption" />
+					<div className="morph-slider-skeleton-dots">
+						{items.slice(0, 5).map((item) => (
+							<span key={item.image} className="morph-slider-skeleton-dot" />
+						))}
+					</div>
+				</div>
+			)}
 
 			{showCaptions && hasCaptions && (
 				<div className="morph-slider-caption" aria-live="polite">

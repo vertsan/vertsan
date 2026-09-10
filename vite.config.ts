@@ -3,11 +3,24 @@ import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { createLogger, defineConfig } from "vite";
+
+const isIgnorableAbortError = (msg: string): boolean =>
+	/AbortError/.test(msg) && /This operation was aborted/.test(msg);
+
+const baseLogger = createLogger("info");
+const customLogger = {
+	...baseLogger,
+	error: (msg: string, options?: Record<string, unknown>) => {
+		if (isIgnorableAbortError(msg)) return;
+		baseLogger.error(msg, options);
+	},
+};
 
 const config = defineConfig({
 	resolve: { tsconfigPaths: true },
 	assetsInclude: ["**/*.glb"],
+	customLogger,
 	ssr: { noExternal: ["gsap"] },
 	server: {
 		watch: {

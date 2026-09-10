@@ -3,6 +3,7 @@ import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
 import { useMemo } from "react";
 import { AuroraText } from "#/components/ui/aurora-text";
 import { ShineBorder } from "#/components/ui/shine-border";
+import { Skeleton } from "#/components/ui/skeleton";
 import { PersonalInfo } from "#/components/ui/terminal";
 import { useLiveContent } from "#/lib/useLiveContent";
 import { cn } from "#/lib/utils";
@@ -27,8 +28,23 @@ const socials = [
 	{ href: "mailto:itsanvert@gmail.com", label: "Email", icon: Mail },
 ];
 
+function HeroSliderShimmer() {
+	const dots = [0, 1, 2, 3];
+	return (
+		<div className="relative h-full w-full overflow-hidden rounded-[20px] bg-[#0c0c0e]">
+			<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.04] to-transparent animate-[hero-slider-shimmer_1.6s_ease-in-out_infinite]" />
+			<div className="absolute bottom-14 left-6 h-9 w-36 rounded-[10px] bg-white/[0.06]" />
+			<div className="absolute bottom-5 left-0 right-0 flex justify-center gap-2">
+				{dots.map((d) => (
+					<Skeleton key={d} className="h-2 w-2 rounded-full bg-white/[0.08]" />
+				))}
+			</div>
+		</div>
+	);
+}
+
 export default function HeroSection() {
-	const { items: projects } = useLiveContent<HeroProject>("projects");
+	const { items: projects, loading } = useLiveContent<HeroProject>("projects");
 
 	const slides = useMemo<MorphItem[]>(
 		() =>
@@ -77,9 +93,7 @@ export default function HeroSection() {
 
 			<div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-8 pt-16 sm:px-6 md:pb-8 md:pt-24 lg:px-8">
 				<div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16">
-					<div
-						className="space-y-6 sm:space-y-8 text-center sm:text-left"
-					>
+					<div className="space-y-6 sm:space-y-8 text-center sm:text-left">
 						<div className="space-y-4 sm:space-y-3">
 							<div className="flex items-center justify-center sm:justify-start gap-2">
 								<img
@@ -166,9 +180,7 @@ export default function HeroSection() {
 						</div>
 					</div>
 
-					<div
-						className="flex justify-center lg:sticky lg:top-28"
-					>
+					<div className="flex justify-center lg:sticky lg:top-28">
 						<div className="w-full max-w-md">
 							<PersonalInfo />
 						</div>
@@ -177,9 +189,7 @@ export default function HeroSection() {
 			</div>
 
 			{/* featured work slider below the hero content */}
-			<div
-				className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8"
-			>
+			<div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
 				<div className="relative h-[300px] sm:h-[420px] lg:h-[480px]">
 					<div
 						aria-hidden
@@ -204,6 +214,8 @@ export default function HeroSection() {
 								shineColor={["#4ade80", "#38bdf8", "#a78bfa", "#fbbf24"]}
 							/>
 						</div>
+					) : loading ? (
+						<HeroSliderShimmer />
 					) : null}
 				</div>
 			</div>

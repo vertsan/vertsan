@@ -150,6 +150,75 @@
   outline-offset: 2px;
 }
 
+.morph-slider-skeleton {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 22px;
+  background: #0c0c0e;
+  overflow: hidden;
+}
+
+.morph-slider-skeleton-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 60%,
+    transparent 100%
+  );
+  animation: morph-skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes morph-skeleton-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes hero-slider-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.morph-slider-skeleton-caption {
+  position: absolute;
+  left: 22px;
+  bottom: 50px;
+  width: 140px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.morph-slider-skeleton-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.morph-slider-skeleton-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morph-slider-skeleton-shimmer {
+    animation: none;
+  }
+  .morph-slider-skeleton-caption,
+  .morph-slider-skeleton-dot {
+    animation: none;
+  }
+}
+
 @media (max-width: 420px) {
   .morph-slider-btn {
     width: 34px;
