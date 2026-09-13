@@ -114,6 +114,7 @@ export const testimonials = pgTable("testimonials", {
 	authorAvatar: text("author_avatar"),
 	authorProfileUrl: text("author_profile_url"),
 	provider: text("provider").notNull(),
+	company: text("company"),
 	content: text("content").notNull(),
 	approved: boolean("approved").notNull().default(true),
 	createdAt: timestamp("created_at").notNull().defaultNow(),

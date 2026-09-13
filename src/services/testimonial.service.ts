@@ -21,6 +21,7 @@ export function createTestimonialService() {
 		authorProfileUrl?: string;
 		provider: string;
 		content: string;
+		company?: string;
 	}) {
 		const input: NewTestimonial = {
 			userId: data.userId,
@@ -29,6 +30,7 @@ export function createTestimonialService() {
 			authorProfileUrl: data.authorProfileUrl ?? null,
 			provider: data.provider,
 			content: data.content,
+			company: data.company ?? null,
 		};
 		return repo.create(input);
 	}

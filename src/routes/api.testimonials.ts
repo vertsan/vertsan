@@ -65,9 +65,10 @@ export const Route = createFileRoute("/api/testimonials")({
 					}
 
 					const body = await request.json();
-					const { action, content, testimonialId } = body as {
+					const { action, content, company, testimonialId } = body as {
 						action?: string;
 						content?: string;
+						company?: string;
 						testimonialId?: number;
 					};
 
@@ -93,6 +94,13 @@ export const Route = createFileRoute("/api/testimonials")({
 							);
 						}
 
+						if (company && company.trim().length > 80) {
+							return Response.json(
+								{ error: "Company must be 80 characters or less" },
+								{ status: 400 },
+							);
+						}
+
 						const oauthUserService = createOAuthUserService();
 						const user = await oauthUserService.findById(authUser.userId);
 						if (!user) {
@@ -109,6 +117,7 @@ export const Route = createFileRoute("/api/testimonials")({
 							authorProfileUrl: user.profileUrl ?? undefined,
 							provider: authUser.provider,
 							content: content.trim(),
+							company: company?.trim() || undefined,
 						});
 
 						return Response.json({ item: created });
