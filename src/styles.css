@@ -389,7 +389,7 @@ code {
   color: var(--muted-foreground);
 }
 
-/* Cohesive header hover interaction: soft pill + lift + color shift */
+/* Cohesive header chip: soft pill base (no hover) */
 @utility header-chip {
   display: inline-flex;
   align-items: center;
@@ -401,6 +401,14 @@ code {
     box-shadow 0.25s ease,
     transform 0.2s ease;
 
+  &:focus-visible {
+    outline: 2px solid color-mix(in oklch, var(--ring) 70%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+/* Header nav chip: keeps the hover interaction for nav links only */
+@utility header-chip-nav {
   &:hover {
     color: var(--foreground);
     background-color: color-mix(in oklch, var(--accent) 70%, transparent);

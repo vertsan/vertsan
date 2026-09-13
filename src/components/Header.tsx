@@ -133,7 +133,7 @@ export default function Header() {
 							key={link.label}
 							to={link.to}
 							onClick={() => setMobileOpen(false)}
-							className="header-chip w-full px-3 py-2 text-sm font-medium"
+							className="header-chip header-chip-nav w-full px-3 py-2 text-sm font-medium"
 						>
 							{link.label}
 						</Link>
