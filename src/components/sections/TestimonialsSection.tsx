@@ -13,6 +13,7 @@ interface TestimonialItem {
 	authorAvatar: string | null;
 	authorProfileUrl: string | null;
 	provider: string;
+	company: string | null;
 	content: string;
 	createdAt: string;
 }
@@ -25,12 +26,26 @@ interface OAuthUser {
 	provider: string;
 }
 
+const ProviderIcon = ({
+	provider,
+	className,
+}: {
+	provider: string;
+	className?: string;
+}) => {
+	if (provider === "github") {
+		return <FaGithub className={cn("size-3.5", className)} />;
+	}
+	return <FaGoogle className={cn("size-3.5", className)} />;
+};
+
 const ReviewCard = ({
 	authorName,
 	authorAvatar,
 	authorProfileUrl,
 	content,
 	provider,
+	company,
 	createdAt,
 }: {
 	authorName: string;
@@ -38,9 +53,9 @@ const ReviewCard = ({
 	authorProfileUrl: string | null;
 	content: string;
 	provider: string;
+	company: string | null;
 	createdAt: string;
 }) => {
-	const providerLabel = provider === "google" ? "Google" : "GitHub";
 	const dateStr = new Date(createdAt).toLocaleDateString("en-US", {
 		month: "short",
 		day: "numeric",
@@ -49,7 +64,7 @@ const ReviewCard = ({
 
 	const cardContent = (
 		<>
-			<div className="flex flex-row items-center gap-2">
+			<div className="flex items-start gap-3">
 				{authorAvatar ? (
 					<img
 						className="rounded-full"
@@ -61,20 +76,28 @@ const ReviewCard = ({
 						decoding="async"
 					/>
 				) : (
-					<div className="flex size-8 items-center justify-center rounded-full bg-muted text-xs font-medium">
+					<div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium">
 						{authorName.charAt(0).toUpperCase()}
 					</div>
 				)}
-				<div className="flex flex-col">
-					<figcaption className="text-sm font-medium dark:text-white">
+				<div className="flex min-w-0 flex-1 flex-col">
+					<figcaption className="truncate text-sm font-medium dark:text-white">
 						{authorName}
 					</figcaption>
-					<p className="text-xs font-medium dark:text-white/40">
-						{providerLabel} · {dateStr}
+					{company && (
+						<p className="truncate text-xs font-medium text-primary/70 dark:text-primary/60">
+							{company}
+						</p>
+					)}
+					<p className="mt-0.5 text-xs font-medium dark:text-white/40">
+						{dateStr}
 					</p>
 				</div>
+				<span className="ml-auto shrink-0 rounded-full border border-border/60 bg-background/60 p-1.5 shadow-sm">
+					<ProviderIcon provider={provider} className="text-muted-foreground" />
+				</span>
 			</div>
-			<blockquote className="mt-2 text-sm">{content}</blockquote>
+			<blockquote className="mt-3 text-sm leading-relaxed">{content}</blockquote>
 		</>
 	);
 
@@ -112,6 +135,7 @@ export default function TestimonialsSection() {
 	const [authUser, setAuthUser] = useState<OAuthUser | null>(null);
 	const [authLoading, setAuthLoading] = useState(true);
 	const [newContent, setNewContent] = useState("");
+	const [newCompany, setNewCompany] = useState("");
 	const [submitting, setSubmitting] = useState(false);
 	const [submitMessage, setSubmitMessage] = useState<{
 		type: "success" | "error";
@@ -166,7 +190,11 @@ export default function TestimonialsSection() {
 			const res = await fetch("/api/testimonials", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ action: "create", content: newContent.trim() }),
+				body: JSON.stringify({
+					action: "create",
+					content: newContent.trim(),
+					company: newCompany.trim() || undefined,
+				}),
 			});
 			const data = await res.json();
 
@@ -182,6 +210,7 @@ export default function TestimonialsSection() {
 				setTestimonials((prev) => [data.item, ...prev]);
 			}
 			setNewContent("");
+			setNewCompany("");
 			setSubmitMessage({ type: "success", text: "Testimonial submitted!" });
 		} catch {
 			setSubmitMessage({ type: "error", text: "Connection error" });
@@ -251,6 +280,7 @@ export default function TestimonialsSection() {
 									authorProfileUrl={review.authorProfileUrl}
 									content={review.content}
 									provider={review.provider}
+									company={review.company}
 									createdAt={review.createdAt}
 								/>
 							))}
@@ -265,6 +295,7 @@ export default function TestimonialsSection() {
 										authorProfileUrl={review.authorProfileUrl}
 										content={review.content}
 										provider={review.provider}
+										company={review.company}
 										createdAt={review.createdAt}
 									/>
 								))}
@@ -298,8 +329,9 @@ export default function TestimonialsSection() {
 								)}
 								<div className="flex-1 text-left">
 									<p className="text-sm font-semibold">{authUser.name}</p>
-									<p className="text-xs text-muted-foreground">
-										{authUser.provider === "github" ? "GitHub" : "Google"}
+									<p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
+										<ProviderIcon provider={authUser.provider} className="text-muted-foreground/70" />
+										Signed in
 									</p>
 								</div>
 								<Button
@@ -322,6 +354,7 @@ export default function TestimonialsSection() {
 										onClick={() => {
 											setSubmitMessage(null);
 											setNewContent("");
+											setNewCompany("");
 										}}
 										className="mt-2 text-xs text-green-600 underline hover:text-green-800 dark:text-green-500 dark:hover:text-green-300"
 									>
@@ -337,6 +370,14 @@ export default function TestimonialsSection() {
 										maxLength={500}
 										rows={4}
 										className="w-full resize-none rounded-xl border bg-card px-4 py-3 text-sm shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
+									/>
+									<input
+										type="text"
+										value={newCompany}
+										onChange={(e) => setNewCompany(e.target.value)}
+										placeholder="Where do you work? (optional)"
+										maxLength={80}
+										className="w-full rounded-xl border bg-card px-4 py-3 text-sm shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
 									/>
 									<div className="flex items-center justify-between">
 										<p className="text-xs text-muted-foreground">
