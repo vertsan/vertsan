@@ -1,6 +1,6 @@
 import { ExternalLink } from "lucide-react";
-import { cn } from "#/lib/utils";
 import { Button } from "#/components/ui/button";
+import { cn } from "#/lib/utils";
 
 function getDomain(url: string): string {
 	try {
@@ -43,10 +43,7 @@ export function LinkPreviewCard({
 				variant="outline"
 				size="sm"
 				asChild
-				className={cn(
-					"rounded-full animate-fade-in opacity-0",
-					className,
-				)}
+				className={cn("rounded-full animate-fade-in opacity-0", className)}
 				style={{ animationDelay: delay, animationFillMode: "forwards" }}
 			>
 				<a href={href} target="_blank" rel="noreferrer">
@@ -54,6 +51,8 @@ export function LinkPreviewCard({
 						src={favicon}
 						alt=""
 						className="size-3.5 rounded-sm"
+						loading="lazy"
+						decoding="async"
 						onError={(e) => {
 							(e.currentTarget as HTMLImageElement).style.display = "none";
 						}}
@@ -81,6 +80,8 @@ export function LinkPreviewCard({
 						src={favicon}
 						alt=""
 						className="size-6"
+						loading="lazy"
+						decoding="async"
 						onError={(e) => {
 							(e.currentTarget as HTMLImageElement).style.display = "none";
 						}}
@@ -90,7 +91,9 @@ export function LinkPreviewCard({
 				<div className="flex-1 min-w-0">
 					<p className="text-sm font-medium truncate">{domain}</p>
 					{path && (
-						<p className="text-xs text-muted-foreground truncate mt-0.5">{path}</p>
+						<p className="text-xs text-muted-foreground truncate mt-0.5">
+							{path}
+						</p>
 					)}
 				</div>
 

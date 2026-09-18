@@ -47,7 +47,15 @@ export const Route = createFileRoute("/api/testimonials")({
 				try {
 					const service = createTestimonialService();
 					const items = await service.list();
-					return Response.json({ items });
+					return Response.json(
+						{ items },
+						{
+							headers: {
+								"Cache-Control":
+									"public, s-maxage=300, stale-while-revalidate=900",
+							},
+						},
+					);
 				} catch (err: unknown) {
 					const message = err instanceof Error ? err.message : "Unknown error";
 					console.error("Testimonials API error:", err);

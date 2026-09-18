@@ -1,5 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowUpRight, Award, Calendar, ExternalLink } from "lucide-react";
+import { useState } from "react";
 import { Badge } from "#/components/ui/badge";
 import {
 	Breadcrumb,
@@ -17,6 +18,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "#/components/ui/card";
+import Pagination from "#/components/ui/pagination";
 import SectionHeading from "#/components/ui/section-heading";
 import { Skeleton } from "#/components/ui/skeleton";
 import { useLiveContent } from "#/lib/useLiveContent";
@@ -71,6 +73,8 @@ export default function CertificatesSection() {
 		location.pathname === "/certificates/";
 	const isHome = location.pathname === "/";
 	const MAX_HOME = 6;
+	const PAGE_SIZE = 6;
+	const [page, setPage] = useState(1);
 
 	if (loading && certs.length === 0) return <CertificatesShimmer />;
 
@@ -81,7 +85,22 @@ export default function CertificatesSection() {
 		);
 	});
 
-	const displayed = isHome ? sortedCerts.slice(0, MAX_HOME) : sortedCerts;
+	const pageCount = Math.max(1, Math.ceil(sortedCerts.length / PAGE_SIZE));
+	const safePage = Math.min(page, pageCount);
+	const pageItems = sortedCerts.slice(
+		(safePage - 1) * PAGE_SIZE,
+		safePage * PAGE_SIZE,
+	);
+	const displayed = isHome
+		? sortedCerts.slice(0, MAX_HOME)
+		: pageItems;
+
+	const handlePageChange = (nextPage: number) => {
+		setPage(nextPage);
+		document
+			.getElementById("certificates")
+			?.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
 
 	return (
 		<section
@@ -181,6 +200,14 @@ export default function CertificatesSection() {
 						</Card>
 					))}
 				</div>
+
+				{!isHome && pageCount > 1 && (
+					<Pagination
+						page={safePage}
+						pageCount={pageCount}
+						onPageChange={handlePageChange}
+					/>
+				)}
 
 				{isHome && (
 					<div className="text-center">

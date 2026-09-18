@@ -1,7 +1,7 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
 import { marked } from "marked";
-import { memo, useMemo } from "react";
+import { memo, useMemo, useState } from "react";
 import { Badge } from "#/components/ui/badge";
 import {
 	Breadcrumb,
@@ -19,6 +19,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "#/components/ui/card";
+import Pagination from "#/components/ui/pagination";
 import SectionHeading from "#/components/ui/section-heading";
 import { Skeleton } from "#/components/ui/skeleton";
 import { setCache, useLiveContent } from "#/lib/useLiveContent";
@@ -209,6 +210,8 @@ export default function ProjectsSection() {
 		location.pathname === "/projects" || location.pathname === "/projects/";
 	const isHome = location.pathname === "/";
 	const MAX_HOME = 6;
+	const PAGE_SIZE = 6;
+	const [page, setPage] = useState(1);
 
 	const sortedProjects = useMemo(
 		() =>
@@ -219,7 +222,22 @@ export default function ProjectsSection() {
 		[projects],
 	);
 
-	const displayed = isHome ? sortedProjects.slice(0, MAX_HOME) : sortedProjects;
+	const pageCount = Math.max(1, Math.ceil(sortedProjects.length / PAGE_SIZE));
+	const safePage = Math.min(page, pageCount);
+	const pageItems = sortedProjects.slice(
+		(safePage - 1) * PAGE_SIZE,
+		safePage * PAGE_SIZE,
+	);
+	const displayed = isHome
+		? sortedProjects.slice(0, MAX_HOME)
+		: pageItems;
+
+	const handlePageChange = (nextPage: number) => {
+		setPage(nextPage);
+		document
+			.getElementById("projects")
+			?.scrollIntoView({ behavior: "smooth", block: "start" });
+	};
 
 	if (loading && projects.length === 0) return <ProjectsShimmer />;
 
@@ -268,6 +286,14 @@ export default function ProjectsSection() {
 						/>
 					))}
 				</div>
+
+				{!isHome && pageCount > 1 && (
+					<Pagination
+						page={safePage}
+						pageCount={pageCount}
+						onPageChange={handlePageChange}
+					/>
+				)}
 
 				{isHome && (
 					<div className="text-center">
