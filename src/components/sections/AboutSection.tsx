@@ -85,12 +85,12 @@ function AnimatedStat({
 }
 
 const driftItems = [
-	{ image: "/profile.jpg", title: "Profile portrait of Vert San" },
-	{ image: "/profile1.jpg", title: "Vert San profile 1" },
-	{ image: "/profile2.png", title: "Vert San profile 2" },
-	{ image: "/profile3.jpg", title: "Vert San profile 3" },
-	{ image: "/profile4.jpg", title: "Vert San profile 4" },
-	{image: "/profile5.jpg", title: "Vert San profile 5" },
+	{ image: "/profile.webp", title: "Profile portrait of Vert San" },
+	{ image: "/profile1.webp", title: "Vert San profile 1" },
+	{ image: "/profile2.webp", title: "Vert San profile 2" },
+	{ image: "/profile3.webp", title: "Vert San profile 3" },
+	{ image: "/profile4.webp", title: "Vert San profile 4" },
+	{ image: "/profile5.webp", title: "Vert San profile 5" },
 ];
 
 export default function AboutSection() {
