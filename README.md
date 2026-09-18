@@ -13,7 +13,7 @@
 
 - ⚡ Fun fact **I like to sleepy boy**
 
-- 👨‍💻 All of my projects are available at **[https://vertsan.netlify.app/](https://vertsan.netlify.app/)**
+- 👨‍💻 All of my projects are available at **[portfolio](https://vertsan.netlify.app)**
 
 
 <h3 align="left">Connect with me:</h3>
