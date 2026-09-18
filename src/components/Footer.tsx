@@ -3,26 +3,36 @@ import { Link } from "@tanstack/react-router";
 
 const year = new Date().getFullYear();
 
+const footerLinks = [
+	{ to: "/" as const, label: "Home" },
+	{ to: "/about" as const, label: "About" },
+	{ to: "/projects" as const, label: "Projects" },
+	{ to: "/certificates" as const, label: "Certificates" },
+];
+
+const socialLinks = [
+	{ href: "https://github.com/vertsan", label: "GitHub", icon: Github },
+	{ href: "https://linkedin.com/in/vertsan", label: "LinkedIn", icon: Linkedin },
+	{ href: "mailto:itsanvert@gmail.com", label: "Email", icon: Mail },
+];
+
 export default function Footer() {
 	return (
-		<footer className="border-t border-border/40">
-			<div className="px-4 sm:px-6 py-10 sm:py-12">
-				<div className="flex flex-col md:flex-row items-center justify-between gap-6">
-					<div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+		<footer className="border-t border-border/40 bg-background">
+			<div className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+				{/* Main footer content */}
+				<div className="flex flex-col gap-6 py-8 sm:py-10 md:flex-row md:items-center md:justify-between">
+					{/* Left: Brand + nav */}
+					<div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6 md:items-center">
 						<Link
 							to="/"
-							className="text-lg sm:text-base font-semibold tracking-tight text-foreground"
+							className="text-base font-semibold tracking-tight text-foreground"
 						>
 							Vert<span className="text-primary">.</span>
 						</Link>
 
-						<nav className="hidden sm:flex items-center gap-4">
-							{[
-								{ to: "/" as const, label: "Home" },
-								{ to: "/about" as const, label: "About" },
-								{ to: "/projects" as const, label: "Projects" },
-								{ to: "/certificates" as const, label: "Certificates" },
-							].map((link) => (
+						<nav className="flex items-center gap-4">
+							{footerLinks.map((link) => (
 								<Link
 									key={link.label}
 									to={link.to}
@@ -34,43 +44,28 @@ export default function Footer() {
 						</nav>
 					</div>
 
-					<div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-						<div className="flex items-center gap-2">
+					{/* Right: Socials */}
+					<div className="flex items-center justify-center gap-1.5 md:justify-end">
+						{socialLinks.map(({ href, label, icon: Icon }) => (
 							<a
-								href="https://github.com/vertsan"
-								target="_blank"
+								key={label}
+								href={href}
+								target={href.startsWith("mailto:") ? undefined : "_blank"}
 								rel="noreferrer"
-								className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-								aria-label="GitHub"
+								className="flex size-8 items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+								aria-label={label}
 							>
-								<Github className="size-4" />
+								<Icon className="size-3.5" />
 							</a>
-							<a
-								href="https://linkedin.com/in/vertsan"
-								target="_blank"
-								rel="noreferrer"
-								className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-								aria-label="LinkedIn"
-							>
-								<Linkedin className="size-4" />
-							</a>
-							<a
-								href="mailto:itsanvert@gmail.com"
-								className="p-2 text-muted-foreground hover:text-foreground transition-colors"
-								aria-label="Email"
-							>
-								<Mail className="size-4" />
-							</a>
-						</div>
-
-						<span className="hidden sm:block text-xs text-muted-foreground/50">
-							&middot;
-						</span>
-
-						<span className="text-xs text-muted-foreground/60">
-							&copy; {year}
-						</span>
+						))}
 					</div>
+				</div>
+
+				{/* Bottom bar */}
+				<div className="flex items-center justify-center border-t border-border/30 py-4">
+					<span className="text-xs text-muted-foreground/50">
+						&copy; {year} Vert San. All rights reserved.
+					</span>
 				</div>
 			</div>
 		</footer>

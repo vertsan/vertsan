@@ -8,6 +8,13 @@ import { createTestimonialService } from "#/services/testimonial.service";
 
 const cache = new Map<string, { data: unknown; expiry: number }>();
 const CACHE_TTL_MS = 60_000;
+const CACHE_HEADERS = {
+	"Cache-Control": "public, s-maxage=55, stale-while-revalidate=600",
+};
+
+function json(data: unknown, status = 200) {
+	return Response.json(data, { status, headers: CACHE_HEADERS });
+}
 
 function setCached<T>(key: string, data: T): T {
 	cache.set(key, { data, expiry: Date.now() + CACHE_TTL_MS });
@@ -83,10 +90,10 @@ export const Route = createFileRoute("/api/public")({
 								{ status: 400 },
 							);
 						}
-						return Response.json(await fetchSingle(collection as Collection));
+						return json(await fetchSingle(collection as Collection));
 					}
 
-					return Response.json(await fetchAll());
+					return json(await fetchAll());
 				} catch (err: unknown) {
 					const message = err instanceof Error ? err.message : "Unknown error";
 					console.error("Public API error:", err);

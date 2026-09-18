@@ -188,7 +188,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					}}
 				/>
 				{!isAdmin ? (
-					<div className="mx-auto min-h-screen max-w-7xl border-x border-border bg-card overflow-x-clip">
+					<div className="min-h-screen bg-card overflow-x-clip">
 						<Header />
 						{children}
 						<Footer />

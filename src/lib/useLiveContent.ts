@@ -8,15 +8,28 @@ interface LiveContentResult<T> {
 	refresh: () => void;
 }
 
-const cache = new Map<string, unknown[]>();
+const CACHE_TTL_MS = 5 * 60_000;
+
+interface CacheEntry {
+	data: unknown[];
+	at: number;
+}
+
+const cache = new Map<string, CacheEntry>();
+
+function isStale(collection: string): boolean {
+	const entry = cache.get(collection);
+	if (!entry) return true;
+	return Date.now() - entry.at > CACHE_TTL_MS;
+}
 
 export function getCache<T>(collection: string): T[] | null {
 	const entry = cache.get(collection);
-	return entry ? (entry as T[]) : null;
+	return entry ? (entry.data as T[]) : null;
 }
 
 export function setCache<T>(collection: string, data: T[]): void {
-	cache.set(collection, data);
+	cache.set(collection, { data, at: Date.now() });
 }
 
 export function clearCache(collection?: string): void {
@@ -35,36 +48,48 @@ export function useLiveContent<T>(
 	const initial = ssrData.length > 0 ? ssrData : (ssrFallback ?? []);
 
 	const [items, setItems] = useState<T[]>(() => {
-		if (cache.has(collection)) return cache.get(collection) as T[];
+		const cached = cache.get(collection);
+		if (cached) return cached.data as T[];
 		return initial;
 	});
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const fetchData = useCallback(async () => {
-		setLoading(true);
-		setError(null);
-		try {
-			const res = await fetch("/api/public", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ collection }),
-			});
-			const data = await res.json();
-			if (data.error) throw new Error(data.error);
-			const fetched = (data.items ?? []) as T[];
-			cache.set(collection, fetched);
-			setItems(fetched);
-		} catch (err) {
-			setError(err instanceof Error ? err.message : "Failed to load data");
-		} finally {
-			setLoading(false);
-		}
-	}, [collection]);
+	const fetchData = useCallback(
+		async (silent = false) => {
+			if (!silent) {
+				setLoading(true);
+				setError(null);
+			}
+			try {
+				const res = await fetch("/api/public", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ collection }),
+				});
+				const data = await res.json();
+				if (data.error) throw new Error(data.error);
+				const fetched = (data.items ?? []) as T[];
+				cache.set(collection, { data: fetched, at: Date.now() });
+				setItems(fetched);
+			} catch (err) {
+				if (!silent) {
+					setError(err instanceof Error ? err.message : "Failed to load data");
+				}
+			} finally {
+				if (!silent) setLoading(false);
+			}
+		},
+		[collection],
+	);
 
 	useEffect(() => {
-		if (items.length === 0) fetchData();
-	}, [items.length, fetchData]);
+		if (items.length === 0) {
+			fetchData();
+			return;
+		}
+		if (isStale(collection)) fetchData(true);
+	}, [items.length, fetchData, collection]);
 
-	return { items, loading, error, refresh: fetchData };
+	return { items, loading, error, refresh: () => fetchData() };
 }

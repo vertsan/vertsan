@@ -5,3 +5,46 @@
   command = "npm run dev"
   targetPort = 3000
   port = 8888
+
+# Built assets are content-hashed by Vite — safe to cache for a year, immutable.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Fingerprinted RSC payloads used for hydration.
+[[headers]]
+  for = "/_build/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Static media in /public is copied as-is (not hashed) — short TTL so updates propagate quickly.
+[[headers]]
+  for = "/moonwalk-bg.webm"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/resume.pdf"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/manifest.json"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"

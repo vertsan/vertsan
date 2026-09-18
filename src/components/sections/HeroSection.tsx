@@ -1,16 +1,20 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowDown, Download, Github, Linkedin, Mail } from "lucide-react";
-import { useMemo } from "react";
+import {
+	ArrowDown,
+	Award,
+	Download,
+	FolderKanban,
+	Github,
+	Linkedin,
+	Mail,
+	Sparkles,
+} from "lucide-react";
+import { useEffect, useState } from "react";
 import { AuroraText } from "#/components/ui/aurora-text";
-import { ShineBorder } from "#/components/ui/shine-border";
-import { Skeleton } from "#/components/ui/skeleton";
-import { PersonalInfo } from "#/components/ui/terminal";
 import { useLiveContent } from "#/lib/useLiveContent";
 import { cn } from "#/lib/utils";
 import { AnimatedGradientText } from "#/registry/magicui/animated-gradient-text";
-import { FlickeringGrid } from "#/registry/magicui/flickering-grid";
 import { RainbowButton } from "#/registry/magicui/rainbow-button";
-import MorphSlider, { type MorphItem } from "./MorphSlider";
 
 interface HeroProject {
 	title: string;
@@ -28,102 +32,105 @@ const socials = [
 	{ href: "mailto:itsanvert@gmail.com", label: "Email", icon: Mail },
 ];
 
-function HeroSliderShimmer() {
-	const dots = [0, 1, 2, 3];
-	return (
-		<div className="relative h-full w-full overflow-hidden rounded-[20px] bg-[#0c0c0e]">
-			<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.04] to-transparent animate-[hero-slider-shimmer_1.6s_ease-in-out_infinite]" />
-			<div className="absolute bottom-14 left-6 h-9 w-36 rounded-[10px] bg-white/[0.06]" />
-			<div className="absolute bottom-5 left-0 right-0 flex justify-center gap-2">
-				{dots.map((d) => (
-					<Skeleton key={d} className="h-2 w-2 rounded-full bg-white/[0.08]" />
-				))}
-			</div>
-		</div>
-	);
-}
-
 export default function HeroSection() {
-	const { items: projects, loading } = useLiveContent<HeroProject>("projects");
+	const { items: projects } = useLiveContent<HeroProject>("projects");
+	const { items: certificates } =
+		useLiveContent<Record<string, unknown>>("certificates");
+	const [reducedMotion, setReducedMotion] = useState(false);
 
-	const slides = useMemo<MorphItem[]>(
-		() =>
-			[...projects]
-				.filter((project) => project.image)
-				.sort(
-					(a, b) =>
-						new Date(b.startDate).getTime() - new Date(a.startDate).getTime(),
-				)
-				.map((project) => ({
-					image: project.image as string,
-					caption: project.title,
-				})),
-		[projects],
-	);
+	useEffect(() => {
+		const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+		const update = () => setReducedMotion(mq.matches);
+		update();
+		mq.addEventListener("change", update);
+		return () => mq.removeEventListener("change", update);
+	}, []);
+
+	const stats = [
+		{ icon: Sparkles, label: "Years of Experience", value: "2.5+" },
+		{
+			icon: FolderKanban,
+			label: "Projects Delivered",
+			value: `${projects.length}+`,
+		},
+		{ icon: Award, label: "Certifications", value: `${certificates.length}+` },
+	];
 
 	return (
-		<section className="relative flex min-h-svh flex-col justify-center overflow-hidden bg-gradient-to-b from-background via-background to-muted/20">
-			<FlickeringGrid
-				className="absolute inset-0 z-0 h-48 md:h-64"
-				squareSize={4}
-				gridGap={6}
-				color="#4ade80"
-				maxOpacity={0.14}
-				flickerChance={0.1}
-				width={1400}
-				height={200}
-			/>
-			{/* soft ambient glow behind the terminal */}
-			<div
-				aria-hidden
-				className="pointer-events-none absolute right-0 top-1/4 z-0 hidden h-96 w-96 -translate-y-1/4 rounded-full opacity-40 blur-3xl lg:block"
-				style={{
-					background:
-						"radial-gradient(circle, color-mix(in oklch, var(--accent-1) 30%, transparent), transparent 70%)",
-				}}
-			/>
-			<div
-				aria-hidden
-				className="pointer-events-none absolute -left-24 bottom-0 z-0 hidden h-80 w-80 rounded-full opacity-30 blur-3xl lg:block"
-				style={{
-					background:
-						"radial-gradient(circle, color-mix(in oklch, var(--accent-3) 35%, transparent), transparent 70%)",
-				}}
-			/>
+		<section className="relative w-full px-3 pt-3 sm:px-4 sm:pt-4">
+			<div className="relative flex h-[70svh] min-h-[480px] w-full flex-col overflow-hidden rounded-2xl bg-[#05070f] ring-1 ring-white/10 sm:rounded-3xl">
+				<div aria-hidden className="absolute inset-0 z-0 overflow-hidden">
+					{reducedMotion ? (
+						<img
+							src="/moonwalk-poster.jpg"
+							alt=""
+							className="size-full object-cover"
+							decoding="async"
+						/>
+					) : (
+						<video
+							className="absolute inset-0 size-full object-cover"
+							autoPlay
+							muted
+							loop
+							playsInline
+							preload="auto"
+							poster="/moonwalk-poster.jpg"
+							tabIndex={-1}
+						>
+							<source src="/moonwalk-bg.webm" type="video/webm" />
+							<img
+								src="/moonwalk-poster.jpg"
+								alt=""
+								className="size-full object-cover"
+								decoding="async"
+							/>
+						</video>
+					)}
+					<div className="absolute inset-0 bg-linear-to-b from-[#05070f]/45 via-[#05070f]/20 to-[#05070f]/70" />
+					<div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(5,7,15,0.35)_100%)]" />
+				</div>
 
-			<div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-8 pt-16 sm:px-6 md:pb-8 md:pt-24 lg:px-8">
-				<div className="grid items-center gap-10 sm:gap-12 lg:grid-cols-2 lg:gap-16">
-					<div className="space-y-6 sm:space-y-8 text-center sm:text-left">
-						<div className="space-y-4 sm:space-y-3">
-							<div className="flex items-center justify-center sm:justify-start gap-2">
-								<img
-									src="/itachi-idle.gif"
-									alt="itachi"
-									className="size-8 sm:size-10"
-									decoding="async"
-								/>
-							</div>
-							<div className="group relative mx-auto sm:mx-0 flex w-fit items-center justify-center rounded-full px-3 py-1 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f] sm:px-4 sm:py-1.5">
-								<span
-									className={cn(
-										"animate-gradient absolute inset-0 block h-full w-full rounded-[inherit] bg-gradient-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-[length:300%_100%] p-[1px]",
-									)}
-									style={{
-										WebkitMask:
-											"linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-										WebkitMaskComposite: "destination-out",
-										mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-										maskComposite: "subtract",
-										WebkitClipPath: "padding-box",
-									}}
-								/>
-								<AnimatedGradientText className="text-[0.65rem] font-medium uppercase tracking-widest sm:text-sm">
-									Software Engineer
-								</AnimatedGradientText>
-							</div>
+				<div
+					aria-hidden
+					className="pointer-events-none absolute -right-32 -top-24 z-0 h-112 w-md rounded-full opacity-40 blur-3xl"
+					style={{
+						background:
+							"radial-gradient(circle, color-mix(in oklch, white 30%, transparent) 0%, transparent 70%)",
+					}}
+				/>
 
-							<h1 className="text-balance text-4xl font-light leading-[1.1] tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
-								Hi, I'm{" "}
+				<div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between gap-8 px-4 pb-10 pt-4 sm:px-6 lg:px-8">
+					<div className="flex w-full items-start justify-end">
+						<div className="group relative flex w-fit items-center justify-center gap-2.5 rounded-full px-3.5 py-1.5 shadow-[inset_0_-8px_10px_#8fdfff1f] transition-shadow duration-500 ease-out hover:shadow-[inset_0_-5px_10px_#8fdfff3f] sm:px-4 sm:py-2 bg-black/25 backdrop-blur-md">
+							<span
+								className={cn(
+									"animate-gradient absolute inset-0 block h-full w-full rounded-[inherit] bg-linear-to-r from-[#ffaa40]/50 via-[#9c40ff]/50 to-[#ffaa40]/50 bg-size-[300%_100%] p-px",
+								)}
+								style={{
+									WebkitMask:
+										"linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+									WebkitMaskComposite: "destination-out",
+									mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+									maskComposite: "subtract",
+									WebkitClipPath: "padding-box",
+								}}
+							/>
+							<span
+								aria-hidden
+								className="relative flex size-1.5 rounded-full bg-emerald-400"
+								style={{ boxShadow: "0 0 10px 2px rgba(52,211,153,0.6)" }}
+							/>
+							<AnimatedGradientText className="text-[0.65rem] font-medium uppercase tracking-widest sm:text-sm">
+								Open to opportunities
+							</AnimatedGradientText>
+						</div>
+					</div>
+
+					<div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+						<div className="flex w-full max-w-2xl flex-col items-start gap-6">
+							<h1 className="text-balance text-5xl font-light leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl [text-shadow:0_2px_30px_rgba(0,0,0,0.65)]">
+								I'm{" "}
 								<AuroraText
 									className="font-bold"
 									colors={["#4ade80", "#38bdf8", "#a78bfa", "#fbbf24"]}
@@ -132,91 +139,70 @@ export default function HeroSection() {
 								</AuroraText>
 							</h1>
 
-							<p className="mx-auto sm:mx-0 max-w-md text-balance text-sm leading-relaxed text-muted-foreground/70 sm:text-base">
-								I design and build accessible, scalable, secure, and
-								high-performance web and mobile applications using modern
-								technologies and best practices.
+							<p className="max-w-xl text-balance text-sm leading-relaxed text-white/70 sm:text-base md:text-lg [text-shadow:0_1px_14px_rgba(0,0,0,0.85)]">
+								I build accessible, scalable, secure web and mobile
+								applications.
 							</p>
-						</div>
 
-						<div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center lg:justify-start">
-							<RainbowButton
-								size="lg"
-								className="w-full justify-center gap-2 sm:w-auto"
-								asChild
-							>
-								<Link to="/projects">
-									View My Work
-									<ArrowDown className="size-4" />
-								</Link>
-							</RainbowButton>
-							<RainbowButton
-								variant="outline"
-								size="lg"
-								className="w-full justify-center gap-2 sm:w-auto"
-								asChild
-							>
-								<a href="/resume.pdf" download>
-									<Download className="size-4" />
-									Download Resume
-								</a>
-							</RainbowButton>
-						</div>
-
-						<div className="flex items-center justify-center sm:justify-start gap-2 pt-2">
-							{socials.map(({ href, label, icon: Icon }) => (
-								<a
-									key={label}
-									href={href}
-									target="_blank"
-									rel="noreferrer"
-									aria-label={label}
-									title={label}
-									className="group flex size-10 items-center justify-center rounded-lg border border-border/50 bg-card/40 text-muted-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-border hover:bg-card hover:text-foreground hover:shadow-sm"
+							<div className="mt-2 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center sm:justify-start">
+								<RainbowButton
+									size="lg"
+									className="w-full justify-center gap-2 sm:w-auto"
+									asChild
 								>
-									<Icon className="size-[18px] transition-transform duration-200 group-hover:scale-110" />
-								</a>
-							))}
+									<Link to="/projects">
+										View My Work
+										<ArrowDown className="size-4" />
+									</Link>
+								</RainbowButton>
+								<RainbowButton
+									variant="outline"
+									size="lg"
+									className="w-full justify-center gap-2 sm:w-auto"
+									asChild
+								>
+									<a href="/resume.pdf" download>
+										<Download className="size-4" />
+										Download Resume
+									</a>
+								</RainbowButton>
+							</div>
+						</div>
+
+						<div className="flex flex-row flex-wrap items-center justify-start gap-x-8 gap-y-6 lg:w-auto lg:flex-col lg:items-end lg:gap-6">
+							<div className="flex items-center gap-2.5">
+								{socials.map(({ href, label, icon: Icon }) => (
+									<a
+										key={label}
+										href={href}
+										target="_blank"
+										rel="noreferrer"
+										aria-label={label}
+										title={label}
+										className="group flex size-10 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white/80 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-white/40 hover:bg-white/10 hover:text-white hover:shadow-md shadow-black/20"
+									>
+										<Icon className="size-4.5 transition-transform duration-200 group-hover:scale-110" />
+									</a>
+								))}
+							</div>
+
+							<div className="flex flex-wrap items-center gap-x-8 gap-y-5">
+								{stats.map(({ icon: Icon, label, value }) => (
+									<div key={label} className="flex items-center gap-3">
+										<div className="flex size-9 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-white/80 backdrop-blur-sm">
+											<Icon className="size-4" />
+										</div>
+										<div className="text-left leading-tight">
+											<p className="text-base font-semibold text-white tabular-nums [text-shadow:0_1px_10px_rgba(0,0,0,0.8)]">
+												{value}
+											</p>
+											<p className="text-xs text-white/60">{label}</p>
+										</div>
+									</div>
+								))}
+							</div>
 						</div>
 					</div>
-
-					<div className="flex justify-center lg:sticky lg:top-28">
-						<div className="w-full max-w-md">
-							<PersonalInfo />
-						</div>
-					</div>
-				</div>
-			</div>
-
-			{/* featured work slider below the hero content */}
-			<div className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
-				<div className="relative h-[300px] sm:h-[420px] lg:h-[480px]">
-					<div
-						aria-hidden
-						className="absolute -inset-6 -z-10 rounded-3xl bg-gradient-to-br from-emerald-500/10 via-sky-500/5 to-purple-500/10 blur-2xl"
-					/>
-					{slides.length >= 2 ? (
-						<div className="relative size-full overflow-hidden rounded-[20px] bg-card/40">
-							<MorphSlider
-								items={slides}
-								transition="melt"
-								intensity={0.55}
-								aberration={0.35}
-								drift={0.4}
-								autoplay
-								autoplayDelay={5}
-								radius={20}
-							/>
-							<ShineBorder
-								className="z-10"
-								duration={12}
-								borderWidth={3}
-								shineColor={["#4ade80", "#38bdf8", "#a78bfa", "#fbbf24"]}
-							/>
-						</div>
-					) : loading ? (
-						<HeroSliderShimmer />
-					) : null}
 				</div>
 			</div>
 		</section>
