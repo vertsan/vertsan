@@ -7,3 +7,5 @@ allowBuilds:
   lightningcss: true
   protobufjs: true
   sharp: true
+overrides:
+  "@tanstack/router-core": 1.171.32
