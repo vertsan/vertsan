@@ -1,16 +1,24 @@
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
-import { LogIn, Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+	Award,
+	FolderKanban,
+	Home,
+	LogIn,
+	Menu,
+	UserRound,
+	X,
+} from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import GooeyNav from "./GooeyNav";
 import PresenceBadge from "./PresenceBadge";
 import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
-	{ label: "Home", to: "/" },
-	{ label: "About", to: "/about" },
-	{ label: "Projects", to: "/projects" },
-	{ label: "Certificates", to: "/certificates" },
+	{ label: "Home", to: "/", icon: Home },
+	{ label: "About", to: "/about", icon: UserRound },
+	{ label: "Projects", to: "/projects", icon: FolderKanban },
+	{ label: "Certificates", to: "/certificates", icon: Award },
 ];
 
 /* Hysteresis thresholds to prevent flickering near the boundary */
@@ -69,7 +77,7 @@ export default function Header() {
 					: "border-b border-transparent bg-transparent shadow-none backdrop-blur-none"
 			}`}
 		>
-			<div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 min-h-16 md:min-h-18">
+			<div className="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-6 min-h-16 md:min-h-18 md:pt-0 pt-[env(safe-area-inset-top)]">
 				<Link
 					to="/"
 					aria-label="Vert home"
@@ -106,7 +114,7 @@ export default function Header() {
 						onClick={() => setMobileOpen(!mobileOpen)}
 						aria-label="Toggle menu"
 						aria-expanded={mobileOpen}
-						className="header-chip md:hidden p-2"
+						className="header-chip md:hidden p-2.5"
 					>
 						{mobileOpen ? (
 							<X className="size-4" />
@@ -117,39 +125,50 @@ export default function Header() {
 				</div>
 			</div>
 
-			<motion.div
-				animate={{
-					height: mobileOpen ? "auto" : 0,
-					opacity: mobileOpen ? 1 : 0,
-				}}
-				transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-				className={`md:hidden overflow-hidden ${
-					mobileOpen ? "border-t border-border/40" : ""
-				}`}
-			>
-				<nav className="flex flex-col px-4 py-3 gap-0.5 bg-background/95 backdrop-blur-xl">
-					{navItems.map((link) => (
-						<Link
-							key={link.label}
-							to={link.to}
-							onClick={() => setMobileOpen(false)}
-							className="header-chip header-chip-nav w-full px-3 py-2 text-sm font-medium"
-						>
-							{link.label}
-						</Link>
-					))}
-					<div className="border-t border-border/40 my-1 pt-2">
-						<Link
-							to="/login"
-							onClick={() => setMobileOpen(false)}
-							className="header-chip flex items-center gap-2 px-3 py-2 text-sm font-medium cursor-pointer"
-						>
-							<LogIn className="size-3.5" />
-							Login
-						</Link>
-					</div>
-				</nav>
-			</motion.div>
+			<AnimatePresence initial={false}>
+				{mobileOpen ? (
+					<motion.nav
+						key="mobile-nav"
+						aria-label="Mobile navigation"
+						initial={{ opacity: 0, y: -12 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: -12 }}
+						transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+						className="md:hidden overflow-hidden border-t border-border/40 bg-background/95 shadow-lg shadow-black/5 backdrop-blur-xl"
+					>
+						<div className="px-3 sm:px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+							<div className="space-y-1">
+								{navItems.map(({ label, to, icon: Icon }) => (
+									<Link
+										key={label}
+										to={to}
+										onClick={() => setMobileOpen(false)}
+										className="header-chip header-chip-nav flex w-full items-center gap-3 rounded-xl px-2.5 py-2.5 min-h-11 text-sm font-medium cursor-pointer"
+									>
+										<span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted/60 text-muted-foreground">
+											<Icon className="size-4" />
+										</span>
+										{label}
+									</Link>
+								))}
+							</div>
+
+							<div className="mt-2 border-t border-border/40 pt-2">
+								<Link
+									to="/login"
+									onClick={() => setMobileOpen(false)}
+									className="header-chip flex w-full items-center gap-3 rounded-xl px-2.5 py-2.5 min-h-11 text-sm font-medium cursor-pointer"
+								>
+									<span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted/60 text-muted-foreground">
+										<LogIn className="size-4" />
+									</span>
+									Login
+								</Link>
+							</div>
+						</div>
+					</motion.nav>
+				) : null}
+			</AnimatePresence>
 		</header>
 	);
 }

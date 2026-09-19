@@ -67,7 +67,7 @@ export default function ThemeToggle() {
 			onClick={toggleMode}
 			aria-label={labels[mode]}
 			title={labels[mode]}
-			className="header-chip relative p-2 active:scale-90"
+			className="header-chip relative p-2.5 active:scale-90"
 		>
 			<span className="block transition-transform duration-300 rotate-0 scale-100">
 				{icons[mode]}

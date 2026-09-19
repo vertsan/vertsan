@@ -339,6 +339,13 @@ code {
   }
 }
 
+/* Keep the immersive browser chrome colour in sync with the app on mobile */
+@media (max-width: 640px) {
+  html {
+    background-color: var(--background);
+  }
+}
+
 /* Better 3D/webgl canvas containment on small screens */
 @media (max-width: 480px) {
   canvas {
