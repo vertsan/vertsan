@@ -24,7 +24,21 @@ export const Route = createRootRoute({
 			},
 			{
 				name: "viewport",
-				content: "width=device-width, initial-scale=1",
+				content: "width=device-width, initial-scale=1, viewport-fit=cover",
+			},
+			{
+				name: "theme-color",
+				content: "#ffffff",
+				media: "(prefers-color-scheme: light)",
+			},
+			{
+				name: "theme-color",
+				content: "#0e0e0e",
+				media: "(prefers-color-scheme: dark)",
+			},
+			{
+				name: "color-scheme",
+				content: "light dark",
 			},
 			{
 				title: "vert",
@@ -120,7 +134,9 @@ export const Route = createRootRoute({
 			<h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-muted-foreground/30">
 				404
 			</h1>
-			<p className="text-base sm:text-lg text-muted-foreground">Page not found</p>
+			<p className="text-base sm:text-lg text-muted-foreground">
+				Page not found
+			</p>
 			<Link to="/" className="text-sm text-primary hover:underline">
 				Back to Home
 			</Link>
@@ -188,7 +204,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					}}
 				/>
 				{!isAdmin ? (
-					<div className="min-h-screen bg-card overflow-x-clip">
+					<div className="min-h-screen bg-card overflow-x-clip pb-[env(safe-area-inset-bottom)]">
 						<Header />
 						{children}
 						<Footer />

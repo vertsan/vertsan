@@ -1,5 +1,5 @@
-import { Github, Linkedin, Mail } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 const year = new Date().getFullYear();
 
@@ -12,7 +12,11 @@ const footerLinks = [
 
 const socialLinks = [
 	{ href: "https://github.com/vertsan", label: "GitHub", icon: Github },
-	{ href: "https://linkedin.com/in/vertsan", label: "LinkedIn", icon: Linkedin },
+	{
+		href: "https://linkedin.com/in/vertsan",
+		label: "LinkedIn",
+		icon: Linkedin,
+	},
 	{ href: "mailto:itsanvert@gmail.com", label: "Email", icon: Mail },
 ];
 
@@ -31,7 +35,7 @@ export default function Footer() {
 							Vert<span className="text-primary">.</span>
 						</Link>
 
-						<nav className="flex items-center gap-4">
+						<nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
 							{footerLinks.map((link) => (
 								<Link
 									key={link.label}
@@ -52,7 +56,7 @@ export default function Footer() {
 								href={href}
 								target={href.startsWith("mailto:") ? undefined : "_blank"}
 								rel="noreferrer"
-								className="flex size-8 items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+								className="flex size-9 sm:size-8 items-center justify-center rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
 								aria-label={label}
 							>
 								<Icon className="size-3.5" />

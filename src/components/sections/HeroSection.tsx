@@ -33,9 +33,16 @@ const socials = [
 ];
 
 export default function HeroSection() {
-	const { items: projects } = useLiveContent<HeroProject>("projects");
-	const { items: certificates } =
-		useLiveContent<Record<string, unknown>>("certificates");
+	const {
+		items: projects,
+		loading: projectsLoading,
+		error: projectsError,
+	} = useLiveContent<HeroProject>("projects");
+	const {
+		items: certificates,
+		loading: certificatesLoading,
+		error: certificatesError,
+	} = useLiveContent<Record<string, unknown>>("certificates");
 	const [reducedMotion, setReducedMotion] = useState(false);
 
 	useEffect(() => {
@@ -46,19 +53,38 @@ export default function HeroSection() {
 		return () => mq.removeEventListener("change", update);
 	}, []);
 
+	const resolveCount = (
+		count: number,
+		loading: boolean,
+		error: string | null,
+	): string | null => {
+		if (count > 0) return `${count}+`;
+		if (error) return "–";
+		if (loading) return null;
+		return `${count}+`;
+	};
+
 	const stats = [
 		{ icon: Sparkles, label: "Years of Experience", value: "2.5+" },
 		{
 			icon: FolderKanban,
 			label: "Projects Delivered",
-			value: `${projects.length}+`,
+			value: resolveCount(projects.length, projectsLoading, projectsError),
 		},
-		{ icon: Award, label: "Certifications", value: `${certificates.length}+` },
+		{
+			icon: Award,
+			label: "Certifications",
+			value: resolveCount(
+				certificates.length,
+				certificatesLoading,
+				certificatesError,
+			),
+		},
 	];
 
 	return (
 		<section className="relative w-full px-3 pt-3 sm:px-4 sm:pt-4">
-			<div className="relative flex h-[70svh] min-h-[480px] w-full flex-col overflow-hidden rounded-2xl bg-[#05070f] ring-1 ring-white/10 sm:rounded-3xl">
+			<div className="relative flex w-full flex-col overflow-hidden rounded-2xl bg-[#05070f] ring-1 ring-white/10 min-h-[520px] sm:h-[70svh] sm:min-h-[480px] sm:rounded-3xl">
 				<div aria-hidden className="absolute inset-0 z-0 overflow-hidden">
 					{reducedMotion ? (
 						<img
@@ -127,9 +153,9 @@ export default function HeroSection() {
 						</div>
 					</div>
 
-					<div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
-						<div className="flex w-full max-w-2xl flex-col items-start gap-6">
-							<h1 className="text-balance text-5xl font-light leading-[1.05] tracking-tight text-white sm:text-6xl md:text-7xl [text-shadow:0_2px_30px_rgba(0,0,0,0.65)]">
+					<div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+						<div className="flex w-full max-w-2xl flex-col items-start gap-5 sm:gap-6">
+							<h1 className="text-balance text-5xl font-light leading-[1.05] tracking-tight text-white max-[380px]:text-4xl sm:text-6xl md:text-7xl [text-shadow:0_2px_30px_rgba(0,0,0,0.65)]">
 								I'm{" "}
 								<AuroraText
 									className="font-bold"
@@ -193,9 +219,15 @@ export default function HeroSection() {
 											<Icon className="size-4" />
 										</div>
 										<div className="text-left leading-tight">
-											<p className="text-base font-semibold text-white tabular-nums [text-shadow:0_1px_10px_rgba(0,0,0,0.8)]">
-												{value}
-											</p>
+											{value === null ? (
+												<p className="text-base font-semibold text-white tabular-nums [text-shadow:0_1px_10px_rgba(0,0,0,0.8)]">
+													<span className="inline-block h-4 w-10 animate-pulse rounded-sm bg-white/20 align-middle" />
+												</p>
+											) : (
+												<p className="text-base font-semibold text-white tabular-nums [text-shadow:0_1px_10px_rgba(0,0,0,0.8)]">
+													{value}
+												</p>
+											)}
 											<p className="text-xs text-white/60">{label}</p>
 										</div>
 									</div>
