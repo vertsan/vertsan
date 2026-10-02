@@ -5,12 +5,13 @@ import {
 	useMotionValueEvent,
 	useScroll,
 } from "motion/react";
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { cn } from "#/lib/utils";
 
 interface NavbarProps {
 	children: React.ReactNode;
 	className?: string;
+	threshold?: number;
 }
 
 interface NavBodyProps {
@@ -19,13 +20,33 @@ interface NavBodyProps {
 	visible?: boolean;
 }
 
+interface NavItem {
+	name: string;
+	link: string;
+	icon?: React.ComponentType<{ className?: string }>;
+}
+
+/**
+ * `React.ElementType` collapses JSX children to `never`, so the accepted link
+ * component is constrained to the props we actually pass down.
+ */
+type NavLinkComponent = React.ElementType<{
+	to?: string;
+	href?: string;
+	className?: string;
+	onClick?: () => void;
+	onMouseEnter?: () => void;
+	onMouseLeave?: () => void;
+	"aria-current"?: "page" | undefined;
+	children?: React.ReactNode;
+}>;
+
 interface NavItemsProps {
-	items: {
-		name: string;
-		link: string;
-	}[];
+	items: NavItem[];
 	className?: string;
 	onItemClick?: () => void;
+	linkComponent?: NavLinkComponent;
+	activeLink?: string;
 }
 
 interface MobileNavProps {
@@ -46,129 +67,150 @@ interface MobileNavMenuProps {
 	onClose: () => void;
 }
 
-export const Navbar = ({ children, className }: NavbarProps) => {
-	const ref = useRef<HTMLDivElement>(null);
-	const { scrollY } = useScroll({
-		target: ref,
-		offset: ["start start", "end start"],
-	});
-	const [visible, setVisible] = useState<boolean>(false);
+/**
+ * Bar geometry transitions live in CSS (see `transition-[max-width,...]`) rather than
+ * motion values so the shrink never has to interpolate between mismatched units
+ * (`100%` -> `40%` collapses the bar on narrow viewports once content no longer fits).
+ */
+const BAR_TRANSITION =
+	"transition-[max-width,border-radius,background-color,border-color,box-shadow,backdrop-filter,padding] duration-[650ms] ease-[cubic-bezier(0.16,1,0.3,1)]";
+
+const NavbarVisibilityContext = React.createContext(false);
+
+function useNavbarVisible(visible?: boolean) {
+	const fromContext = useContext(NavbarVisibilityContext);
+	return visible ?? fromContext;
+}
+
+export const Navbar = ({
+	children,
+	className,
+	threshold = 100,
+}: NavbarProps) => {
+	const { scrollY } = useScroll();
+	const [visible, setVisible] = useState(false);
 
 	useMotionValueEvent(scrollY, "change", (latest) => {
-		if (latest > 100) {
-			setVisible(true);
-		} else {
-			setVisible(false);
-		}
+		const next = latest > threshold;
+		setVisible((prev) => (prev === next ? prev : next));
 	});
 
+	useEffect(() => {
+		setVisible(scrollY.get() > threshold);
+	}, [scrollY, threshold]);
+
 	return (
-		<motion.div
-			ref={ref}
-			// IMPORTANT: Change this to class of `fixed` if you want the navbar to be fixed
-			className={cn("sticky inset-x-0 top-20 z-40 w-full", className)}
-		>
-			{React.Children.map(children, (child) =>
-				React.isValidElement(child)
-					? React.cloneElement(
-							child as React.ReactElement<{ visible?: boolean }>,
-							{ visible },
-						)
-					: child,
-			)}
-		</motion.div>
+		<NavbarVisibilityContext.Provider value={visible}>
+			<motion.header
+				className={cn(
+					// IMPORTANT: override `top-*` and `z-*` via className to reposition.
+					"sticky inset-x-0 top-20 z-40 w-full",
+					className,
+				)}
+			>
+				{children}
+			</motion.header>
+		</NavbarVisibilityContext.Provider>
 	);
 };
 
 export const NavBody = ({ children, className, visible }: NavBodyProps) => {
+	const isVisible = useNavbarVisible(visible);
+
 	return (
-		<motion.div
-			animate={{
-				backdropFilter: visible ? "blur(10px)" : "none",
-				boxShadow: visible
-					? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
-					: "none",
-				width: visible ? "40%" : "100%",
-				y: visible ? 20 : 0,
-			}}
-			transition={{
-				type: "spring",
-				stiffness: 200,
-				damping: 50,
-			}}
-			style={{
-				minWidth: "800px",
-			}}
+		<div
+			data-scrolled={isVisible ? "true" : "false"}
 			className={cn(
-				"relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 lg:flex dark:bg-transparent",
-				visible && "bg-white/80 dark:bg-neutral-950/80",
+				"relative z-10 mx-auto hidden w-full self-start items-center justify-between px-4 py-2.5 lg:flex",
+				BAR_TRANSITION,
+				isVisible
+					? "max-w-[min(52rem,94vw)] rounded-2xl border border-border/60 bg-background/70 shadow-[0_10px_40px_-12px_rgb(0_0_0/0.28)] backdrop-blur-xl"
+					: "max-w-[92rem] rounded-full border border-transparent bg-transparent",
 				className,
 			)}
 		>
 			{children}
-		</motion.div>
+		</div>
 	);
 };
 
-export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
+export const NavItems = ({
+	items,
+	className,
+	onItemClick,
+	linkComponent: LinkComponent = "a",
+	activeLink,
+}: NavItemsProps) => {
 	const [hovered, setHovered] = useState<number | null>(null);
 
 	return (
-		<motion.div
-			onMouseLeave={() => setHovered(null)}
+		<div
 			className={cn(
-				"absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2",
+				"hidden min-w-0 flex-1 items-center justify-center gap-1 lg:flex",
 				className,
 			)}
 		>
-			{items.map((item, idx) => (
-				<a
-					onMouseEnter={() => setHovered(idx)}
-					onClick={onItemClick}
-					className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
-					key={`link-${idx}`}
-					href={item.link}
-				>
-					{hovered === idx && (
-						<motion.div
-							layoutId="hovered"
-							className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
-						/>
-					)}
-					<span className="relative z-20">{item.name}</span>
-				</a>
-			))}
-		</motion.div>
+			{items.map((item, idx) => {
+				const isActive = activeLink !== undefined && activeLink === item.link;
+				const Icon = item.icon;
+				const linkProps =
+					LinkComponent === "a" ? { href: item.link } : { to: item.link };
+
+				return (
+					<LinkComponent
+						key={item.link}
+						{...linkProps}
+						onMouseEnter={() => setHovered(idx)}
+						onMouseLeave={() => setHovered(null)}
+						onClick={onItemClick}
+						aria-current={isActive ? "page" : undefined}
+						className={cn(
+							"relative rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors duration-200",
+							isActive
+								? "text-foreground"
+								: "text-muted-foreground hover:text-foreground",
+						)}
+					>
+						{(isActive || hovered === idx) && (
+							<motion.span
+								layoutId={isActive ? "nav-active-pill" : "nav-hover-pill"}
+								transition={{ type: "spring", stiffness: 380, damping: 32 }}
+								className={cn(
+									"absolute inset-0 rounded-full",
+									isActive
+										? "bg-primary/10 ring-1 ring-primary/25"
+										: "bg-muted",
+								)}
+							/>
+						)}
+						<span className="relative z-20 inline-flex items-center gap-1.5">
+							{Icon ? <Icon className="size-3.5" /> : null}
+							{item.name}
+						</span>
+					</LinkComponent>
+				);
+			})}
+		</div>
 	);
 };
 
 export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
+	const isVisible = useNavbarVisible(visible);
+
 	return (
-		<motion.div
-			animate={{
-				backdropFilter: visible ? "blur(10px)" : "none",
-				boxShadow: visible
-					? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
-					: "none",
-				width: visible ? "90%" : "100%",
-				paddingRight: visible ? "12px" : "0px",
-				paddingLeft: visible ? "12px" : "0px",
-				borderRadius: visible ? "4px" : "2rem",
-				y: visible ? 20 : 0,
-			}}
-			transition={{
-				type: "spring",
-				stiffness: 200,
-				damping: 50,
-			}}
+		<div
+			data-scrolled={isVisible ? "true" : "false"}
 			className={cn(
-				"relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
-				visible && "bg-white/80 dark:bg-neutral-950/80",
+				"relative z-10 mx-auto flex w-full flex-col items-center justify-between px-3 py-2 lg:hidden",
+				BAR_TRANSITION,
+				isVisible
+					? "max-w-[min(40rem,94vw)] rounded-2xl border border-border/60 bg-background/80 shadow-[0_10px_40px_-12px_rgb(0_0_0/0.28)] backdrop-blur-xl"
+					: "max-w-[calc(100vw-1.5rem)] rounded-3xl border border-transparent bg-transparent",
 				className,
 			)}
 		>
 			{children}
-		</motion.div>
+		</div>
 	);
 };
 
@@ -194,15 +236,25 @@ export const MobileNavMenu = ({
 	isOpen,
 	onClose,
 }: MobileNavMenuProps) => {
+	useEffect(() => {
+		if (!isOpen) return;
+		const onKeyDown = (event: KeyboardEvent) => {
+			if (event.key === "Escape") onClose();
+		};
+		window.addEventListener("keydown", onKeyDown);
+		return () => window.removeEventListener("keydown", onKeyDown);
+	}, [isOpen, onClose]);
+
 	return (
 		<AnimatePresence>
 			{isOpen && (
 				<motion.div
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
+					initial={{ opacity: 0, y: -12, scale: 0.98 }}
+					animate={{ opacity: 1, y: 0, scale: 1 }}
+					exit={{ opacity: 0, y: -12, scale: 0.98 }}
+					transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
 					className={cn(
-						"absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] dark:bg-neutral-950",
+						"absolute inset-x-0 top-full z-50 mt-2 flex w-full flex-col items-start justify-start gap-1 rounded-2xl border border-border/60 bg-background/95 p-3 shadow-[0_24px_60px_-20px_rgb(0_0_0/0.35)] backdrop-blur-xl",
 						className,
 					)}
 				>
@@ -216,22 +268,42 @@ export const MobileNavMenu = ({
 export const MobileNavToggle = ({
 	isOpen,
 	onClick,
+	className,
 }: {
 	isOpen: boolean;
 	onClick: () => void;
+	className?: string;
 }) => {
-	return isOpen ? (
-		<IconX className="text-black dark:text-white" onClick={onClick} />
-	) : (
-		<IconMenu2 className="text-black dark:text-white" onClick={onClick} />
+	return (
+		<button
+			type="button"
+			onClick={onClick}
+			aria-expanded={isOpen}
+			aria-label={isOpen ? "Close menu" : "Open menu"}
+			className={cn(
+				"inline-flex size-9 shrink-0 items-center justify-center rounded-full text-foreground transition-colors duration-200 hover:bg-muted",
+				className,
+			)}
+		>
+			{isOpen ? <IconX className="size-4" /> : <IconMenu2 className="size-4" />}
+		</button>
 	);
 };
 
-export const NavbarLogo = () => {
+export const NavbarLogo = ({
+	className,
+	href = "/",
+}: {
+	className?: string;
+	href?: string;
+}) => {
 	return (
 		<a
-			href="#"
-			className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
+			href={href}
+			className={cn(
+				"relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black dark:text-white",
+				className,
+			)}
 		>
 			<img
 				src="https://assets.aceternity.com/logo-dark.png"
@@ -239,7 +311,7 @@ export const NavbarLogo = () => {
 				width={30}
 				height={30}
 			/>
-			<span className="font-medium text-black dark:text-white">Startup</span>
+			<span className="font-medium">Startup</span>
 		</a>
 	);
 };
@@ -253,7 +325,7 @@ export const NavbarButton = ({
 	...props
 }: {
 	href?: string;
-	as?: React.ElementType;
+	as?: "a" | "button";
 	children: React.ReactNode;
 	className?: string;
 	variant?: "primary" | "secondary" | "dark" | "gradient";
@@ -262,24 +334,27 @@ export const NavbarButton = ({
 	| React.ComponentPropsWithoutRef<"button">
 )) => {
 	const baseStyles =
-		"px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
+		"relative inline-block cursor-pointer rounded-full px-4 py-2 text-center text-sm font-bold transition duration-200 hover:-translate-y-0.5";
 
 	const variantStyles = {
-		primary:
-			"shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]",
-		secondary: "bg-transparent shadow-none dark:text-white",
-		dark: "bg-black text-white shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]",
-		gradient:
-			"bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
+		primary: "bg-primary text-primary-foreground shadow-lg shadow-primary/20",
+		secondary: "bg-transparent text-foreground shadow-none",
+		dark: "bg-foreground text-background",
+		gradient: "bg-gradient-to-b from-blue-500 to-blue-700 text-white",
 	};
 
+	const Comp = Tag as React.ElementType<
+		React.ComponentPropsWithoutRef<"a"> &
+			React.ComponentPropsWithoutRef<"button">
+	>;
+
 	return (
-		<Tag
+		<Comp
 			href={href || undefined}
 			className={cn(baseStyles, variantStyles[variant], className)}
 			{...props}
 		>
 			{children}
-		</Tag>
+		</Comp>
 	);
 };
