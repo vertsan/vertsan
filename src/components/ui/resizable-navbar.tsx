@@ -212,11 +212,9 @@ function useScrolledPast(threshold: number): boolean {
 	return scrolled;
 }
 
-const NavbarVisibilityContext = React.createContext(false);
-
 function useNavbarVisible(visible?: boolean) {
-	const fromContext = useContext(NavbarVisibilityContext);
-	return visible ?? fromContext;
+	const { scrolled } = useNavbarState();
+	return visible ?? scrolled;
 }
 
 export const Navbar = ({
@@ -321,7 +319,7 @@ export const NavItems = ({
 						{isActive && (
 							<motion.span
 								layoutId="nav-active-pill"
-								transition={{ type: "spring", stiffness: 380, damping: 32 }}
+								transition={PILL_TRANSITION}
 								className="absolute inset-0 rounded-full bg-primary/10 ring-1 ring-primary/25"
 							/>
 						)}
@@ -344,15 +342,20 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
 		<div
 			data-scrolled={isVisible ? "true" : "false"}
 			className={cn(
-				"relative z-10 mx-auto flex w-full flex-col items-center justify-between px-3 py-2 lg:hidden",
+				"relative z-10 isolate mx-auto flex w-full flex-col items-center justify-between px-3 py-2 lg:hidden [contain:layout_style]",
 				BAR_GEOMETRY,
-				reducedMotion ? BAR_DURATION_STATIC : BAR_DURATION,
+				reducedMotion ? "duration-0" : BAR_DURATION,
 				isVisible
-					? "max-w-[min(40rem,94vw)] rounded-2xl border border-border/60 bg-background/80 shadow-[0_8px_28px_-14px_rgb(0_0_0/0.32)] backdrop-blur-md"
-					: "max-w-[calc(100vw-1.5rem)] rounded-3xl border border-transparent bg-transparent",
+					? "max-w-[min(40rem,94vw)]"
+					: "max-w-[calc(100vw-1.5rem)]",
 				className,
 			)}
 		>
+			<BarSurface
+				scrolled={isVisible}
+				variant="mobile"
+				reducedMotion={reducedMotion}
+			/>
 			{children}
 		</div>
 	);
