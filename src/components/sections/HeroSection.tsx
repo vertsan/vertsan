@@ -10,7 +10,6 @@ import {
 	Sparkles,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { AuroraText } from "#/components/ui/aurora-text";
 import { useLiveContent } from "#/lib/useLiveContent";
 import { cn } from "#/lib/utils";
 import { AnimatedGradientText } from "#/registry/magicui/animated-gradient-text";
@@ -157,13 +156,9 @@ export default function HeroSection() {
 						<div className="flex w-full max-w-2xl flex-col items-start gap-5 sm:gap-6">
 							<h1 className="text-balance text-5xl font-light leading-[1.05] tracking-tight text-white max-[380px]:text-4xl sm:text-6xl md:text-7xl [text-shadow:0_2px_30px_rgba(0,0,0,0.65)]">
 								I'm{" "}
-								<AuroraText
-									className="font-bold"
-									colors={["#4ade80", "#38bdf8", "#a78bfa", "#fbbf24"]}
-								>
-									Vert San
-								</AuroraText>
+								Vert San
 							</h1>
+							
 
 							<p className="max-w-xl text-balance text-sm leading-relaxed text-white/70 sm:text-base md:text-lg [text-shadow:0_1px_14px_rgba(0,0,0,0.85)]">
 								I build accessible, scalable, secure web and mobile

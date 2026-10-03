@@ -1,6 +1,12 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { Award, FolderKanban, Home, LogIn, UserRound } from "lucide-react";
-import { useEffect, useState } from "react";
+import {
+	startTransition,
+	useCallback,
+	useEffect,
+	useRef,
+	useState,
+} from "react";
 
 import {
 	MobileNav,
@@ -21,6 +27,8 @@ const navItems = [
 	{ name: "Certificates", link: "/certificates", icon: Award },
 ];
 
+const MENU_OPEN_CLASS = "data-menu-open";
+
 function resolveActiveLink(pathname: string): string | undefined {
 	return navItems.find((item) => {
 		if (item.link === "/") return pathname === "/";
@@ -28,16 +36,40 @@ function resolveActiveLink(pathname: string): string | undefined {
 	})?.link;
 }
 
+/**
+ * Locks page scrolling behind the mobile menu.
+ *
+ * A class on `<html>` (not an inline `body.style.overflow`) lets `overflow: clip`
+ * apply without creating a new scroll container, so the scroll position survives
+ * the toggle. `scrollbar-gutter: stable` keeps the gutter reserved, so locking
+ * does not reflow the page sideways.
+ */
+function useScrollLock(locked: boolean) {
+	useEffect(() => {
+		const root = document.documentElement;
+		root.classList.toggle(MENU_OPEN_CLASS, locked);
+		return () => root.classList.remove(MENU_OPEN_CLASS);
+	}, [locked]);
+}
+
 export default function Header() {
 	const { pathname } = useLocation();
 	const [mobileOpen, setMobileOpen] = useState(false);
 
+	useScrollLock(mobileOpen);
+
+	const closeMenu = useCallback(() => setMobileOpen(false), []);
+	const toggleMenu = useCallback(() => setMobileOpen((prev) => !prev), []);
+
+	// Covers navigation the menu links did not initiate: browser back/forward,
+	// a redirect, or a programmatic `router.navigate`. Without this the menu
+	// stays open over the page it just navigated to.
+	const lastPathRef = useRef(pathname);
 	useEffect(() => {
-		document.body.style.overflow = mobileOpen ? "hidden" : "";
-		return () => {
-			document.body.style.overflow = "";
-		};
-	}, [mobileOpen]);
+		if (lastPathRef.current === pathname) return;
+		lastPathRef.current = pathname;
+		startTransition(closeMenu);
+	}, [pathname, closeMenu]);
 
 	const activeLink = resolveActiveLink(pathname);
 	const logoClass =
@@ -82,15 +114,12 @@ export default function Header() {
 					>
 						Vert<span className="text-primary">.</span>
 					</Link>
-					<MobileNavToggle
-						isOpen={mobileOpen}
-						onClick={() => setMobileOpen((prev) => !prev)}
-					/>
+					<MobileNavToggle isOpen={mobileOpen} onClick={toggleMenu} />
 				</MobileNavHeader>
 
 				<MobileNavMenu
 					isOpen={mobileOpen}
-					onClose={() => setMobileOpen(false)}
+					onClose={closeMenu}
 					className="gap-1"
 				>
 					{navItems.map(({ name, link, icon: Icon }) => {
@@ -99,7 +128,7 @@ export default function Header() {
 							<Link
 								key={link}
 								to={link}
-								onClick={() => setMobileOpen(false)}
+								onClick={closeMenu}
 								aria-current={isActive ? "page" : undefined}
 								className={`header-chip header-chip-nav flex min-h-11 w-full items-center gap-3 rounded-xl px-2.5 py-2.5 text-sm font-medium cursor-pointer ${
 									isActive ? "bg-accent/70 text-foreground" : ""
@@ -116,7 +145,7 @@ export default function Header() {
 					<div className="mt-1 w-full border-t border-border/40 pt-1">
 						<Link
 							to="/login"
-							onClick={() => setMobileOpen(false)}
+							onClick={closeMenu}
 							className="header-chip header-chip-nav flex min-h-11 w-full items-center gap-3 rounded-xl px-2.5 py-2.5 text-sm font-medium cursor-pointer"
 						>
 							<span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted/60 text-muted-foreground">

@@ -1,27 +1,210 @@
-# Hi 👋, I'm Vert San
+# Vert San - Portfolio
 
-### A Software Engineer
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://vertsan.netlify.app)
+[![Netlify Status](https://img.shields.io/badge/deployed%20on-Netlify-blue)](https://vertsan.netlify.app)
+[![Built with TanStack Start](https://img.shields.io/badge/built%20with-TanStack%20Start-orange)](https://tanstack.com/start)
 
-<p align="left">
-  <img src="https://komarev.com/ghpvc/?username=vertsan&label=Profile%20Views&color=0e75b6&style=flat" alt="vertsan" />
-</p>
-- 🔭 I'm currently working on **a Software Engineer** at **J Trust Royal Bank**
+A modern, full-stack personal portfolio showcasing projects, experience, education, certifications, and testimonials. Built with performance, accessibility, and developer experience in mind.
 
-- 🌱 I'm currently learning **Typescript and .Net Framework**
+## 🚀 Live Demo
 
-- 📫 How to reach me **itsanvert@gmail.com**
+**[https://vertsan.netlify.app](https://vertsan.netlify.app)**
 
-- ⚡ Fun fact **I like to sleepy boy**
+## ✨ Features
 
-- 👨‍💻 All of my projects are available at **[portfolio](https://vertsan.netlify.app)**
+- **Interactive Hero Section** - Immersive 3D/animated background with smooth animations
+- **Project Showcase** - Dynamic project portfolio with detailed project pages, tags, and external links (live demo, GitHub, app downloads)
+- **Experience Timeline** - Professional work history with detailed role descriptions
+- **Education & Certifications** - Academic background and professional certifications
+- **Testimonials** - OAuth-authenticated testimonial system with GitHub/Discord providers
+- **Admin Dashboard** - Protected admin panel for managing portfolio content (jobs, projects, education, certificates, technologies)
+- **AI Resume Assistant** - Interactive chatbot powered by TanStack AI to answer questions about the resume
+- **Live Presence** - Discord presence integration via Lanyard API
+- **Theme System** - Dark/light/auto theme with SSR-safe hydration
+- **Responsive Design** - Fully responsive across desktop, tablet, and mobile
+- **Performance Optimized** - Code splitting, lazy loading, optimized assets, and aggressive caching
+- **3D Visual Effects** - Custom Three.js components (Strands, DotGrid, etc.)
 
+## 🏗️ Architecture
 
-<h3 align="left">Connect with me:</h3>
-<p align="left">
-<a href="https://github.com/vertsan" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="vertsan" height="30" width="40" /></a>
-<a href="https://linkedin.com/in/vertsan" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="vertsan" height="30" width="40" /></a>
-</p>
+This portfolio is built with **TanStack Start**, a full-stack React meta-framework. It follows a type-safe, server-first architecture with file-based routing.
 
-<h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://developer.mozilla.org/en-US/docs/Web/aws" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=aws" alt="aws" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/azure" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=azure" alt="azure" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/bootstrap" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=bootstrap" alt="bootstrap" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/canvasjs" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="canvasjs" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/chartjs" target="_blank" rel="noreferrer"> <img src="https://cdn.simpleicons.org/chartdotjs/FF6384" alt="chartjs" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/csharp" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=cs" alt="csharp" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/css3" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=css" alt="css3" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/d3js" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=d3" alt="d3js" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/django" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=django" alt="django" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/docker" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=docker" alt="docker" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/dotnet" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=dotnet" alt="dotnet" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/express" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=express" alt="express" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/fastapi" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=fastapi" alt="fastapi" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/figma" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=figma" alt="figma" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/firebase" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=firebase" alt="firebase" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/flutter" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=flutter" alt="flutter" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/git" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=git" alt="git" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/go" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=go" alt="go" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/graphql" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=graphql" alt="graphql" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/heroku" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=heroku" alt="heroku" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/html5" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=html" alt="html5" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/java" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=java" alt="java" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/javascript" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=js" alt="javascript" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/jenkins" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=jenkins" alt="jenkins" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/jest" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=jest" alt="jest" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/kafka" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=kafka" alt="kafka" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/kotlin" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=kotlin" alt="kotlin" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/kubernetes" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=kubernetes" alt="kubernetes" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/laravel" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=laravel" alt="laravel" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/mariadb" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original-wordmark.svg" alt="mariadb" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/mongodb" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=mongodb" alt="mongodb" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/mssql" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="mssql" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/mysql" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=mysql" alt="mysql" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/nestjs" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=nestjs" alt="nestjs" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/nginx" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=nginx" alt="nginx" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/nodejs" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=nodejs" alt="nodejs" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/ollama" target="_blank" rel="noreferrer"> <img src="https://cdn.simpleicons.org/ollama" alt="ollama" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/oracle" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="oracle" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/php" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=php" alt="php" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/postgresql" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=postgres" alt="postgresql" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/postman" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=postman" alt="postman" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/python" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=py" alt="python" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/pytorch" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=pytorch" alt="pytorch" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/react" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=react" alt="react" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/redis" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=redis" alt="redis" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/redux" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=redux" alt="redux" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/seaborn" target="_blank" rel="noreferrer"> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="seaborn" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/selenium" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=selenium" alt="selenium" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/spring" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=spring" alt="spring" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/sqlite" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=sqlite" alt="sqlite" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/swift" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=swift" alt="swift" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/tailwind" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=tailwind" alt="tailwind" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/tensorflow" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=tensorflow" alt="tensorflow" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/typescript" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=ts" alt="typescript" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/vuejs" target="_blank" rel="noreferrer"> <img src="https://skillicons.dev/icons?i=vue" alt="vuejs" width="40" height="40"/> </a></p>
+### Tech Stack
 
+| Category | Technologies |
+|---|---|
+| **Framework** | [TanStack Start](https://tanstack.com/start), [React 19](https://react.dev/), [TypeScript](https://www.typescriptlang.org/) |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) (via registry), [Lucide React](https://lucide.dev/), [Motion](https://motion.dev/) |
+| **3D Graphics** | [Three.js](https://threejs.org/), [React Three Fiber](https://r3f.docs.pmnd.rs/), [React Three Drei](https://github.com/pmndrs/drei), [React Three Rapier](https://github.com/pmndrs/react-three-rapier), [Meshline](https://github.com/pmndrs/meshline) |
+| **Routing** | [TanStack Router](https://tanstack.com/router) (file-based, type-safe) |
+| **Database** | [PostgreSQL](https://www.postgresql.org/) (Neon), [Drizzle ORM](https://orm.drizzle.team/) |
+| **Authentication** | OAuth (GitHub, Discord) with custom session tokens |
+| **AI Integration** | [TanStack AI](https://tanstack.com/ai) (supports OpenAI, Anthropic, Gemini, Ollama) |
+| **Data Fetching** | TanStack Router SSR + custom services/repositories |
+| **Build Tool** | [Vite](https://vitejs.dev/) |
+| **Deployment** | [Netlify](https://www.netlify.com/) |
+| **Linting/Formatting** | [Biome](https://biomejs.dev/) |
+| **Testing** | [Vitest](https://vitest.dev/), [React Testing Library](https://testing-library.com/react) |
+
+### Directory Structure
+
+```text
+vertsan/
+├── public/              # Static assets (images, videos, resume, fonts, etc.)
+├── src/
+│   ├── components/      # React components
+│   │   ├── admin/       # Admin dashboard components
+│   │   ├── sections/    # Page section components (Hero, WhatICanDo, Testimonials, etc.)
+│   │   ├── ui/          # shadcn/ui components
+│   │   └── Lanyard/     # Discord presence components
+│   ├── db/              # Database schema, client, and migrations
+│   │   └── schema.ts    # Drizzle ORM schema definitions
+│   ├── hooks/           # Custom React hooks
+│   ├── lib/             # Utility functions, helpers, and configurations
+│   ├── registry/        # shadcn/ui component registry
+│   ├── repositories/    # Data access layer (abstraction over services)
+│   ├── routes/          # TanStack Router file-based routes
+│   │   ├── __root.tsx   # Root layout with meta tags, theme, devtools
+│   │   ├── index.tsx    # Home page
+│   │   ├── projects.*   # Projects routes (list + detail)
+│   │   ├── admin.*      # Protected admin routes
+│   │   ├── api.*        # API route handlers (server functions)
+│   │   └── *.tsx        # Other pages
+│   ├── services/        # Business logic layer
+│   ├── styles.css       # Global styles (Tailwind v4)
+│   ├── router.tsx       # Router configuration
+│   └── routeTree.gen.ts # Auto-generated route tree
+├── drizzle/             # Drizzle migrations
+├── netlify.toml         # Netlify config
+├── package.json         # Dependencies and scripts
+├── vite.config.ts       # Vite configuration
+└── biome.json           # Biome config
+```
+
+### Data Flow
+
+1. **Server Routes** (`src/routes/api.*`) handle API requests using TanStack Start's server handlers
+2. **Services** (`src/services/*.service.ts`) contain business logic and validation
+3. **Repositories** (`src/repositories/*.ts`) provide a clean data access abstraction
+4. **Database** - Drizzle ORM queries PostgreSQL (Neon DB)
+5. **Frontend** - TanStack Router with SSR fetches data on the server when possible, falling back to client-side fetching
+
+### Key Features Implementation
+
+- **Theme Management** - SSR-safe theme initialization via inline script in root layout, persisted in localStorage with light/dark/auto modes
+- **Admin Auth** - Password-based login with cookie-based sessions; OAuth flow for testimonials
+- **Testimonials** - GitHub/Discord OAuth integration to allow visitors to leave authenticated testimonials
+- **Presence** - Real-time Discord status via [Lanyard API](https://api.lanyard.rest/)
+- **Caching** - In-memory cache in public API routes (60s TTL) with appropriate HTTP cache headers
+- **Code Splitting** - Lazy-loaded route sections for optimal bundle size
+- **3D Effects** - Custom components with Three.js, optimized with proper cleanup and reduced motion support
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v20+ recommended)
+- [pnpm](https://pnpm.io/) (v11+)
+- PostgreSQL database (e.g., [Neon](https://neon.tech/))
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/vertsan/vertsan.git
+   cd vertsan
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Set up environment variables**
+
+   Create a `.env` file in the root directory:
+
+   ```env
+   # Database
+   DATABASE_URL=postgresql://username:password@host:port/database
+
+   # Admin Authentication
+   ADMIN_SECRET=your-secure-admin-secret
+
+   # OAuth (for testimonials)
+   GITHUB_CLIENT_ID=your-github-client-id
+   GITHUB_CLIENT_SECRET=your-github-client-secret
+   DISCORD_CLIENT_ID=your-discord-client-id
+   DISCORD_CLIENT_SECRET=your-discord-client-secret
+   OAUTH_REDIRECT_URI=http://localhost:3000/api/auth
+
+   # AI Resume Assistant (optional)
+   OPENAI_API_KEY=your-openai-api-key
+   ANTHROPIC_API_KEY=your-anthropic-api-key
+   GEMINI_API_KEY=your-gemini-api-key
+
+   # Cloudinary (for image uploads, optional)
+   CLOUDINARY_CLOUD_NAME=your-cloud-name
+   CLOUDINARY_API_KEY=your-api-key
+   CLOUDINARY_API_SECRET=your-api-secret
+   ```
+
+4. **Set up the database**
+
+   ```bash
+   pnpm db:generate
+   pnpm db:migrate
+   # or pnpm db:push
+   pnpm seed  # optional
+   ```
+
+5. **Start the development server**
+
+   ```bash
+   pnpm dev
+   ```
+
+   App available at [http://localhost:3000](http://localhost:3000).
+
+## 📜 Available Scripts
+
+| Script | Description |
+|---|---|
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build for production |
+| `pnpm preview` | Preview production build |
+| `pnpm test` | Run tests |
+| `pnpm lint` | Lint code |
+| `pnpm format` | Format code |
+| `pnpm check` | Lint + format |
+| `pnpm db:generate` | Generate migrations |
+| `pnpm db:migrate` | Apply migrations |
+| `pnpm db:push` | Push schema |
+| `pnpm seed` | Seed database |
+
+## 🚢 Deployment
+
+Configured for Netlify with `netlify.toml` (build: `vite build`, publish: `dist/client`). Set environment variables in the Netlify dashboard and deploy on push to `main`.
+
+## 🔐 Admin Panel
+
+Admin dashboard at `/admin` for managing projects, jobs, education, certificates, and technologies.
+
+## 🧪 Testing
+
+```bash
+pnpm test
+```
+
+## 📬 Contact
+
+- **Website**: [https://vertsan.netlify.app](https://vertsan.netlify.app)
+- **Email**: [itsanvert@gmail.com](mailto:itsanvert@gmail.com)
+- **LinkedIn**: [https://linkedin.com/in/vertsan](https://linkedin.com/in/vertsan)
+- **GitHub**: [https://github.com/vertsan](https://github.com/vertsan)
+
+---
+
+Built by Vert San

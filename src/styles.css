@@ -8,6 +8,23 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  /* Reserve the scrollbar gutter permanently so locking scroll behind the
+     mobile menu never reflows the page sideways. */
+  scrollbar-gutter: stable;
+}
+
+/* Scroll lock for the mobile menu. `clip` keeps the viewport as the scroll
+   container (no new scrollport, no scroll-position reset on unlock) while still
+   blocking panning. `overflow: hidden` is the fallback for older engines. */
+html[data-menu-open] {
+  overflow: hidden;
+  overflow: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
