@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { getRequestCountry } from "#/lib/geo";
 import { createVisitorService } from "#/services/visitor.service";
 
 const MAX_SESSION_LENGTH = 128;
@@ -36,6 +37,7 @@ export const Route = createFileRoute("/api/presence")({
 						sessionId,
 						event: kind,
 						name: cleanName,
+						country: getRequestCountry(request),
 					});
 
 					return Response.json({
