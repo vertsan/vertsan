@@ -138,3 +138,16 @@ export const siteStats = pgTable("site_stats", {
 	totalViews: integer("total_views").notNull().default(0),
 	updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
+
+export const visitorCountries = pgTable(
+	"visitor_countries",
+	{
+		id: serial("id").primaryKey(),
+		countryCode: text("country_code").notNull(),
+		countryName: text("country_name").notNull(),
+		visitors: integer("visitors").notNull().default(0),
+		views: integer("views").notNull().default(0),
+		lastSeenAt: timestamp("last_seen_at").notNull().defaultNow(),
+	},
+	(table) => [uniqueIndex("visitor_country_code_idx").on(table.countryCode)],
+);

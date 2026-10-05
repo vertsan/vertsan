@@ -9,81 +9,43 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as CertificatesRouteImport } from './routes/certificates'
-import { Route as EducationRouteImport } from './routes/education'
-import { Route as ExperienceRouteImport } from './routes/experience'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as NavbarDemoRouteImport } from './routes/navbar-demo'
-import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as VisitorsRouteImport } from './routes/visitors'
 import { Route as TechnologiesRouteImport } from './routes/technologies'
-import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as AdminCertificatesRouteImport } from './routes/admin.certificates'
-import { Route as AdminEducationRouteImport } from './routes/admin.education'
-import { Route as AdminJobsRouteImport } from './routes/admin.jobs'
-import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
-import { Route as AdminTechnologiesRouteImport } from './routes/admin.technologies'
-import { Route as ApiAdminRouteImport } from './routes/api.admin'
-import { Route as ApiDownloadRouteImport } from './routes/api.download'
-import { Route as ApiPresenceRouteImport } from './routes/api.presence'
-import { Route as ApiPublicRouteImport } from './routes/api.public'
-import { Route as ApiResumeChatRouteImport } from './routes/api.resume-chat'
-import { Route as ApiTestimonialsRouteImport } from './routes/api.testimonials'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as NavbarDemoRouteImport } from './routes/navbar-demo'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ExperienceRouteImport } from './routes/experience'
+import { Route as EducationRouteImport } from './routes/education'
+import { Route as CertificatesRouteImport } from './routes/certificates'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
-import { Route as ApiAdminLoginRouteImport } from './routes/api.admin.login'
-import { Route as ApiAdminUploadRouteImport } from './routes/api.admin.upload'
-import { Route as ApiAdminUploadSignatureRouteImport } from './routes/api.admin.upload-signature'
-import { Route as ApiAuthProviderRouteImport } from './routes/api.auth.$provider'
-import { Route as ApiAuthCheckRouteImport } from './routes/api.auth.check'
+import { Route as ApiVisitorCountriesRouteImport } from './routes/api.visitor-countries'
+import { Route as ApiTestimonialsRouteImport } from './routes/api.testimonials'
+import { Route as ApiResumeChatRouteImport } from './routes/api.resume-chat'
+import { Route as ApiPublicRouteImport } from './routes/api.public'
+import { Route as ApiPresenceRouteImport } from './routes/api.presence'
+import { Route as ApiDownloadRouteImport } from './routes/api.download'
+import { Route as ApiAdminRouteImport } from './routes/api.admin'
+import { Route as AdminTechnologiesRouteImport } from './routes/admin.technologies'
+import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
+import { Route as AdminJobsRouteImport } from './routes/admin.jobs'
+import { Route as AdminEducationRouteImport } from './routes/admin.education'
+import { Route as AdminCertificatesRouteImport } from './routes/admin.certificates'
 import { Route as ApiAuthLogoutRouteImport } from './routes/api.auth.logout'
+import { Route as ApiAuthCheckRouteImport } from './routes/api.auth.check'
+import { Route as ApiAuthProviderRouteImport } from './routes/api.auth.$provider'
+import { Route as ApiAdminUploadSignatureRouteImport } from './routes/api.admin.upload-signature'
+import { Route as ApiAdminUploadRouteImport } from './routes/api.admin.upload'
+import { Route as ApiAdminLoginRouteImport } from './routes/api.admin.login'
 import { Route as ApiAuthProviderCallbackRouteImport } from './routes/api.auth.$provider.callback'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CertificatesRoute = CertificatesRouteImport.update({
-  id: '/certificates',
-  path: '/certificates',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EducationRoute = EducationRouteImport.update({
-  id: '/education',
-  path: '/education',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ExperienceRoute = ExperienceRouteImport.update({
-  id: '/experience',
-  path: '/experience',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NavbarDemoRoute = NavbarDemoRouteImport.update({
-  id: '/navbar-demo',
-  path: '/navbar-demo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
+const VisitorsRoute = VisitorsRouteImport.update({
+  id: '/visitors',
+  path: '/visitors',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TechnologiesRoute = TechnologiesRouteImport.update({
@@ -91,64 +53,49 @@ const TechnologiesRoute = TechnologiesRouteImport.update({
   path: '/technologies',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminCertificatesRoute = AdminCertificatesRouteImport.update({
-  id: '/certificates',
-  path: '/certificates',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminEducationRoute = AdminEducationRouteImport.update({
-  id: '/education',
-  path: '/education',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminJobsRoute = AdminJobsRouteImport.update({
-  id: '/jobs',
-  path: '/jobs',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminProjectsRoute = AdminProjectsRouteImport.update({
+const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
-  getParentRoute: () => AdminRoute,
-} as any)
-const AdminTechnologiesRoute = AdminTechnologiesRouteImport.update({
-  id: '/technologies',
-  path: '/technologies',
-  getParentRoute: () => AdminRoute,
-} as any)
-const ApiAdminRoute = ApiAdminRouteImport.update({
-  id: '/api/admin',
-  path: '/api/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiDownloadRoute = ApiDownloadRouteImport.update({
-  id: '/api/download',
-  path: '/api/download',
+const NavbarDemoRoute = NavbarDemoRouteImport.update({
+  id: '/navbar-demo',
+  path: '/navbar-demo',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPresenceRoute = ApiPresenceRouteImport.update({
-  id: '/api/presence',
-  path: '/api/presence',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicRoute = ApiPublicRouteImport.update({
-  id: '/api/public',
-  path: '/api/public',
+const ExperienceRoute = ExperienceRouteImport.update({
+  id: '/experience',
+  path: '/experience',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiResumeChatRoute = ApiResumeChatRouteImport.update({
-  id: '/api/resume-chat',
-  path: '/api/resume-chat',
+const EducationRoute = EducationRouteImport.update({
+  id: '/education',
+  path: '/education',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiTestimonialsRoute = ApiTestimonialsRouteImport.update({
-  id: '/api/testimonials',
-  path: '/api/testimonials',
+const CertificatesRoute = CertificatesRouteImport.update({
+  id: '/certificates',
+  path: '/certificates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
@@ -156,29 +103,79 @@ const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProjectsRoute,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
 const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
   id: '/$projectId',
   path: '/$projectId',
   getParentRoute: () => ProjectsRoute,
 } as any)
-const ApiAdminLoginRoute = ApiAdminLoginRouteImport.update({
-  id: '/login',
-  path: '/login',
-  getParentRoute: () => ApiAdminRoute,
+const ApiVisitorCountriesRoute = ApiVisitorCountriesRouteImport.update({
+  id: '/api/visitor-countries',
+  path: '/api/visitor-countries',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ApiAdminUploadRoute = ApiAdminUploadRouteImport.update({
-  id: '/upload',
-  path: '/upload',
-  getParentRoute: () => ApiAdminRoute,
+const ApiTestimonialsRoute = ApiTestimonialsRouteImport.update({
+  id: '/api/testimonials',
+  path: '/api/testimonials',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ApiAdminUploadSignatureRoute = ApiAdminUploadSignatureRouteImport.update({
-  id: '/upload-signature',
-  path: '/upload-signature',
-  getParentRoute: () => ApiAdminRoute,
+const ApiResumeChatRoute = ApiResumeChatRouteImport.update({
+  id: '/api/resume-chat',
+  path: '/api/resume-chat',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ApiAuthProviderRoute = ApiAuthProviderRouteImport.update({
-  id: '/api/auth/$provider',
-  path: '/api/auth/$provider',
+const ApiPublicRoute = ApiPublicRouteImport.update({
+  id: '/api/public',
+  path: '/api/public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPresenceRoute = ApiPresenceRouteImport.update({
+  id: '/api/presence',
+  path: '/api/presence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDownloadRoute = ApiDownloadRouteImport.update({
+  id: '/api/download',
+  path: '/api/download',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminRoute = ApiAdminRouteImport.update({
+  id: '/api/admin',
+  path: '/api/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminTechnologiesRoute = AdminTechnologiesRouteImport.update({
+  id: '/technologies',
+  path: '/technologies',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProjectsRoute = AdminProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminJobsRoute = AdminJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEducationRoute = AdminEducationRouteImport.update({
+  id: '/education',
+  path: '/education',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCertificatesRoute = AdminCertificatesRouteImport.update({
+  id: '/certificates',
+  path: '/certificates',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ApiAuthLogoutRoute = ApiAuthLogoutRouteImport.update({
+  id: '/api/auth/logout',
+  path: '/api/auth/logout',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAuthCheckRoute = ApiAuthCheckRouteImport.update({
@@ -186,10 +183,25 @@ const ApiAuthCheckRoute = ApiAuthCheckRouteImport.update({
   path: '/api/auth/check',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiAuthLogoutRoute = ApiAuthLogoutRouteImport.update({
-  id: '/api/auth/logout',
-  path: '/api/auth/logout',
+const ApiAuthProviderRoute = ApiAuthProviderRouteImport.update({
+  id: '/api/auth/$provider',
+  path: '/api/auth/$provider',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminUploadSignatureRoute = ApiAdminUploadSignatureRouteImport.update({
+  id: '/upload-signature',
+  path: '/upload-signature',
+  getParentRoute: () => ApiAdminRoute,
+} as any)
+const ApiAdminUploadRoute = ApiAdminUploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => ApiAdminRoute,
+} as any)
+const ApiAdminLoginRoute = ApiAdminLoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => ApiAdminRoute,
 } as any)
 const ApiAuthProviderCallbackRoute = ApiAuthProviderCallbackRouteImport.update({
   id: '/callback',
@@ -208,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/navbar-demo': typeof NavbarDemoRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/technologies': typeof TechnologiesRoute
+  '/visitors': typeof VisitorsRoute
   '/admin/certificates': typeof AdminCertificatesRoute
   '/admin/education': typeof AdminEducationRoute
   '/admin/jobs': typeof AdminJobsRoute
@@ -219,6 +232,7 @@ export interface FileRoutesByFullPath {
   '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/api/testimonials': typeof ApiTestimonialsRoute
+  '/api/visitor-countries': typeof ApiVisitorCountriesRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/admin/': typeof AdminIndexRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -239,6 +253,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/navbar-demo': typeof NavbarDemoRoute
   '/technologies': typeof TechnologiesRoute
+  '/visitors': typeof VisitorsRoute
   '/admin/certificates': typeof AdminCertificatesRoute
   '/admin/education': typeof AdminEducationRoute
   '/admin/jobs': typeof AdminJobsRoute
@@ -250,6 +265,7 @@ export interface FileRoutesByTo {
   '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/api/testimonials': typeof ApiTestimonialsRoute
+  '/api/visitor-countries': typeof ApiVisitorCountriesRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/admin': typeof AdminIndexRoute
   '/projects': typeof ProjectsIndexRoute
@@ -273,6 +289,7 @@ export interface FileRoutesById {
   '/navbar-demo': typeof NavbarDemoRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/technologies': typeof TechnologiesRoute
+  '/visitors': typeof VisitorsRoute
   '/admin/certificates': typeof AdminCertificatesRoute
   '/admin/education': typeof AdminEducationRoute
   '/admin/jobs': typeof AdminJobsRoute
@@ -284,6 +301,7 @@ export interface FileRoutesById {
   '/api/public': typeof ApiPublicRoute
   '/api/resume-chat': typeof ApiResumeChatRoute
   '/api/testimonials': typeof ApiTestimonialsRoute
+  '/api/visitor-countries': typeof ApiVisitorCountriesRoute
   '/projects/$projectId': typeof ProjectsProjectIdRoute
   '/admin/': typeof AdminIndexRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -308,6 +326,7 @@ export interface FileRouteTypes {
     | '/navbar-demo'
     | '/projects'
     | '/technologies'
+    | '/visitors'
     | '/admin/certificates'
     | '/admin/education'
     | '/admin/jobs'
@@ -319,6 +338,7 @@ export interface FileRouteTypes {
     | '/api/public'
     | '/api/resume-chat'
     | '/api/testimonials'
+    | '/api/visitor-countries'
     | '/projects/$projectId'
     | '/admin/'
     | '/projects/'
@@ -339,6 +359,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/navbar-demo'
     | '/technologies'
+    | '/visitors'
     | '/admin/certificates'
     | '/admin/education'
     | '/admin/jobs'
@@ -350,6 +371,7 @@ export interface FileRouteTypes {
     | '/api/public'
     | '/api/resume-chat'
     | '/api/testimonials'
+    | '/api/visitor-countries'
     | '/projects/$projectId'
     | '/admin'
     | '/projects'
@@ -372,6 +394,7 @@ export interface FileRouteTypes {
     | '/navbar-demo'
     | '/projects'
     | '/technologies'
+    | '/visitors'
     | '/admin/certificates'
     | '/admin/education'
     | '/admin/jobs'
@@ -383,6 +406,7 @@ export interface FileRouteTypes {
     | '/api/public'
     | '/api/resume-chat'
     | '/api/testimonials'
+    | '/api/visitor-countries'
     | '/projects/$projectId'
     | '/admin/'
     | '/projects/'
@@ -406,12 +430,14 @@ export interface RootRouteChildren {
   NavbarDemoRoute: typeof NavbarDemoRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
   TechnologiesRoute: typeof TechnologiesRoute
+  VisitorsRoute: typeof VisitorsRoute
   ApiAdminRoute: typeof ApiAdminRouteWithChildren
   ApiDownloadRoute: typeof ApiDownloadRoute
   ApiPresenceRoute: typeof ApiPresenceRoute
   ApiPublicRoute: typeof ApiPublicRoute
   ApiResumeChatRoute: typeof ApiResumeChatRoute
   ApiTestimonialsRoute: typeof ApiTestimonialsRoute
+  ApiVisitorCountriesRoute: typeof ApiVisitorCountriesRoute
   ApiAuthProviderRoute: typeof ApiAuthProviderRouteWithChildren
   ApiAuthCheckRoute: typeof ApiAuthCheckRoute
   ApiAuthLogoutRoute: typeof ApiAuthLogoutRoute
@@ -419,67 +445,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/certificates': {
-      id: '/certificates'
-      path: '/certificates'
-      fullPath: '/certificates'
-      preLoaderRoute: typeof CertificatesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/education': {
-      id: '/education'
-      path: '/education'
-      fullPath: '/education'
-      preLoaderRoute: typeof EducationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/experience': {
-      id: '/experience'
-      path: '/experience'
-      fullPath: '/experience'
-      preLoaderRoute: typeof ExperienceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/navbar-demo': {
-      id: '/navbar-demo'
-      path: '/navbar-demo'
-      fullPath: '/navbar-demo'
-      preLoaderRoute: typeof NavbarDemoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
+    '/visitors': {
+      id: '/visitors'
+      path: '/visitors'
+      fullPath: '/visitors'
+      preLoaderRoute: typeof VisitorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/technologies': {
@@ -489,88 +459,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TechnologiesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
-      path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/certificates': {
-      id: '/admin/certificates'
-      path: '/certificates'
-      fullPath: '/admin/certificates'
-      preLoaderRoute: typeof AdminCertificatesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/education': {
-      id: '/admin/education'
-      path: '/education'
-      fullPath: '/admin/education'
-      preLoaderRoute: typeof AdminEducationRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/jobs': {
-      id: '/admin/jobs'
-      path: '/jobs'
-      fullPath: '/admin/jobs'
-      preLoaderRoute: typeof AdminJobsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/projects': {
-      id: '/admin/projects'
+    '/projects': {
+      id: '/projects'
       path: '/projects'
-      fullPath: '/admin/projects'
-      preLoaderRoute: typeof AdminProjectsRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/admin/technologies': {
-      id: '/admin/technologies'
-      path: '/technologies'
-      fullPath: '/admin/technologies'
-      preLoaderRoute: typeof AdminTechnologiesRouteImport
-      parentRoute: typeof AdminRoute
-    }
-    '/api/admin': {
-      id: '/api/admin'
-      path: '/api/admin'
-      fullPath: '/api/admin'
-      preLoaderRoute: typeof ApiAdminRouteImport
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/download': {
-      id: '/api/download'
-      path: '/api/download'
-      fullPath: '/api/download'
-      preLoaderRoute: typeof ApiDownloadRouteImport
+    '/navbar-demo': {
+      id: '/navbar-demo'
+      path: '/navbar-demo'
+      fullPath: '/navbar-demo'
+      preLoaderRoute: typeof NavbarDemoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/presence': {
-      id: '/api/presence'
-      path: '/api/presence'
-      fullPath: '/api/presence'
-      preLoaderRoute: typeof ApiPresenceRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public': {
-      id: '/api/public'
-      path: '/api/public'
-      fullPath: '/api/public'
-      preLoaderRoute: typeof ApiPublicRouteImport
+    '/experience': {
+      id: '/experience'
+      path: '/experience'
+      fullPath: '/experience'
+      preLoaderRoute: typeof ExperienceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/resume-chat': {
-      id: '/api/resume-chat'
-      path: '/api/resume-chat'
-      fullPath: '/api/resume-chat'
-      preLoaderRoute: typeof ApiResumeChatRouteImport
+    '/education': {
+      id: '/education'
+      path: '/education'
+      fullPath: '/education'
+      preLoaderRoute: typeof EducationRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/testimonials': {
-      id: '/api/testimonials'
-      path: '/api/testimonials'
-      fullPath: '/api/testimonials'
-      preLoaderRoute: typeof ApiTestimonialsRouteImport
+    '/certificates': {
+      id: '/certificates'
+      path: '/certificates'
+      fullPath: '/certificates'
+      preLoaderRoute: typeof CertificatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects/': {
@@ -580,6 +529,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsIndexRouteImport
       parentRoute: typeof ProjectsRoute
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/projects/$projectId': {
       id: '/projects/$projectId'
       path: '/$projectId'
@@ -587,32 +543,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsProjectIdRouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/api/admin/login': {
-      id: '/api/admin/login'
-      path: '/login'
-      fullPath: '/api/admin/login'
-      preLoaderRoute: typeof ApiAdminLoginRouteImport
-      parentRoute: typeof ApiAdminRoute
+    '/api/visitor-countries': {
+      id: '/api/visitor-countries'
+      path: '/api/visitor-countries'
+      fullPath: '/api/visitor-countries'
+      preLoaderRoute: typeof ApiVisitorCountriesRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/api/admin/upload': {
-      id: '/api/admin/upload'
-      path: '/upload'
-      fullPath: '/api/admin/upload'
-      preLoaderRoute: typeof ApiAdminUploadRouteImport
-      parentRoute: typeof ApiAdminRoute
+    '/api/testimonials': {
+      id: '/api/testimonials'
+      path: '/api/testimonials'
+      fullPath: '/api/testimonials'
+      preLoaderRoute: typeof ApiTestimonialsRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/api/admin/upload-signature': {
-      id: '/api/admin/upload-signature'
-      path: '/upload-signature'
-      fullPath: '/api/admin/upload-signature'
-      preLoaderRoute: typeof ApiAdminUploadSignatureRouteImport
-      parentRoute: typeof ApiAdminRoute
+    '/api/resume-chat': {
+      id: '/api/resume-chat'
+      path: '/api/resume-chat'
+      fullPath: '/api/resume-chat'
+      preLoaderRoute: typeof ApiResumeChatRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/api/auth/$provider': {
-      id: '/api/auth/$provider'
-      path: '/api/auth/$provider'
-      fullPath: '/api/auth/$provider'
-      preLoaderRoute: typeof ApiAuthProviderRouteImport
+    '/api/public': {
+      id: '/api/public'
+      path: '/api/public'
+      fullPath: '/api/public'
+      preLoaderRoute: typeof ApiPublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/presence': {
+      id: '/api/presence'
+      path: '/api/presence'
+      fullPath: '/api/presence'
+      preLoaderRoute: typeof ApiPresenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/download': {
+      id: '/api/download'
+      path: '/api/download'
+      fullPath: '/api/download'
+      preLoaderRoute: typeof ApiDownloadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin': {
+      id: '/api/admin'
+      path: '/api/admin'
+      fullPath: '/api/admin'
+      preLoaderRoute: typeof ApiAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/technologies': {
+      id: '/admin/technologies'
+      path: '/technologies'
+      fullPath: '/admin/technologies'
+      preLoaderRoute: typeof AdminTechnologiesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/projects': {
+      id: '/admin/projects'
+      path: '/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AdminProjectsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/jobs': {
+      id: '/admin/jobs'
+      path: '/jobs'
+      fullPath: '/admin/jobs'
+      preLoaderRoute: typeof AdminJobsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/education': {
+      id: '/admin/education'
+      path: '/education'
+      fullPath: '/admin/education'
+      preLoaderRoute: typeof AdminEducationRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/certificates': {
+      id: '/admin/certificates'
+      path: '/certificates'
+      fullPath: '/admin/certificates'
+      preLoaderRoute: typeof AdminCertificatesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/api/auth/logout': {
+      id: '/api/auth/logout'
+      path: '/api/auth/logout'
+      fullPath: '/api/auth/logout'
+      preLoaderRoute: typeof ApiAuthLogoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/auth/check': {
@@ -622,12 +641,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthCheckRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/auth/logout': {
-      id: '/api/auth/logout'
-      path: '/api/auth/logout'
-      fullPath: '/api/auth/logout'
-      preLoaderRoute: typeof ApiAuthLogoutRouteImport
+    '/api/auth/$provider': {
+      id: '/api/auth/$provider'
+      path: '/api/auth/$provider'
+      fullPath: '/api/auth/$provider'
+      preLoaderRoute: typeof ApiAuthProviderRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/api/admin/upload-signature': {
+      id: '/api/admin/upload-signature'
+      path: '/upload-signature'
+      fullPath: '/api/admin/upload-signature'
+      preLoaderRoute: typeof ApiAdminUploadSignatureRouteImport
+      parentRoute: typeof ApiAdminRoute
+    }
+    '/api/admin/upload': {
+      id: '/api/admin/upload'
+      path: '/upload'
+      fullPath: '/api/admin/upload'
+      preLoaderRoute: typeof ApiAdminUploadRouteImport
+      parentRoute: typeof ApiAdminRoute
+    }
+    '/api/admin/login': {
+      id: '/api/admin/login'
+      path: '/login'
+      fullPath: '/api/admin/login'
+      preLoaderRoute: typeof ApiAdminLoginRouteImport
+      parentRoute: typeof ApiAdminRoute
     }
     '/api/auth/$provider/callback': {
       id: '/api/auth/$provider/callback'
@@ -712,12 +752,14 @@ const rootRouteChildren: RootRouteChildren = {
   NavbarDemoRoute: NavbarDemoRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
   TechnologiesRoute: TechnologiesRoute,
+  VisitorsRoute: VisitorsRoute,
   ApiAdminRoute: ApiAdminRouteWithChildren,
   ApiDownloadRoute: ApiDownloadRoute,
   ApiPresenceRoute: ApiPresenceRoute,
   ApiPublicRoute: ApiPublicRoute,
   ApiResumeChatRoute: ApiResumeChatRoute,
   ApiTestimonialsRoute: ApiTestimonialsRoute,
+  ApiVisitorCountriesRoute: ApiVisitorCountriesRoute,
   ApiAuthProviderRoute: ApiAuthProviderRouteWithChildren,
   ApiAuthCheckRoute: ApiAuthCheckRoute,
   ApiAuthLogoutRoute: ApiAuthLogoutRoute,
@@ -725,12 +767,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

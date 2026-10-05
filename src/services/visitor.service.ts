@@ -1,21 +1,36 @@
+import type { VisitorCountry } from "#/lib/geo";
 import { createVisitorRepository } from "#/repositories/visitor.repository";
+import { createVisitorCountryRepository } from "#/repositories/visitor-country.repository";
 
 const ONLINE_WINDOW_MS = 90_000;
 
 export function createVisitorService() {
 	const repo = createVisitorRepository();
+	const countryRepo = createVisitorCountryRepository();
 
 	async function track({
 		sessionId,
 		event,
 		name,
+		country,
 	}: {
 		sessionId: string;
 		event: "view" | "heartbeat";
 		name?: string | null;
+		country?: VisitorCountry;
 	}) {
 		const seenAt = new Date();
 		const { created } = await repo.upsertSession(sessionId, seenAt, name);
+
+		if (country) {
+			// Country stats are best-effort and must never break presence tracking.
+			await countryRepo
+				.record(country.code, country.name, {
+					newVisitor: created,
+					view: event === "view" || created,
+				})
+				.catch((err) => console.error("Country tracking error:", err));
+		}
 
 		let totalViews: number | null = null;
 		if (event === "view" || created) {
@@ -48,5 +63,9 @@ export function createVisitorService() {
 		};
 	}
 
-	return { track, summary };
+	function countries() {
+		return countryRepo.findAll();
+	}
+
+	return { track, summary, countries };
 }
